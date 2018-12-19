@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&subset=cyrillic');
+@import url('styles.css');
+
+@import url('tree.css');
+
+/*@import url('font-awesome.min.css');*/
+
+@import url('solid.css');
+@import url('regular.css');
+@import url('brands.css');
+
+@import url('font-awesome.min.css');
+@import url('fontawesome.css');
+
+
+@import url('bootstrap.min.css');
+/*@import url('https://fonts.googleapis.com/css?family=Ubuntu');*/
+@import url('styles.css');
+
+@import url('../../assets/css/jquery-editable-select.min.css');
+@import url('../../assets/css/dataTables.bootstrap4.min.css');
+
+/*@import url('../../assets/css/editable-select.css');*/
+
+.col-12,.col .form-group {
+  margin-top: -5px !important;
+}
+
