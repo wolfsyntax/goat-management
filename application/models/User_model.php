@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						$this->session->set_userdata('user_type',$row->account_type);
 
 						$this->session->set_userdata('notif', 1);
-
+						
 			    	}
 						
 

@@ -129,7 +129,7 @@
   				$("#btn-submit").attr("disabled",true);
   			}
 
-		});		
+		});	 //#cat_info	
 
 		//Disable submit button on load
 
@@ -171,7 +171,7 @@
 			$("#is_castrated").prop("disabled",true);
 
 		}
-		$(document).ready(function() {
+		$(document).ready(function(){
 
 			$('#goat_records').DataTable();
 
@@ -186,8 +186,48 @@
 			$('#goat_id_select').editableSelect();
 
 			$('#client_select').editableSelect();		
+			
+			//$("#sidebar > li a.nav-link.u-page").on("click", function(){
+				
+			//	this.attr("href","javascript:void(0);");
+			//	$("#ui_view").prop('src',this.href);
 
-		});
+			//});
+			
+			$("#sidebar > li a.nav-link.sb-menu").each(function(){
+	  			var self = $(this);
+	  			var href = self.attr("href");
+
+	  			self.attr("href","javascript:void(0);");
+
+	  			self.click(function(){
+	  				$("#ui_view").prop('src',href);
+	  			});
+			});
+
+	  		$("#sidebar > li div.collapse a.nav-link").each(function(){
+	  			var self = $(this);
+	  			var href = self.attr("href");
+
+	  			self.attr("href","javascript:void(0);");
+
+	  			self.click(function(){
+	  				//alert(href);
+	  				$("#ui_view").prop('src',href);
+	  			});
+	  		}); //end .each
+
+  		});
+
+		function set_index(){
+			
+			var href = "";
+
+			$("#sb_dashboard").attr("href","javascript:void(0);");
+
+			$("#sb_dashboard").click(function(){ $("#ui_view").prop('src',href) });
+
+  		}
 
 	</script>
 

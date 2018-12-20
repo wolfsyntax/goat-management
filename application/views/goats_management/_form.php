@@ -1,4 +1,4 @@
-<?= form_open(base_url()."", array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
+
 	<div class="form-row p-1">
 		<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
 		
@@ -180,5 +180,5 @@
 		<input type="submit" class="btn btn-primary col" name="submit" value="Save" id="btn-submit"/>
 	</div>
 
-<?= form_close(); ?>
+
 

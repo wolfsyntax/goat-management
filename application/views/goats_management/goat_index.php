@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid mt-5">
 	<div class="row pt-5 mr-4">
 		<div class="col text-right">
 			<a href="<?= base_url()?>goat/new" class="btn btn-success" title="Add Goat">

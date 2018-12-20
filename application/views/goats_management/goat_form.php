@@ -1,4 +1,4 @@
-<div class = "container-fluid">
+<div class = "container-fluid mt-5">
 	<div class="row">
 		<div class="col p-5">
 			<div class="card ">
@@ -6,7 +6,13 @@
 					<h3>Add Goats</h3>
 				</div>
 				<div class="card-body p-2">
-					<?php $this->load->view('goats_management/_form'); ?>
+
+					<?= form_open(base_url()."", array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
+						
+						<?php $this->load->view('goats_management/_form'); ?>
+
+					<?= form_close(); ?>
+					
 				</div>
 			</div>
 		</div>

@@ -14,7 +14,15 @@ class Session_Controller extends CI_Controller {
 		redirect(base_url());
 
 	}
-  
+  	
+  	public function page_error(){
+
+  		$data["body"] = "sitemap/404";
+  		$data["title"] = "E404:&nbsp;Page not found";
+
+  		$this->load->view("layouts/application",$data);
+
+  	}
 }
 
 ?>

@@ -148,7 +148,7 @@ Add Goat Record
 											
 					<div class="row">
 						<p><span class="fa fa-check-circle"></span>
-						<strong>Success</strong>&emsp;New goat added successfully.</p>
+						<strong>Success</strong>&emsp;New goat added successfully. <a href="'.base_url().'manage/goat" class="nav-link">View Records</a></p>
 					</div>
 				</div>');
 

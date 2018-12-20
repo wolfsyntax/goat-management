@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'site_controller';
-$route['404_override'] = '';
+$route['404_override'] = 'session_controller/page_error';
 $route['translate_uri_dashes'] = FALSE;
 
 //Auth Users
@@ -64,6 +64,7 @@ $route["logout"] 								= "session_controller";
 $route["register"]["GET"] 						= "user_controller/register";
 $route["verify/signup"]["POST"] 				= "user_controller/validate_registration";
 
+$route["activity"]["GET"]						= "auth_controller";
 $route["manage/goat"] 							= "goat_management";
 $route["goat/new"]['GET']						= "goat_management/add_goats";
 $route["goat/r/(:any)"]['POST']					= "goat_management/validate_goat_info/$1";
