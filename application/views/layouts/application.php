@@ -217,6 +217,34 @@
 	  			});
 	  		}); //end .each
 
+		  	$('[data-target="#assetManagement"]').popover({
+
+		  		placement: "right",
+		  		trigger: "focus",
+		  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-danger text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
+		  	});
+			
+			$('[data-toggle="popover dashboard"]').popover({
+
+		  		placement: "right",
+		  		trigger: "focus",
+		  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-light text-dark"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
+		  	});
+
+			$('[data-toggle="popover transaction"]').popover({
+
+		  		placement: "right",
+		  		trigger: "focus",
+		  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-info text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
+		  	});
+
+			$('[data-toggle="popover manage"]').popover({
+
+		  		placement: "right",
+		  		trigger: "focus",
+		  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-dark text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
+		  	});
+
   		});
 
 		function set_index(){

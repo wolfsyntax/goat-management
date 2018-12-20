@@ -3,7 +3,7 @@
   <div class="sidebar" id="sidebar-div" style="margin-top: 10px !important;">
     <ul class="nav flex-column " id="sidebar">
       <li class="nav-item">
-        <a class="nav-link active u-page" href="<?= base_url(); ?>dashboard" id="sb_dashboard">
+        <a class="nav-link active u-page" href="<?= base_url(); ?>dashboard" id="sb_dashboard" data-toggle="popover dashboard" title="Dashboard" data-content="And here's where you can view your recent activities and transaction">
           <span class="fa fa-tachometer text-primary d-inline d-sm-inline-block d-md-inline-block d-lg-none" title="Dashboard"></span>
           <span class="fa fa-tachometer text-primary d-none d-sm-none d-md-none d-lg-inline-block"></span>
           &nbsp;<span class="d-none d-sm-none d-md-none d-lg-inline-block">Dashboard <span class="sr-only">(current)</span></span>
@@ -11,7 +11,7 @@
       </li>
 
       <li class="nav-item" >
-        <a class="nav-link text-dark sb-menu" href="<?= base_url(); ?>manage/goat" title="Goat Management" data-content="Here you can manage your goats records">
+        <a class="nav-link text-dark sb-menu" href="<?= base_url(); ?>manage/goat"  data-toggle="popover manage" title="Goat Management" data-content="And here's where you can view and add Goat records">
            <span class="fa fa-paw text-secondary d-inline d-sm-inline-block d-md-inline-block d-lg-none"></span>
           <span class="fa fa-paw text-secondary d-none d-sm-none d-md-none d-lg-inline-block"></span>
             &nbsp;<span class="d-none d-sm-none d-md-none d-lg-inline-block">Goat Management</span>
@@ -19,7 +19,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link text-dark sb-menu" href="<?= base_url(); ?>goat/sales" title="Financials" data-content="Here you can manage your Goat Sales" >
+        <a class="nav-link text-dark sb-menu" href="<?= base_url(); ?>goat/sales"  data-toggle="popover transaction" title="Financial Management" data-content="And here's where you can view and add Goat Sales records">
            <span class="fa fa-money text-info d-inline d-sm-inline-block d-md-inline-block d-lg-none" title="Financials"></span>
           <span class="fa fa-money text-info d-none d-sm-none d-md-none d-lg-inline-block"></span>
           &nbsp;<span class="d-none d-sm-none d-md-none d-lg-inline-block">Financials</span>
