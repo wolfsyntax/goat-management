@@ -50,15 +50,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'site_controller';
-$route['404_override'] = 'sitemap/page_not_found';
+$route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//Auth Users
+$route["dashboard"]["GET"] 						= "user_controller/dashboard";
+
 //Users
-$route["login"]["GET"] = "user_controller/login";
-$route["login/v1/identifier"]["POST"] = "user_controller/verify_access";
+$route["login"]["GET"] 							= "user_controller/login";
+$route["login/v1/identifier"]["POST"] 			= "user_controller/verify_access";
+$route["logout"] 								= "session_controller";
 
-$route["register"] = "user_controller/register";
-$route["verify/signup"] = "user_controller/validate_registration";
+$route["register"]["GET"] 						= "user_controller/register";
+$route["verify/signup"]["POST"] 				= "user_controller/validate_registration";
 
+$route["manage/goat"] 							= "goat_management";
+$route["goat/new"]['GET']						= "goat_management/add_goats";
+$route["goat/r/(:any)"]['POST']					= "goat_management/validate_goat_info/$1";
+
+$route["goat/sales"]['GET']						= "goat_management/sell_goats";
 
 ?>

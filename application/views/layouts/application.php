@@ -48,7 +48,11 @@
     <script src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
 
-		//Back-to-Top
+		
+	/**
+ 	* Back to Top
+ 	*/
+
 		window.onscroll = function() {
 		    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
 		        document.getElementById("back2top-btn").style.display = "block";
@@ -63,6 +67,129 @@
 		    document.documentElement.scrollTop = 0;
 		}
 
+		var cur_url = "";
+		var base_url = <?php echo json_encode(base_url()); ?>;
+		var x_agent 	= <?php echo json_encode($this->agent->referrer()); ?>;
+	/**
+ 	* JQuery
+ 	*/
+		
+		$('#gender').on('change', function() {
+			if($(this).val() == 'male'){
+
+				$("#is_castrated").prop("disabled",false);
+				$("#goat_form").attr("action",cur_url);
+
+			}else{
+
+				$("#is_castrated").prop("checked",false);
+				$("#is_castrated").prop("disabled",true);
+
+			}
+
+		});
+
+		$('#cat_info').on('change', function() {
+			
+			var x = this.value;
+			
+  			if(x != "" ){
+
+  				$("#btn-submit").attr("disabled",false);
+  				cur_url = base_url + "goat/r/" + x;				
+				
+				if(x == "purchase"){
+					
+					$(".birth-elem").hide();
+					$(".purchase-elem").show();
+
+				}else if(x == "birth"){
+
+					$(".purchase-elem").hide();
+					$(".birth-elem").show();				
+
+				}else {
+
+					$(".purchase-elem").hide();
+					$(".birth-elem").hide();
+
+					cur_url = base_url+"goat/new";	
+
+				}
+
+				
+
+  				$("#goat_form").attr("action",cur_url);
+
+  			}else{
+  				
+  				$('.birth-elem').hide(); 
+				$('.purchase-elem').hide();
+
+  				$("#btn-submit").attr("disabled",true);
+  			}
+
+		});		
+
+		//Disable submit button on load
+
+		if($("#cat_info").val() == "birth" || $("#cat_info").val() == "purchase"){
+
+			$("#btn-submit").attr("disabled",false);
+			var x = $("#cat_info").val();
+
+			cur_url = base_url + "goat/r/" + x;				
+			
+
+			if(x == "purchase"){
+				alert(":-"+x);		
+				$(".birth-elem").hide();
+				$(".purchase-elem").show();
+
+			}else {
+				alert(":+"+x);
+				$(".purchase-elem").hide();
+				$(".birth-elem").show();				
+
+			}
+	
+
+  			$("#goat_form").attr("action",cur_url);
+
+		}else{
+
+			$("#btn-submit").attr("disabled",true);
+			$('.birth-elem').hide(); 
+			$('.purchase-elem').hide();
+
+		}
+
+		//Disable is_castrated on load
+		if($("#gender").val() == ""){
+			
+			$("#is_castrated").prop("checked",false);
+			$("#is_castrated").prop("disabled",true);
+
+		}
+		$(document).ready(function() {
+
+			$('#goat_records').DataTable();
+
+	  		$('#dam_id_select').editableSelect();
+
+	  		$('#sire_id_select').editableSelect();
+
+			$('#body_color_select').editableSelect();
+
+			$('#tag_color_select').editableSelect();
+
+			$('#goat_id_select').editableSelect();
+
+			$('#client_select').editableSelect();		
+
+		});
+
 	</script>
+
 </body>
 </html>

@@ -18,7 +18,6 @@ class Site_Controller extends CI_Controller {
 		$this->load->view("layouts/application",$data);
 
 	}
-
   
 }
 
