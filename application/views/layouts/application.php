@@ -12,6 +12,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE-edge,chrome">
 
 	<link rel="stylesheet" href="<?= base_url()?>public/css/app.css" >
+
 	<style>
 		h1, h2, h3, h4, h5, h6, div, p{
 			font-family: 'Ubuntu', sans-serif;
@@ -36,6 +37,7 @@
 	} ?>
 
 	<!--Starter Template-->
+
 	<script src="<?= base_url()?>public/js/jquery-3.3.1.slim.min.js"></script>
 
     <script src="<?= base_url()?>public/js/popper.min.js"></script>    
@@ -46,9 +48,17 @@
 
     <script src="<?= base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
+	
+	<script>
+      $(function () { //ready
+          toastr.info('If all three of these are referenced correctly, then this should toast should pop-up.');
+      });
+	</script>
+
 	<script type="text/javascript">
 
 		
+
 	/**
  	* Back to Top
  	*/
@@ -74,6 +84,8 @@
  	* JQuery
  	*/
 		
+		
+
 		$('#gender').on('change', function() {
 			if($(this).val() == 'male'){
 
@@ -142,12 +154,12 @@
 			
 
 			if(x == "purchase"){
-				alert(":-"+x);		
+				//alert(":-"+x);		
 				$(".birth-elem").hide();
 				$(".purchase-elem").show();
 
 			}else {
-				alert(":+"+x);
+				//alert(":+"+x);
 				$(".purchase-elem").hide();
 				$(".birth-elem").show();				
 
@@ -171,8 +183,10 @@
 			$("#is_castrated").prop("disabled",true);
 
 		}
+
 		$(document).ready(function(){
 
+			
 			$('#goat_records').DataTable();
 
 	  		$('#dam_id_select').editableSelect();
@@ -256,6 +270,15 @@
 			$("#sb_dashboard").click(function(){ $("#ui_view").prop('src',href) });
 
   		}
+
+  		function check_form(e){
+
+  			var elem_tag = "#" + e.submit.id;
+  			$(elem_tag).attr("disabled","disabled");
+  			$(elem_tag).val("Please wait...");
+
+  		}
+
 
 	</script>
 

@@ -177,7 +177,7 @@
 	</div>
 
 	<div class="form-row mt-3">
-		<input type="submit" class="btn btn-primary col" name="submit" value="Save" id="btn-submit"/>
+		<input type="submit" class="btn btn-primary col col-md-3 offset-md-9" name="submit" value="Save" id="btn-submit"/>
 	</div>
 
 

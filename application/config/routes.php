@@ -56,19 +56,27 @@ $route['translate_uri_dashes'] = FALSE;
 //Auth Users
 $route["dashboard"]["GET"] 						= "user_controller/dashboard";
 
-//Users
+//Users Account: Login
 $route["login"]["GET"] 							= "user_controller/login";
 $route["login/v1/identifier"]["POST"] 			= "user_controller/verify_access";
+
+//Destroy sessions
 $route["logout"] 								= "session_controller";
 
+//User Account: New
 $route["register"]["GET"] 						= "user_controller/register";
 $route["verify/signup"]["POST"] 				= "user_controller/validate_registration";
 
 $route["activity"]["GET"]						= "auth_controller";
+
+//Goat Management
 $route["manage/goat"] 							= "goat_management";
 $route["goat/new"]['GET']						= "goat_management/add_goats";
 $route["goat/r/(:any)"]['POST']					= "goat_management/validate_goat_info/$1";
 
-$route["goat/sales"]['GET']						= "goat_management/sell_goats";
+//Financial Management: Goat Sales
+$route["goat/sales"]['GET']						= "goat_management/sell_index";
+$route["goat/sales/new"]['GET']					= "goat_management/sell_goats";
+$route["sales/validate"]['POST']				= "goat_management/sell_index";
 
 ?>

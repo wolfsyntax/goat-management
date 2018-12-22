@@ -22,7 +22,7 @@
 								<div class="row">
 									<div class="col-12 ">
 										<div class="form-group">
-								        	<input type="text" class="form-control" id="" name="username" placeholder="Username" value="<?= set_value('username'); ?>" autofocus>
+								        	<input type="text" class="form-control form-control-x" id="" name="username" placeholder="Username" value="<?= set_value('username'); ?>" autofocus>
 
 											<?= (form_error('username')	!= "" ? form_error('username') : ''); ?>																
 								        </div>
@@ -31,7 +31,7 @@
 								    <div class="col-12">
 										<div class="form-group">
 								        
-								        	<input type="password" class="form-control" id="" name="passwd" placeholder="Password" value="<?= set_value('passwd'); ?>">
+								        	<input type="password" class="form-control form-control-x" id="" name="passwd" placeholder="Password" value="<?= set_value('passwd'); ?>">
 
 											<?= (form_error('passwd')	!= "" ? form_error('passwd') : ''); ?>							
 								        </div>
@@ -39,13 +39,13 @@
 
 								    <div class="col-12 mb-4">
 										<div class="form-check">
-											<input type="checkbox" class="form-check-input" id="exampleCheck1" name="remember">
-											<label class="form-check-label" for="exampleCheck1">Remember me</label>
+											<input type="checkbox" class="form-check-input" name="remember">
+											<label class="form-check-label" >&nbsp;&nbsp;Remember me</label>
 										</div>
 								    </div>
 
 								    <div class="col-12">
-								    	<input type="submit" class="btn btn-primary col-12" name="submit" id="login_btn" value="Log In">
+								    	<input type="submit" class="font-weight-bolder btn btn-primary col-12" name="submit" id="login_btn" value="Log In">
 								    </div>
 								</div>
 							</div>

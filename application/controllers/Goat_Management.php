@@ -185,10 +185,19 @@ Goat Sales
 -------------------------------------------------------------------------------------------
 **/
 
+	public function sell_index(){
+  	
+		$data["body"] 	= "financials/sales_index";
+		$data["title"]	= "Sales Record";
+		$data["footer"]	= "2";
+		$data["header"]	= "1";
+		
+		$this->load->view("layouts/application",$data);
+
+  	}
+
 	public function sell_goats(){
 		
-		//echo "<h1>SELL</h1>";
-
 		$data["body"] 	= "financials/goat_sales";
 		$data["title"]	= "Add new Sales";
 		$data["footer"]	= "2";
@@ -196,7 +205,10 @@ Goat Sales
 		
 		$this->load->view("layouts/application",$data);
 
+	}
 
+	public function validate_transaction(){
+		
 	}
 }
 

@@ -1,6 +1,6 @@
 <div class = "container-fluid mt-5">
-	<div class="row">
-		<div class="col p-5">
+	<div class="row mt-2 mt-md-5">
+		<div class="col p-2 p-md-5">
 			<div class="card ">
 				<div class="card-header card-ubuntu">
 					<h3>Add Goats</h3>

@@ -1,4 +1,4 @@
- <?php $this->load->view('include/user_header'); ?>
+ <?php $this->load->view('include/page_header'); ?>
 <div class="jumbotron">
 	A
 </div>

@@ -1,5 +1,5 @@
-<div class="container-fluid bg-light col-12 col-sm-12 col-md-12 p-0" style="position: fixed;">
-	<div class="row">
+<div class="container-fluid bg-light col-12 col-sm-12 col-md-12 px-0" style="position: fixed;">
+	<div class="row p-0">
     <?php $this->load->view('include/user_header'); ?>
     <?php $this->load->view('include/user_sidebar'); ?>
 
@@ -16,7 +16,7 @@
 
 		<section class="p-0 col-12 text-dark" id="body-content" style="height: 100vh;">
         
-			<iframe class="p-0 w-100 mh-100 h-100 bg-dark" src="<?php echo base_url("activity");?>" id="ui_view" frameborder="0" scrolling="yes"></iframe>        
+			<iframe class="p-0 w-100 mh-100 h-100 bg-light" src="<?php echo base_url("activity");?>" id="ui_view" frameborder="0" scrolling="yes"></iframe>        
 
 		</section>
     </main>
