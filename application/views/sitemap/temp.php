@@ -1,0 +1,1 @@
+SELECT * FROM goat_profile as gp, (SELECT purchase_id, purchase_Weight, purchase_price, purchase_date, purchase_from, eartag_id, user_id FROM purchase_record UNION ALL SELECT birth_id, birth_date, dam_id, sire_id,eartag_id, NULL as col1, NULL as col2 FROM birth_record) as ut

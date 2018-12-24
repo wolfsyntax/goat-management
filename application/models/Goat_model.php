@@ -201,7 +201,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function show_sales($sale_id){
+			
+			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id AND gs.sales_id = {$sale_id}");
+
+//			if($query->num_rows() > 0)
+				return $query;
+//			else return false;
+		}
+
+
+		public function show_all_sales(){
+			
+			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id");
+
+//			if($query->num_rows() > 0)
+				return $query;
+//			else return false;
+		}
 	
+		public function show_all_goats(){
+
+//			$query = $this->db->query("SELECT * FROM goat_profile as gp, (SELECT * FROM) ");
+
+//			return $query->result();
+
+		}
+
 	/*
 	*	C.R.U.D
 	*/	
@@ -213,9 +239,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 			if($where) $this->db->where($where);
 			
-
-			return $this->db->get($table_name)->result();
-
+			$query = $this->db->get($table_name);
+			
+			if($query)
+				return $query->result();
+			else
+				echo "<script>alert('test');</script>";
+				return false;
+			
 		}
 
 		//create

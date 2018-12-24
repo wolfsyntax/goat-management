@@ -94,8 +94,12 @@ input {
 
 }
 
+.form-check-input:checked {
+    content: '>';
+}
+
 .form-check-input {
-    content: '/';
+    content: '';
     background-color: #fff !important;
     color: #000 !important;
    	border: 2px solid #b7c2c6 !important;
@@ -105,17 +109,10 @@ input {
     padding: 2px;
     margin-right: 10px;
     text-align: center;
-    box-shadow: transparent !important;
-    -webkit-box-shadow: transparent !important;
-    -webkit-appearance: none !important;
-}
-
-.form-check-input:checked {
-	background: #000 !important;
-	color: #fff !important;	
 }
 
 .font-weight-bolder {
 	font-weight: bolder !important;
 	font-size: 16px;
 }
+

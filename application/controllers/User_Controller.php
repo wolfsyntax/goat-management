@@ -80,7 +80,7 @@ class User_Controller extends CI_Controller {
 		if ($this->form_validation->run() == FALSE){
 
 			$this->load->view("layouts/application", $data);
-
+			
 		} else {
 
 			if($this->User_model->validate_login()){
@@ -138,7 +138,7 @@ class User_Controller extends CI_Controller {
 
   	public function validate_registration(){
 
-  		$this->form_validation->set_rules("username", "Username", "required|trim|is_unique[user_account.Username]|xss_clean|min_length[8]|max_length[255]|regex_match[/[a-zA-Z0-9 ]/]",
+  		$this->form_validation->set_rules("username", "Username", "required|trim|is_unique[user_account.Username]|xss_clean|min_length[8]|max_length[255]",
 			array(
 				"required" => "{field} is required",
 				"is_unique" => "{field} is already taken",
@@ -154,12 +154,11 @@ class User_Controller extends CI_Controller {
 			)
 		);
 
-		$this->form_validation->set_rules("phone", "Mobile number", "required|trim|xss_clean|callback_phone_check|max_length[13]",
+		$this->form_validation->set_rules("phone", "Mobile number", "required|trim|xss_clean|callback_phone_verify|max_length[13]",
 			array(
 				"required" => "{field} is required",
-				"phone_check"	=> "{field} is not a valid phone number in the Philippines",
-				"max_length"	=> "{field} cannot exceed 13 characters in length including '+'"
-
+				"max_length"	=> "{field} cannot exceed 13 characters in length including '+'",
+				"phone_verify" => "{field} is not a valid phone number",
 			)
 		);
 
@@ -220,13 +219,13 @@ class User_Controller extends CI_Controller {
 
   	public function dashboard(){
 
-  		if($this->session->userdata("username")){
+  		if($this->session->userdata("username") !== ""){
 
   			$data["body"] 	= "auth/dashboard";
 			$data["title"]	= "Dashboard";
 			$data["footer"]	= "";
 			$data["header"]	= "";
-		
+
 			$this->load->view("layouts/application",$data);
 
 		} else {
@@ -234,6 +233,20 @@ class User_Controller extends CI_Controller {
 			redirect(base_url(),'refresh');
 		}
   	}
+	
+	public function phone_verify($str){
+
+		if(preg_match ("/^(\+63|0)9[0-9]{9}$/" , $str)){
+
+			return TRUE;
+
+		} else {
+			
+			return FALSE;
+
+		}
+
+	}
 
 }	
 

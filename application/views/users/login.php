@@ -39,7 +39,7 @@
 
 								    <div class="col-12 mb-4">
 										<div class="form-check">
-											<input type="checkbox" class="form-check-input" name="remember">
+											<input type="checkbox" class="form-check-input" name="remember"><span></span>
 											<label class="form-check-label" >&nbsp;&nbsp;Remember me</label>
 										</div>
 								    </div>

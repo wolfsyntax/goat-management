@@ -73,10 +73,15 @@ $route["activity"]["GET"]						= "auth_controller";
 $route["manage/goat"] 							= "goat_management";
 $route["goat/new"]['GET']						= "goat_management/add_goats";
 $route["goat/r/(:any)"]['POST']					= "goat_management/validate_goat_info/$1";
+$route["manage/(:num)/view"]['GET']				= "goat_management/manage_view/$1";
+
+$route["manage/(:num)/edit"]['GET']				= "goat_management/manage_edit_view/$1";
 
 //Financial Management: Goat Sales
 $route["goat/sales"]['GET']						= "goat_management/sell_index";
+$route["sales/(:num)/view"]['GET']				= "goat_management/transaction_record/$1";
+
 $route["goat/sales/new"]['GET']					= "goat_management/sell_goats";
-$route["sales/validate"]['POST']				= "goat_management/sell_index";
+$route["sales/validate"]['POST']				= "goat_management/validate_transaction";
 
 ?>

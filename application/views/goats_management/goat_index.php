@@ -1,4 +1,9 @@
 <div class="container-fluid mt-5">
+	<div class="row pt-5">
+		<div class="col">
+			<h1>Goat Management</h1>
+		</div>
+	</div>
 	<div class="row pt-5 mr-4">
 		<div class="col text-right">
 			<a href="<?= base_url()?>goat/new" class="btn btn-success" title="Add Goat">
@@ -14,10 +19,7 @@
 				      <tr>
 				        <th>Eartag ID</th>
 				        <th>Eartag Color</th>
-				        <th>Birthdate</th>
 				        <th>Body Color</th>
-				        <th>Sire ID</th>
-				        <th>Dam ID</th>
 				        <th>Gender</th>
 				        <th>Category</th>
 				        <th>Status</th>
@@ -26,24 +28,23 @@
 				    </thead>
 
 				    <tbody>
+				    <?php foreach($goat_record as $row) {?>
 				      <tr>
-				        <td>1</td>
-				        <td>2</td>
-				        <td>3</td>
-				        <td>4</td>
-				        <td>5</td>
-				        <td>6</td>
-				        <td>7</td>
-				        <td>8</td>
-				        <td>9</td>
+				        <td><?= $row->eartag_id ?></td>
+				        <td><?= $row->eartag_color ?></td>
+				        <td><?= $row->body_color ?></td>
+				        <td><?= $row->gender ?></td>
+				        <td><?= $row->category ?></td>
+				        <td><?= $row->status; ?></td>
 				        <td>
 				        	<div class="btn-group p-0">
-				        		<a href="" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil"></i></a>
-				        		<a href="" class="btn btn-info btn-sm" title="View"><i class="fa fa-eye"></i></a>
+				        		<a href="<?= base_url("manage/{$row->eartag_id}/edit"); ?>" class="btn btn-primary btn-sm btn-goat" title="Edit"><i class="fa fa-pencil"></i></a>
+				        		<a href="<?= base_url("manage/{$row->eartag_id}/view"); ?>" class="btn btn-info btn-sm btn-goat" title="View"><i class="fa fa-eye"></i></a>
 
 				        	</div>
 				        </td>
 				      </tr>
+				    <?php } ?>
 				    </tbody>
 				  </table>   
 			</div>

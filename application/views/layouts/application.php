@@ -48,7 +48,9 @@
 
     <script src="<?= base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-	
+
+	<script src="<?= base_url()?>public/js/jquery-slimscroll.js"></script>	
+
 	<script>
       $(function () { //ready
           toastr.info('If all three of these are referenced correctly, then this should toast should pop-up.');
@@ -182,6 +184,8 @@
 			$("#is_castrated").prop("checked",false);
 			$("#is_castrated").prop("disabled",true);
 
+		}else if($("#gender").val() == "male"){
+			$("#is_castrated").prop("disabled",false);			
 		}
 
 		$(document).ready(function(){
@@ -207,8 +211,11 @@
 			//	$("#ui_view").prop('src',this.href);
 
 			//});
-			
+
+// Sidebar Menu
+
 			$("#sidebar > li a.nav-link.sb-menu").each(function(){
+				
 	  			var self = $(this);
 	  			var href = self.attr("href");
 
@@ -219,6 +226,22 @@
 	  			});
 			});
 
+// Table Link
+
+			$("a.btn-goat").each(function(){
+				
+	  			var self = $(this);
+	  			var href = self.attr("href");
+
+	  			self.attr("href","javascript:void(0);");
+
+	  			self.click(function(){
+	  				
+	  				window.location.assign(href);
+	  			});
+			});
+
+/*
 	  		$("#sidebar > li div.collapse a.nav-link").each(function(){
 	  			var self = $(this);
 	  			var href = self.attr("href");
@@ -230,7 +253,7 @@
 	  				$("#ui_view").prop('src',href);
 	  			});
 	  		}); //end .each
-
+*/
 		  	$('[data-target="#assetManagement"]').popover({
 
 		  		placement: "right",
@@ -259,6 +282,10 @@
 		  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-dark text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
 		  	});
 
+		  	$("[name='remember']").on("click",function(){
+		  	//	alert("Tick");
+		  	});
+
   		});
 
 		function set_index(){
@@ -279,8 +306,41 @@
 
   		}
 
+  		function js_button(){
+
+  			//alert(x_agent+"::");
+
+  			window.location.assign(x_agent);
+  			//$("#ui_view").prop("src",x_agent);
+
+  		}
+
 
 	</script>
 
+	<script type="text/javascript">
+		
+		$("#ui_view").height(
+			$(window).height() - ($("body").height() - '20px';
+
+		);
+
+		$(function () {
+
+		//	debugger;
+			$('#ui_view').slimscroll({
+				//width: '300px',
+				width : 'auto',
+				height: '526px',
+				opacity: 0.4,
+				size: '1px',
+				railOpacity: 0.1,
+		            //height: '516px',
+				railVisible: true,
+				allowPageScroll: false,
+			});
+		});
+
+		</script>
 </body>
 </html>
