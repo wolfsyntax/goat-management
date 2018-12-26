@@ -6,15 +6,15 @@
 					<h3>Modify Goats Record</h3>
 				</div>
 				<div class="card-body p-2">
-
-					<?= form_open(base_url()."", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
+					<?php foreach($goat_record as $row) { ?>
+					<?= form_open(base_url().$row->category."/".$row->ref_id."/edit", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
 						
-					<?php foreach($goat_record as $row) {?>	
+						
 					<div class="form-row p-1">
 						<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
 		
 						<div class="col-8 col-sm-8 col-md-4">
-							<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id') ? set_value('eartag_id') : $row->eartag_id; ?>" />
+							<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id') ? set_value('eartag_id') : $row->eartag_id; ?>" readonly/>
 			
 							<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
 						</div>
@@ -126,19 +126,20 @@
 							<input type="text" name="category" id="mcat_info" class="col form-control" readonly="" value="<?= $row->category; ?>">
 
 						</div>
-						<div class="form-row p-1 birth-elem">
+						<div class="form-row p-1 mbirth-elem">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
-							<div class="col-4 col-sm-4 col-md-2 col-lg-2">
-								<input type="date" name="birth_date" value="<?= set_value('birth_date');?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);" >
+							
+							<div class="col-4 col-sm-4 col-md-10 col-lg-10">
+								<input type="date" name="birth_date" value="<?= set_value('birth_date') ? set_value('birth_date') : $row->acquire_date;?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);" >
 								<span id="date_checker"><?= (form_error('birth_date')	!= "" ? form_error('birth_date') : ''); ?></span>	
 							</div>
 						</div>
 
-						<div class="form-row p-1 birth-elem">
+						<div class="form-row p-1 mbirth-elem">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Dam ID <span class="text-danger">*</span></label>
 							
 							<div class="col">
-								<select name="dam_id" id="dam_id_select" class="form-control" placeholder="- Enter Dam ID -" value="<?= set_value('dam_id'); ?>" >
+								<select name="dam_id" id="dam_id_select" class="form-control" placeholder="- Enter Dam ID -" value="<?= set_value('dam_id') ? set_value('dam_id') : $row->dam_id; ?>" >
 
 								<?php foreach($dam_record as $row){ ?>
 									<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
@@ -149,11 +150,11 @@
 							</div>
 						</div>
 
-						<div class="form-row p-1 birth-elem">
+						<div class="form-row p-1 mbirth-elem">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Sire ID <span class="text-danger">*</span></label>
 						
 							<div class="col">
-								<select name="sire_id" id="sire_id_select" class="form-control" placeholder="- Enter Sire ID -" value="<?= set_value('sire_id');?>">
+								<select name="sire_id" id="sire_id_select" class="form-control" placeholder="- Enter Sire ID -" value="<?= set_value('sire_id') ? set_value('sire_id') : $row->sire_id;?>">
 
 								<?php foreach($sire_record as $row){ ?>
 									<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
@@ -166,41 +167,43 @@
 
 				<!-- Purchase  -->
 
-						<div class="form-row p-1 purchase-elem">
+						<div class="form-row p-1 mpurchase-elem">
 							<label class="col-form-label-sm col-4 col-sm-3 col-md-2 col-lg-2">Purchase Date <span class="text-danger">*</span></label>
 							
 							<div class="col">
-								<input type="date" name="purchase_date" value="<?= set_value('purchase_date'); ?>" placeholder="Date of Purchase" class="form-control" onchange="check_date_format(this);" >
+								<input type="date" name="purchase_date" value="<?= set_value('purchase_date') ? set_value('purchase_date'): $row->acquire_date; ?>" placeholder="Date of Purchase" class="form-control" onchange="check_date_format(this);" >
 								
 								<span id="date_checker"><?= (form_error('purchase_date') != "" ? form_error('purchase_date') : ''); ?></span>
 							</div>
 						</div>
 
-						<div class="form-row p-1 purchase-elem">
-							<label class="col-form-label-sm col-4 col-sm-3 col-md-2 col-lg-2">Purchase Weight <span class="text-danger">*</span></label>
-							
-							<div class="col">
-								<input type="text" name="purchase_weight" value="<?= set_value('purchase_weight'); ?>" placeholder="Enter weight in kilo" class="form-control" >
-								<?= (form_error('purchase_weight')	!= "" ? form_error('purchase_weight') : ''); ?>		
-							</div>
-						</div>
+						<div class="form-row p-1 mpurchase-elem">
 
-						<div class="form-row p-1 purchase-elem">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Purchase From <span class="text-danger">*</span></label>
 							
-							<div class="col-8 col-sm-8 col-md-4">
-								<select name="purchase_from" id="client_select" class="form-control" placeholder="- Vendor -" value="<?= set_value('purchase_from');?>">
+							<div class="col-8 col-sm-8 col-md-10">
+								<select name="purchase_from" id="client_select" class="form-control" placeholder="- Vendor -" value="<?= set_value('purchase_from') ? set_value('purchase_from') : $row->purchase_from; ?>">
 
 									<option value=""></option>           
 								</select>
 
 								<?= (form_error('purchase_from')	!= "" ? form_error('purchase_from') : ''); ?>		
 							</div>
+						</div>
+
+						<div class="form-row p-1 mpurchase-elem">
+							
+							<label class="col-form-label-sm col-4 col-sm-3 col-md-2 col-lg-2">Purchase Weight <span class="text-danger">*</span></label>
+							
+							<div class="col">
+								<input type="text" name="purchase_weight" value="<?= set_value('purchase_weight') ? set_value('purchase_weight') : $row->purchase_weight; ?>" placeholder="Enter weight in kilo" class="form-control" >
+								<?= (form_error('purchase_weight')	!= "" ? form_error('purchase_weight') : ''); ?>		
+							</div>
 
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Price per  Kilo<span class="text-danger">*</span></label>
 							
 							<div class="col-8 col-sm-8 col-md-4">
-								<input type="text" name="purchase_price" value="<?= set_value("purchase_price"); ?>" placeholder="Purchase Price" class="form-control">
+								<input type="text" name="purchase_price" value="<?= set_value("purchase_price") ? set_value('purchase_price') : $row->purchase_price; ?>" placeholder="Purchase Price" class="form-control">
 
 								<?= (form_error('purchase_price')	!= "" ? form_error('purchase_price') : ''); ?>		
 							</div>
@@ -282,11 +285,6 @@
 							<?= (form_error('is_castrated')	!= "" ? form_error('is_castrated') : ''); ?>	
 						</div>
 					</div>
-
-
-					<?php
-						}
-					?>	
 					
 					
 					<div class="form-row mt-3">
@@ -296,6 +294,10 @@
 					</div>
 					
 					<?= form_close(); ?>
+
+					<?php
+						}
+					?>	
 					
 				</div>
 			</div>

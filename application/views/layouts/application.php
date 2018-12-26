@@ -145,6 +145,8 @@
 
 		//Disable submit button on load
 
+
+
 		if($("#cat_info").val() == "birth" || $("#cat_info").val() == "purchase"){
 
 			$("#btn-submit").attr("disabled",false);
@@ -167,8 +169,9 @@
 	
 
   			$("#goat_form").attr("action",cur_url);
+  			alert("Action: " + x);
 
-		}else{
+		}else if($("#cat_info").val() != "birth" || $("#cat_info").val() != "purchase"){
 
 			$("#btn-submit").attr("disabled",true);
 			$('.birth-elem').hide(); 
@@ -192,18 +195,18 @@
 				
 				if(x == "purchase"){
 					
-					$(".birth-elem").hide();
-					$(".purchase-elem").show();
+					$(".mbirth-elem").hide();
+					$(".mpurchase-elem").show();
 
 				}else if(x == "birth"){
 
-					$(".purchase-elem").hide();
-					$(".birth-elem").show();				
+					$(".mpurchase-elem").hide();
+					$(".mbirth-elem").show();				
 
 				}else {
 
-					$(".purchase-elem").hide();
-					$(".birth-elem").hide();
+					$(".mpurchase-elem").hide();
+					$(".mbirth-elem").hide();
 
 					cur_url = base_url+"manage/goat";	
 
@@ -215,8 +218,8 @@
 
   			}else{
   				
-  				$('.birth-elem').hide(); 
-				$('.purchase-elem').hide();
+  				$('.mbirth-elem').hide(); 
+				$('.mpurchase-elem').hide();
 
   				$("#btn-msubmit").attr("disabled",true);
   			}
@@ -233,24 +236,24 @@
 
 			if(x == "purchase"){
 				//alert(":-"+x);		
-				$(".birth-elem").hide();
-				$(".purchase-elem").show();
+				$(".mbirth-elem").hide();
+				$(".mpurchase-elem").show();
 
 			}else {
 				//alert(":+"+x);
-				$(".purchase-elem").hide();
-				$(".birth-elem").show();				
+				$(".mpurchase-elem").hide();
+				$(".mbirth-elem").show();				
 
 			}
 	
 
   			$("#mgoat_form").attr("action",cur_url);
 
-		}else{
+		}else if($("#mcat_info").val() != "birth" || $("#mcat_info").val() != "purchase"){
 
 			$("#btn-msubmit").attr("disabled",true);
-			$('.birth-elem').hide(); 
-			$('.purchase-elem').hide();
+			$('.mbirth-elem').hide(); 
+			$('.mpurchase-elem').hide();
 
 		}
 
@@ -305,7 +308,7 @@
 			});
 
 // Table Link
-
+/*
 			$("a.btn-goat").each(function(){
 				
 	  			var self = $(this);
@@ -318,7 +321,7 @@
 	  				window.location.assign(href);
 	  			});
 			});
-
+*/
 /*
 	  		$("#sidebar > li div.collapse a.nav-link").each(function(){
 	  			var self = $(this);

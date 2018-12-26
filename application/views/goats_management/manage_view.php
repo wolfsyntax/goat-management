@@ -2,15 +2,32 @@
 	<div class="row mt-5 clearfix"></div>
 	<div class="row mt-5">
 		<div class="col">
-			<?php foreach($goat_record as $row) {?>
+			<?php 
+				foreach($goat_record as $row){
+			?>
+
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-6 col-md-2">
+								Eartag ID: 
+							</div>
+							<div class="col-6 col-md-4">
+								<?= $row->eartag_id ?>
+							</div>
+							<div class="col-6 col-md-2">
+								Eartag Color: 
+							</div>
+							<div class="col-6 col-md-4">
+								<?= $row->eartag_color ?>
+							</div>
+
+						</div>
+					</div>
+			<?php 
 				
-				<h1 class="col-12 ">Eartag ID: <?= $row->eartag_id;?></h1>
+				}				
 
-				<p class="col-6">
-					Eartag Color: <?= $row->eartag_color; ?>
-				</p>
-
-			<?php } ?>
+			?>
 		</div>
 	</div>
 	<div class="row mt-2">
