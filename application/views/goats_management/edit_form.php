@@ -7,7 +7,7 @@
 				</div>
 				<div class="card-body p-2">
 
-					<?= form_open(base_url()."", array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
+					<?= form_open(base_url()."", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
 						
 					<?php foreach($goat_record as $row) {?>	
 					<div class="form-row p-1">
@@ -109,7 +109,7 @@
 					<fieldset >
 						<div class="form-row p-1 pt-3 ">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Category <span class="text-danger">*</span></label>
-							<select name="category" id="cat_info" class="col form-control" onchange="show_form(this);">
+							<!--select name="category" id="mcat_info" class="col form-control" onchange="show_form(this);">
 								<option value="">-- Select Category --</option>
 								<?php if(set_value("category") == "birth" || $row->category == "birth") {?>
 									<option value="birth" selected>Birth</option>
@@ -121,11 +121,14 @@
 									<option value="birth">Birth</option>
 									<option value="purchase">Purchase</option>
 								<?php }?>
-							</select>
+							</select-->
+
+							<input type="text" name="category" id="mcat_info" class="col form-control" readonly="" value="<?= $row->category; ?>">
+
 						</div>
 						<div class="form-row p-1 birth-elem">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
-							<div class="col">
+							<div class="col-4 col-sm-4 col-md-2 col-lg-2">
 								<input type="date" name="birth_date" value="<?= set_value('birth_date');?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);" >
 								<span id="date_checker"><?= (form_error('birth_date')	!= "" ? form_error('birth_date') : ''); ?></span>	
 							</div>
@@ -164,7 +167,7 @@
 				<!-- Purchase  -->
 
 						<div class="form-row p-1 purchase-elem">
-							<label class="col-form-label-sm col-12 col-sm-3 col-md-2 col-lg-2">Purchase Date <span class="text-danger">*</span></label>
+							<label class="col-form-label-sm col-4 col-sm-3 col-md-2 col-lg-2">Purchase Date <span class="text-danger">*</span></label>
 							
 							<div class="col">
 								<input type="date" name="purchase_date" value="<?= set_value('purchase_date'); ?>" placeholder="Date of Purchase" class="form-control" onchange="check_date_format(this);" >
@@ -174,7 +177,7 @@
 						</div>
 
 						<div class="form-row p-1 purchase-elem">
-							<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Purchase Weight <span class="text-danger">*</span></label>
+							<label class="col-form-label-sm col-4 col-sm-3 col-md-2 col-lg-2">Purchase Weight <span class="text-danger">*</span></label>
 							
 							<div class="col">
 								<input type="text" name="purchase_weight" value="<?= set_value('purchase_weight'); ?>" placeholder="Enter weight in kilo" class="form-control" >
@@ -183,9 +186,9 @@
 						</div>
 
 						<div class="form-row p-1 purchase-elem">
-							<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Purchase From <span class="text-danger">*</span></label>
+							<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Purchase From <span class="text-danger">*</span></label>
 							
-							<div class="col">
+							<div class="col-8 col-sm-8 col-md-4">
 								<select name="purchase_from" id="client_select" class="form-control" placeholder="- Vendor -" value="<?= set_value('purchase_from');?>">
 
 									<option value=""></option>           
@@ -194,12 +197,9 @@
 								<?= (form_error('purchase_from')	!= "" ? form_error('purchase_from') : ''); ?>		
 							</div>
 
-						</div>
-
-						<div class="form-row p-1 purchase-elem">
-							<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Price per Kilo<span class="text-danger">*</span></label>
+							<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Price per  Kilo<span class="text-danger">*</span></label>
 							
-							<div class="col">
+							<div class="col-8 col-sm-8 col-md-4">
 								<input type="text" name="purchase_price" value="<?= set_value("purchase_price"); ?>" placeholder="Purchase Price" class="form-control">
 
 								<?= (form_error('purchase_price')	!= "" ? form_error('purchase_price') : ''); ?>		
@@ -292,7 +292,7 @@
 					<div class="form-row mt-3">
 						<a href="javascript:void(0);" class="btn btn-danger col col-md-3 offset-md-5" onclick="js_button();">Cancel</a>
 
-						<input type="submit" class="btn btn-primary col col-md-3 offset-md-1" name="submit" value="Save" id="btn-submit"/>
+						<input type="submit" class="btn btn-primary col col-md-3 offset-md-1" name="submit" value="Save" id="btn-msubmit"/>
 					</div>
 					
 					<?= form_close(); ?>

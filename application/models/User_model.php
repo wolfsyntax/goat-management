@@ -43,7 +43,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->session->unset_userdata('user_phone');
 					$this->session->unset_userdata('farm_name');
 					$this->session->unset_userdata('user_type');
-
+					$this->session->unset_userdata('timestamp');
+					
 					$this->session->unset_userdata('notif');
 
 					foreach($query->result() as $row){
@@ -56,6 +57,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						$this->session->set_userdata('user_lname',$row->last_name);
 						$this->session->set_userdata('user_phone',$row->phone_number);
 						$this->session->set_userdata('user_type',$row->account_type);
+
+						$recent_date = new DateTime(); 
+						$this->session->set_userdata('timestamp',$recent_date->getTimestamp());
 
 						$this->session->set_userdata('notif', 1);
 						

@@ -249,6 +249,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 		}
 
+		public function edit_goat(){
+
+			$category = $this->input->post("category", TRUE);
+			$eartag_id = $this->input->post("eartag_id", TRUE);
+
+			$data = array(
+				"eartag_id" 		=> $eartag_id,
+				"eartag_color" 		=> $this->input->post("eartag_color", TRUE),
+				"gender"			=> $this->input->post("gender", TRUE),
+				"body_color"		=> $this->input->post("body_color", TRUE),
+			);
+
+			if(self::edit_record("goat_profile", $data, "eartag_id", $eartag_id)){
+				$table_name = $category . "_record";
+
+			//	if($category == "birth"){
+
+			//		$data = array(
+			//			""		=> ""
+			//		);
+
+			//	}
+
+			}
+		}
+
 		//create
 		protected function add_record($table_name, $data){
 

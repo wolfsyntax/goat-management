@@ -6,6 +6,14 @@ class User_Controller extends CI_Controller {
 		
 		parent::__construct ();
 		$this->load->model("User_model");
+		
+		if($this->session->userdata("timestamp")){
+
+			if(time() - $this->session->userdata("timestamp") > 3600){ //logout after 1hr
+				redirect(base_url()."logout");
+			}
+		}
+
 /**
 		$config = array(
 		    'protocol'  => 'smtp',

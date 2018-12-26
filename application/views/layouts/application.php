@@ -10,6 +10,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatible" content="IE-edge,chrome">
+	<meta http-equiv="refresh" content="1800">
 
 	<link rel="stylesheet" href="<?= base_url()?>public/css/app.css" >
 
@@ -21,6 +22,7 @@
 	</style>
 </head>
 <body id="back2top" >
+
 	<?php if($this->config->item('base_timestamp') <= time()) { ?>
 		<main role="main">
 			<!--i class="fa fa-spinner fa-pulse"></i-->
@@ -37,6 +39,7 @@
 	} ?>
 
 	<!--Starter Template-->
+	
 
 	<script src="<?= base_url()?>public/js/jquery-3.3.1.slim.min.js"></script>
 
@@ -50,12 +53,6 @@
     <script src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 
 	<script src="<?= base_url()?>public/js/jquery-slimscroll.js"></script>	
-
-	<script>
-      $(function () { //ready
-          toastr.info('If all three of these are referenced correctly, then this should toast should pop-up.');
-      });
-	</script>
 
 	<script type="text/javascript">
 
@@ -145,6 +142,7 @@
 
 		});	 //#cat_info	
 
+
 		//Disable submit button on load
 
 		if($("#cat_info").val() == "birth" || $("#cat_info").val() == "purchase"){
@@ -178,6 +176,84 @@
 
 		}
 
+
+
+		$('#mcat_info').on('change', function() {
+			
+			var x = this.value;
+			
+  			if(x != "" ){
+
+  				//goat/(:any)/(:any)/edit
+  				
+  				$("#btn-msubmit").attr("disabled",false);
+
+  				cur_url = base_url + "manage/" + x + "/edit";				
+				
+				if(x == "purchase"){
+					
+					$(".birth-elem").hide();
+					$(".purchase-elem").show();
+
+				}else if(x == "birth"){
+
+					$(".purchase-elem").hide();
+					$(".birth-elem").show();				
+
+				}else {
+
+					$(".purchase-elem").hide();
+					$(".birth-elem").hide();
+
+					cur_url = base_url+"manage/goat";	
+
+				}
+
+				
+
+  				$("#mgoat_form").attr("action",cur_url);
+
+  			}else{
+  				
+  				$('.birth-elem').hide(); 
+				$('.purchase-elem').hide();
+
+  				$("#btn-msubmit").attr("disabled",true);
+  			}
+
+		});	 //#mcat_info	
+
+		if($("#mcat_info").val() == "birth" || $("#mcat_info").val() == "purchase"){
+
+			$("#btn-msubmit").attr("disabled",false);
+			var x = $("#mcat_info").val();
+
+			cur_url = base_url + "manage/" + x + "/edit";				
+			
+
+			if(x == "purchase"){
+				//alert(":-"+x);		
+				$(".birth-elem").hide();
+				$(".purchase-elem").show();
+
+			}else {
+				//alert(":+"+x);
+				$(".purchase-elem").hide();
+				$(".birth-elem").show();				
+
+			}
+	
+
+  			$("#mgoat_form").attr("action",cur_url);
+
+		}else{
+
+			$("#btn-msubmit").attr("disabled",true);
+			$('.birth-elem').hide(); 
+			$('.purchase-elem').hide();
+
+		}
+
 		//Disable is_castrated on load
 		if($("#gender").val() == ""){
 			
@@ -185,7 +261,9 @@
 			$("#is_castrated").prop("disabled",true);
 
 		}else if($("#gender").val() == "male"){
-			$("#is_castrated").prop("disabled",false);			
+
+			$("#is_castrated").prop("disabled",false);	
+					
 		}
 
 		$(document).ready(function(){

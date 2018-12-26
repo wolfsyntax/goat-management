@@ -122,7 +122,7 @@
 <!-- Purchase  -->
 
 		<div class="form-row p-1 purchase-elem">
-			<label class="col-form-label-sm col-12 col-sm-3 col-md-2 col-lg-2">Purchase Date <span class="text-danger">*</span></label>
+			<label class="col-form-label-sm col-4 col-sm-3 col-md-2 col-lg-2">Purchase Date <span class="text-danger">*</span></label>
 			
 			<div class="col">
 				<input type="date" name="purchase_date" value="<?= set_value('purchase_date'); ?>" placeholder="Date of Purchase" class="form-control" onchange="check_date_format(this);" >
@@ -132,16 +132,25 @@
 		</div>
 
 		<div class="form-row p-1 purchase-elem">
-			<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Purchase Weight <span class="text-danger">*</span></label>
+			<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Purchase Weight <span class="text-danger">*</span></label>
 			
-			<div class="col">
+			<div class="col-8 col-sm-8 col-md-4">
 				<input type="text" name="purchase_weight" value="<?= set_value('purchase_weight'); ?>" placeholder="Enter weight in kilo" class="form-control" >
 				<?= (form_error('purchase_weight')	!= "" ? form_error('purchase_weight') : ''); ?>		
 			</div>
+
+			<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Price per Kilo<span class="text-danger">*</span></label>
+			
+			<div class="col-8 col-sm-8 col-md-4">
+				<input type="text" name="purchase_price" value="<?= set_value("purchase_price"); ?>" placeholder="Purchase Price" class="form-control">
+
+				<?= (form_error('purchase_price')	!= "" ? form_error('purchase_price') : ''); ?>		
+			</div>
+
 		</div>
 
 		<div class="form-row p-1 purchase-elem">
-			<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Purchase From <span class="text-danger">*</span></label>
+			<label class="col-form-label-sm col-4 col-sm-3 col-md-2 col-lg-2">Purchase From <span class="text-danger">*</span></label>
 			
 			<div class="col">
 				<select name="purchase_from" id="client_select" class="form-control" placeholder="- Vendor -" value="<?= set_value('purchase_from');?>">
@@ -152,16 +161,6 @@
 				<?= (form_error('purchase_from')	!= "" ? form_error('purchase_from') : ''); ?>		
 			</div>
 
-		</div>
-
-		<div class="form-row p-1 purchase-elem">
-			<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Price per Kilo<span class="text-danger">*</span></label>
-			
-			<div class="col">
-				<input type="text" name="purchase_price" value="<?= set_value("purchase_price"); ?>" placeholder="Purchase Price" class="form-control">
-
-				<?= (form_error('purchase_price')	!= "" ? form_error('purchase_price') : ''); ?>		
-			</div>
 		</div>
 
 	</fieldset>

@@ -4,8 +4,8 @@
 			<h1>Goat Management</h1>
 		</div>
 	</div>
-	<div class="row pt-5 mr-4">
-		<div class="col text-right">
+	<div class="row pt-5 mr-0 mr-md-4">
+		<div class="col text-md-right">
 			<a href="<?= base_url()?>goat/new" class="btn btn-success" title="Add Goat">
 				<span class="fa fa-plus fa-lg"></span>&emsp;Add Goat
 			</a>

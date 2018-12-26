@@ -30,9 +30,14 @@ class Goat_Management extends CI_Controller {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->model('Goat_model');
+
 	}
 
-	//Goat Management Table
+/** 
+-------------------------------------------------------------------------------------------
+Goat Records View
+-------------------------------------------------------------------------------------------
+**/
 	public function index(){
   	
 		$data["body"] 			= "goats_management/goat_index";
@@ -40,12 +45,18 @@ class Goat_Management extends CI_Controller {
 		$data["footer"]			= "2";
 		$data["header"]			= "1";
 		$data["goat_record"]	= $this->Goat_model->show_record("goat_profile");
-
+		
 		$this->load->view("layouts/application",$data);
 
   	}
 
-	//Goat Record View
+
+/** 
+-------------------------------------------------------------------------------------------
+Goat Specified Record View
+-------------------------------------------------------------------------------------------
+**/	
+
 	public function manage_view($eartag_id){
   	
 		$data["body"] 			= "goats_management/manage_view";
@@ -58,17 +69,28 @@ class Goat_Management extends CI_Controller {
 
   	}
 
-  	//Goat Record (Edit)
+/** 
+-------------------------------------------------------------------------------------------
+Modify Goat Profile
+-------------------------------------------------------------------------------------------
+**/
+
 	public function manage_edit_view($eartag_id){
-  	
-		$data["body"] 			= "goats_management/edit_form";
-		$data["title"]			= "Goat Record";
-		$data["footer"]			= "2";
-		$data["header"]			= "1";
-		$data["goat_record"]	= $this->Goat_model->show_record("goat_profile","eartag_id = {$eartag_id}");
+		
+  		if(preg_match("/[0-9]+/", $eartag_id) && intval($eartag_id) > 0){
+			$data["body"] 			= "goats_management/edit_form";
+			$data["title"]			= "Goat Record";
+			$data["footer"]			= "2";
+			$data["header"]			= "1";
+			$data["goat_record"]	= $this->Goat_model->show_record("goat_profile","eartag_id = {$eartag_id}");
 
-		$this->load->view("layouts/application",$data);
+			$this->load->view("layouts/application",$data);
 
+		} else {
+
+			show_404();
+			
+		}
   	}
 
 /** 
@@ -145,15 +167,16 @@ Add Goat Record
 
 	public function validate_goat_info($category,$action = "default"){
 		#*
-		if($action != "default"){
+		if($action == "edit"){
+
 			$this->form_validation->set_rules('status','Goat Status',
-			'required|xss_clean|trim|in_list[active,deceased,stolen,lost,sold]',
-			array(
-				'required' 	=> '{field} is required',
-				'in_list'	=> "{field} invalid status",
-			)
+				'required|xss_clean|trim|in_list[active,deceased,stolen,lost,sold]',
+				array(
+					'required' 	=> '{field} is required',
+					'in_list'	=> "{field} invalid status",
+				)
 			
-		);
+			);
 
 		}
 
@@ -210,28 +233,56 @@ Add Goat Record
 		if($this->form_validation->run() === FALSE){
 			self::add_goats();
 		}else{
+			if($action == "default"){
+				if($this->Goat_model->add_goat($category) > 0){
 
-			if($this->Goat_model->add_goat($category) > 0){
+					$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-check-circle"></span>
+							<strong>Success</strong>&emsp;New goat added successfully. <a href="'.base_url().'manage/goat" class="nav-link">View Records</a></p>
+						</div>
+					</div>');
 
-				$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-											
-					<div class="row">
-						<p><span class="fa fa-check-circle"></span>
-						<strong>Success</strong>&emsp;New goat added successfully. <a href="'.base_url().'manage/goat" class="nav-link">View Records</a></p>
-					</div>
-				</div>');
+				}else{
 
-			}else{
+					$this->session->set_flashdata('goat', '<div class="alert alert-danger col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-exclamation-circle"></span>
+							<strong>Failed</strong>&emsp;Error: Cannot Add Goat.</p>
+						</div>
+					</div>');
 
-				$this->session->set_flashdata('goat', '<div class="alert alert-danger col-12" role="alert" style="height: 50px;">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-											
-					<div class="row">
-						<p><span class="fa fa-exclamation-circle"></span>
-						<strong>Failed</strong>&emsp;Error: Cannot Add Goat.</p>
-					</div>
-				</div>');
+				}
+
+			}else {
+
+				if($this->Goat_model->edit_goat()){
+
+					$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-check-circle"></span>
+							<strong>Success</strong>&emsp;Goat Profile with Eartag ID of '.$id.' Updated successfully. <a href="'.base_url().'manage/goat" class="nav-link">View Records</a></p>
+						</div>
+					</div>');
+
+				}else{
+
+					$this->session->set_flashdata('goat', '<div class="alert alert-danger col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-exclamation-circle"></span>
+							<strong>Failed</strong>&emsp;Error: Cannot Update Goat Profile.</p>
+						</div>
+					</div>');
+
+				}
 			}
 
 			self::add_goats();
@@ -240,15 +291,13 @@ Add Goat Record
 
  	}
 
-	public function add_goats($action = "default"){
+	public function add_goats(){
 
 		$data["body"] 	= "goats_management/goat_form";
 		$data["title"]	= "Add new record";
 		$data["footer"]	= "2";
 		$data["header"]	= "1";
 		
-		$data["action"]	= $action;
-
 		$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active'");
 		
 		$data['sire_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'");
@@ -261,9 +310,8 @@ Add Goat Record
 -------------------------------------------------------------------------------------------
 Goat Sales
 -------------------------------------------------------------------------------------------
-
-@sales_index 	= table
-@goat_sales 	= form
+|	sales_index 	= table
+|	goat_sales 		= form
 
 **/
 	
@@ -376,6 +424,13 @@ Goat Sales
 		}
 
 	}
+
+/** 
+-------------------------------------------------------------------------------------------
+Goat Sales Specified Record view
+-------------------------------------------------------------------------------------------
+**/
+
 	public function transaction_record($sale_id){
 		//preg_match ("/^(\+63|0)9[0-9]{9}$/" , $str)
 		if(preg_match("/[0-9]+/", $sale_id) && intval($sale_id) > 0){
@@ -395,6 +450,13 @@ Goat Sales
 
 
 	}
+
+/** 
+-------------------------------------------------------------------------------------------
+Add Goat Record
+-------------------------------------------------------------------------------------------
+
+
 	public function validate_eartag($str){
 
 		if($this->Goat_model->show_record('goat_profile',"status = 'active'")){
@@ -403,6 +465,186 @@ Goat Sales
 
 		return false;
 
+	}
+**/
+
+/** 
+-------------------------------------------------------------------------------------------
+Activity Module: Create
+-------------------------------------------------------------------------------------------
+**/
+
+	public function activity_module($activity_type){
+
+		$flag = FALSE;
+		
+		switch ($activity_type) {
+	    	case "breed":
+
+				$data["body"] 	= "activities/breed_new_activity";
+
+				$data["title"] 	= "";		
+				$data['breeding_attempt'] = $this->Goat_model->show_record('breeding_record');
+				
+				$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female'");
+				$data['sire_record'] = $this->Goat_model->show_record('goat_profile',"gender = 'male'");
+				
+	        	break;
+
+	    	case "checkup":
+
+				$data["body"] = "activities/breed_new_activity";
+				$data["title"] = "";		
+
+	        	break;
+
+	    	case "loss":
+
+				$data["body"] = "activities/breed_new_activity";
+				$data["title"] = "";		
+
+	        	break;
+
+	    	default:
+	    		$flag = TRUE;
+	        	show_404();
+
+		}
+
+		if(!$flag){
+			$this->load->view("layouts/application",$data);
+		}
+	}
+
+	public function activity_edit_module($activity_type,$process_id){
+
+		$flag = FALSE;
+		
+		switch ($activity_type) {
+	    	case "breed":
+
+				$data["body"] 	= "activities/breed_new_activity";
+				
+				$data["title"] 	= "";		
+				$data['breeding_attempt'] = $this->Goat_model->show_record('breeding_record');
+				
+				$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female'");
+				$data['sire_record'] = $this->Goat_model->show_record('goat_profile',"gender = 'male'");
+				
+	        	break;
+
+	    	case "checkup":
+
+				$data["body"] = "activities/breed_new_activity";
+				$data["title"] = "";		
+
+	        	break;
+
+	    	case "loss":
+
+				$data["body"] = "activities/breed_new_activity";
+				$data["title"] = "";		
+
+	        	break;
+
+	    	default:
+	    		$flag = TRUE;
+	        	show_404();
+
+		}
+
+		if(!$flag){
+			$this->load->view("layouts/application",$data);
+		}
+	}
+
+	//Breeding Module Validator
+	public function breeding_validation(){
+
+		$this->form_validation->set_rules('eartag_id','Dam ID','required|xss_clean|trim|numeric|is_dam_exist[goat_profile.eartag_id]',
+			array(
+				'required' => 'Dam ID is required',
+				'is_dam_exist' => 'Do not exist as a {field}',
+				"integer" => "must contain an integer.",	
+			)
+		);
+
+		$this->form_validation->set_rules('partner_id','Sire ID','required|xss_clean|trim|numeric|is_sire_exist[goat_profile.eartag_id]',
+			array(
+				'required' => 'Sire ID is required',
+				'is_sire_exist' => 'Sire do not exist',
+				"integer" => "must contain an integer.",	
+			)
+		);
+
+		$this->form_validation->set_rules('perform_date','Breed Date','required|xss_clean|trim|check_date',
+			array(
+				'required' => 'Breed Date is required',
+				"check_date"	=> "{field} is set incorrectly",
+ 			)
+		);
+
+		$this->form_validation->set_rules('remarks','Remarks','xss_clean|trim');
+
+		$this->form_validation->set_rules('is_pregnant','Is Pregnant','xss_clean|trim');
+
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
+
+
+	}
+
+
+	public function breeding_module($breeding_id = 0){
+		
+		self::breeding_validation();
+
+		if($this->form_validation->run() === FALSE){
+
+			self::activity_module("breed");
+
+		} else {
+			
+			if($breeding_id > 0){
+				
+				echo "Breeding Validation";
+			
+			}else if($breeding_id == 0){
+
+				$message = '';						
+				$flag = 0;
+
+				if($this->Goat_model->breeding_record()){
+
+					$message = '<span class="fa fa-check-circle"></span>
+						<strong>Success</strong>&emsp; Breeding record added';
+					
+					$flag = 1;
+
+				}else{
+
+					$message = '<span class="fa fa-exclamation-circle"></span>
+						<strong>Failed</strong>&emsp; Breeding Record already existed';
+
+				}
+
+				
+
+				$content = '<div class="alert '.($flag === 1 ? 'alert-success' : 'alert-danger').' col-12" role="alert" style="height: 50px;">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button><div class="row">
+											<p>'. $message . '</p>
+										</div>
+									</div>';
+				
+				$this->session->set_flashdata('goat', $content);
+
+
+			} else{
+
+				show_404();
+
+			}
+
+		}
 	}
 
 }
