@@ -57,7 +57,7 @@ Goat Specified Record View
 -------------------------------------------------------------------------------------------
 **/	
 
-	public function manage_view($category, $eartag_id){
+	public function manage_view($category, $ref_id){
   	
 		$data["body"] 			= "goats_management/manage_view";
 		$data["title"]			= "Goat Record";
@@ -65,7 +65,7 @@ Goat Specified Record View
 		$data["header"]			= "1";
 
 		$data["category"]		= $category;
-		$data["goat_record"]	= $this->Goat_model->get_goat_info($category, $eartag_id);
+		$data["goat_record"]	= $this->Goat_model->get_goat_info($category, $ref_id);
 
 		$this->load->view("layouts/application",$data);
 
@@ -171,14 +171,17 @@ Add Goat Record
 	}
 
 
-	public function view_goat_record($record_id, $eartag_id){
+	public function view_goat_record($category, $record_id){
 		//echo "<h1>{$category}</h1>";
+
 		$data["body"] 	= "goats_management/edit_form";
 		$data["title"]	= "Edit record";
 		$data["footer"]	= "2";
 		$data["header"]	= "1";
 
-		$data["goat_record"] = $this->Goat_model->show_goat_record($record_id,$eartag_id);
+		#*
+		//get_goat_info($category = "birth", $eartag_id)
+		$data["goat_record"] = $this->Goat_model->get_goat_info($category, $record_id);
 
 		$this->load->view("layouts/application",$data);
 
@@ -186,7 +189,7 @@ Add Goat Record
 
 	}
 
-	public function validate_goat_info($category,$action = "default"){
+	public function validate_goat_info($category,$action = "default", $ref_id) {
 		#*
 		//echo "<h1>{$category}</h1>";
 		if($action == "edit"){
@@ -283,7 +286,7 @@ Add Goat Record
 
 			}else {
 
-				if($this->Goat_model->edit_goat()){
+				if($this->Goat_model->edit_goat($ref_id)){
 
 					$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>

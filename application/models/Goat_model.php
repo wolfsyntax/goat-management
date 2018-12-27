@@ -199,14 +199,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 		
-		public function show_goat_record($record_id = 0, $eartag_id = 0){
+		public function show_goat_record(){
 
 			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id";
 			
-			if($record_id > 0 && $eartag_id > 0){
-				$sql = $sql . " AND gbp.record_id = {$record_id} AND gp.eartag_id = {$eartag_id}";
-			}
-
 			$query = $this->db->query($sql);			
 			return $query->result();
 
@@ -231,26 +227,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //			else return false;
 		}
 	
-		public function get_goat_info($category = "birth", $eartag_id){
+		public function get_goat_info($category = "birth", $ref_id){
 			
-			$sql = "";
+	//		$sql = "";
 
 	//		$sql = "";
 
-			if($category == "purchase"){
 
-				$sql = "SELECT profile.eartag_id, profile.eartag_color, profile.body_color, profile.is_castrated, profile.status, purchase.purchase_id, purchase.purchase_weight, purchase.purchase_price, purchase.purchase_date, purchase.purchase_from, members.username FROM goat_profile as profile, purchase_record as purchase, user_account as members WHERE purchase.user_id = members.user_id AND profile.eartag_id = purchase.eartag_id AND profile.eartag_id = {$eartag_id}"; 
-
-			}else if($category == "birth"){
-
-				$sql = "SELECT profile.eartag_id as eartag_id, profile.eartag_color, profile.body_color, profile.is_castrated, profile.status, birth.birth_id, birth.birth_date, birth.dam_id, birth.sire_id FROM goat_profile as profile, birth_record as birth WHERE profile.eartag_id = birth.eartag_id AND profile.eartag_id = {$eartag_id}"; 
-
-
-			}
-
-//			echo "<h1 style='margin-top: 120px;'>{$sql}</h1>";
-			$response = $this->db->query($sql);
-			return $response->result();
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.record_id = {$ref_id} AND gp.category = '{$category}'";
+			
+			$query = $this->db->query($sql);			
+			return $query->result();
 
 		}
 
@@ -275,7 +262,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 		}
 
-		public function edit_goat(){
+		public function edit_goat($ref_id) {
 
 			$category = $this->input->post("category", TRUE);
 			$eartag_id = $this->input->post("eartag_id", TRUE);

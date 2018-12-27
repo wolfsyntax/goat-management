@@ -22,7 +22,13 @@
 							</div>
 
 						</div>
+						<div class="row">
+							<div class="col">
+								<?= $row->category .": ". $row->ref_id ?>
+							</div>
+						</div>
 					</div>
+
 			<?php 
 				
 				}				

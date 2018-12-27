@@ -7,7 +7,8 @@
 				</div>
 				<div class="card-body p-2">
 					<?php foreach($goat_record as $row) { ?>
-					<?= form_open(base_url().$row->category."/".$row->ref_id."/edit", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
+						
+					<?= form_open(base_url()."goat/{$row->category}/edit/{$row->ref_id}", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
 						
 						
 					<div class="form-row p-1">
@@ -211,7 +212,7 @@
 
 					</fieldset>
 
-					<div class="form-row p-1">
+					<!--div class="form-row p-1">
 						<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Status <span class="text-danger">*</span></label>
 							
 						<div class="col">
@@ -263,7 +264,7 @@
 							
 							<?= (form_error('gender')	!= "" ? form_error('gender') : ''); ?>	
 						</div>
-					</div>
+					</div-->
 
 					<div class="form-row p-1">
 						<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Is castrated ? <span class="text-danger">*</span></label>
