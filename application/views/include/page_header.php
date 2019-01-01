@@ -17,12 +17,38 @@
   <div class="container-fluid">
     <div class="row" style="margin-top: -5px;">
       
-      <div class="col-2 col-md-1 text-center p-0 text-white font-weight-bold" id="clock">
+      <div class="col-2 col-md-1 text-center p-2 text-white font-weight-bold" id="clocks">
         &emsp;
       </div>
       <div class="col bg-dark py-1 pr-2">
-        <marquee class="bg-light text-dark mr-1">Do you need a hosting site? <a href="https://www.000webhost.com/1127428.html" class="nav-link d-inline text-info ml-0">Signup here</a>&nbsp;</marquee>
+        <marquee class="bg-light text-dark mr-1 p-2">Do you need a hosting site? <a href="https://www.000webhost.com/1127428.html" class="nav-link d-inline text-info ml-0">Signup here</a>&nbsp;</marquee>
       </div>
     </div>
   </div>
 </nav>
+
+<script>
+      function startTime() {
+
+      var today = new Date();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      
+      m = checkTime(m);
+      s = checkTime(s);
+
+      document.getElementById('clocks').innerHTML = h + ":" + m + ":" + s;
+      
+      var t = setTimeout(startTime, 500);
+
+    }
+
+    function checkTime(i) {
+        
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+          return i;
+    }
+
+
+</script>

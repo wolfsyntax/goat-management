@@ -22,7 +22,7 @@
 
 	</style>
 </head>
-<body id="back2top" >
+<body id="back2top" onload="startTime()">
 	
 	<?php if($this->config->item('base_timestamp') <= time()) { ?>
 		<main role="main">
@@ -386,6 +386,7 @@
 				allowPageScroll: false,
 			});
 		});
+
 
 		</script>
 </body>

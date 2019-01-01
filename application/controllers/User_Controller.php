@@ -69,15 +69,14 @@ class User_Controller extends CI_Controller {
 
   	public function verify_access(){
 
-		$this->form_validation->set_rules("username", "Username", "trim|required|xss_clean|min_length[8]", array(
+		$this->form_validation->set_rules("username", "Username", "trim|required|xss_clean|min_length[5]", array(
 			'required' => '{field} is required',
 			'xss_clean' => '{field} is not valid',
-			"min_length[8]"	=> "{field} must contain atleast 8 characters",
+			"min_length"	=> "{field} must contain atleast 5 characters long.",
 		));
 
 		$this->form_validation->set_rules("passwd", "Password", "trim|required|xss_clean", array(
 			"required" => "{field} is required",
-			"xss_clean" => "{field} is not valid",
 		));
 
 		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
@@ -144,13 +143,23 @@ class User_Controller extends CI_Controller {
 
   	}
 
+  	/**
+	*
+	*--------------------------------------------------------------------------------------------
+	* 	Validate Registration
+	*--------------------------------------------------------------------------------------------
+	*
+	*	Validate registration details
+	*
+	**/
+
   	public function validate_registration(){
 
-  		$this->form_validation->set_rules("username", "Username", "required|trim|is_unique[user_account.Username]|xss_clean|min_length[8]|max_length[255]",
+  		$this->form_validation->set_rules("username", "Username", "required|trim|is_unique[user_account.Username]|xss_clean|min_length[5]|max_length[255]",
 			array(
 				"required" => "{field} is required",
 				"is_unique" => "{field} is already taken",
-				"min_length" => "{field} must be at least 8 characters in length.",
+				"min_length" => "{field} must be at least 5 characters in length.",
 				"max_length"	=> "{field} cannot exceed 255 characters in length.."
 			)
 		);
@@ -227,6 +236,16 @@ class User_Controller extends CI_Controller {
 
   	}
 
+	/**
+	*
+	*--------------------------------------------------------------------------------------------
+	* 	Dashboard
+	*--------------------------------------------------------------------------------------------
+	*
+	*	Display the home page if the user login
+	*
+	**/
+
   	public function dashboard(){
 
   		if($this->session->userdata("username") !== ""){
@@ -243,6 +262,18 @@ class User_Controller extends CI_Controller {
 			redirect(base_url(),'refresh');
 		}
   	}
+
+	/**
+	*
+	*--------------------------------------------------------------------------------------------
+	* 	Phone Verification
+	*--------------------------------------------------------------------------------------------
+	*
+	*
+	* @param string str (phone number)
+	* @return boolean
+	*
+	**/
 	
 	public function phone_verify($str){
 
@@ -258,9 +289,22 @@ class User_Controller extends CI_Controller {
 
 	}
 
+
+	/**
+	*
+	*--------------------------------------------------------------------------------------------
+	* 	Password Check
+	*--------------------------------------------------------------------------------------------
+	*
+	*
+	* @param string str (password)
+	* @return boolean
+	*
+	**/
+
 	public function password_check($str){
 
-		if(preg_match ("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$/" , $str)){
+		if(preg_match ("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/" , $str)){
 
 			return TRUE;
 
