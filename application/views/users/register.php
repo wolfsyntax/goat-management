@@ -11,7 +11,7 @@
 				</div>
 
 				<div class="col-12 col-md-5 offset-md-1 mt-md-5 pr-md-5" >
-					<?= form_open(base_url().'verify/signup', array('class'=>'mt-5','style'=>'',"onsubmit"=>"return check_form(this);")); ?>
+					<?= form_open(base_url().'register', array('class'=>'mt-5','style'=>'',"onsubmit"=>"return check_form(this);")); ?>
 						<div class="row mt-md-5">
 							<div class="col-12 col-md-6 ">
 								<div class="form-group">

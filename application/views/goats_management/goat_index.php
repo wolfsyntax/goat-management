@@ -23,7 +23,7 @@
 				        <th>Gender</th>
 				        <th>Category</th>
 				        <th>Status</th>
-				        <th>Action</th>
+				        <th colspan="2">Action</th>
 				      </tr>
 				    </thead>
 
@@ -40,7 +40,7 @@
 				        	<div class="btn-group p-0">
 
 				        		<a href="<?= base_url("manage/{$row->category}/{$row->ref_id}/edit"); ?>" class="btn btn-primary btn-sm btn-goat" title="Edit"><i class="fa fa-pencil"></i></a>
-				        		<a href="<?= base_url("manage/{$row->category}/{$row->ref_id}/view"); ?>" class="btn btn-info btn-sm btn-goat" title="View"><i class="fa fa-eye"></i></a>
+				        		<a href="<?= base_url("manage/{$row->ref_id}/view"); ?>" class="btn btn-info btn-sm btn-goat" title="View"><i class="fa fa-eye"></i></a>
 
 				        	</div>
 				        </td>

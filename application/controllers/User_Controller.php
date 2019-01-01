@@ -155,10 +155,12 @@ class User_Controller extends CI_Controller {
 			)
 		);
 
-		$this->form_validation->set_rules("passwd", "Password", "required|min_length[8]|trim|xss_clean",
+		$this->form_validation->set_rules("passwd", "Password", "required|min_length[8]|callback_password_check|trim|xss_clean",
 			array(
 				"required" => "{field} is required",
-				"min_length" => "{field} must be at least 8 characters in length.",
+				"min_length" => "Your {field} must be more than 8 characters long.",
+				"password_check" => "Your {field} must be more than 8 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character.
+"
 			)
 		);
 
@@ -189,7 +191,7 @@ class User_Controller extends CI_Controller {
 			"conf_passwd", "Confirm Password", "required|matches[passwd]|min_length[8]|xss_clean", array(
 				"required" => "{field} is required",
 				"matches['password']" => "{field} does not match",
-				"min_length[8]"	=> "{field} must contain atleast 8 characters",
+				"min_length[8]"	=> "{field} must contain atleast 8 characters long",
 			)
 		);	
 
@@ -245,6 +247,20 @@ class User_Controller extends CI_Controller {
 	public function phone_verify($str){
 
 		if(preg_match ("/^(\+63|0)9[0-9]{9}$/" , $str)){
+
+			return TRUE;
+
+		} else {
+			
+			return FALSE;
+
+		}
+
+	}
+
+	public function password_check($str){
+
+		if(preg_match ("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$/" , $str)){
 
 			return TRUE;
 

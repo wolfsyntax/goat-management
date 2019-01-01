@@ -171,7 +171,7 @@ Add Goat Record
 	}
 
 
-	public function view_goat_record($category, $record_id){
+	public function view_goat_record($category,$record_id){
 		//echo "<h1>{$category}</h1>";
 
 		$data["body"] 	= "goats_management/edit_form";
@@ -179,9 +179,18 @@ Add Goat Record
 		$data["footer"]	= "2";
 		$data["header"]	= "1";
 
+		$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active'");
+		
+		$data['sire_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'");
+
 		#*
 		//get_goat_info($category = "birth", $eartag_id)
 		$data["goat_record"] = $this->Goat_model->get_goat_info($category, $record_id);
+		
+		foreach($data['goat_record'] as $row){
+			$data['sire_id'] = $row->sire_id;
+
+		}
 
 		$this->load->view("layouts/application",$data);
 
@@ -189,29 +198,108 @@ Add Goat Record
 
 	}
 
-	public function validate_goat_info($category,$action = "default", $ref_id) {
-		#*
-		//echo "<h1>{$category}</h1>";
-		if($action == "edit"){
+	public function validate_mod_info(){
 
-			$this->form_validation->set_rules('status','Goat Status',
-				'required|xss_clean|trim|in_list[active,deceased,stolen,lost,sold]',
-				array(
-					'required' 	=> '{field} is required',
-					'in_list'	=> "{field} invalid status",
-				)
+		$this->form_validation->set_rules('eartag_id','Tag ID',
+			'required|integer|xss_clean|trim|greater_than[0]',
+			array(
+				'required' => '{field} is required',
+				'integer' => '{field} must contain an integer',
+				"greater_than"	=> "{field} must be greater than zero",			
+			)
+		);
+
+		$this->form_validation->set_rules('eartag_color','Tag Color',
+		'required|xss_clean|trim|alpha_spaces',
+		array(
+			'required' => '{field} is required',
+			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+			)
+		);
+
+		$this->form_validation->set_rules('gender','Gender',
+		'required|xss_clean|trim|alpha_spaces',
+		array(
+			'required' 	=> '{field} is required',
+			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+			)
+		);
+
+		$this->form_validation->set_rules('body_color','Body Color',
+		'required|xss_clean|trim|alpha_spaces',
+		array(
+			'required' => 'Body Color is required',
+			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+			)
+		);
+
+
+		$this->form_validation->set_rules('category', 'Category', 'trim|required|min_length[5]|max_length[12]', array("required" => "{field} is required"));
+
+		if($category === "birth"){
 			
-			);
+			self::validate_birth_info();
+
+		}elseif ($category === "purchase") {
+
+			self::validate_purchase_info();
 
 		}
 
+
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
+
+		$category = $this->input->post("category", TRUE);
+		$ref_id = $this->input->post("ref_id", TRUE);
+
+		if($this->form_validation->run() == FALSE){
+
+			self::view_goat_record($category,$ref_id);
+
+		} else {
+
+			if($this->Goat_model->edit_goat($ref_id)){
+
+				$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-check-circle"></span>
+							<strong>Successfully</strong>&emsp; modifying Goat Profile. <a href="'.base_url().'manage/goat" class="nav-link">View Records</a></p>
+						</div>
+					</div>');
+				
+
+			} else {
+
+				$this->session->set_flashdata('goat', '<div class="alert alert-danger col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-exclamation-circle"></span>
+							<strong>Failed</strong>&emsp;Error: Cannot Update Goat Profile.</p>
+						</div>
+					</div>');
+
+			}
+
+			redirect(base_url(). "manage/goat");
+
+		}
+
+	}
+
+	public function validate_goat_info($category, $action = "default") {
+		#*
+		//echo "<h1>{$category}</h1>";
+		
 		$this->form_validation->set_rules('eartag_id','Tag ID',
-		'required|integer|xss_clean|trim|is_unique[goat_profile.eartag_id]|greater_than[0]',
-		array(
-			'required' => '{field} is required',
-			'integer' => '{field} must contain an integer',
-			'is_unique' => '{field} is already existed',
-			"greater_than"	=> "{field} must be greater than zero",			
+			'required|integer|xss_clean|trim|is_unique[goat_profile.eartag_id]|greater_than[0]',
+			array(
+				'required' => '{field} is required',
+				'integer' => '{field} must contain an integer',
+				'is_unique' => '{field} is already existed',
+				"greater_than"	=> "{field} must be greater than zero",			
 			)
 		);
 
@@ -255,14 +343,15 @@ Add Goat Record
 
 		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
 
-		if($this->form_validation->run() === FALSE){
+		if($this->form_validation->run() == FALSE){
+			
 			self::add_goats();
+			
 		}else{
-			if($action == "default"){
-				//echo "<h1>Create</h1>";
-				if($this->Goat_model->add_goat($category) > 0){
+;
+			if($this->Goat_model->add_goat($category) > 0){
 
-					$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
+				$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
 												
 						<div class="row">
@@ -271,9 +360,9 @@ Add Goat Record
 						</div>
 					</div>');
 
-				}else{
+			}else{
 
-					$this->session->set_flashdata('goat', '<div class="alert alert-danger col-12" role="alert" style="height: 50px;">
+				$this->session->set_flashdata('goat', '<div class="alert alert-danger col-12" role="alert" style="height: 50px;">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
 												
 						<div class="row">
@@ -282,33 +371,6 @@ Add Goat Record
 						</div>
 					</div>');
 
-				}
-
-			}else {
-
-				if($this->Goat_model->edit_goat($ref_id)){
-
-					$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-												
-						<div class="row">
-							<p><span class="fa fa-check-circle"></span>
-							<strong>Success</strong>&emsp;Goat Profile with Eartag ID of '.$id.' Updated successfully. <a href="'.base_url().'manage/goat" class="nav-link">View Records</a></p>
-						</div>
-					</div>');
-
-				}else{
-
-					$this->session->set_flashdata('goat', '<div class="alert alert-danger col-12" role="alert" style="height: 50px;">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-												
-						<div class="row">
-							<p><span class="fa fa-exclamation-circle"></span>
-							<strong>Failed</strong>&emsp;Error: Cannot Update Goat Profile.</p>
-						</div>
-					</div>');
-
-				}
 			}
 
 			redirect(base_url(). "manage/goat");

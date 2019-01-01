@@ -59,8 +59,9 @@
 $server_ip = getHostByName(getHostName());
 
 //localhost, home network, ateneo ip address
-if (preg_match("/^(127\.0\.|10\.0\.|192\.168\.|172\.16).+/i", $server_ip)) {
 
+if (preg_match("/^(127\.0\.|10\.0\.|192\.168\.|172\.16|169\.254).+/i", $server_ip)) {
+	
     define("ENVIRONMENT", "development");
     define("BASEURL", "");
 

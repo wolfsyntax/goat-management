@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="<?= base_url()?>public/css/app.css" >
 
 	<style>
+
 		h1, h2, h3, h4, h5, h6, div, p{
 			font-family: 'Ubuntu', sans-serif;
 		}
@@ -22,11 +23,11 @@
 	</style>
 </head>
 <body id="back2top" >
-
+	
 	<?php if($this->config->item('base_timestamp') <= time()) { ?>
 		<main role="main">
 			<!--i class="fa fa-spinner fa-pulse"></i-->
-			<a style="float: right" class="nav-link" id = "back2top-btn" onclick="scrollTops();"><i class="fa fa-angle-up fa-lg text-danger font-weight-bold"></i></a>
+			<a style="float: right" class="nav-link" id = "back2top-btn" onclick="scrollTops(); alert('hello');"><i class="fa fa-angle-up fa-lg text-danger font-weight-bold"></i></a>
 
 			<?php $this->load->view($body); ?>
 		</main>
@@ -56,7 +57,12 @@
 
 	<script type="text/javascript">
 
-		
+	/**
+		Verification code: <code>
+		Dear <first name>, use this code to complete your My Sun registration.
+
+		Note: This verification code is valid for only 48 hours. If you did not sign-up for a My Sun account, or believe that you received this in error, please ignore this SMS. 
+	**/	
 
 	/**
  	* Back to Top
@@ -104,6 +110,8 @@
 			
 			var x = this.value;
 			
+			alert("X: "+x);
+
   			if(x != "" ){
 
   				$("#btn-submit").attr("disabled",false);
@@ -169,7 +177,7 @@
 	
 
   			$("#goat_form").attr("action",cur_url);
-  			alert("Action: " + x);
+  			//alert("Action: " + x);
 
 		}else if($("#cat_info").val() != "birth" || $("#cat_info").val() != "purchase"){
 
@@ -180,62 +188,17 @@
 		}
 
 
-
-		$('#mcat_info').on('change', function() {
-			
-			var x = this.value;
-			
-  			if(x != "" ){
-
-  				//goat/(:any)/(:any)/edit
-  				
-  				$("#btn-msubmit").attr("disabled",false);
-
-  				cur_url = base_url + "manage/" + x + "/edit";				
-				
-				if(x == "purchase"){
-					
-					$(".mbirth-elem").hide();
-					$(".mpurchase-elem").show();
-
-				}else if(x == "birth"){
-
-					$(".mpurchase-elem").hide();
-					$(".mbirth-elem").show();				
-
-				}else {
-
-					$(".mpurchase-elem").hide();
-					$(".mbirth-elem").hide();
-
-					cur_url = base_url+"manage/goat";	
-
-				}
-
-				
-
-  				$("#mgoat_form").attr("action",cur_url);
-
-  			}else{
-  				
-  				$('.mbirth-elem').hide(); 
-				$('.mpurchase-elem').hide();
-
-  				$("#btn-msubmit").attr("disabled",true);
-  			}
-
-		});	 //#mcat_info	
-
-		if($("#mcat_info").val() == "birth" || $("#mcat_info").val() == "purchase"){
+/*		if($("#mcat_info").val() == "birth" || $("#mcat_info").val() == "purchase"){
 
 			$("#btn-msubmit").attr("disabled",false);
 			var x = $("#mcat_info").val();
 
-			cur_url = base_url + "manage/" + x + "/edit";				
+//			cur_url = base_url + "manage/" + x + "/edit";				
 			
 
 			if(x == "purchase"){
-				//alert(":-"+x);		
+				//alert("x: " + x);
+
 				$(".mbirth-elem").hide();
 				$(".mpurchase-elem").show();
 
@@ -243,11 +206,11 @@
 				//alert(":+"+x);
 				$(".mpurchase-elem").hide();
 				$(".mbirth-elem").show();				
-
+				alert("X: "+x);
 			}
 	
 
-  			$("#mgoat_form").attr("action",cur_url);
+//  	$("#mgoat_form").attr("action",cur_url);
 
 		}else if($("#mcat_info").val() != "birth" || $("#mcat_info").val() != "purchase"){
 
@@ -256,6 +219,7 @@
 			$('.mpurchase-elem').hide();
 
 		}
+*/
 
 		//Disable is_castrated on load
 		if($("#gender").val() == ""){
@@ -274,9 +238,10 @@
 			
 			$('#goat_records').DataTable();
 
-	  		$('#dam_id_select').editableSelect();
+	  		$("#dam_id_select").editableSelect();
 
-	  		$('#sire_id_select').editableSelect();
+	  		$("#sire_id_select").editableSelect();
+	  		$("#s_id_select").editableSelect();
 
 			$('#body_color_select').editableSelect();
 

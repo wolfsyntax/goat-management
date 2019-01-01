@@ -65,7 +65,7 @@ $route["logout"] 								= "session_controller";
 
 //User Account: New
 $route["register"]["GET"] 						= "user_controller/register";
-$route["verify/signup"]["POST"] 				= "user_controller/validate_registration";
+$route["register"]["POST"] 				= "user_controller/validate_registration";
 
 $route["activity"]["GET"]						= "auth_controller";
 
@@ -81,18 +81,18 @@ $route["goat/new"]['GET']						= "goat_management/add_goats";
 
 //validate goat profile: add
 $route["goat/r/(:any)"]['POST']					= "goat_management/validate_goat_info/$1";
-$route["goat/(:any)/(:any)/(:num)"]['POST']		= "goat_management/validate_goat_info/$1/$2/$3"; 
+//$route["goat/(:any)/(:any)/(:num)"]['POST']		= "goat_management/validate_goat_info/$1/$2"; 
 
 //view specific goat profile
-$route["manage/(:any)/(:num)/view"]['GET']		= "goat_management/manage_view/$1/$2";			
+$route["manage/(:num)/view"]['GET']				= "goat_management/manage_view/$1";			
 
 #goat/<category here>/<action>
 
 //display edit form for goat record: record_id, eartag_id
 $route["manage/(:any)/(:num)/edit"]['GET']		= "goat_management/view_goat_record/$1/$2";
 
-//validate purchase edit request
-$route["manage/(:any)/(:num)/edit"]['POST']		= "goat_management/view_goat_record/$1/$2";
+//validate edit request
+$route["manage/edit"]['POST']					= "goat_management/validate_mod_info";
 
 //$route["manage/(:any)"]['POST']					= "goat_management/validate_goat_info/$1/$2";
 

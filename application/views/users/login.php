@@ -1,5 +1,5 @@
 
-<div class="container-fluid" style="height: 100vh !important;">
+<div class="container-fluid" style="height: 100vh !important; ">
 	<div class="row">
 		<div class="col-12 col-md-3 col-lg-4 d-none d-sm-none d-md-block" style="">&emsp;</div>
 		<div class="col-12 col-md-6 col-lg-4 px-0" style="">

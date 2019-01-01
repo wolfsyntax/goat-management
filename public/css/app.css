@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&subset=cyrillic');
-@import url('styles.css');
+@import url('ui-styles.css');
 
 @import url('tree.css');
 
@@ -15,7 +15,7 @@
 
 @import url('bootstrap.min.css');
 /*@import url('https://fonts.googleapis.com/css?family=Ubuntu');*/
-@import url('styles.css');
+@import url('ui-styles.css');
 
 @import url('../../assets/css/jquery-editable-select.min.css');
 @import url('../../assets/css/dataTables.bootstrap4.min.css');
@@ -47,17 +47,48 @@
 **/
 
 @media screen and (min-width: 600px) {
-
-	li:focus a.dropdown-x:target {
-		border-left: 6px solid transparent;
-		border-right: 6px solid transparent;
-		border-bottom: 6px solid #fff;
-		position:absolute;
-		transition: all 0s 9999999s;
+	.dropdown-menu:link::before{ 
+		display: none !important;
 	}
 
+	.dropdown-menu:link::after {
+		display: inline-block !important;
+	    -webkit-transition: all 500ms ease-in-out;
+	    -moz-transition: all 500ms ease-in-out;
+	    -ms-transition: all 500ms ease-in-out;
+	    -o-transition: all 500ms ease-in-out;
+	    transition: all 500ms ease-in-out;
 
-	li:active a.dropdown-x:after {
+	}
+	.dropdown-x::before {
+		
+		display: none;
+		
+	}
+
+	.dropdown-x:focus::after {
+		
+		content: '';
+		position: absolute;
+		left: 45%;
+		top: 40px;
+		width: 0;
+		height: 0;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+		border-bottom: 8px solid #fff;
+		content: '';
+	    -webkit-transition: all 500ms ease-in-out;
+	    -moz-transition: all 500ms ease-in-out;
+	    -ms-transition: all 500ms ease-in-out;
+	    -o-transition: all 500ms ease-in-out;
+	    transition: all 500ms ease-in-out;
+
+
+	}	
+
+/*	
+	li a.dropdown-x:focus-within::after {
 		content:"";
 		height:0;
 		width:0;
@@ -71,12 +102,16 @@
 		margin:0 0 0 -3px;
 		z-index:100;
 
-		transition: all 0s;
+	    -webkit-transition: all 500ms ease-in-out;
+	    -moz-transition: all 500ms ease-in-out;
+	    -ms-transition: all 500ms ease-in-out;
+	    -o-transition: all 500ms ease-in-out;
+	    transition: all 500ms ease-in-out;
 		display: block;	
 	}
-
+*/
 	.dropdown-menu.dropdown-menu-x {
-		top: 53px !important;
+		top: 50px !important;
 	}
 }
 
@@ -84,8 +119,12 @@
 
 .form-control-x{
 	
-	box-shadow: none !important;	
+	box-shadow:  none !important;	
 	-webkit-box-shadow: none !important;
+	background-color: #dcdcdc !important;
+	border-radius: 0.5rem !important;
+	padding: 1rem !important;
+	color: #000 !important;
 
 }
 

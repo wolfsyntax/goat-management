@@ -8,14 +8,17 @@
 				<div class="card-body p-2">
 					<?php foreach($goat_record as $row) { ?>
 						
-					<?= form_open(base_url()."goat/{$row->category}/edit/{$row->ref_id}", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
+					<?= form_open(base_url()."manage/edit", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
 						
-						
+					<div class="form-row p-1">
+						<input type="hidden" name="ref_id" id="ref_id" value="<?= $row->ref_id ?>">
+					</div>
+
 					<div class="form-row p-1">
 						<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
 		
 						<div class="col-8 col-sm-8 col-md-4">
-							<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id') ? set_value('eartag_id') : $row->eartag_id; ?>" readonly/>
+							<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id') ? set_value('eartag_id') : $row->eartag_id; ?>" readonly="" />
 			
 							<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
 						</div>
@@ -109,24 +112,15 @@
 	
 					<fieldset >
 						<div class="form-row p-1 pt-3 ">
-							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Category <span class="text-danger">*</span></label>
-							<!--select name="category" id="mcat_info" class="col form-control" onchange="show_form(this);">
-								<option value="">-- Select Category --</option>
-								<?php if(set_value("category") == "birth" || $row->category == "birth") {?>
-									<option value="birth" selected>Birth</option>
-									<option value="purchase">Purchase</option>
-								<?php } elseif(set_value("category") == "purchase" || $row->category == "purchase") {?>
-									<option value="birth">Birth</option>
-									<option value="purchase" selected>Purchase</option>
-								<?php } else {?>
-									<option value="birth">Birth</option>
-									<option value="purchase">Purchase</option>
-								<?php }?>
-							</select-->
+							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">
+								Category 
+								<span class="text-danger">*</span>
+							</label>
 
 							<input type="text" name="category" id="mcat_info" class="col form-control" readonly="" value="<?= $row->category; ?>">
 
 						</div>
+						<?php if($row->category === "birth") { ?>
 						<div class="form-row p-1 mbirth-elem">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
 							
@@ -153,19 +147,21 @@
 
 						<div class="form-row p-1 mbirth-elem">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Sire ID <span class="text-danger">*</span></label>
-						
+							
 							<div class="col">
-								<select name="sire_id" id="sire_id_select" class="form-control" placeholder="- Enter Sire ID -" value="<?= set_value('sire_id') ? set_value('sire_id') : $row->sire_id;?>">
+								<select name="sire_id" id="s_id_select" class="form-control" placeholder="- Enter Sire ID -" value="<?= set_value('sire_id') ? set_value('sire_id') : $sire_id; ?>" >
 
 								<?php foreach($sire_record as $row){ ?>
 									<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
-								<?php } ?>                                	
+								<?php } ?>           
 								</select>
 								
 								<?= (form_error('sire_id')	!= "" ? form_error('sire_id') : ''); ?>	
+
 							</div>
 						</div>
 
+						<?php } else { ?>
 				<!-- Purchase  -->
 
 						<div class="form-row p-1 mpurchase-elem">
@@ -209,7 +205,7 @@
 								<?= (form_error('purchase_price')	!= "" ? form_error('purchase_price') : ''); ?>		
 							</div>
 						</div>
-
+						<?php }?>
 					</fieldset>
 
 					<!--div class="form-row p-1">

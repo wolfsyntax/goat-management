@@ -236,7 +236,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.record_id = {$ref_id} AND gp.category = '{$category}'";
 			
-			$query = $this->db->query($sql);			
+			$query = $this->db->query($sql);
+						
 			return $query->result();
 
 		}
@@ -264,10 +265,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function edit_goat($ref_id) {
 
-			$category = $this->input->post("category", TRUE);
-			$eartag_id = $this->input->post("eartag_id", TRUE);
+			$category 	= $this->input->post("category", TRUE);
+			$eartag_id 	= $this->input->post("eartag_id", TRUE);
+			
+			$table_name = $category . "_record";
+			$where 		= $category."_id";
 
-			$data = array(
+			if($category === "birth"){
+				
+				$data = array(
+					"birth_date"		=> $this->input->post("birth_date", TRUE),
+					"dam_id"			=> $this->input->post("dam_id", TRUE),
+					"sire_id"			=> $this->input->post("sire_id", TRUE),
+				);
+
+			}else{
+				
+				$data = array(
+					"purchase_date"		=> $this->input->post("purchase_date", TRUE),
+					"purchase_from"		=> $this->input->post("purchase_from", TRUE),
+					"purchase_weight"	=> $this->input->post("purchase_weight", TRUE),
+					"purchase_price"	=> $this->input->post("purchase_price", TRUE),
+				);
+
+			}
+
+			if(self::edit_record($table_name, $data, $where, $ref_id)){
+				//self::edit_record("goat_profile", $data, "eartag_id", $eartag_id)
+				$gender = $this->input->post("gender", TRUE);
+
+				$data = array(
+					"eartag_id" 		=> $eartag_id,
+					"eartag_color" 		=> $this->input->post("eartag_color", TRUE),
+					"gender"			=> $gender,
+					"is_castrated"		=> $gender === "female" ? "N/A" : ($this->input->post('is_castrated',TRUE) ? "Yes" : "No"),
+					"body_color"		=> $this->input->post("body_color", TRUE),
+
+				);	
+
+				if(self::edit_record("goat_profile", $data, "eartag_id", $eartag_id)){
+				
+					return TRUE;
+				
+				}else{
+
+					return FALSE;
+				
+				}
+
+			}
+			
+/*			$data = array(
 				"eartag_id" 		=> $eartag_id,
 				"eartag_color" 		=> $this->input->post("eartag_color", TRUE),
 				"gender"			=> $this->input->post("gender", TRUE),
@@ -277,15 +325,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if(self::edit_record("goat_profile", $data, "eartag_id", $eartag_id)){
 				$table_name = $category . "_record";
 
-			//	if($category == "birth"){
 
-			//		$data = array(
-			//			""		=> ""
-			//		);
+				if($category == "birth"){
 
-			//	}
+					$data = array('' => , );
+			
+				} else {
+
+
+
+				}
 
 			}
+*/			
 		}
 
 		//create
