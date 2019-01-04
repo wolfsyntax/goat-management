@@ -1,9 +1,11 @@
 <div class="container-fluid p-0">
-	<div class="row">
-		&emsp;		
+	<div class="row" >
+		<div class="col-12">
+			<?= $this->session->flashdata('profile') ? $this->session->flashdata('profile') : '' ?>
+		</div>
 	</div>
 
-	<div class="row" style="margin-top: 100px;">
+	<div class="row" >
 		<div class="col-12 col-sm-12 col-md-8 p-2">
 			<section class="p-2 ml-2">
 				<div class="card">

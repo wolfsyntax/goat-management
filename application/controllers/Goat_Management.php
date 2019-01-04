@@ -1,5 +1,7 @@
 <?php defined ( "BASEPATH" ) or exit ( "No direct script access allowed" );
 
+#use Carbon\Carbon;
+
 class Goat_Management extends CI_Controller {
 
 	/**
@@ -45,7 +47,7 @@ Goat Records View
 		$data["footer"]			= "2";
 		$data["header"]			= "1";
 		$data["goat_record"]	= $this->Goat_model->show_goat_record();
-		
+		$data["manage_goat"]	= $this->Goat_model->show_record("goat_profile","status != 'sold'");
 		$this->load->view("layouts/application",$data);
 
   	}
@@ -179,9 +181,9 @@ Add Goat Record
 		$data["footer"]	= "2";
 		$data["header"]	= "1";
 
-		$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active'");
+		$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active' AND eartag_id != {$record_id}");
 		
-		$data['sire_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'");
+		$data['sire_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active' AND eartag_id != {$record_id}");
 
 		#*
 		//get_goat_info($category = "birth", $eartag_id)
@@ -429,18 +431,33 @@ Goat Sales
 
 	}
 
-	public function validate_transaction(){
+	public function modify_sales_info($sales_id){
+		
+		$data["body"] 	= "financials/edit_form";
+		$data["title"]	= "Modify Sales Record";
+		$data["footer"]	= "2";
+		$data["header"]	= "1";
+		
+		if($sales_id >= 1){
+			
+			$data['goat_record'] = $this->Goat_model->show_sales($sales_id);
+
+			$this->load->view("layouts/application",$data);
+
+		}else {
+			show_404();
+		}
+
+	}
+
+
+	public function transaction_validation(){
 		
 		if($this->session->userdata("username") != ""){
 
-			$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]|callback_validate_eartag",
-				array(
-					"required" => "{field} is required",
-					"numeric" => "Not a valid {field} provided. Only digits are allowed",
-					"is_exist" => "{field} is not existing",
-					"greater_than"	=> "{field} is not valid",			
-				)
-			);
+			/**
+			**	Todo: add new validation rules for checking if it is not already sold
+			**/
 
 			$this->form_validation->set_rules("transact_date","Date sold","required|xss_clean|trim|check_date",
 				array(
@@ -470,46 +487,109 @@ Goat Sales
 			);
 
 
-			$this->form_validation->set_rules("remarks","Notes","xss_clean|trim");			
-
-			
+			$this->form_validation->set_rules("remarks","Notes","xss_clean|trim");						
 			$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
 
+		} else {
 
-			if($this->form_validation->run() === FALSE){
+			show_404();
 
-				self::sell_goats();
+		}
 
-			}else{
+	}
 
-				if($this->Goat_model->goat_sales()){
-					
-					$this->session->set_flashdata("goat", "<div class='alert alert-success col-12' role='alert' style='height: 50px;'>
-							<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
-										
+
+	public function validate_modify_transaction($sales_id){
+
+		$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]",
+			array(
+				"required" => "{field} is required",
+				"numeric" => "Not a valid {field} provided. Only digits are allowed",
+				"is_exist" => "{field} is not existing",
+				"greater_than"	=> "{field} is not valid",			
+			)
+		);
+
+		self::transaction_validation();
+
+		if($this->form_validation->run() === TRUE){
+
+			if($this->Goat_model->edit_sales($sales_id)){
+
+				$this->session->set_flashdata("goat", "<div class='alert alert-success col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+						<div class='row p-2'>
+							<p>&emsp;<span class='fa fa-check-circle'></span>
+							<strong>Success</strong>&emsp;Modifying Sales record.&nbsp;<a href='".base_url()."goat/sales'>View Sales</a></p>
+						</div>
+					</div>");
+
+			} else {
+
+				$this->session->set_flashdata("goat", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
 							<div class='row'>
-								<p><span class='fa fa-check-circle'></span>
-								<strong>Success</strong>&emsp;Sales record added.</p>
+								<p>&emsp;<span class='fa fa-exclamation-circle-circle'></span>
+								<strong>Failed</strong>&emsp;Modifying Sales Record.</p>
 							</div>
 						</div>");
 
-					
+			}
+			
+	
+		} 
 
-				}else{
+		self::modify_sales_info($sales_id);
+				
+	}
 
-					$this->session->set_flashdata("goat", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
-							<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
-										
+	public function validate_transaction(){
+
+		$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]|is_active[goat_profile.eartag_id]",
+			array(
+				"required" 		=> "{field} is required",
+				"numeric" 		=> "Not a valid {field} provided. Only digits are allowed",
+				"is_exist" 		=> "{field} is not existing",
+				"greater_than"	=> "{field} is not valid",
+				"is_active"		=> "{field} is not available to be sold."		
+			)
+		);
+		
+		self::transaction_validation();
+
+		if($this->form_validation->run() === FALSE){
+
+			self::sell_goats();
+
+		}else{
+
+			if($this->Goat_model->goat_sales()){
+						
+				$this->session->set_flashdata("goat", "<div class='alert alert-success col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+						<div class='row p-2'>
+							<p><span class='fa fa-check-circle'></span>
+							<strong>Success</strong>&emsp;Sales record added.&nbsp;<a href='".base_url()."goat/sales'>View Sales</a></p>
+						</div>
+					</div>");
+
+			}else{
+
+				$this->session->set_flashdata("goat", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
 							<div class='row'>
 								<p><span class='fa fa-check-circle'></span>
 								<strong>Failed</strong>&emsp;Sales Record not added.</p>
 							</div>
 						</div>");
-				}
-
-				self::sell_goats();
-
 			}
+
+			self::sell_goats();
+
 		}
 
 	}
@@ -562,6 +642,14 @@ Add Goat Record
 Activity Module: Create
 -------------------------------------------------------------------------------------------
 **/
+
+	public function remove_sales($sales_id){
+		
+		if($this->Goat_model->remove_sales($sales_id)){
+			redirect(base_url("goat/sales"));
+		}
+
+	}
 
 	public function activity_module($activity_type){
 

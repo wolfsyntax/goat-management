@@ -8,9 +8,10 @@
 	<title ><?= $title; ?>&nbsp;&mdash;&nbsp;Goats Organize Application Tracking System</title>
 
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scallable=0, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatible" content="IE-edge,chrome">
 	<meta http-equiv="refresh" content="1800">
+	<meta http-equiv="cache-controle" content="no-cache, no-store, must-revalidate">
 
 	<link rel="stylesheet" href="<?= base_url()?>public/css/app.css" >
 
@@ -110,8 +111,6 @@
 			
 			var x = this.value;
 			
-			alert("X: "+x);
-
   			if(x != "" ){
 
   				$("#btn-submit").attr("disabled",false);
@@ -235,8 +234,10 @@
 
 		$(document).ready(function(){
 
-			
-			$('#goat_records').DataTable();
+			$("#gp_record").DataTable();
+
+			$("#gs_record").DataTable();
+
 
 	  		$("#dam_id_select").editableSelect();
 
@@ -273,7 +274,7 @@
 			});
 
 // Table Link
-/*
+
 			$("a.btn-goat").each(function(){
 				
 	  			var self = $(this);
@@ -282,11 +283,10 @@
 	  			self.attr("href","javascript:void(0);");
 
 	  			self.click(function(){
-	  				
 	  				window.location.assign(href);
 	  			});
 			});
-*/
+
 /*
 	  		$("#sidebar > li div.collapse a.nav-link").each(function(){
 	  			var self = $(this);
@@ -360,7 +360,29 @@
   			//$("#ui_view").prop("src",x_agent);
 
   		}
+  
 
+		$("a.btn-goat-rm").each(function(){
+				
+	  		var self = $(this);
+	  		var href = self.attr("href");
+
+	  		self.attr("href","javascript:void(0);");
+
+	  		self.click(function(){
+
+	  			if(confirm("Are you sure you want to delete this transaction?")){
+
+	  				window.location.assign(href);
+	  			
+	  			}else{
+	  			
+	  				return false;
+	  			
+	  			}
+
+	  		});
+		});
 
 	</script>
 

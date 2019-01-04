@@ -43,8 +43,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
 				$data = array(
 
-					"checkup_type" 	=> $checkup_type,
-					"prescription"	=> $this->input->post("prescription", TRUE),
+					"checkup_type" 	=> strtolower($checkup_type),
+					"prescription"	=> strtolower($this->input->post("prescription", TRUE)),
 					"quantity"		=> $this->input->post("quantity", TRUE),
 					"activity_id"	=> $act_id,
 
@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$act_id = self::activity_record("Loss");
 
 				$data = array(
-					"cause"			=> $this->input->post("cause", TRUE),
+					"cause"			=> strtolower($this->input->post("cause", TRUE)),
 					"activity_id"	=> $act_id,
 				);
 
@@ -80,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					"user_id"		=> $this->session->userdata("user_id"),
 					"date_perform"	=> $this->input->post("perform_date", TRUE),
-					"activity_type"	=> $activity_type,
+					"activity_type"	=> strtolower($activity_type),
 					"eartag_id"		=> $this->eartag_id,
 					"remarks"		=> $this->input->post("remarks", TRUE),
 
@@ -104,11 +104,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$data = array(
 
 					"eartag_id"		=> $eartag_id,
-					"eartag_color"	=> $this->input->post("eartag_color", TRUE),
-					"gender"		=> $gender,
-					"body_color"	=> $this->input->post("body_color", TRUE),
+					"eartag_color"	=> strtolower($this->input->post("eartag_color", TRUE)),
+					"gender"		=> strtolower($gender),
+					"body_color"	=> strtolower($this->input->post("body_color", TRUE)),
 					"is_castrated"	=> $gender === "female" ? "N/A" : ($this->input->post('is_castrated',TRUE) ? "Yes" : "No"),
-					"category"		=> $category,
+					"category"		=> strtolower($category),
 				);
 
 				$table_name = "goat_profile";
@@ -140,7 +140,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						"purchase_weight"	=> $this->input->post("purchase_weight", TRUE),
 						"purchase_price"	=> $this->input->post("purchase_price", TRUE),
 						"purchase_date"		=> $this->input->post("purchase_date", TRUE),
-						"purchase_from"		=> $this->input->post("purchase_from", TRUE),
+						"purchase_from"		=> strtolower($this->input->post("purchase_from", TRUE)),
 						"user_id"			=> $this->session->userdata("user_id"),
 
 					);
@@ -175,8 +175,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					"price_per_kilo"	=> $this->input->post("price_per_kilo", TRUE),
 					"weight"			=> $this->input->post("weight", TRUE),
 					"transact_date"		=> $this->input->post("transact_date", TRUE),
-					"sold_to"			=> $this->input->post("sold_to", TRUE),
-					"remarks"			=> $remarks ? $remarks : "N/A",
+					"sold_to"			=> strtolower($this->input->post("sold_to", TRUE)),
+					"remarks"			=> strtolower($remarks ? $remarks : "N/A"),
 					"eartag_id"			=> $eartag_id,
 
 				);
@@ -242,9 +242,68 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function edit_sales($sales_id){
+			
+			$where = "sales_id";
+			
+			$flag = FALSE;
+
+			if(!empty($_POST)){
+				
+				$eartag_id = $this->input->post("eartag_id", TRUE);
+				$remarks = $this->input->post("remarks", TRUE);
+
+				$data = array(
+
+					"user_id"			=> $this->session->userdata("user_id"),
+					"price_per_kilo"	=> $this->input->post("price_per_kilo", TRUE),
+					"weight"			=> $this->input->post("weight", TRUE),
+					"transact_date"		=> $this->input->post("transact_date", TRUE),
+					"sold_to"			=> strtolower($this->input->post("sold_to", TRUE)),
+					"remarks"			=> strtolower($remarks ? $remarks : "N/A"),
+					"eartag_id"			=> $eartag_id,
+
+				);
+
+				if(self::edit_record("goat_sales", $data, $where, $sales_id)){
+					$flag = TRUE;
+				}
+			}
+
+			return $flag;	
+
+		}
+		
 	/*
 	*	C.R.U.D
 	*/	
+
+		public function remove_sales($sales_id){
+			
+			$sql = self::show_record("goat_sales", "sales_id = {$sales_id}", "eartag_id");
+			
+			if($sql){
+
+				foreach($sql as $row){
+					$eartag_id = $row->eartag_id;
+				}	
+
+			}
+
+			if(self::delete_record("goat_sales", "sales_id = {$sales_id}")){
+				$data = array(
+					"status" => "active",
+				);
+
+				return self::edit_record("goat_profile", $data, "eartag_id", $eartag_id);
+					
+			}else{
+			
+				return false;
+			
+			}
+
+		}
 
 		//retrieve
 		public function show_record($table_name, $where = "", $field = ""){
@@ -296,10 +355,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				$data = array(
 					"eartag_id" 		=> $eartag_id,
-					"eartag_color" 		=> $this->input->post("eartag_color", TRUE),
-					"gender"			=> $gender,
+					"eartag_color" 		=> strtolower($this->input->post("eartag_color", TRUE)),
+					"gender"			=> strtolower($gender),
 					"is_castrated"		=> $gender === "female" ? "N/A" : ($this->input->post('is_castrated',TRUE) ? "Yes" : "No"),
-					"body_color"		=> $this->input->post("body_color", TRUE),
+					"body_color"		=> strtolower($this->input->post("body_color", TRUE)),
 
 				);	
 

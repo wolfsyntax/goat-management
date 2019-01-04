@@ -53,8 +53,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 						$this->session->set_userdata('username',$row->username);
 						$this->session->set_userdata('user_id',$row->user_id);
-						$this->session->set_userdata('user_fname',$row->first_name);
-						$this->session->set_userdata('user_lname',$row->last_name);
+						$this->session->set_userdata('user_fname',ucfirst($row->first_name));
+						$this->session->set_userdata('user_lname',ucfirst($row->last_name));
 						$this->session->set_userdata('user_phone',$row->phone_number);
 						$this->session->set_userdata('user_type',$row->account_type);
 
@@ -87,8 +87,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				$data = array(
 
-					'first_name'	=>	$this->input->post('first_name', TRUE),
-					'last_name'		=>	$this->input->post('last_name', TRUE),
+					'first_name'	=>	strtolower($this->input->post('first_name', TRUE)),
+					'last_name'		=>	strtolower($this->input->post('last_name', TRUE)),
 					'username'		=>	$this->input->post('username', TRUE),
 					'password'		=>	hash('sha256',$this->config->item('salt').$this->input->post('passwd', TRUE)),
 					'phone_number'	=>	$this->input->post('phone',TRUE),
@@ -129,13 +129,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				if($option == 0){
 					
-					$first_name = $this->input->post('first_name', TRUE);
-					$last_name = $this->input->post('last_name', TRUE);
-					$phone = $this->input->post('phone',TRUE);
+					$first_name = strtolower($this->input->post('first_name', TRUE));
+					$last_name 	= strtolower($this->input->post('last_name', TRUE));
+					$phone 		= $this->input->post('phone',TRUE);
 
 					$data = array(
 
-						'first_name'		=>	$first_name,
+						'first_name'	=>	$first_name,
 						'last_name'		=>	$last_name,
 						'Phone'			=>	$phone,
 

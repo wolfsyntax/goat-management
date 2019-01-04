@@ -8,7 +8,7 @@
 								<h3 class="" style="margin-top: 10px;">Add Goat Sales</h3>
 							</div>
 							<div class="col text-center">
-								<a href="<?= $this->agent->referrer(); ?>" class="nav-link text-dark" title="View Sales Record"><span class="fa fa-list-alt fa-lg d-inline-block"></span>
+								<a href="<?= base_url()?>goat/sales" class="nav-link text-dark" title="View Sales Record"><span class="fa fa-list-alt fa-lg d-inline-block"></span>
 								</a>
 							</div>
 						</div>

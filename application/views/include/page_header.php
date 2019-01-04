@@ -17,7 +17,7 @@
   <div class="container-fluid">
     <div class="row" style="margin-top: -5px;">
       
-      <div class="col-2 col-md-1 text-center p-2 text-white font-weight-bold" id="clocks">
+      <div class="col-2 col-md-1 text-center text-white font-weight-bold" id="clocks" style="  padding: 0.7rem !important;">
         &emsp;
       </div>
       <div class="col bg-dark py-1 pr-2">
@@ -37,8 +37,12 @@
       
       m = checkTime(m);
       s = checkTime(s);
-
-      document.getElementById('clocks').innerHTML = h + ":" + m + ":" + s;
+      ap = " AM";
+      if(h > 12){
+        ap = " PM";
+        h = h - 12;
+      }
+      document.getElementById('clocks').innerHTML = h + ":" + m + ":" + s + ap;
       
       var t = setTimeout(startTime, 500);
 

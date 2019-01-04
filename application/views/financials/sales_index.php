@@ -15,7 +15,7 @@
 	<div class="row mt-0">
 		<div class="col">
 			<div class="jumbotron bg-light">
-				<table id="goat_records"  class="table table-striped table-bordered" style="width:100% ">
+				<table id="gs_record"  class="table table-striped table-bordered" style="width:100% ">
 				    <thead>
 				      <tr>
 				        <th>Eartag ID</th>
@@ -32,17 +32,21 @@
 						<?php 
 							if($goat_record){
 							foreach($goat_record->result() as $row){?>
-						<tr>
+						<tr title="Sold <?= Carbon\Carbon::parse($row->transact_date)->diffForHumans() ." to ". $row->sold_to ?>">
 				        	<td><?= $row->eartag_id; ?></td>
 				        	<td><?= $row->transact_date; ?></td>
 				       	 	<td><?= $row->username;?></td>
 				        	<td><?= $row->price_per_kilo; ?></td>
 				        	<td><?= $row->weight; ?></td>
-				        	<td><?= $row->sold_to; ?></td>
+				        	<td><?= ucfirst($row->sold_to); ?></td>
 				        	<td>
 				        		<div class="btn-group p-0">
-				        			<a href="" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil"></i></a>
-				        			<a href="<?= base_url("sales/{$row->sales_id}/view"); ?>" class="btn btn-info btn-sm" title="View"><i class="fa fa-eye"></i></a>
+				        			
+				        			<a href="<?= base_url("sales/{$row->sales_id}/edit"); ?>" class="btn btn-primary btn-sm btn-goat" title="Edit"><i class="fa fa-pencil"></i></a>
+
+				        			<a href="<?= base_url("sales/{$row->sales_id}/view"); ?>" class="btn btn-info btn-sm btn-goat" title="View"><i class="fa fa-eye"></i></a>
+
+				        			<a href="<?= base_url("sales/{$row->sales_id}/remove"); ?>" class="btn btn-danger btn-sm btn-goat-rm" title="Delete"><i class="fa fa-trash"></i></a>				        			
 					        	</div>
 					        </td>
 				      	</tr>
