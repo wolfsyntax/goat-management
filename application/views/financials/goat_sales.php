@@ -1,5 +1,5 @@
-<div class="container-fluid" style="margin-top: 80px;">
-	<div class="row">
+<div class="container-fluid" style="margin-top: 30px; margin-bottom: 180px;">
+	<div class="row mb-5">
 		<div class="col">
 			<div class="card">
 					<div class="card-header">

@@ -18,15 +18,20 @@ use InvalidArgumentException;
  * Trait Rounding.
  *
  * Round, ceil, floor units.
+ *
+ * Depends on the following methods:
+ *
+ * @method CarbonInterface copy()
+ * @method CarbonInterface startOfWeek()
  */
 trait Rounding
 {
     /**
      * Round the current instance at the given unit with given precision if specified and the given function.
      *
-     * @param string $unit
-     * @param float  $precision
-     * @param string $function
+     * @param string    $unit
+     * @param float|int $precision
+     * @param string    $function
      *
      * @return CarbonInterface
      */
@@ -51,7 +56,7 @@ trait Rounding
         ]);
         $factor = 1;
         if (isset($metaUnits[$normalizedUnit])) {
-            list($factor, $normalizedUnit) = $metaUnits[$normalizedUnit];
+            [$factor, $normalizedUnit] = $metaUnits[$normalizedUnit];
         }
         $precision *= $factor;
 
@@ -65,9 +70,7 @@ trait Rounding
         $factor = $this->year < 0 ? -1 : 1;
         $changes = [];
 
-        foreach ($ranges as $unit => $range) {
-            list($minimum, $maximum) = $range;
-
+        foreach ($ranges as $unit => [$minimum, $maximum]) {
             if ($normalizedUnit === $unit) {
                 $arguments = [$this->$unit, $minimum];
                 $fraction = $precision - floor($precision);
@@ -90,7 +93,7 @@ trait Rounding
             }
         }
 
-        list($value, $minimum) = $arguments;
+        [$value, $minimum] = $arguments;
         /** @var CarbonInterface $result */
         $result = $this->$normalizedUnit(floor(call_user_func($function, ($value - $minimum) / $precision) * $precision + $minimum));
         foreach ($changes as $unit => $value) {
@@ -103,8 +106,8 @@ trait Rounding
     /**
      * Truncate the current instance at the given unit with given precision if specified.
      *
-     * @param string $unit
-     * @param float  $precision
+     * @param string    $unit
+     * @param float|int $precision
      *
      * @return CarbonInterface
      */
@@ -116,8 +119,8 @@ trait Rounding
     /**
      * Ceil the current instance at the given unit with given precision if specified.
      *
-     * @param string $unit
-     * @param float  $precision
+     * @param string    $unit
+     * @param float|int $precision
      *
      * @return CarbonInterface
      */
@@ -129,8 +132,8 @@ trait Rounding
     /**
      * Round the current instance second with given precision if specified.
      *
-     * @param float  $precision
-     * @param string $function
+     * @param float|int $precision
+     * @param string    $function
      *
      * @return CarbonInterface
      */
@@ -142,7 +145,7 @@ trait Rounding
     /**
      * Round the current instance second with given precision if specified.
      *
-     * @param float $precision
+     * @param float|int $precision
      *
      * @return CarbonInterface
      */
@@ -154,7 +157,7 @@ trait Rounding
     /**
      * Ceil the current instance second with given precision if specified.
      *
-     * @param float $precision
+     * @param float|int $precision
      *
      * @return CarbonInterface
      */

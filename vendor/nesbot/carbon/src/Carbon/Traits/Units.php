@@ -35,8 +35,9 @@ trait Units
     public function addRealUnit($unit, $value = 1)
     {
         switch ($unit) {
+            // @call addRealUnit
             case 'micro':
-                // @call addRealUnit
+            // @call addRealUnit
             case 'microsecond':
                 /* @var CarbonInterface $this */
                 $diff = $this->microsecond + $value;
@@ -50,9 +51,11 @@ trait Units
                 return $this->tz('UTC')->modify("@$time.$microtime")->tz($tz);
             // @call addRealUnit
             case 'milli':
+            // @call addRealUnit
             case 'millisecond':
                 return $this->addRealUnit('microsecond', $value * static::MICROSECONDS_PER_MILLISECOND);
                 break;
+            // @call addRealUnit
             case 'second':
                 break;
             // @call addRealUnit
@@ -196,7 +199,7 @@ trait Units
             'quarter' => [static::MONTHS_PER_QUARTER, 'month'],
         ];
         if (isset($metaUnits[$unit])) {
-            list($factor, $unit) = $metaUnits[$unit];
+            [$factor, $unit] = $metaUnits[$unit];
             $value *= $factor;
         }
 

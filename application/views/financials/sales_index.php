@@ -1,5 +1,5 @@
 <div class="container-fluid mt-5">
-	<div class="row pt-5">
+	<div class="row pt-1">
 		<div class="col">
 			<h1>Goat Sales</h1>
 		</div>

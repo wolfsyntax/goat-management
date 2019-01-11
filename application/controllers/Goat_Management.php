@@ -1,6 +1,7 @@
 <?php defined ( "BASEPATH" ) or exit ( "No direct script access allowed" );
 
 #use Carbon\Carbon;
+use Carbon\Carbon;
 
 class Goat_Management extends CI_Controller {
 
@@ -47,7 +48,8 @@ Goat Records View
 		$data["footer"]			= "2";
 		$data["header"]			= "1";
 		$data["goat_record"]	= $this->Goat_model->show_goat_record();
-		$data["manage_goat"]	= $this->Goat_model->show_record("goat_profile","status != 'sold'");
+		//$data["manage_goat"]	= $this->Goat_model->show_record("goat_profile","status != 'sold'");
+
 		$this->load->view("layouts/application",$data);
 
   	}
@@ -75,10 +77,61 @@ Goat Specified Record View
 
 /** 
 -------------------------------------------------------------------------------------------
+Modify Goat Profile (Status)
+-------------------------------------------------------------------------------------------
+**/
+	public function manageStatus($eartag_id){
+
+		$data = array(
+			'body' 		=> 'goats_management/manage_status', 
+			'title'		=> 'Manage Status',
+			'eartag_id'	=> $eartag_id,
+		);
+
+		$this->load->view("layouts/application",$data);
+
+	}
+
+	public function manage_status($eartag_id){
+
+		$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'required|xss_clean|trim|integer|is_sire_exist[goat_profile.eartag_id]|greater_than[0]');
+
+		$this->form_validation->set_rules('loss_caused', 'Cause', 'trim|required|min_length[4]|max_length[8]');
+
+		$this->form_validation->set_rules('perform_date', 'Date of Loss', 'required|xss_clean|trim|check_date',
+			array(
+			'required' => '{field} is required',
+			"check_date"	=> "{field} is set incorrectly"
+			)
+		);
+
+		$this->form_validation->set_rules("remarks","Notes","xss_clean|trim");
+
+		if ($this->form_validation->run() == FALSE) {
+			
+			//View for Manage Status form
+			self::manageStatus($eartag_id);
+
+		} else {
+
+			if($this->Goat_model->loss_record()){
+				redirect(base_url('manage/goat'),'refresh');
+			} else {
+				self::manageStatus($eartag_id);
+			}
+
+		}
+
+	}
+
+	
+
+/** 
+-------------------------------------------------------------------------------------------
 Modify Goat Profile
 -------------------------------------------------------------------------------------------
 **/
-
+	
 	public function manage_edit_view($category, $action_id){ //$purchase_id or $birth_id
 		
   		if(preg_match("/[0-9]+/", $action_id) && intval($action_id) > 0){
@@ -180,20 +233,18 @@ Add Goat Record
 		$data["title"]	= "Edit record";
 		$data["footer"]	= "2";
 		$data["header"]	= "1";
-
+		
+//		$this->Goat_model->get_goat_info($category, $ref_id);
+		
 		$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active' AND eartag_id != {$record_id}");
 		
 		$data['sire_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active' AND eartag_id != {$record_id}");
 
 		#*
 		//get_goat_info($category = "birth", $eartag_id)
+
 		$data["goat_record"] = $this->Goat_model->get_goat_info($category, $record_id);
 		
-		foreach($data['goat_record'] as $row){
-			$data['sire_id'] = $row->sire_id;
-
-		}
-
 		$this->load->view("layouts/application",$data);
 
 		//self::validate_goat_info($category,"edit");
@@ -236,7 +287,10 @@ Add Goat Record
 		);
 
 
-		$this->form_validation->set_rules('category', 'Category', 'trim|required|min_length[5]|max_length[12]', array("required" => "{field} is required"));
+		$this->form_validation->set_rules('category', 'Category', 'trim|required', array("required" => "{field} is required"));
+
+		$category = $this->input->post("category", TRUE);
+		$ref_id = $this->input->post("ref_id", TRUE);		
 
 		if($category === "birth"){
 			
@@ -251,11 +305,10 @@ Add Goat Record
 
 		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
 
-		$category = $this->input->post("category", TRUE);
-		$ref_id = $this->input->post("ref_id", TRUE);
 
 		if($this->form_validation->run() == FALSE){
 
+			
 			self::view_goat_record($category,$ref_id);
 
 		} else {

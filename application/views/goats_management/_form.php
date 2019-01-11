@@ -67,7 +67,13 @@
 	<fieldset >
 		<div class="form-row p-1 pt-3 ">
 			<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Category <span class="text-danger">*</span></label>
-			<select name="category" id="cat_info" class="col form-control" onchange="show_form(this);">
+			<div class="col">
+				<div class="row">
+					<div class="col-3"><label><input type="radio" name="category" value="purchase" id="category">&emsp;By Purchase</label></div>
+					<div class="col-3"><label><input type="radio" name="category" value="birth" id="category" >&emsp;By Birth</label></div>
+				</div>
+			</div>
+			<!--select name="category" id="cat_info" class="col form-control" onchange="show_form(this);">
 				<option value="">-- Select Category --</option>
 				<?php if(set_value("category") == "birth") {?>
 					<option value="birth" selected>Birth</option>
@@ -79,7 +85,7 @@
 					<option value="birth">Birth</option>
 					<option value="purchase">Purchase</option>
 				<?php }?>
-			</select>
+			</select-->
 		</div>
 		<div class="form-row p-1 birth-elem">
 			<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>

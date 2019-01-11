@@ -249,13 +249,14 @@ class User_Controller extends CI_Controller {
 	**/
 
   	public function dashboard(){
-
-  		if($this->session->userdata("username") !== ""){
+  		
+  		if($this->session->userdata("username") != ""){
 
   			$data["body"] 	= "auth/dashboard";
 			$data["title"]	= "Dashboard";
 			$data["footer"]	= "";
 			$data["header"]	= "";
+			//echo $this->session->userdata("username");
 
 			$this->load->view("layouts/application",$data);
 

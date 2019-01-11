@@ -86,6 +86,12 @@ $route["manage/(:any)/(:num)/edit"]['GET']		= "goat_management/view_goat_record/
 //validate edit request (UPDATE)
 $route["manage/edit"]['POST']					= "goat_management/validate_mod_info";
 
+//Manage Status View
+$route["status/(:num)/edit"]["GET"]				= "goat_management/manageStatus/$1";
+//validate change status
+$route["status/(:num)/edit"]["POST"]			= "goat_management/manage_status/$1";
+
+
 /*********************************************************************************
 ***	Financial Management: Goat Sales
 **********************************************************************************/

@@ -58,13 +58,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if(!empty($_POST)){
 
 				$act_id = self::activity_record("Loss");
+				$cause 	= strtolower($this->input->post("loss_caused", TRUE));
 
 				$data = array(
-					"cause"			=> strtolower($this->input->post("cause", TRUE)),
+					"cause"			=> $cause,
 					"activity_id"	=> $act_id,
 				);
 
-				return self::add_record("loss_management", $data);
+				if(self::add_record("loss_management", $data)){
+					$data = array(
+						'status'	=> $cause,
+					);
+
+					return self::edit_record("goat_profile", $data, "eartag_id", $this->eartag_id);
+
+				}
 
 			}
 
@@ -86,9 +94,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				);
 
-				self::add_record("activity", $data);
 
-				return $this->db->insert_id();
+				$last_id = self::add_record("activity", $data);
+				echo "<h1>Activity ID: {$last_id}</h1>";
+
+				return $last_id;
 
 			}
 
@@ -232,7 +242,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	//		$sql = "";
 
 	//		$sql = "";
-
+//			echo "<h1>Get GOAT Info {$category}</h1>";
 
 			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.record_id = {$ref_id} AND gp.category = '{$category}'";
 			
@@ -326,9 +336,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$category 	= $this->input->post("category", TRUE);
 			$eartag_id 	= $this->input->post("eartag_id", TRUE);
-			
+			$recent_category = $this->input->post("recent_category", TRUE);
+
 			$table_name = $category . "_record";
 			$where 		= $category."_id";
+
+			if($recent_category != $category){
+				self::delete_record($recent_category."_record", $recent_category."_id = {$ref_id}");
+			}
 
 			if($category === "birth"){
 				
@@ -362,14 +377,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				);	
 
-				if(self::edit_record("goat_profile", $data, "eartag_id", $eartag_id)){
-				
-					return TRUE;
-				
+				if($recent_category == $category){
+					
+					if(self::edit_record("goat_profile", $data, "eartag_id", $eartag_id)){
+					
+						return TRUE;
+					
+					}else{
+
+						return FALSE;
+					
+					}
+
 				}else{
 
-					return FALSE;
-				
+					return self::add_record($table_name,$data);
+					
 				}
 
 			}

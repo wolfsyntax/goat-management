@@ -90,8 +90,6 @@
  	* JQuery
  	*/
 		
-		
-
 		$('#gender').on('change', function() {
 			if($(this).val() == 'male'){
 
@@ -107,12 +105,12 @@
 
 		});
 
-		$('#cat_info').on('change', function() {
+		$('[name="category"]').on('change', function() {
 			
 			var x = this.value;
 			
   			if(x != "" ){
-
+ 
   				$("#btn-submit").attr("disabled",false);
   				cur_url = base_url + "goat/r/" + x;				
 				
@@ -151,10 +149,7 @@
 
 
 		//Disable submit button on load
-
-
-
-		if($("#cat_info").val() == "birth" || $("#cat_info").val() == "purchase"){
+/*		if($("[name='category']").val() == "birth" || $("[name='category']").val() == "purchase"){
 
 			$("#btn-submit").attr("disabled",false);
 			var x = $("#cat_info").val();
@@ -178,47 +173,57 @@
   			$("#goat_form").attr("action",cur_url);
   			//alert("Action: " + x);
 
-		}else if($("#cat_info").val() != "birth" || $("#cat_info").val() != "purchase"){
+		}else if($("[name='category']").val() != "birth" || $("[name='category']").val() != "purchase"){
 
 			$("#btn-submit").attr("disabled",true);
 			$('.birth-elem').hide(); 
 			$('.purchase-elem').hide();
 
 		}
-
-
-/*		if($("#mcat_info").val() == "birth" || $("#mcat_info").val() == "purchase"){
-
-			$("#btn-msubmit").attr("disabled",false);
-			var x = $("#mcat_info").val();
-
-//			cur_url = base_url + "manage/" + x + "/edit";				
-			
-
-			if(x == "purchase"){
-				//alert("x: " + x);
-
-				$(".mbirth-elem").hide();
-				$(".mpurchase-elem").show();
-
-			}else {
-				//alert(":+"+x);
-				$(".mpurchase-elem").hide();
-				$(".mbirth-elem").show();				
-				alert("X: "+x);
-			}
-	
-
-//  	$("#mgoat_form").attr("action",cur_url);
-
-		}else if($("#mcat_info").val() != "birth" || $("#mcat_info").val() != "purchase"){
-
-			$("#btn-msubmit").attr("disabled",true);
-			$('.mbirth-elem').hide(); 
-			$('.mpurchase-elem').hide();
-
-		}
 */
+
+		//if()
+
+		$('[name="category"]').on('change', function() {
+			
+			var x = this.value;
+
+  			if(x != "" ){
+ 
+  				$("#btn-submit").attr("disabled",false);
+  				cur_url = base_url + "goat/r/" + x;				
+				
+				if(x == "purchase"){
+					
+					$(".mbirth-elem").hide();
+					$(".mpurchase-elem").show();
+
+				}else if(x == "birth"){
+
+					$(".mpurchase-elem").hide();
+					$(".mbirth-elem").show();				
+
+				}else {
+
+					$(".mpurchase-elem").hide();
+					$(".mbirth-elem").hide();
+
+					cur_url = base_url+"goat/new";	
+
+				}
+
+				
+
+  				$("#goat_form").attr("action",cur_url);
+
+  			}else{
+  				
+  				$('.birth-elem').hide(); 
+				$('.purchase-elem').hide();
+
+  				$("#btn-submit").attr("disabled",true);
+  			}
+  		});
 
 		//Disable is_castrated on load
 		if($("#gender").val() == ""){
@@ -237,7 +242,30 @@
 			$("#gp_record").DataTable();
 
 			$("#gs_record").DataTable();
+			
+			/**/
+			//alert($("#rcategory").val());
 
+/*Category (Disable button) */			
+
+			if($("#rcategory").val() == "birth"){
+
+	  			$('.birth-elem').show(); 
+				$('.purchase-elem').hide();
+
+			}else if($("#rcategory").val() == "purchase"){
+
+	  			$('.birth-elem').hide(); 
+				$('.purchase-elem').show();
+			
+			}else {
+	  		
+	  			$('.birth-elem').hide(); 
+				$('.purchase-elem').hide();
+				$("#btn-submit").attr("disabled",true);
+			
+			}
+/*End of Category (Disable button)*/
 
 	  		$("#dam_id_select").editableSelect();
 
@@ -274,7 +302,7 @@
 			});
 
 // Table Link
-
+/*
 			$("a.btn-goat").each(function(){
 				
 	  			var self = $(this);
@@ -286,7 +314,7 @@
 	  				window.location.assign(href);
 	  			});
 			});
-
+*/
 /*
 	  		$("#sidebar > li div.collapse a.nav-link").each(function(){
 	  			var self = $(this);
