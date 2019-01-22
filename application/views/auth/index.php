@@ -2,7 +2,7 @@
 <div class="container-fluid p-0">
 	<div class="row" >
 		<div class="col-12 p-3">
-			<?= $this->session->flashdata('profile') ? $this->session->flashdata('profile') : '' ?>
+			<?= $this->session->flashdata('profile')  ?>
 		</div>
 	</div>
 	<div class="row">

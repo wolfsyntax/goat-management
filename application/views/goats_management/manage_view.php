@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom: 250px;">
 	<?php 
 		foreach($goat_record as $row){
 	?>
@@ -128,9 +128,46 @@
 			<a href="<?= $this->agent->referrer(); ?>" class="nav-link"><span class="font-weight-bolder fa fa-angle-left fa-lg"></span>&emsp;Go Back</a>
 		</div>
 		<div class="col">
-			<a href="<?= base_url("manage/{$row->category}/{$row->ref_id}/edit"); ?>"  class="nav-link font-weight-bolder
+			<a href="<?= base_url("manage/{$row->category}/{$row->ref_id}/edit"); ?>"  class="nav-link font-weight-bolder text-right text-sm-center">Edit</a> 
+		</div>
 	</div>
+	<?php }	
+		if($flag){
+	?>
+		<div class="row table-responsive table-responsive-sm text-nowrap px-2 pr-3 mt-5">
+			<table id="gp_record" class="table">
+				<thead>
+					<tr>
+						<th>Eartag ID</th>
+						<th>Birth Date</th>
+						<th>Gender</th>
+						<th>Age</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach($child as $row) {?>
+						<tr>
+							<td>
+								<?= $row->eartag_id ?>
+							</td>
+							<td>
+								<?= $row->birth_date?>
+							</td>
+							<td>
+								<?= ucfirst($row->gender) ?>
+							</td>
+							<td>
+								<?= str_replace("ago", "old", Carbon\Carbon::parse($row->birth_date)->diffForHumans()) ?>
+							</td>
+						</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+		</div>
+	<?php
+		}
+	?>
 
-	<?php }	?>
+
 
 </div>

@@ -1,6 +1,6 @@
 <div class="container-fluid">
-	<div class="row">
-		<div class="card col-md-12 col-sm-8">
+	<div class="row p-3">
+		<div class="card col-md-12 col-sm-8 shadow-none">
 
 			<div class="card-header" style="margin-left: -15px; width: calc(100% + 30px);">
 				<h1>Manage Status</h1>
@@ -79,7 +79,7 @@
 
 				<div class="form-row p-1 float-right w-100">
 					<span class="col clearfix"></span>
-					<input type="submit" class="btn btn-success col-3" value="Submit Loss">
+					<input type="submit" class="btn btn-success col-3" value="Submit Loss" id="update_btn">
 				</div>								
 
 				<?= form_close(); ?>		
@@ -87,6 +87,39 @@
 		</div>
 	</div>	
 </div>
-<div class="container-fluid mt-5 mb-5">
-	TABLE HERE
+<div class="container-fluid mt-5" style="margin-bottom: 180px;">
+	<div class="row p-3 ">
+		<div class="col">
+			<table class="table table-stiped table-hover" id="gp_record">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col" class="th-lg text-center">Eartag ID</th>
+						<th scope="col" class="text-center">Reason</th>
+						<th scope="col" class="text-center">Perform Date</th>
+						<th scope="col" class="text-center">Remarks</th>
+						<th scope="col" class="text-center pr-2">Action</th>
+					</tr>
+				</thead>
+											
+				<tbody>
+					<?php foreach($mrecord as $row) {?>
+					<tr>
+						<th scope="row" class="text-center"><?= $row->eartag_id ?></th>
+						<td class="text-center"><?= ucfirst($row->cause) ?></td>
+						<td class="text-center"><?= $row->date_perform ?></td>
+						<td class="text-center"><?= ucfirst($row->remarks) ?></td>
+						<td class="text-center">
+							<div class="btn-group">
+								<a href="" class="btn btn-sm btn-success">
+									<i class="fa fa-pencil-alt"></i>
+								</a>
+							</div>
+						</td>
+					</tr>
+					<?php }?>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
 </div>

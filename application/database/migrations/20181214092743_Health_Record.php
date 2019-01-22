@@ -33,7 +33,7 @@
 
           $this->dbforge->add_field('CONSTRAINT fk_checkup_activity_id FOREIGN KEY (`activity_id`) REFERENCES activity(`activity_id`)');
 
-          $this->dbforge->create_table('health_record',TRUE,array('AUTO_INCREMENT' => '1'));
+          $this->dbforge->create_table('health_record', TRUE, array('AUTO_INCREMENT' => '1'));
 
         }
 

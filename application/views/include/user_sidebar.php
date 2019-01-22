@@ -55,22 +55,11 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link text-dark" href="#" data-toggle="collapse" data-target="#breedingInfo" aria-expanded="false" aria-controls="breedingInfo" data-toggled="popover" title="Breeding Records" data-content="Here you can manage your Goat breeding" >
+        <a class="nav-link text-dark sb-menu" href="<?= base_url('activity/breeding/view') ?>" data-toggled="popover" title="Breeding Records" data-content="Here you can manage your Goat breeding" >
            <span class="fa fa-table text-warning d-inline d-sm-inline-block d-md-inline-block d-lg-none text-secondary" title="Breeding Records"></span>
           <span class="fa fa-table text-warning d-none d-sm-none d-md-none d-lg-inline-block"></span>
           &nbsp;<span class="d-none d-sm-none d-md-none d-lg-inline-block">Breeding Records</span>
         </a>
-
-        <div class="collapse" id="breedingInfo" data-parent="#sidebar-div" >
-          <a class="nav-link text-dark" href="<?= base_url(); ?>goat/breeding_module">
-            <span class="fa fa-sitemap d-inline-block d-lg-none text-success" title="Breeding"></span><span class="d-none d-sm-none d-lg-inline-block fa fa-angle-right"></span><span class="font-weight-normal d-none d-sm-none d-lg-inline-block ">&nbsp;&nbsp;Breeding</span>
-          </a>
-
-          <a class="nav-link">
-            <span class="fa fa-calendar d-inline-block d-lg-none" title="Pregnancy Check"></span><span class="d-none d-sm-none d-lg-inline-block fa fa-angle-right"></span><span class="text-dark font-weight-normal d-none d-sm-none d-lg-inline-block ">&nbsp;&nbsp;Pregnancy Check</span>
-          </a>
-        </div>
-
       </li>
 
       <li class="nav-item">

@@ -93,6 +93,15 @@ class User_Controller extends CI_Controller {
 		} else {
 
 			if($this->User_model->validate_login()){
+/*
+		$this->session->set_flashdata('profile', '<div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
+          <strong>Pro Tip!</strong> If you want to update your profile details and password&emsp;<a class="btn btn-sm btn-success" href="<?= base_url()?>profile/settings"><span class="fa fa-pencil"></span>&nbsp;Edit Profile</a>
+          	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>');
+*/       
+        		$this->session->set_userdata("Lflag","0");
 
 				$this->session->set_flashdata("item", '<div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
           <strong>Pro Tip!</strong> If you want to update your profile details and password&emsp;<a class="btn btn-sm btn-success" href="<?= base_url()?>profile/settings"><span class="fa fa-pencil"></span>&nbsp;Edit Profile</a>

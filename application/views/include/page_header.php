@@ -17,7 +17,7 @@
   <div class="container-fluid">
     <div class="row" style="margin-top: -5px;">
       
-      <div class="col-2 col-md-1 text-center text-white font-weight-bold" id="clocks" style="  padding: 0.7rem !important;">
+      <div class="col-4 col-sm-3 col-md-2 col-lg-1 text-center text-white font-weight-bold" id="clocks" style="  padding: 0.7rem !important;">
         &emsp;
       </div>
       <div class="col bg-dark py-1 pr-2">

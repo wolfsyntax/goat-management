@@ -35,7 +35,7 @@
 
           $this->dbforge->add_field('CONSTRAINT fk_birth_eartag_id FOREIGN KEY (`eartag_id`) REFERENCES goat_profile(`eartag_id`)');
 
-          $this->dbforge->create_table('birth_record');
+          $this->dbforge->create_table('birth_record', TRUE, array('AUTO_INCREMENT' => '1'));
 
         }
 

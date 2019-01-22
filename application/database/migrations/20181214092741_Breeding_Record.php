@@ -22,11 +22,6 @@
               'constraint' => 64,
               'default' => "No",
             ),
-            'symptoms_a' => array(
-              'type'        =>  'TINYINT',
-              'constraint'  => 1,
-              'null'        => TRUE,
-            ),
           ));
 
           $this->dbforge->add_key('breeding_id', TRUE);
@@ -35,12 +30,14 @@
 
           $this->dbforge->add_field('CONSTRAINT fk_breeding_sire_id FOREIGN KEY (`sire_id`) REFERENCES goat_profile(`eartag_id`)');
 
-          $this->dbforge->create_table('breeding_record',TRUE,array('AUTO_INCREMENT' => '1'));
+          $this->dbforge->create_table('breeding_record', TRUE, array('AUTO_INCREMENT' => '1'));
 
         }
 
         public function down() {
+
           $this->dbforge->drop_table('breeding_record');
+          
         }
 
       }

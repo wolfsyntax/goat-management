@@ -43,7 +43,7 @@
 
           $this->dbforge->add_field('CONSTRAINT fk_purchase_user_id FOREIGN KEY (`user_id`) REFERENCES user_account(`user_id`)');
 
-          $this->dbforge->create_table('purchase_record',TRUE,array('AUTO_INCREMENT' => '1'));
+          $this->dbforge->create_table('purchase_record', TRUE, array('AUTO_INCREMENT' => '1'));
 
         }
 

@@ -46,7 +46,7 @@
 
           $this->dbforge->add_field('CONSTRAINT fk_sales_user_id FOREIGN KEY (`user_id`) REFERENCES user_account(`user_id`)');
 
-          $this->dbforge->create_table('goat_sales');
+          $this->dbforge->create_table('goat_sales', TRUE, array('AUTO_INCREMENT' => '1'));
 
         }
 

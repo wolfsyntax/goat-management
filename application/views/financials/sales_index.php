@@ -1,22 +1,22 @@
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-2">
 	<div class="row pt-1">
 		<div class="col">
 			<h1>Goat Sales</h1>
 		</div>
 	</div>
 
-	<div class="row pt-5 mr-4">
-		<div class="col text-right">
-			<a href="<?= base_url()?>goat/sales/new" class="btn btn-success" title="Add Goat">
+	<div class="row pt-2 mr-4">
+		<div class="col-12 col-md-3 py-2 offset-md-9 mb-5 pr-0">
+			<a href="<?= base_url()?>goat/sales/new" class="btn btn-success w-100 mt-3 mt-md-0" title="Add New Sales">
 				<span class="fa fa-plus fa-lg"></span>&emsp;New Transaction
 			</a>
 		</div>
 	</div>
-	<div class="row mt-0">
+	<div class="row mt-0" style="padding-bottom: 180px">
 		<div class="col">
-			<div class="jumbotron bg-light">
+			<div class="row table-responsive table-responsive-sm text-nowrap px-2 pr-3">
 				<table id="gs_record"  class="table table-striped table-bordered" style="width:100% ">
-				    <thead>
+				    <thead class="bg-dark text-white text-center">
 				      <tr>
 				        <th>Eartag ID</th>
 				        <th>Transact Date</th>

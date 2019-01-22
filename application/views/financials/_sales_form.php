@@ -3,7 +3,7 @@
 </div>
 
 <div class="form-row p-1">
-	<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Tag ID <span class="text-danger">*</span></label>								
+	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Tag ID <span class="text-danger">*</span></label>								
 	
 	<div class="col">
 		<select name="eartag_id" id="goat_id_select" class="form-control" placeholder="- Enter Ear Tag ID -" value="<?= set_value('eartag_id'); ?>">
@@ -19,7 +19,7 @@
 </div>
 								
 <div class="form-row p-1">
-	<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Date Sold <span class="text-danger">*</span></label>
+	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Date Sold <span class="text-danger">*</span></label>
 	
 	<div class="col">
 		<input type="date" name="transact_date" value="<?= set_value('transact_date');?>" placeholder="" class="form-control ">
@@ -31,7 +31,7 @@
 
 <div class="form-row p-1">
 	
-	<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Sold Through <span class="text-danger">*</span></label>
+	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Sold Through <span class="text-danger">*</span></label>
 	
 	<div class="col">
 		
@@ -47,7 +47,7 @@
 </div>
 
 <div class="form-row p-1">
-	<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Total Weight <span class="text-danger">*</span></label>
+	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Total Weight <span class="text-danger">*</span></label>
 	
 	<div class="col">
 		<input type="text" name="weight" value="<?= set_value('weight'); ?>" placeholder="Enter weight in kilos" class="form-control ">
@@ -59,7 +59,7 @@
 
 <div class="form-row p-1">
 	
-	<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Price per Kilo <span class="text-danger">*</span></label>
+	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Price per Kilo <span class="text-danger">*</span></label>
 	
 	<div class="col">
 		
@@ -71,7 +71,7 @@
 </div>
 
 <div class="form-row p-1">
-	<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Description</label>
+	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Description</label>
 	
 	<div class="col">
 		<textarea name="remarks" placeholder="notes / additional information" class="form-control "><?= set_value('remarks'); ?></textarea>
@@ -84,7 +84,7 @@
 <div class="form-row p-1 float-right w-100 mt-2">
 	<span class="col clearfix"></span>
 	
-	<input type="submit" class="btn btn-info col-3" value="Add Sale">							
+	<input type="submit" class="btn btn-info col-12 col-md-3" value="Add Sale" id="save_btn">							
 </div>
 
 <div class="form-row p-1 float-right w-100">

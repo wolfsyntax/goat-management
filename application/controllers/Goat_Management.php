@@ -47,7 +47,13 @@ Goat Records View
 		$data["title"]			= "Manage Goat";
 		$data["footer"]			= "2";
 		$data["header"]			= "1";
+		$data["total_sire"]		= $this->Goat_model->count_sire();	//Goat that are Sire and active
+		$data["total_dam"]		= $this->Goat_model->count_dam();	//Goat that are Dam and active
+		$data["total_sold"]		= $this->Goat_model->count_sold(); 	//Goat that are sold already
+		$data["available_sold"]	= $this->Goat_model->count_s(); 	//Goat that are available to be sold
+		$data["total_loss"]		= $this->Goat_model->count_loss();
 		$data["goat_record"]	= $this->Goat_model->show_goat_record();
+
 		//$data["manage_goat"]	= $this->Goat_model->show_record("goat_profile","status != 'sold'");
 
 		$this->load->view("layouts/application",$data);
@@ -70,6 +76,14 @@ Goat Specified Record View
 
 		$data["category"]		= $category;
 		$data["goat_record"]	= $this->Goat_model->get_goat_info($category, $ref_id);
+		$data['flag']			= FALSE;
+
+		foreach ($data['goat_record'] as $row) {
+			if($row->gender == "female"){
+				$data["child"]	= $this->Goat_model->get_child($row->eartag_id); 
+				$data['flag']	= TRUE;
+			}
+		}
 
 		$this->load->view("layouts/application",$data);
 
@@ -86,6 +100,7 @@ Modify Goat Profile (Status)
 			'body' 		=> 'goats_management/manage_status', 
 			'title'		=> 'Manage Status',
 			'eartag_id'	=> $eartag_id,
+			'mrecord'	=> $this->Goat_model->show_loss_records($eartag_id, $this->session->userdata("user_id")),
 		);
 
 		$this->load->view("layouts/application",$data);
@@ -94,18 +109,34 @@ Modify Goat Profile (Status)
 
 	public function manage_status($eartag_id){
 
-		$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'required|xss_clean|trim|integer|is_sire_exist[goat_profile.eartag_id]|greater_than[0]');
-
-		$this->form_validation->set_rules('loss_caused', 'Cause', 'trim|required|min_length[4]|max_length[8]');
-
-		$this->form_validation->set_rules('perform_date', 'Date of Loss', 'required|xss_clean|trim|check_date',
+		$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'required|xss_clean|trim|integer|is_sire_exist[goat_profile.eartag_id]|greater_than[0]', 
 			array(
-			'required' => '{field} is required',
-			"check_date"	=> "{field} is set incorrectly"
+				'required'		=> '{field} is required.',
+				'integer'		=> '{field} must contain an integer.',
+				'is_sire_exist'	=> '{field} is NOT a Sire or do not exist.',
+				'greater_than'	=> '{field} cannot be less than or equal to zero.',
 			)
 		);
 
-		$this->form_validation->set_rules("remarks","Notes","xss_clean|trim");
+		$this->form_validation->set_rules('loss_caused', 'Cause', 'trim|required|min_length[4]|max_length[8]',array(
+				'min_length'	=> '{field} must be at least 4 characters in length.',
+				'max_length'	=> '{field} cannot exceed 8 characters in length.',
+				'required'		=> '{field} is required.',
+			)
+		);
+
+		$this->form_validation->set_rules('perform_date', 'Date of Loss', 'required|xss_clean|trim|check_date',
+			array(
+				'required' 		=> '{field} is required.',
+				"check_date"	=> "{field} is set incorrectly.",
+			)
+		);
+
+		$this->form_validation->set_rules("remarks","Notes","xss_clean|trim|max_length[255]",
+			array(
+				'max_length'	=> "{field} cannot exceed 255 characters in length.",
+			)
+		);
 
 		if ($this->form_validation->run() == FALSE) {
 			
@@ -135,13 +166,18 @@ Modify Goat Profile
 	public function manage_edit_view($category, $action_id){ //$purchase_id or $birth_id
 		
   		if(preg_match("/[0-9]+/", $action_id) && intval($action_id) > 0){
+		
 			$data["body"] 			= "goats_management/edit_form";
 			$data["title"]			= "Goat Record";
 			$data["footer"]			= "2";
 			$data["header"]			= "1";
 
 			$data["goat_record"]	= $this->Goat_model->show_record("goat_profile","eartag_id = {$eartag_id}");
-			
+			$data["sire_id"]		= 0;
+			foreach ($data["goat_record"] as $row) {
+				$data["sire_id"]	= $row->sire_id;
+			}
+
 			$data["url"]			= "";
 
 			$this->load->view("layouts/application",$data);
@@ -151,6 +187,7 @@ Modify Goat Profile
 			show_404();
 			
 		}
+
   	}
 
 /** 
@@ -164,28 +201,30 @@ Add Goat Record
 		$this->form_validation->set_rules('birth_date','Birth Date',
 		'required|xss_clean|trim|check_date',
 		array(
-			'required' => "{field} is required",
-			"check_date"	=> "{field} is set incorrectly"
+			'required' => "{field} is required.",
+			"check_date"	=> "{field} is set incorrectly.",
 			)
 		);
 		
 		$this->form_validation->set_rules('sire_id','Sire ID',
-		'required|xss_clean|trim|integer|is_sire_exist[goat_profile.eartag_id]|greater_than[0]',
+		'required|xss_clean|trim|integer|is_sire_exist[goat_profile.eartag_id]|greater_than[0]|callback_sire_eartag_check',
 		array(
-			'required' => '{field} is required',
-			'is_sire_exist' => '{field} do not exist',
-			"integer" => "must contain only integer numbers.",	
-			"greater_than"	=> "{field} must be greater than zero",
+			'required' 			=> '{field} is required.',
+			'is_sire_exist' 	=> '{field} is NOT a Sire ID or do not exist.',
+			"integer" 			=> "{field} must contain only integer numbers.",	
+			"greater_than"		=> "{field} must be greater than zero.",
+			"sire_eartag_check"	=> "{field} must not be the same to Eartag and Dam ID.",
 			)
 		);
 
 		$this->form_validation->set_rules('dam_id','Dam ID',
-		'required|xss_clean|trim|integer|is_dam_exist[goat_profile.eartag_id]|greater_than[0]',
+		'required|xss_clean|trim|integer|is_dam_exist[goat_profile.eartag_id]|greater_than[0]|callback_dam_eartag_check',
 		array(
-			'required' => '{field} is required',
-			'is_dam_exist' => '{field} do not exist',
-			"integer" => "must contain only integer numbers.",	
-			"greater_than"	=> "{field} must be greater than zero",
+			'required' 			=> '{field} is required.',
+			'is_dam_exist' 		=> '{field} do not exist.',
+			"integer" 			=> "{field} must contain only integer numbers.",	
+			"greater_than"		=> "{field} must be greater than zero.",
+			"dam_eartag_check"	=> "{field} must not be the same to Eartag and Sire ID.",
 			)
 		);
 
@@ -196,19 +235,19 @@ Add Goat Record
 		$this->form_validation->set_rules('purchase_weight','Weight Purchase',
 		'required|xss_clean|trim|numeric|greater_than[0]',
 		array(
-			'required' 		=> '{field} is required',
-			"numeric" 		=> "{field} must contain only numbers.",	
-			"greater_than"	=> "{field} must be greater than zero",
+			'required' 			=> '{field} is required.',
+			"numeric" 			=> "{field} must contain only numbers.",	
+			"greater_than"		=> "{field} must be greater than zero",
 			)
 		);
 
 		$this->form_validation->set_rules('purchase_price','Purchased Price',
 		'required|xss_clean|trim|numeric|greater_than[0]',
 		array(
-			'required' => '{field} is required',
-			'is_dam_exist' => '{field} must be a digit',
-			"numeric" => "must contain only numbers.",
-			"greater_than"	=> "{field} must be greater than zero",
+			'required' 			=> '{field} is required.',
+			'is_dam_exist' 		=> '{field} must be a digit.',
+			"numeric" 			=> "{field} must contain only numbers.",
+			"greater_than"		=> "{field} must be greater than zero.",
 			)
 		);
 
@@ -216,12 +255,16 @@ Add Goat Record
 		$this->form_validation->set_rules('purchase_date','Purchased Date',
 		'required|xss_clean|trim|check_date',
 		array(
-			'required' => '{field} is required',
-			"check_date"	=> "{field} is set incorrectly"
+			'required' 			=> '{field} is required.',
+			"check_date"		=> "{field} is set incorrectly.",
 			)
 		);
 
-		$this->form_validation->set_rules('purchase_from','Vendor','required|xss_clean|trim',array("required" => "{field} is required"));
+		$this->form_validation->set_rules('purchase_from','Vendor','required|xss_clean|trim',
+		array(
+			"required" 			=> "{field} is required.",
+			)
+		);
 
 	}
 
@@ -229,22 +272,28 @@ Add Goat Record
 	public function view_goat_record($category,$record_id){
 		//echo "<h1>{$category}</h1>";
 
-		$data["body"] 	= "goats_management/edit_form";
-		$data["title"]	= "Edit record";
-		$data["footer"]	= "2";
-		$data["header"]	= "1";
+		$data["body"] 			= "goats_management/edit_form";
+		$data["title"]			= "Edit record";
+		$data["footer"]			= "2";
+		$data["header"]			= "1";
 		
 //		$this->Goat_model->get_goat_info($category, $ref_id);
 		
-		$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active' AND eartag_id != {$record_id}");
+		$data['dam_record'] 	= $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active' AND eartag_id != {$record_id}");
 		
-		$data['sire_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active' AND eartag_id != {$record_id}");
+		$data['sire_record'] 	= $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active' AND eartag_id != {$record_id}");
 
 		#*
 		//get_goat_info($category = "birth", $eartag_id)
 
-		$data["goat_record"] = $this->Goat_model->get_goat_info($category, $record_id);
+		$data["goat_record"] 	= $this->Goat_model->get_goat_info($category, $record_id);
 		
+		$data['sire_id']		= 0;
+		
+		foreach ($data['goat_record'] as $row) {
+			$data['sire_id'] 	= $row->sire_id;
+		}
+
 		$this->load->view("layouts/application",$data);
 
 		//self::validate_goat_info($category,"edit");
@@ -256,38 +305,40 @@ Add Goat Record
 		$this->form_validation->set_rules('eartag_id','Tag ID',
 			'required|integer|xss_clean|trim|greater_than[0]',
 			array(
-				'required' => '{field} is required',
-				'integer' => '{field} must contain an integer',
-				"greater_than"	=> "{field} must be greater than zero",			
+				'required' 		=> '{field} is required.',
+				'integer' 		=> '{field} must contain an integer.',
+				"greater_than"	=> "{field} must be greater than zero.",
+				"eartag_check"	=> "{field} must not be the same to Dam and Sire ID.",			
 			)
 		);
 
 		$this->form_validation->set_rules('eartag_color','Tag Color',
 		'required|xss_clean|trim|alpha_spaces',
 		array(
-			'required' => '{field} is required',
-			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+			'required' 			=> '{field} is required.',
+			'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces',
 			)
 		);
 
 		$this->form_validation->set_rules('gender','Gender',
-		'required|xss_clean|trim|alpha_spaces',
-		array(
-			'required' 	=> '{field} is required',
-			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+		'required|xss_clean|trim|alpha_spaces|in_list[male,female]',
+			array(
+				'required' 			=> '{field} is required.',
+				'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces.',
+				'in_list'			=> '{field} is not a valid gender',
 			)
 		);
 
 		$this->form_validation->set_rules('body_color','Body Color',
 		'required|xss_clean|trim|alpha_spaces',
 		array(
-			'required' => 'Body Color is required',
-			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+			'required' 			=> '{field} is required.',
+			'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces.',
 			)
 		);
 
 
-		$this->form_validation->set_rules('category', 'Category', 'trim|required', array("required" => "{field} is required"));
+		$this->form_validation->set_rules('category', 'Category', 'trim|required', array("required" => "{field} is required."));
 
 		$category = $this->input->post("category", TRUE);
 		$ref_id = $this->input->post("ref_id", TRUE);		
@@ -349,41 +400,42 @@ Add Goat Record
 		//echo "<h1>{$category}</h1>";
 		
 		$this->form_validation->set_rules('eartag_id','Tag ID',
-			'required|integer|xss_clean|trim|is_unique[goat_profile.eartag_id]|greater_than[0]',
+			'required|integer|xss_clean|trim|is_unique[goat_profile.eartag_id]|greater_than[0]|callback_eartag_check',
 			array(
-				'required' => '{field} is required',
-				'integer' => '{field} must contain an integer',
-				'is_unique' => '{field} is already existed',
-				"greater_than"	=> "{field} must be greater than zero",			
+				'required' 		=> '{field} is required.',
+				'integer' 		=> '{field} must contain an integer.',
+				'is_unique' 	=> '{field} is already existed.',
+				"greater_than"	=> "{field} must be greater than zero.",			
+				'eartag_check'	=> "{field} must not be the same to Dam and Sire ID.",
 			)
 		);
 
 		$this->form_validation->set_rules('eartag_color','Tag Color',
 		'required|xss_clean|trim|alpha_spaces',
 		array(
-			'required' => '{field} is required',
-			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+			'required' 			=> '{field} is required.',
+			'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces.',
 			)
 		);
 
 		$this->form_validation->set_rules('gender','Gender',
 		'required|xss_clean|trim|alpha_spaces',
 		array(
-			'required' 	=> '{field} is required',
-			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+			'required' 			=> '{field} is required.',
+			'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces.',
 			)
 		);
 
 		$this->form_validation->set_rules('body_color','Body Color',
 		'required|xss_clean|trim|alpha_spaces',
 		array(
-			'required' => 'Body Color is required',
-			'alpha_spaces'=> '{field} may only contain alphabetical characters and spaces',
+			'required' 			=> 'Body Color is required.',
+			'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces.',
 			)
 		);
 
 
-		$this->form_validation->set_rules('category', 'Category', 'trim|required|min_length[5]|max_length[12]',array("required" => "{field} is required"));
+		$this->form_validation->set_rules('category', 'Category', 'trim|required|min_length[5]|max_length[12]',array("required" => "{field} is required."));
 
 		if($category === "birth"){
 			
@@ -437,14 +489,14 @@ Add Goat Record
 
 	public function add_goats(){
 
-		$data["body"] 	= "goats_management/goat_form";
-		$data["title"]	= "Add new record";
-		$data["footer"]	= "2";
-		$data["header"]	= "1";
+		$data["body"] 			= "goats_management/goat_form";
+		$data["title"]			= "Add new record";
+		$data["footer"]			= "2";
+		$data["header"]			= "1";
 		
-		$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active'");
+		$data['dam_record'] 	= $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active'");
 		
-		$data['sire_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'");
+		$data['sire_record'] 	= $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'");
 
 		$this->load->view("layouts/application",$data);
 
@@ -461,11 +513,11 @@ Goat Sales
 	
 	public function sell_index(){
   	
-		$data["body"] 	= "financials/sales_index";
-		$data["title"]	= "Sales Record";
-		$data["footer"]	= "2";
-		$data["header"]	= "1";
-		$data["goat_record"] = $this->Goat_model->show_all_sales();
+		$data["body"] 			= "financials/sales_index";
+		$data["title"]			= "Sales Record";
+		$data["footer"]			= "2";
+		$data["header"]			= "1";
+		$data["goat_record"] 	= $this->Goat_model->show_all_sales();
 
 		$this->load->view("layouts/application",$data);
 
@@ -473,12 +525,12 @@ Goat Sales
 
 	public function sell_goats(){
 		
-		$data["body"] 	= "financials/goat_sales";
-		$data["title"]	= "Add new Sales";
-		$data["footer"]	= "2";
-		$data["header"]	= "1";
+		$data["body"] 			= "financials/goat_sales";
+		$data["title"]			= "Add new Sales";
+		$data["footer"]			= "2";
+		$data["header"]			= "1";
 
-		$data['goat_record'] = $this->Goat_model->show_record('goat_profile',"status = 'active'");
+		$data['goat_record'] 	= $this->Goat_model->show_record('goat_profile',"status = 'active'");
 
 		$this->load->view("layouts/application",$data);
 
@@ -486,10 +538,10 @@ Goat Sales
 
 	public function modify_sales_info($sales_id){
 		
-		$data["body"] 	= "financials/edit_form";
-		$data["title"]	= "Modify Sales Record";
-		$data["footer"]	= "2";
-		$data["header"]	= "1";
+		$data["body"] 			= "financials/edit_form";
+		$data["title"]			= "Modify Sales Record";
+		$data["footer"]			= "2";
+		$data["header"]			= "1";
 		
 		if($sales_id >= 1){
 			
@@ -511,31 +563,38 @@ Goat Sales
 			/**
 			**	Todo: add new validation rules for checking if it is not already sold
 			**/
+			$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'trim|required|is_active[goat_profile.eartag_id]|is_exist[goat_profile.eartag_id]',
+				array(
+					'is_active'	=> '{field} is Inactive. You cannot sell it',
+					'is_exist'	=> '{field} do not exist in your Goat Records',
+					'required'	=> '{field} is required',	
+				)
+			);
 
 			$this->form_validation->set_rules("transact_date","Date sold","required|xss_clean|trim|check_date",
 				array(
-					"required" => "{field} is required",
-					'check_date' => "Incorrect date settings",
+					"required" 		=> "{field} is required.",
+					'check_date' 	=> "Incorrect date settings.",
 				)
 			);
 
 			$this->form_validation->set_rules("sold_to","Buyer Name","required|xss_clean|trim",
 				array(
-					"required" => "{field} is required",
+					"required" 		=> "{field} is required",
 				)
 			);
 
 			$this->form_validation->set_rules("weight","Total Weight","required|xss_clean|trim|numeric",
 				array(
-					"required" 	=> "{field} is required",
-					"numeric"	=> "{field} is invalid value",
+					"required" 		=> "{field} is required.",
+					"numeric"		=> "{field} is invalid value.",
 				)
 			);
 
 			$this->form_validation->set_rules("price_per_kilo","Price per Kilo","required|xss_clean|trim|numeric",
 				array(
-					"required" => "{field} is required",
-					"numeric"	=> "{field} is invalid value",
+					"required" 		=> "{field} is required.",
+					"numeric"		=> "{field} is invalid value.",
 				)
 			);
 
@@ -556,10 +615,10 @@ Goat Sales
 
 		$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]",
 			array(
-				"required" => "{field} is required",
-				"numeric" => "Not a valid {field} provided. Only digits are allowed",
-				"is_exist" => "{field} is not existing",
-				"greater_than"	=> "{field} is not valid",			
+				"required" 		=> "{field} is required.",
+				"numeric" 		=> "Not a valid {field} provided. Only digits are allowed",
+				"is_exist" 		=> "{field} is not existing.",
+				"greater_than"	=> "{field} must be greater than zero.",			
 			)
 		);
 
@@ -602,10 +661,10 @@ Goat Sales
 
 		$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]|is_active[goat_profile.eartag_id]",
 			array(
-				"required" 		=> "{field} is required",
+				"required" 		=> "{field} is required.",
 				"numeric" 		=> "Not a valid {field} provided. Only digits are allowed",
-				"is_exist" 		=> "{field} is not existing",
-				"greater_than"	=> "{field} is not valid",
+				"is_exist" 		=> "{field} is not existing.",
+				"greater_than"	=> "{field} is not valid.",
 				"is_active"		=> "{field} is not available to be sold."		
 			)
 		);
@@ -690,11 +749,6 @@ Add Goat Record
 	}
 **/
 
-/** 
--------------------------------------------------------------------------------------------
-Activity Module: Create
--------------------------------------------------------------------------------------------
-**/
 
 	public function remove_sales($sales_id){
 		
@@ -704,177 +758,70 @@ Activity Module: Create
 
 	}
 
-	public function activity_module($activity_type){
+/**
+**		Form Validation (Add-ons)
+**/
 
-		$flag = FALSE;
+	public function dam_eartag_check($dam_id){
 		
-		switch ($activity_type) {
-	    	case "breed":
+	#	echo "<h1>Dam Eartag Check</h1>";
 
-				$data["body"] 	= "activities/breed_new_activity";
+		$sire_id 	= $this->input->post("sire_id", TRUE);
+		$eartag_id 	= $this->input->post("eartag_id", TRUE);
 
-				$data["title"] 	= "";		
-				$data['breeding_attempt'] = $this->Goat_model->show_record('breeding_record');
-				
-				$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female'");
-				$data['sire_record'] = $this->Goat_model->show_record('goat_profile',"gender = 'male'");
-				
-	        	break;
+		if($dam_id == $sire_id || $dam_id == $eartag_id){
 
-	    	case "checkup":
-
-				$data["body"] = "activities/breed_new_activity";
-				$data["title"] = "";		
-
-	        	break;
-
-	    	case "loss":
-
-				$data["body"] = "activities/breed_new_activity";
-				$data["title"] = "";		
-
-	        	break;
-
-	    	default:
-	    		$flag = TRUE;
-	        	show_404();
-
-		}
-
-		if(!$flag){
-			$this->load->view("layouts/application",$data);
-		}
-	}
-
-	public function activity_edit_module($activity_type,$process_id){
-
-		$flag = FALSE;
-		
-		switch ($activity_type) {
-	    	case "breed":
-
-				$data["body"] 	= "activities/breed_new_activity";
-				
-				$data["title"] 	= "";		
-				$data['breeding_attempt'] = $this->Goat_model->show_record('breeding_record');
-				
-				$data['dam_record'] = $this->Goat_model->show_record('Goat_Profile',"gender = 'female'");
-				$data['sire_record'] = $this->Goat_model->show_record('goat_profile',"gender = 'male'");
-				
-	        	break;
-
-	    	case "checkup":
-
-				$data["body"] = "activities/breed_new_activity";
-				$data["title"] = "";		
-
-	        	break;
-
-	    	case "loss":
-
-				$data["body"] = "activities/breed_new_activity";
-				$data["title"] = "";		
-
-	        	break;
-
-	    	default:
-	    		$flag = TRUE;
-	        	show_404();
-
-		}
-
-		if(!$flag){
-			$this->load->view("layouts/application",$data);
-		}
-	}
-
-	//Breeding Module Validator
-	public function breeding_validation(){
-
-		$this->form_validation->set_rules('eartag_id','Dam ID','required|xss_clean|trim|numeric|is_dam_exist[goat_profile.eartag_id]',
-			array(
-				'required' => 'Dam ID is required',
-				'is_dam_exist' => 'Do not exist as a {field}',
-				"integer" => "must contain an integer.",	
-			)
-		);
-
-		$this->form_validation->set_rules('partner_id','Sire ID','required|xss_clean|trim|numeric|is_sire_exist[goat_profile.eartag_id]',
-			array(
-				'required' => 'Sire ID is required',
-				'is_sire_exist' => 'Sire do not exist',
-				"integer" => "must contain an integer.",	
-			)
-		);
-
-		$this->form_validation->set_rules('perform_date','Breed Date','required|xss_clean|trim|check_date',
-			array(
-				'required' => 'Breed Date is required',
-				"check_date"	=> "{field} is set incorrectly",
- 			)
-		);
-
-		$this->form_validation->set_rules('remarks','Remarks','xss_clean|trim');
-
-		$this->form_validation->set_rules('is_pregnant','Is Pregnant','xss_clean|trim');
-
-		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
-
-
-	}
-
-
-	public function breeding_module($breeding_id = 0){
-		
-		self::breeding_validation();
-
-		if($this->form_validation->run() === FALSE){
-
-			self::activity_module("breed");
+			return FALSE;
 
 		} else {
 			
-			if($breeding_id > 0){
-				
-				echo "Breeding Validation";
-			
-			}else if($breeding_id == 0){
-
-				$message = '';						
-				$flag = 0;
-
-				if($this->Goat_model->breeding_record()){
-
-					$message = '<span class="fa fa-check-circle"></span>
-						<strong>Success</strong>&emsp; Breeding record added';
-					
-					$flag = 1;
-
-				}else{
-
-					$message = '<span class="fa fa-exclamation-circle"></span>
-						<strong>Failed</strong>&emsp; Breeding Record already existed';
-
-				}
-
-				
-
-				$content = '<div class="alert '.($flag === 1 ? 'alert-success' : 'alert-danger').' col-12" role="alert" style="height: 50px;">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button><div class="row">
-											<p>'. $message . '</p>
-										</div>
-									</div>';
-				
-				$this->session->set_flashdata('goat', $content);
-
-
-			} else{
-
-				show_404();
-
-			}
+			return TRUE;
 
 		}
+
+	}
+	public function breed_check($id){
+		
+		return $this->Goat_model->is_breed($id);
+
+	}
+
+	public function sire_eartag_check($sire_id){
+		
+	#	echo "<h1>Sire Eartag Check</h1>";
+
+		$dam_id 	= $this->input->post("dam_id", TRUE);
+		$eartag_id 	= $this->input->post("eartag_id", TRUE);
+
+		if($sire_id == $dam_id || $sire_id == $eartag_id){
+
+			return FALSE;
+
+		} else {
+			
+			return TRUE;
+
+		}
+
+	}
+
+	public function eartag_check($eartag_id){
+		
+	#	echo "<h1>Eartag Check</h1>";
+
+		$dam_id 	= $this->input->post("dam_id", TRUE);
+		$sire_id 	= $this->input->post("sire_id", TRUE);
+
+		if($sire_id == $eartag_id || $dam_id == $eartag_id){
+
+			return FALSE;
+
+		} else {
+			
+			return TRUE;
+
+		}
+
 	}
 
 }

@@ -24,7 +24,7 @@
 
           $this->dbforge->add_field('CONSTRAINT fk_loss_activity_id FOREIGN KEY (`activity_id`) REFERENCES activity(`activity_id`)');
 
-          $this->dbforge->create_table('loss_management',TRUE,array('AUTO_INCREMENT' => '1'));
+          $this->dbforge->create_table('loss_management', TRUE, array('AUTO_INCREMENT' => '1'));
 
         }
 

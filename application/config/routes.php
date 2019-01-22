@@ -110,20 +110,24 @@ $route["sales/(:num)/edit"]["POST"]				= "goat_management/validate_modify_transa
 
 $route["sales/(:num)/remove"]["GET"]			= "goat_management/remove_sales/$1";
 
-/***
-	Activities
-***/
-
 /**
-	breed, checkup, loss 
+**	Activities
 **/
 
-$route["activity/(:any)/new"]					= "goat_management/activity_module/$1";
+$route["activity/(:any)/view"]["GET"]			= "activity_controller/activity_view/$1";
 
+$route["activity/(:any)/edit/(:num)"]["GET"]	= "activity_controller/activity_edit/$1/$2";
+$route["activity/(:any)/edit/(:num)"]["POST"]	= "activity_controller/activity_module/$1";
+
+$route["activity/(:any)/new"]["GET"]			= "activity_controller/activity_new/$1";
+$route["activity/(:any)/new"]["POST"]			= "activity_controller/validate_activity/$1";
+
+$route["breeding/(:num)/update"]["POST"]		= "activity_controller/validate_pregcheck/$1";
 //Create new Breeding Record
-$route["breeding/new"]							= "goat_management/breeding_module";
+//$route["breeding/new"]							= "activity_controller/breeding_module";
 
 //Edit Breeding Record
-$route["breeding/(:id)/edit"]					= "goat_management/breeding_module/$1";
+//$route["breeding/(:id)/edit"]					= "activity_controller/breeding_module/$1";
+//$route["pregcheck/(:num)"]["POST"]				= "";
 
-?>
+

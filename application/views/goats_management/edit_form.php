@@ -1,22 +1,23 @@
-<div class = "container-fluid mt-5 mb-5 pb-2">
-	<div class="row mt-2 mt-md-5 mb-5">
-		<div class="col p-2 p-md-0">
-			<div class="card ">
+<div class = "container-fluid mt-5 pb-2" style="margin-bottom: 80px;">
+	<div class="row mt-2 mt-md-5 mb-5 pr-5">
+		<div class="col p-2 p-md-0 ">
+			<div class="card shadow-none">
 				<div class="card-header card-ubuntu">
 					<h3>Modify Goats Record</h3>
 				</div>
 				<div class="card-body p-2">
 					<?php foreach($goat_record as $row) { ?>
 						
-					<?= form_open(base_url()."manage/edit", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"form_validator_js();")); ?>
+					<?= form_open(base_url()."manage/edit", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"", "onsubmit" => "")); ?>
 						<div class="form-row p-1">
 							<input type="hidden" name="recent_category" id="rcategory" value="<?= $row->category ?>" />
+							<input type="hidden" name="ref_id" id="ref_id" value="<?= $row->ref_id ?>" />
 						</div>
 						<div class="form-row p-1">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
 							
 							<div class="col-8 col-sm-8 col-md-4">
-								<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id', $row->eartag_id);?>" />
+								<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id', $row->eartag_id);?>" id="eartag_id" onchange="" oninput="eartag_checker()">
 								
 								<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
 							</div>
@@ -24,18 +25,23 @@
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-1">Tag Color <span class="text-danger">*</span></label>								
 							<div class="col">
 								<div class="row px-3">
-															
-									<select name="eartag_color" id="tag_color_select" class="form-control col-11" placeholder="- Enter Tag Color -" value="<?= set_value('eartag_color', $row->eartag_color); ?>" required>
+									<div class="dropdown col">
+										<div class="row">
+											<a class="nav-link form-control text-muted" href="#" id="eartag_palette" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+												<i class="fas fa-palette fa-lg"></i>&emsp;-- Please Select --
+											</a>
+											<div class="dropdown-menu col" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" onclick="choose_color('Green')"><!--i class="fas fa-box" style="color: green"></i--><span class="badge" style="background-color: green; width: 120px">&emsp;</span>&emsp;Green</a>
+												<a class="dropdown-item" onclick="choose_color('Yellow')"><!--i class="fas fa-box" style="color: yellow"></i--><span class="badge" style="background-color: yellow; width: 120px">&emsp;</span>&emsp;Yellow</a>
+												<a class="dropdown-item" onclick="choose_color('Orange')"><!--i class="fas fa-box" style="color: orange"></i--><span class="badge" style="background-color: orange; width: 120px">&emsp;</span>&emsp;Orange</a>
+												<a class="dropdown-item" onclick="choose_color('Blue')"><!--i class="fas fa-box" style="color: blue"></i--><span class="badge" style="background-color: blue; width: 120px">&emsp;</span>&emsp;Blue</a>							
+											</div>					
+										</div>
 
-					 	    			<option value="green">Green</option> 
-						                <option value="yellow">Yellow</option>
-						                <option value="orange">Orange</option>
-						                <option value="blue">Blue</option>      
-						                                    		          
-									</select>
-									<input type="color" name="tag_picker" id="tagpicker" class="form-control col-1" onchange="tagColorPick(this.value);" >
-								</div>
-					                        			
+									</div>
+									<input type="hidden" name="eartag_color" id="eartag_colorx">
+
+								</div>	                        			
 								<?= (form_error('eartag_color')	!= "" ? form_error('eartag_color') : ''); ?>	
 
 							</div>
@@ -66,7 +72,7 @@
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Body Color <span class="text-danger">*</span></label>
 							
 							<div class="col">
-								<select name="body_color" id="body_color_select" class="form-control" placeholder="- Enter Body Color -" value="<?= set_value('body_color', $row->body_color); ?>">
+								<select name="body_color" id="body_color_select" class="form-control" placeholder="- Enter Body Color -" value="<?= ucfirst(set_value('body_color', $row->body_color)) ?>">
 
 									<option value="Brown">Brown</option>           
 								</select>
@@ -148,7 +154,7 @@
 								<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Dam ID <span class="text-danger">*</span></label>
 								
 								<div class="col">
-									<select name="dam_id" id="dam_id_select" class="form-control" placeholder="- Enter Dam ID -" value="<?= set_value('dam_id', $row->dam_id) ?>" >
+									<select name="dam_id" id="dam_id_select" class="form-control" placeholder="- Enter Dam ID -" value="<?= set_value('dam_id', $row->dam_id) ?>" onchange="eartag_checker();" oninput="eartag_checker()" >
 
 									<?php foreach($dam_record as $row){ ?>
 										<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
@@ -163,7 +169,7 @@
 								<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Sire ID <span class="text-danger">*</span></label>
 								
 								<div class="col">
-									<select name="sire_id" id="s_id_select" class="form-control" placeholder="- Enter Sire ID -" value="<?= set_value('sire_id', $sire_id) ?>" >
+									<select name="sire_id" id="sire_id_select" class="form-control" placeholder="- Enter Sire ID -" value="<?= set_value('sire_id', $sire_id) ?>" onchange="eartag_checker()" oninput="eartag_checker()" >
 
 									<?php foreach($sire_record as $row){ ?>
 										<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
@@ -186,6 +192,10 @@
 								
 								<?= (form_error('is_castrated')	!= "" ? form_error('is_castrated') : ''); ?>	
 							</div>
+						</div>
+
+						<div class="form-row mt-3">
+							<input type="submit" class="btn btn-primary col col-md-3 offset-md-9" name="submit" value="Save" id="update_btn"/>
 						</div>
 					
 					<?= form_close(); ?>

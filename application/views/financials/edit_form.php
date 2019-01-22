@@ -1,10 +1,10 @@
-<div class = "container-fluid mt-5">
+<div class = "container-fluid mt-5" style="margin-bottom: 180px;">
 
 	<div class="row mt-2 mt-md-5">
 
 		<div class="col p-2 p-md-5">
 
-			<div class="card ">
+			<div class="card shadow-none rounded">
 				
 				<div class="card-header card-ubuntu">
 					<h3>Modify Transaction Record</h3>
@@ -98,7 +98,7 @@
 					<div class="form-row p-1 float-right w-100 mt-2">
 						<a href="javascript:void(0);" class="btn btn-danger col col-md-3 offset-md-5" onclick="js_button();">Cancel</a>
 						
-						<input type="submit" class="btn btn-info col-3 offset-1" value="Modify">							
+						<input type="submit" class="btn btn-info col-3 offset-1" value="Modify" id="update_btn">							
 					</div>
 
 					<div class="form-row p-1 float-right w-100">
