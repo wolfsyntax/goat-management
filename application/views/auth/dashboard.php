@@ -13,7 +13,7 @@
 
 		<section class="p-0 col-12 text-dark" id="body-content" style="height: 100vh; ">
 
-			<iframe class="p-0 w-100 mh-100 h-100 bg-light" style="margin-top: 100px;" src="<?php echo base_url("activity");?>" id="ui_view" frameborder="0" scrolling="yes"></iframe>        
+			<iframe class="p-2 w-100 mh-100 h-100 bg-light" style="margin-top: 100px;" src="<?php echo base_url("activity");?>" id="ui_view" frameborder="0" scrolling="yes"></iframe>        
 
 		</section>
     </main>

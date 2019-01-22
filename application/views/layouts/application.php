@@ -366,12 +366,12 @@
 		}
 
 */
-		function inventory_management(){
-			var x = Number($("#prod_quantity").val()) + 1;
-			document.getElementById("prod_quantity").value = x;
-			//alert(x);
+//		function inventory_management(){
+//			var x = Number($("#prod_quantity").val()) + 1;
+//			document.getElementById("prod_quantity").value = x;
+//			//alert(x);
 			//alert(document.getElementById("prod_quantity").value);
-		}
+//		}
 
 		function choose_color(color){
 			document.getElementById("eartag_palette").innerHTML = '<i class="fas fa-palette fa-lg" style="color: '+color+';"></i>&emsp;' + color;
@@ -606,6 +606,39 @@
 			$("#statusCheckForm").attr("action",cur_url);
 			$("#eartag_id_stat").val(eartag_id); 
 			e.preventDefault();
+		}
+
+
+		function inventoryCheck(inventory_id, def_val, min_val){
+
+			var cur_url = base_url + "inventory/" + inventory_id + "/edit";
+			
+		//	alert("Request URL: "+cur_url);
+
+			$("#inventoryForm").attr("action",cur_url);
+			
+			document.getElementById("qtyIDT").min 		= min_val;
+			document.getElementById("qtyIDT").value 	= min_val;
+			document.getElementById("modItem").value 	= def_val;
+			document.getElementById("hmodItem").value 	= def_val;
+		
+		}
+
+
+		function checkInventoryValue(){
+			var minx = document.getElementById("qtyIDT");
+
+			if(parseInt($("#qtyIDT").val()) < parseInt(minx.min)){
+				minx.value = parseInt(minx.min);
+
+				$("#update_btn").attr("disabled",true);
+			
+			} else {
+
+				$("#update_btn").attr("disabled",false);
+
+			}
+
 		}
 
 	</script>

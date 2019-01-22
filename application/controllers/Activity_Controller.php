@@ -34,6 +34,7 @@ class Activity_Controller extends CI_Controller {
 	{
 		parent::__construct ();
 		$this->load->model('Goat_model');
+		$this->load->model('Inventory_model');
 
 	}
 
@@ -70,6 +71,14 @@ class Activity_Controller extends CI_Controller {
 					# code...
 					break;
 				
+				case 'checkup':
+					$data = array(
+						'body' 				=> "activities/health_check_table", 
+						'title' 			=> "Health Check", 
+						'health_records' 	=> $this->Goat_model->show_active_goats(),
+					);
+					# code...
+					break;
 				
 				default:
 					$flag = TRUE;		
@@ -110,6 +119,16 @@ class Activity_Controller extends CI_Controller {
 					# code...
 					break;
 				
+				case 'checkup':
+
+					$data = array(
+						'body' 				=> "activities/health_check_new", 
+						'title' 			=> "Health Checkup", 
+						'goat_record'		=> $this->Goat_model->show_record('Goat_Profile',"status = 'active'"),
+					);
+					# code...
+					break;
+								
 				
 				default:
 
@@ -151,7 +170,16 @@ class Activity_Controller extends CI_Controller {
 					# code...
 					break;
 				
-				
+				case 'checkup':
+					$data = array(
+						'body' 				=> "activities/breeding_form", 
+						'title' 			=> "Breeding", 
+						'sire_record'		=> $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'"),
+						'dam_record'		=> $this->Goat_model->dam_breed(),
+					);
+					# code...
+					break;
+								
 				default:
 					$flag = TRUE;		
 					break;
@@ -171,6 +199,19 @@ class Activity_Controller extends CI_Controller {
 			redirect(base_url('login'),'refresh');
 
 		}
+
+	}
+	
+	public function health_view($eartag_id){
+
+		$data = array(
+			"body"				=> "activities/health_check_new",
+			"title"				=> "",
+			"health_records"	=> $this->Goat_model->get_health_records($eartag_id),
+			"inventory"			=> $this->Inventory_model->fetch_items(),
+		);
+
+		$this->load->view("layouts/application",$data);
 
 	}
 

@@ -111,7 +111,7 @@ $route["sales/(:num)/edit"]["POST"]				= "goat_management/validate_modify_transa
 $route["sales/(:num)/remove"]["GET"]			= "goat_management/remove_sales/$1";
 
 /**
-**	Activities
+**	Activity Management
 **/
 
 $route["activity/(:any)/view"]["GET"]			= "activity_controller/activity_view/$1";
@@ -122,6 +122,7 @@ $route["activity/(:any)/edit/(:num)"]["POST"]	= "activity_controller/activity_mo
 $route["activity/(:any)/new"]["GET"]			= "activity_controller/activity_new/$1";
 $route["activity/(:any)/new"]["POST"]			= "activity_controller/validate_activity/$1";
 
+$route["checkup/(:num)/new"]["GET"]				= "activity_controller/health_view/$1";
 $route["breeding/(:num)/update"]["POST"]		= "activity_controller/validate_pregcheck/$1";
 //Create new Breeding Record
 //$route["breeding/new"]							= "activity_controller/breeding_module";
@@ -131,3 +132,11 @@ $route["breeding/(:num)/update"]["POST"]		= "activity_controller/validate_pregch
 //$route["pregcheck/(:num)"]["POST"]				= "";
 
 
+/**************************************************************************
+**		Inventory Management
+**************************************************************************/
+
+$route['inventory/view']['GET']					= "inventory_management";
+$route['inventory/new']['GET']					= "inventory_management/add_item";
+$route['inventory/new']['POST']					= "inventory_management/validate_request";
+$route['inventory/(:num)/edit']['POST']			= "inventory_management/mod_request/$1";

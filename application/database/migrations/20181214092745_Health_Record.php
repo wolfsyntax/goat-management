@@ -29,7 +29,7 @@
 
           $this->dbforge->add_key('checkup_id', TRUE);
 
-          $this->dbforge->add_field('CONSTRAINT fk_checkup_eartag_id FOREIGN KEY (`eartag_id`) REFERENCES goat_profile(`eartag_id`)');
+//          $this->dbforge->add_field('CONSTRAINT fk_checkup_eartag_id FOREIGN KEY (`eartag_id`) REFERENCES goat_profile(`eartag_id`)');
 
           $this->dbforge->add_field('CONSTRAINT fk_checkup_activity_id FOREIGN KEY (`activity_id`) REFERENCES activity(`activity_id`)');
 
