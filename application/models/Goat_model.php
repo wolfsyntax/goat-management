@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function get_child($eartag_id){
-			
+
 			$sql = "SELECT gp.eartag_id, br.birth_date, gp.gender FROM birth_record as br, goat_profile as gp WHERE gp.eartag_id = br.eartag_id AND br.dam_id = {$eartag_id}";
 
 			$query = $this->db->query($sql);
@@ -34,7 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$data = array(
 
 					"sire_id"		=> $this->input->post("partner_id", TRUE),
-					"is_pregnant" 	=> $preg_eval ? "Yes" : "No",
+					"is_pregnant" 	=> $preg_eval ? "yes" : "no",
 					"activity_id"	=> $activity_id,
 
 				);
@@ -286,6 +286,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 			$query = $this->db->query($sql);			
 			return $query->result();
+
+		}
+
+		public function available_goat(){
+
+			$sql = "SELECT gp.eartag_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 1 YEAR) AND gp.status = 'active'";
+
+			$query = $this->db->query($sql);
+						
+			return $query->result();
+
+		}
+
+		public function is_available_goat($eartag_id){
+
+			$sql = "SELECT gp.eartag_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 1 YEAR) AND gp.eartag_id = {$eartag_id} AND gp.status = 'active'";
+
+			$query = $this->db->query($sql);
+			
+			if($query->num_rows() == 1){
+				
+				return TRUE;			
+
+			} else {
+
+				return FALSE;
+
+			}			
+			//return $query->result();
 
 		}
 

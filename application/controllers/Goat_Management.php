@@ -530,7 +530,7 @@ Goat Sales
 		$data["footer"]			= "2";
 		$data["header"]			= "1";
 
-		$data['goat_record'] 	= $this->Goat_model->show_record('goat_profile',"status = 'active'");
+		$data['goat_record'] 	= $this->Goat_model->available_goat(); //$this->Goat_model->show_record('goat_profile',"status = 'active' AND ");
 
 		$this->load->view("layouts/application",$data);
 
@@ -563,11 +563,12 @@ Goat Sales
 			/**
 			**	Todo: add new validation rules for checking if it is not already sold
 			**/
-			$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'trim|required|is_active[goat_profile.eartag_id]|is_exist[goat_profile.eartag_id]',
+			$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'trim|required|callback_livestock_check|is_active[goat_profile.eartag_id]|is_exist[goat_profile.eartag_id]',
 				array(
-					'is_active'	=> '{field} is Inactive. You cannot sell it',
-					'is_exist'	=> '{field} do not exist in your Goat Records',
-					'required'	=> '{field} is required',	
+					'is_active'			=> '{field} is Inactive. You cannot sell it.',
+					'is_exist'			=> '{field} do not exist in your Goat Records.',
+					'required'			=> '{field} is required.',	
+					'livestock_check'	=> '{field} is NOT available or inactive. It must be atleast 12 months old.+'
 				)
 			);
 
@@ -613,12 +614,13 @@ Goat Sales
 
 	public function validate_modify_transaction($sales_id){
 
-		$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]",
+		$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]|callback_livestock_check",
 			array(
 				"required" 		=> "{field} is required.",
 				"numeric" 		=> "Not a valid {field} provided. Only digits are allowed",
 				"is_exist" 		=> "{field} is not existing.",
 				"greater_than"	=> "{field} must be greater than zero.",			
+				"livestock_check"	=> "{field} must be atleast 12 months old",
 			)
 		);
 
@@ -659,13 +661,14 @@ Goat Sales
 
 	public function validate_transaction(){
 
-		$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]|is_active[goat_profile.eartag_id]",
+		$this->form_validation->set_rules("eartag_id","Tag ID","required|numeric|xss_clean|trim|is_exist[goat_profile.eartag_id]|greater_than[0]|is_active[goat_profile.eartag_id]|callback_livestock_check",
 			array(
-				"required" 		=> "{field} is required.",
-				"numeric" 		=> "Not a valid {field} provided. Only digits are allowed",
-				"is_exist" 		=> "{field} is not existing.",
-				"greater_than"	=> "{field} is not valid.",
-				"is_active"		=> "{field} is not available to be sold."		
+				"required" 			=> "{field} is required.",
+				"numeric" 			=> "Not a valid {field} provided. Only digits are allowed",
+				"is_exist" 			=> "{field} is not existing.",
+				"greater_than"		=> "{field} is not valid.",
+				"is_active"			=> "{field} is not available to be sold.",
+				"livestock_check"	=> "{field} is not available to be sold. It must be atleast 12 months old ",
 			)
 		);
 		
@@ -780,9 +783,16 @@ Add Goat Record
 		}
 
 	}
+
 	public function breed_check($id){
 		
 		return $this->Goat_model->is_breed($id);
+
+	}
+
+	public function livestock_check($id){
+		
+		return $this->Goat_model->is_available_goat($id);
 
 	}
 
