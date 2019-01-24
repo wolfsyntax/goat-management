@@ -13,14 +13,14 @@
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Check-Up Type&nbsp;<span class="text-danger">*</span></label>
 						
 							<div class="col">
-								<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="">
-									<?php if(set_value('checkup_type') == "Vaccine") {?>
+								<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="" required="">
+									<?php if(set_value('checkup_type') == "Vaccination") {?>
 
 									<option value="">-- Please select --</option>
 									<option value="Vaccination" selected>Vaccination</option>
 									<option value="Supplementation">Supplementation</option>
 
-									<?php } else if(set_value("item_type") == "Supplement") {?>
+									<?php } else if(set_value("checkup_type") == "Supplementation") {?>
 
 									<option value="">-- Please select --</option>
 									<option value="Vaccination">Vaccination</option>
@@ -43,18 +43,46 @@
 
 						<div class="form-row">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Item Name&nbsp;<span class="text-danger">*</span></label>
-						
-							<div class="col">
+							<input type="hidden" name="prescription" id="prescription" required="">	
 
-								<!--input class="form-control" type="text" value="<?= set_value('prescription');?>" id="" placeholder="Item Name" name="prescription"-->
-								<select name="prescription" class="form-control">
-									<?php foreach($inventory as $row) {?>
+							<div class="col" id="med_vaccine">
+
+								<?php if($vaccine != NULL) {?>
+								<select class="form-control" onchange="set_prescription(this.value)" >
+									<option value="">-- Please select --</option>
+									<?php foreach($vaccine as $row) {?>
 										<option value="<?= $row->item_name ?>"><?= ucfirst($row->item_name) ?></option>
 									<?php }?>
+
 								</select>
+								
 								<?= (form_error('prescription') != "" ? form_error('prescription') : ''); ?>
 
+								<?php } else {?>
+
+									<a href="<?= base_url('inventory/new') ?>" class="nav-link">Add Vaccine</a>
+
+								<?php } ?>
+
 							</div>
+
+							<div class="col" id="med_supplement">
+								<?php if($supplement != NULL) {?>
+								<select class="form-control" onchange="set_prescription(this.value)" >
+									<option value="">-- Please select --</option>
+									<?php foreach($supplement as $row) {?>
+										<option value="<?= $row->item_name ?>"><?= ucfirst($row->item_name) ?></option>
+									<?php }?>
+
+								</select>
+
+								<?= (form_error('prescription') != "" ? form_error('prescription') : ''); ?>
+								<?php } else {?>
+
+									<a href="<?= base_url('inventory/new') ?>" class="nav-link">Add Supplement</a>
+
+								<?php } ?>
+							</div>							
 						</div>
 
 						<div class="form-row p-1">
@@ -66,7 +94,7 @@
 								<?= (form_error('quantity') != "" ? form_error('quantity') : ''); ?>			
 							</div-->
 							<div class="col">
-								<select name="quantity" id="goat_id_select" class="form-control" placeholder="- Enter Quantity -" value="<?= set_value('quantity') ?>">
+								<select name="quantity" id="goat_id_select" class="form-control" placeholder="- Enter Quantity -" value="<?= set_value('quantity') ?>" required>
 
 									<option value=5">5.0</option>
 									<option value="10">10.0</option>
@@ -84,7 +112,7 @@
 							<label  class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Perform Date&nbsp;<span class="text-danger">*</span></label>
 							
 							<div class="col">
-								<input class="form-control" type="date" value="<?= set_value('perform_date');?>" id="" placeholder="yyyy-mm-dd" name="perform_date">
+								<input class="form-control" type="date" value="<?= set_value('perform_date');?>" id="" placeholder="yyyy-mm-dd" name="perform_date" required>
 									
 								<?= (form_error('perform_date') != "" ? form_error('perform_date') : ''); ?>
 
@@ -96,7 +124,7 @@
 								<a href="<?= base_url('activity/checkup/view') ?>" class="btn btn-danger w-100" >Cancel</a>
 							</div>
 							<div class=" col-sm-12 col-md-3 py-2">
-								<input type="submit" class="btn btn-success w-100" value="Save" >
+								<input type="submit" class="btn btn-success w-100" value="Save" disabled="" id="save_btn">
 							</div>
 						</div>
 

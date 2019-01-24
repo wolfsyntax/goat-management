@@ -10,7 +10,7 @@
 					&emsp;
 				</div>
 
-				<div class="col-12 col-md-5 offset-md-1 mt-md-5 pr-md-5" >
+				<div class="col-12 px-4 px-md-0 col-md-5 offset-md-1 mt-md-5 pr-md-5" >
 					<?= form_open(base_url().'register', array('class'=>'mt-5','style'=>'',"onsubmit"=>"return check_form(this);")); ?>
 						<div class="row mt-md-5">
 							<div class="col-12 col-md-6 ">

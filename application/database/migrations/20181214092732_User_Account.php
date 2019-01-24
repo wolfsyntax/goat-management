@@ -4,34 +4,39 @@
 
         public function up() {
           $this->dbforge->add_field(array(
-            'user_id' => array(
-              'type' => 'INT',
-              'constraint' => 11,
-              'auto_increment' => TRUE
+            'user_id'           => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
+              'auto_increment'  => TRUE
             ),
-            'username'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 255,
+            'username'          => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 255,
             ),
-            'password'  => array(
-              'type'  => 'TEXT',
+            'active'            => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 255,
+              'default'         => 'no',
             ),
-            'phone_number'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 15,
+            'password'          => array(
+              'type'            => 'TEXT',
             ),
-            'account_type'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 32,
-              'default'   => 'tenant',
+            'phone_number'      => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 15,
             ),
-            'first_name'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 255,
+            'account_type'      => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 32,
+              'default'         => 'tenant',
             ),
-            'last_name'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 255,
+            'first_name'        => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 255,
+            ),
+            'last_name'         => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 255,
             ),
           ));
 

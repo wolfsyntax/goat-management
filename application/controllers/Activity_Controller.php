@@ -113,8 +113,8 @@ class Activity_Controller extends CI_Controller {
 					$data = array(
 						'body' 				=> "activities/breeding_form", 
 						'title' 			=> "Breeding", 
-						'sire_record'		=> $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'"),
-						'dam_record'		=> $this->Goat_model->dam_breed(),
+						'sire_record'		=> $this->Goat_model->goat_breed('male'),
+						'dam_record'		=> $this->Goat_model->goat_breed('female'),
 					);
 					# code...
 					break;
@@ -122,9 +122,11 @@ class Activity_Controller extends CI_Controller {
 				case 'checkup':
 
 					$data = array(
-						'body' 				=> "activities/health_check_new", 
-						'title' 			=> "Health Checkup", 
-						'goat_record'		=> $this->Goat_model->show_record('Goat_Profile',"status = 'active'"),
+						'body' 					=> "activities/health_check_new", 
+						'title' 				=> "Health Checkup", 
+						'goat_record'			=> $this->Goat_model->show_record('Goat_Profile',"status = 'active'"),
+						'vaccine'				=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
+						'supplement'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),						
 					);
 					# code...
 					break;
@@ -176,6 +178,9 @@ class Activity_Controller extends CI_Controller {
 						'title' 			=> "Breeding", 
 						'sire_record'		=> $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'"),
 						'dam_record'		=> $this->Goat_model->dam_breed(),
+
+						'vaccine'				=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
+						'supplement'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),												
 					);
 					# code...
 					break;
@@ -194,6 +199,7 @@ class Activity_Controller extends CI_Controller {
 				$this->load->view("layouts/application",$data);
 
 			}
+
 		}else{
 
 			redirect(base_url('login'),'refresh');
@@ -208,7 +214,9 @@ class Activity_Controller extends CI_Controller {
 			"body"				=> "activities/health_check_new",
 			"title"				=> "",
 			"health_records"	=> $this->Goat_model->get_health_records($eartag_id),
-			"inventory"			=> $this->Inventory_model->fetch_items(),
+//			"inventory"			=> $this->Inventory_model->fetch_items(),
+			'vaccine'				=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
+			'supplement'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),						
 		);
 
 		$this->load->view("layouts/application",$data);
@@ -217,21 +225,24 @@ class Activity_Controller extends CI_Controller {
 
 	public function validate_breeding_form(){
 		
-		$this->form_validation->set_rules('eartag_id', 'Dam ID', 'required|xss_clean|trim|integer|is_dam_exist[goat_profile.eartag_id]|greater_than[0]|is_active[goat_profile.eartag_id]|callback_breed_check', 
+		$this->form_validation->set_rules('eartag_id', 'Dam ID', 'required|xss_clean|trim|integer|is_dam_exist[goat_profile.eartag_id]|greater_than[0]|is_active[goat_profile.eartag_id]|callback_breed_check|eartag_checker', 
 			array(
-				'required'		=> '{field} is required.',
-				'integer'		=> '{field} must contain an integer.',
-				'is_dam_exist'	=> '{field} is NOT a Sire or do not exist.',
-				'is_active'		=> '{field} is NOT active. Please select another dam.',
-				'greater_than'	=> '{field} cannot be less than or equal to zero.',
-				'breed_check'	=> '{field} must be at least 10 months old',
+				'required'			=> '{field} is required.',
+				'integer'			=> '{field} must contain an integer.',
+				'is_dam_exist'		=> '{field} is NOT a Sire or do not exist.',
+				'is_active'			=> '{field} is NOT active. Please select another dam.',
+				'greater_than'		=> '{field} cannot be less than or equal to zero.',
+				'breed_check'		=> '{field} must be at least 10 months old',
+				'eartag_checker'	=> '{field} is not a valid Eartag ID.',
 			)
 		);
 
-		$this->form_validation->set_rules('partner_id', 'Sire ID', 'trim|required|is_sire_exist[goat_profile.eartag_id]|is_active[goat_profile.eartag_id]',array(
+		$this->form_validation->set_rules('partner_id', 'Sire ID', 'trim|required|is_sire_exist[goat_profile.eartag_id]|is_active[goat_profile.eartag_id]|eartag_checker|callback_breed_check',array(
 				'required' 			=> '{field} is required.',
 				'is_sire_exist'		=> '{field} is NOT existing.',
 				'is_active'			=> '{field} is NOT active. Please select another sire.',
+				'breed_check'		=> '{field} must be at least 10 months old',
+				'eartag_checker'	=> '{field} is not a valid Eartag ID.',
 			)
 		);
 
@@ -343,6 +354,8 @@ class Activity_Controller extends CI_Controller {
 
 			}
 
+			redirect(base_url('activity/breeding/view'),'refresh');
+
 		}
 
 	}
@@ -429,7 +442,18 @@ class Activity_Controller extends CI_Controller {
 		}
 
 	}
+/*
+	public function eartag_checker($str)
+	{
+		
+		if(preg_match("/[0-9]{6}+/", $str) && intval($str) > 0){
+			return TRUE;
+		}
 
+		return FALSE;
+
+	}
+*/
 }
 
 /**

@@ -17,7 +17,7 @@
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
 							
 							<div class="col-8 col-sm-8 col-md-4">
-								<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id', $row->eartag_id);?>" id="eartag_id" onchange="" oninput="eartag_checker()">
+								<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id', $row->eartag_id);?>" id="eartag_id" onchange="" oninput="eartag_checker()" required>
 								
 								<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
 							</div>
@@ -46,7 +46,18 @@
 
 							</div>
 						</div>
-						
+
+						<div class="form-row p-1">
+							<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Nickname <span class="text-danger">*</span></label>
+							
+							<div class="col">
+								<input type="text" name="nickname" value="<?= set_value("nickname"); ?>" placeholder="Nickname" class="form-control" required>
+								
+								<?= (form_error('nickname')	!= "" ? form_error('nickname') : ''); ?>	
+							</div>
+
+						</div>
+												
 						<div class="form-row p-1">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Gender <span class="text-danger">*</span></label>
 							<div class="col">

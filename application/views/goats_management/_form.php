@@ -1,14 +1,15 @@
 
 	<div class="form-row p-1">
-		<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
+		<label class="col-form-label-sm col-12 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
 		
-		<div class="col-8 col-sm-8 col-md-4">
-			<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id');?>" onchange="eartag_checker()" >
+		<div class="col-12 col-sm-8 col-md-4">
+			<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id');?>" onchange="eartag_checker()" required>
 			
 			<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
+
 		</div>
 
-		<label class="col-form-label-sm col-4 col-sm-4 col-md-1">Tag Color <span class="text-danger">*</span></label>								
+		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-1">Tag Color <span class="text-danger">*</span></label>								
 		<div class="col">
 			<div class="row px-3">
 				<div class="dropdown col">
@@ -25,7 +26,7 @@
 					</div>
 
 				</div>
-				<input type="hidden" name="eartag_color" id="eartag_colorx">
+				<input type="hidden" name="eartag_color" id="eartag_colorx" required="">
 				<!--select name="eartag_color" id="tag_color_select" class="form-control col-11" placeholder="- Enter Tag Color -" value="<?= set_value('eartag_color'); ?>" required>
 
  	    			<option value="green">Green</option> 
@@ -41,11 +42,22 @@
 
 		</div>
 	</div>
+
+	<div class="form-row p-1">
+		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Nickname <span class="text-danger">*</span></label>
+		
+		<div class="col">
+			<input type="text" name="nickname" value="<?= set_value("nickname"); ?>" placeholder="Nickname" class="form-control" required>
+			
+			<?= (form_error('nickname')	!= "" ? form_error('nickname') : ''); ?>	
+		</div>
+
+	</div>
 	
 	<div class="form-row p-1">
-		<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Gender <span class="text-danger">*</span></label>
+		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Gender <span class="text-danger">*</span></label>
 		<div class="col">
-			<select name="gender" class="custom-select" id="gender" onchange="select_gender(this);">
+			<select name="gender" class="custom-select" id="gender" onchange="select_gender(this);" required data-role="tagsinput">
 				<option value="" >- Select a Gender -</option>
 				<?php if(set_value("gender") == "male") {?>
 					<option value="male" selected>Male</option>
@@ -64,10 +76,10 @@
 	</div>
 
 	<div class="form-row p-1">
-		<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Body Color <span class="text-danger">*</span></label>
+		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Body Color <span class="text-danger">*</span></label>
 		
 		<div class="col">
-			<select name="body_color" id="body_color_select" class="form-control" placeholder="- Enter Body Color -" value="<?= set_value('body_color'); ?>">
+			<select name="body_color" id="body_color_select" class="form-control" placeholder="- Enter Body Color -" value="<?= set_value('body_color'); ?>" required>
 
 				<option value="Brown">Brown</option>           
 			</select>
@@ -80,11 +92,11 @@
 	
 	<fieldset >
 		<div class="form-row p-1 pt-3 ">
-			<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Category <span class="text-danger">*</span></label>
+			<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Category <span class="text-danger">*</span></label>
 			<div class="col">
-				<div class="row">
-					<div class="col-3"><label><input type="radio" name="category" value="purchase" id="category">&emsp;By Purchase</label></div>
-					<div class="col-3"><label><input type="radio" name="category" value="birth" id="category" >&emsp;By Birth</label></div>
+				<div class="row mt-2">
+					<div class="col-12 col-sm-6 col-md-3"><label><input type="radio" name="category" value="purchase" id="category" required="">&emsp;By Purchase</label></div>
+					<div class="col-12 col-sm-6 col-md-3"><label><input type="radio" name="category" value="birth" id="category" required="">&emsp;By Birth</label></div>
 				</div>
 			</div>
 			<!--select name="category" id="cat_info" class="col form-control" onchange="show_form(this);">
@@ -104,7 +116,7 @@
 		<div class="form-row p-1 birth-elem">
 			<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
 			<div class="col">
-				<input type="date" name="birth_date" value="<?= set_value('birth_date');?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);" >
+				<input type="date" name="birth_date" value="<?= set_value('birth_date');?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);"  required>
 				<span id="date_checker"><?= (form_error('birth_date')	!= "" ? form_error('birth_date') : ''); ?></span>	
 			</div>
 		</div>
@@ -186,7 +198,7 @@
 	</fieldset>
 
 	<div class="form-row p-1">
-		<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Is castrated ? <span class="text-danger">*</span></label>
+		<label class="col-form-label-sm col-6 col-sm-4 col-md-2 col-lg-2">Is castrated ? <span class="text-danger">*</span></label>
 		
 		<div class="col mt-2">
 			<input type="checkbox" name="is_castrated" value="" class="custom-checkbox" id="is_castrated" disabled="" >

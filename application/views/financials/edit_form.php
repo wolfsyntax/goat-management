@@ -35,7 +35,7 @@
 	
 						<div class="col">
 						
-							<input type="date" name="transact_date" value="<?= set_value('transact_date')? set_value("transact_date") : $row->transact_date;?>" placeholder="" class="form-control ">
+							<input type="date" name="transact_date" value="<?= set_value('transact_date')? set_value("transact_date") : $row->transact_date;?>" placeholder="" class="form-control " required>
 		
 							<?= (form_error('transact_date')	!= "" ? form_error('transact_date') : ''); ?>
 
@@ -49,7 +49,7 @@
 	
 						<div class="col">
 		
-							<select name="sold_to" id="client_select" class="form-control" placeholder="- Select Buyer -" value="<?= set_value('sold_to') ? set_value('sold_to') : $row->sold_to; ?>">
+							<select name="sold_to" id="client_select" class="form-control" placeholder="- Select Buyer -" value="<?= set_value('sold_to') ? set_value('sold_to') : $row->sold_to; ?>" required>
 
 								<option value="MGM">MGM</option>           
 							</select>
@@ -64,7 +64,7 @@
 						<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Total Weight <span class="text-danger">*</span></label>
 						
 						<div class="col">
-							<input type="text" name="weight" value="<?= set_value('weight') ? set_value('weight') : $row->weight; ?>" placeholder="Enter weight in kilos" class="form-control ">
+							<input type="text" name="weight" value="<?= set_value('weight') ? set_value('weight') : $row->weight; ?>" placeholder="Enter weight in kilos" class="form-control " required>
 							
 							<?= (form_error('weight')	!= "" ? form_error('weight') : ''); ?>
 						
@@ -77,7 +77,7 @@
 						
 						<div class="col">
 							
-							<input type="text" name="price_per_kilo" value="<?= set_value('price_per_kilo') ? set_value('price_per_kilo') : $row->price_per_kilo; ?>" placeholder="Price per Kilo" class="form-control ">
+							<input type="text" name="price_per_kilo" value="<?= set_value('price_per_kilo') ? set_value('price_per_kilo') : $row->price_per_kilo; ?>" placeholder="Price per Kilo" class="form-control " required>
 							
 							<?= (form_error('price_per_kilo')	!= "" ? form_error('price_per_kilo') : ''); ?>
 						

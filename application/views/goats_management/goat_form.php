@@ -7,7 +7,7 @@
 				</div>
 				<div class="card-body p-2">
 					
-					<?= form_open(base_url()."", array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>'',)); ?>
+					<?= form_open("", array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>'',)); ?>
 						
 						<?php $this->load->view('goats_management/_form'); ?>
 						

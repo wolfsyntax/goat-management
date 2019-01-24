@@ -4,26 +4,26 @@
 
         public function up() {
           $this->dbforge->add_field(array(
-            'checkup_id' => array(
-              'type' => 'INT',
-              'constraint' => 11,
-              'auto_increment' => TRUE
+            'checkup_id'        => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
+              'auto_increment'  => TRUE,
             ),
-            'checkup_type'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 255,
+            'checkup_type'      => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 255,
             ),
-            'prescription'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 255,
+            'prescription'      => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 255,
             ),
-            'quantity'  => array(
-              'type'  => 'FLOAT',
-              'constraint'  => "11,2",
+            'quantity'          => array(
+              'type'            => 'FLOAT',
+              'constraint'      => "11,2",
             ),
-            'activity_id'  => array(
-              'type'  => 'INT',
-              'constraint'  => 11,
+            'activity_id'       => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
             ),
           ));
 

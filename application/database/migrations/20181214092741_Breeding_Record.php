@@ -4,23 +4,23 @@
 
         public function up() {
           $this->dbforge->add_field(array(
-            'breeding_id' => array(
-              'type'  => 'INT',
-              'constraint'  => 11,
-              'auto_increment'  => TRUE
+            'breeding_id'       => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
+              'auto_increment'  => TRUE,
             ),
-            'activity_id' => array(
-              "type"=> "INT",
-              'constraint'  => 11
+            'activity_id'       => array(
+              "type"            => "INT",
+              'constraint'      => 11,
             ),
-            'sire_id' => array(
-              'type'  => 'INT',
-              'constraint'  => 11,
+            'sire_id'           => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
             ),
-            'is_pregnant' => array(
-              'type'  => 'VARCHAR',
-              'constraint' => 64,
-              'default' => "No",
+            'is_pregnant'       => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 64,
+              'default'         => "No",
             ),
           ));
 

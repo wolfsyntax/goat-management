@@ -34,7 +34,7 @@ class Inventory_Management extends CI_Controller {
 	{
 		parent::__construct ();
 		$this->load->model('Inventory_model');
-
+		if($this->session->userdata('username')== "") redirect(base_url('login'),'refresh');
 	}
 
 	public function index()
@@ -176,6 +176,17 @@ class Inventory_Management extends CI_Controller {
 		redirect(base_url('inventory/view'));
 
 	}	
+/*
+	public function eartag_checker($str)
+	{
+		
+		if(preg_match("/[0-9]{6}+/", $str) && intval($str) > 0){
+			return TRUE;
+		}
 
+		return FALSE;
+
+	}
+*/
 }
 

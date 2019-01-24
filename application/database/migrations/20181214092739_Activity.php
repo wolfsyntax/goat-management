@@ -4,28 +4,28 @@
 
         public function up() {
           $this->dbforge->add_field(array(
-            'activity_id' => array(
-              'type' => 'INT',
-              'constraint' => 11,
-              'auto_increment' => TRUE,
+            'activity_id'       => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
+              'auto_increment'  => TRUE,
             ),
-            'user_id' => array(
-              'type' => 'INT',
-              'constraint' => 11,
+            'user_id'           => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
             ),
-            'eartag_id' => array(
-              'type'  => 'INT',
-              'constraint'  => 11,
+            'eartag_id'         => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
             ),
-            'date_perform' => array(
-              'type' => 'DATE',
+            'date_perform'      => array(
+              'type'            => 'DATE',
             ),
-            'activity_type' => array(
-              'type' => 'VARCHAR',
-              'constraint' => 64,
+            'activity_type'     => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 64,
             ),
-            'remarks' => array(
-              'type' => 'TEXT',
+            'remarks'           => array(
+              'type'            => 'TEXT',
             ),            
           ));
 

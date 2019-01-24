@@ -4,20 +4,19 @@
 
         public function up() {
           $this->dbforge->add_field(array(
-            'loss_id' => array(
-              'type' => 'INT',
-              'constraint' => 11,
-              'auto_increment' => TRUE
+            'loss_id'           => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
+              'auto_increment'  => TRUE,
             ),
-            'cause'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 255,
+            'cause'             => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 255,
             ),
-            'activity_id'  => array(
-              'type'  => 'INT',
-              'constraint'  => 11,
+            'activity_id'       => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
             ),
-
           ));
 
           $this->dbforge->add_key('loss_id', TRUE);

@@ -6,7 +6,7 @@ class Auth_Controller extends CI_Controller {
 		
 		parent::__construct ();
 		$this->load->model("User_model");
-
+		if($this->session->userdata('username')== "") redirect(base_url('login'),'refresh');
 	}
 
 	public function index(){

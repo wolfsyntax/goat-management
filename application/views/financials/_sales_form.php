@@ -6,10 +6,10 @@
 	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Tag ID <span class="text-danger">*</span></label>								
 	
 	<div class="col">
-		<select name="eartag_id" id="goat_id_select" class="form-control" placeholder="- Enter Ear Tag ID -" value="<?= set_value('eartag_id'); ?>">
+		<select name="eartag_id" id="goat_id_select" class="form-control" placeholder="- Enter Ear Tag ID -" value="<?= set_value('eartag_id'); ?>" required>
 
 			<?php foreach($goat_record as $row) {?>           
-			<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
+			<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?>&nbsp;(<?= $row->nickname ?>)&nbsp;</option>
 			<?php } ?>
 		</select>
 		
@@ -22,7 +22,7 @@
 	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Date Sold <span class="text-danger">*</span></label>
 	
 	<div class="col">
-		<input type="date" name="transact_date" value="<?= set_value('transact_date');?>" placeholder="" class="form-control ">
+		<input type="date" name="transact_date" value="<?= set_value('transact_date');?>" placeholder="" class="form-control " required>
 		
 		<?= (form_error('transact_date')	!= "" ? form_error('transact_date') : ''); ?>
 
@@ -35,7 +35,7 @@
 	
 	<div class="col">
 		
-		<select name="sold_to" id="client_select" class="form-control" placeholder="- Select Buyer -" value="<?= set_value('sold_to'); ?>">
+		<select name="sold_to" id="client_select" class="form-control" placeholder="- Select Buyer -" value="<?= set_value('sold_to'); ?>" required>
 
 			<option value="MGM">MGM</option>           
 		</select>
@@ -50,7 +50,7 @@
 	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Total Weight <span class="text-danger">*</span></label>
 	
 	<div class="col">
-		<input type="text" name="weight" value="<?= set_value('weight'); ?>" placeholder="Enter weight in kilos" class="form-control ">
+		<input type="text" name="weight" value="<?= set_value('weight'); ?>" placeholder="Enter weight in kilos" class="form-control " required>
 		
 		<?= (form_error('weight')	!= "" ? form_error('weight') : ''); ?>
 	
@@ -63,7 +63,7 @@
 	
 	<div class="col">
 		
-		<input type="text" name="price_per_kilo" value="<?= set_value('price_per_kilo'); ?>" placeholder="Price per Kilo" class="form-control ">
+		<input type="text" name="price_per_kilo" value="<?= set_value('price_per_kilo'); ?>" placeholder="Price per Kilo" class="form-control " required>
 		
 		<?= (form_error('price_per_kilo')	!= "" ? form_error('price_per_kilo') : ''); ?>
 	

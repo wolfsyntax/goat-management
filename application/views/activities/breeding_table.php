@@ -7,7 +7,7 @@
 			<div class="card shadow-none">
 				<div class="card-header bg-light">
 					<h1 class="pt-2">
-						Breeding Attempt(s)
+						Breeding Records
 					</h1>
 				</div>
 				<div class="card-body px-0">
@@ -23,7 +23,7 @@
 										<th>Dam ID</th>
 										<th>Sire ID</th>
 										<th>Breeding Date</th>
-										<th>Perform By</th>
+										<th>In Charge</th>
 										
 										<th>Result</th>
 										<th width="1%">Action</th>

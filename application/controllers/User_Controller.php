@@ -51,19 +51,32 @@ class User_Controller extends CI_Controller {
 	}
 
   	public function login(){
+
+		$data["footer"]	= "2";
+		$data["header"]	= "1";
   		
   		if($this->session->userdata("username") == ""){
-
+			
 			$data["body"] 	= "users/login";
 			$data["title"]	= "Sign in";
-			$data["footer"]	= "2";
-			$data["header"]	= "1";
 		
 			$this->load->view("layouts/application",$data);
 
 		} else {
+			
+			if($this->session->userdata('is_activated') == "yes"){
+				
+				redirect("dashboard");
 
-			redirect("dashboard");
+			} else {
+
+				$data["body"] 	= "users/notify";
+				$data["title"]	= "Activation Message";
+				
+				$this->load->view("layouts/application",$data);
+
+
+			}	
 
 		}
 
@@ -71,14 +84,16 @@ class User_Controller extends CI_Controller {
 
   	public function verify_access(){
 
-		$this->form_validation->set_rules("username", "Username", "trim|required|xss_clean|min_length[5]", array(
-			'required' => '{field} is required',
-			'xss_clean' => '{field} is not valid',
-			"min_length"	=> "{field} must contain atleast 5 characters long.",
+		$this->form_validation->set_rules("username", "Username", "trim|required|xss_clean|min_length[5]|max_length[254]",
+			array(
+				'required' 		=> '{field} is required.',
+				'max_length'	=> "{field} cannot exceed more than 255 characters in length.",
+				'xss_clean' 	=> '{field} is not valid.',
+				"min_length"	=> "{field} must contain atleast 5 characters long.",
 		));
 
 		$this->form_validation->set_rules("passwd", "Password", "trim|required|xss_clean", array(
-			"required" => "{field} is required",
+			"required" 			=> "{field} is required.",
 		));
 
 		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
@@ -105,12 +120,24 @@ class User_Controller extends CI_Controller {
 
 				$this->session->set_flashdata("item", '<div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
           <strong>Pro Tip!</strong> If you want to update your profile details and password&emsp;<a class="btn btn-sm btn-success" href="<?= base_url()?>profile/settings"><span class="fa fa-pencil"></span>&nbsp;Edit Profile</a>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <button type="button" class="close mt-2" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>');
 				
-				redirect('dashboard');
+				if($this->session->userdata('is_activated') == "yes"){
+					
+					redirect("dashboard");
+
+				} else {
+
+					$data["body"] 	= "users/notify";
+					$data["title"]	= "Activation Message";
+					
+					$this->load->view("layouts/application",$data);
+
+
+				}
 
 			} else {
 
@@ -193,7 +220,7 @@ class User_Controller extends CI_Controller {
 		);
 
 		$this->form_validation->set_rules("last_name", "Last name", "required|max_length[255]|trim|xss_clean|name_check", array(
-				"required"		=> "{field} is required",
+				"required"		=> "{field} is required.",
 				"name_check"	=> "{field} is not a valid and must be at least 2 characters in length.",
 				"max_length"	=> "{field} cannot exceed 255 characters in length."
 
@@ -201,7 +228,7 @@ class User_Controller extends CI_Controller {
 		);
 
 		$this->form_validation->set_rules("first_name", "First name", "required|trim|xss_clean|name_check|max_length[255]", array(
-				'required' => 'First name is required',
+				'required' => 'First name is required.',
 				"name_check"	=> "{field} is not a valid and must be at least 2 characters in length.",
 				"max_length"	=> "{field} cannot exceed 255 characters in length."
 			)
@@ -209,9 +236,9 @@ class User_Controller extends CI_Controller {
 
 		$this->form_validation->set_rules(
 			"conf_passwd", "Confirm Password", "required|matches[passwd]|min_length[8]|xss_clean", array(
-				"required" => "{field} is required",
-				"matches['password']" => "{field} does not match",
-				"min_length[8]"	=> "{field} must contain atleast 8 characters long",
+				"required" => "{field} is required.",
+				"matches['password']" => "{field} does not match.",
+				"min_length[8]"	=> "{field} must contain atleast 8 characters long.",
 			)
 		);	
 

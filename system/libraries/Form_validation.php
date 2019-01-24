@@ -134,6 +134,7 @@ class CI_Form_validation {
 			$this->_error_prefix = $rules['error_prefix'];
 			unset($rules['error_prefix']);
 		}
+
 		if (isset($rules['error_suffix']))
 		{
 			$this->_error_suffix = $rules['error_suffix'];
@@ -147,6 +148,18 @@ class CI_Form_validation {
 		$this->CI->load->helper('form');
 
 		log_message('info', 'Form Validation Class Initialized');
+	}
+
+	//Check if the Eartag ID contains 6 digit
+	public function eartag_checker($str)
+	{
+		
+		if(preg_match("/\d{6}+/", $str) && intval($str) > 0){
+			return TRUE;
+		}
+
+		return FALSE;
+
 	}
 
 	//Check valid name

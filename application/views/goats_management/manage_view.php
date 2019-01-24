@@ -25,6 +25,11 @@
 									<td class="col-3 p-2">Eartag Color</td>
 									<td class="col text-right p-2"><?= ucfirst($row->eartag_color) ?></td>
 								</tr>
+								
+								<tr>
+									<td class="col-3 p-2">Nickname</td>
+									<td class="col text-right p-2"><h5><span class="badge badge-primary"><?= ucfirst($row->nickname) ?></span></h5></td>
+								</tr>
 
 								<tr>
 									<td class="col-3 p-2">Gender</td>
@@ -43,7 +48,7 @@
 								<?php } ?>
 								<tr>
 									<td class="col-3 p-2">Status</td>
-									<td class="col text-right p-2"><?= ucfirst($row->status) ?></td>
+									<td class="col text-right p-2"><h5><span class="badge badge-danger "><?= ucfirst($row->status) ?></span></h5></td>
 								</tr>
 
 							</table>
@@ -134,6 +139,11 @@
 	<?php }	
 		if($flag){
 	?>
+		<div class="row mt-2">
+			<div class="col">
+				<h1>Offspring</h1>
+			</div>
+		</div>
 		<div class="row table-responsive table-responsive-sm text-nowrap px-2 pr-3 mt-5">
 			<table id="gp_record" class="table">
 				<thead>

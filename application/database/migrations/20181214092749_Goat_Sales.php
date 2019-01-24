@@ -4,39 +4,39 @@
 
         public function up() {
           $this->dbforge->add_field(array(
-            'sales_id' => array(
-              'type' => 'INT',
-              'constraint' => 11,
-              'auto_increment' => TRUE
+            'sales_id'          => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
+              'auto_increment'  => TRUE,
             ),
-            'price_per_kilo'  => array(
-              'type'  => 'FLOAT',
-              'constraint'  => "11,2",
-              'default' => "0.00",
+            'price_per_kilo'    => array(
+              'type'            => 'FLOAT',
+              'constraint'      => "11,2",
+              'default'         => "0.00",
             ),
-            'weight'  => array(
-              'type'  => 'FLOAT',
-              'constraint'  => "11,2",
-              'default' => "0.00",
+            'weight'            => array(
+              'type'            => 'FLOAT',
+              'constraint'      => "11,2",
+              'default'         => "0.00",
             ),
-            'transact_date'  => array(
-              'type'  => 'DATE',
-              'default' => NULL,
+            'transact_date'     => array(
+              'type'            => 'DATE',
+              'default'         => NULL,
             ),
-            'sold_to'  => array(
-              'type'  => 'VARCHAR',
-              'constraint'  => 255,
+            'sold_to'           => array(
+              'type'            => 'VARCHAR',
+              'constraint'      => 255,
             ),
-            'remarks'  => array(
-              'type'  => 'TEXT',
+            'remarks'           => array(
+              'type'            => 'TEXT',
             ),            
-            'eartag_id'  => array(
-              'type'  => 'INT',
-              'constraint' => 11,
+            'eartag_id'         => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
             ),
-            'user_id'  => array(
-              'type'  => 'INT',
-              'constraint' => 11,
+            'user_id'           => array(
+              'type'            => 'INT',
+              'constraint'      => 11,
             ),
           ));
 

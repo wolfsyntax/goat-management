@@ -18,6 +18,7 @@
 	</div>
 	<div class="row mt-0">
 		<input type="hidden" name="_status" value="" id="_status">
+		<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
 	</div>
 	<div class="row mt-0">
 		<div class="col">
@@ -28,6 +29,7 @@
 						<tr>				        
 					      	<th>Eartag ID</th>
 					        <th>Eartag Color</th>
+					        <th>Nickname</th>
 					        <th>Body Color</th>
 					        <th>Gender</th>
 					        <th>Age</th>
@@ -42,6 +44,7 @@
 						<tr>
 				        	<td><?= $row->eartag_id 			?></td>
 				        	<td><?= ucfirst($row->eartag_color) ?></td>
+				        	<td><?= ucfirst($row->nickname) 	?></td>
 				        	<td><?= ucfirst($row->body_color) 	?></td>
 				        	<td><?= ucfirst($row->gender) 		?></td>
 				        	<td><?= str_replace("ago", "old", Carbon\Carbon::parse($row->acquire_date)->diffForHumans()) ?></td>
@@ -50,8 +53,10 @@
 				        	<td>
 					        	<div class="btn-group p-0">
 
-					        		<a href="<?= base_url("manage/{$row->category}/{$row->ref_id}/edit"); ?>" class="btn btn-primary btn-sm btn-goat" title="Edit"><i class="fa fa-pencil"></i></a>
 					        		<a href="<?= base_url("manage/{$row->category}/{$row->ref_id}/view"); ?>" class="btn btn-info btn-sm btn-goat" title="View"><i class="fa fa-eye"></i></a>
+
+					        		<a href="<?= base_url("manage/{$row->category}/{$row->ref_id}/edit"); ?>" class="btn btn-primary btn-sm btn-goat" title="Edit"><i class="fa fa-pencil"></i></a>
+					        		
 					        		<?php 
 					        			switch (ucfirst($row->status)) {
 					        				case 'Deceased':

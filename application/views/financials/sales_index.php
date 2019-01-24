@@ -42,9 +42,9 @@
 				        	<td>
 				        		<div class="btn-group p-0">
 				        			
-				        			<a href="<?= base_url("sales/{$row->sales_id}/edit"); ?>" class="btn btn-primary btn-sm btn-goat" title="Edit"><i class="fa fa-pencil"></i></a>
-
 				        			<a href="<?= base_url("sales/{$row->sales_id}/view"); ?>" class="btn btn-info btn-sm btn-goat" title="View"><i class="fa fa-eye"></i></a>
+
+				        			<a href="<?= base_url("sales/{$row->sales_id}/edit"); ?>" class="btn btn-primary btn-sm btn-goat" title="Edit"><i class="fa fa-pencil"></i></a>
 
 				        			<a href="<?= base_url("sales/{$row->sales_id}/remove"); ?>" class="btn btn-danger btn-sm btn-goat-rm" title="Delete"><i class="fa fa-trash"></i></a>				        			
 					        	</div>

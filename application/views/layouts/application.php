@@ -34,7 +34,7 @@
 
 		</main>
 		
-		<footer class="fixed-bottom p-0 bg-dark">
+		<!--footer class="fixed-bottom p-0 bg-dark">
 			<nav class="navbar-dark bg-dark">
   				<header class="container-fluid py-1">
     				<div class="row d-flex justify-content-between align-items-center">
@@ -48,7 +48,7 @@
       			</header>
       		</nav>
 
-		</footer>
+		</footer-->
 	
 	<?php //$this->load->view("include/footer"); ?>
 	
@@ -274,10 +274,10 @@
 		$('[name="category"]').on('change', function() {
 			
 			var x = this.value;
-
+			$("#save_btn").attr("disabled",false);
   			if(x != "" ){
- 
-  				$("#btn-submit").attr("disabled",false);
+ 				//alert("Category Change to    x " + x);
+  				$("#save_submit").attr("disabled",false);
   				cur_url = base_url + "goat/r/" + x;				
 				
 				if(x == "purchase"){
@@ -294,7 +294,7 @@
 
 					$(".mpurchase-elem").hide();
 					$(".mbirth-elem").hide();
-
+					$("#save_btn").attr("disabled",true);
 					cur_url = base_url+"goat/new";	
 
 				}
@@ -381,7 +381,44 @@
 
 		$(document).ready(function(){
 
+			if($("#rcategory").val() == "birth" || $("#rcategory").val() == "birth"){
 
+	  			$('.birth-elem').show(); 
+				$('.purchase-elem').hide();
+
+			}else if($("#rcategory").val() == "purchase" || $("#rcategory").val() == "purchase" ){
+
+	  			$('.birth-elem').hide(); 
+				$('.purchase-elem').show();
+			
+			}else {
+
+	  			$('.birth-elem').hide(); 
+				$('.purchase-elem').hide();
+
+			
+			}
+
+			$("[name='checkup_type'").on('change', function(){
+				//alert('Value: ' + this.value);
+				var e = this.value;
+				if(e == "Supplementation"){
+
+					$('#med_supplement').show(); 
+					$('#med_vaccine').hide();
+
+				} else {
+
+					$('#med_supplement').hide(); 
+					$('#med_vaccine').show();
+
+				}
+
+			});
+			if($("[name='checkup_type'").val() == ''){
+				$('#med_supplement').hide(); 
+				$('#med_vaccine').show();
+			}
 
 			$("body").on("contextmenu",function(e){
 				return false;
@@ -395,27 +432,6 @@
 
 			$("#gs_record").DataTable();
 			
-
-/*Category (Disable button) */			
-
-			if($("#rcategory").val() == "birth"){
-
-	  			$('.birth-elem').show(); 
-				$('.purchase-elem').hide();
-
-			}else if($("#rcategory").val() == "purchase"){
-
-	  			$('.birth-elem').hide(); 
-				$('.purchase-elem').show();
-			
-			}else {
-	  		
-	  			$('.birth-elem').hide(); 
-				$('.purchase-elem').hide();
-				$("#btn-submit").attr("disabled",true);
-			
-			}
-/*End of Category (Disable button)*/
 
 	  		$("#dam_id_select").editableSelect();
 
@@ -608,7 +624,9 @@
 			e.preventDefault();
 		}
 
-
+		function set_prescription(e){
+			$("#prescription").val(e);
+		}
 		function inventoryCheck(inventory_id, def_val, min_val){
 
 			var cur_url = base_url + "inventory/" + inventory_id + "/edit";
