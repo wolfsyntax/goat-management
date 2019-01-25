@@ -42,8 +42,12 @@ class Activity_Controller extends CI_Controller {
 	{
 		
 		$data = array(
-			"body"		=> "",
-			"title"		=> "",
+			"body"			=> "test",
+			"title"			=> "Sample",
+			"breadcrumbs" 	=> array(
+				"dashboard" => "dashboard",
+			),
+			"breadcrumb"	=> "Goat Management",
 		);
 
 		$this->load->view("layouts/application",$data);
@@ -64,18 +68,26 @@ class Activity_Controller extends CI_Controller {
 			switch ($activity) {
 				case 'breeding':
 					$data = array(
+					
 						'body' 				=> "activities/breeding_table", 
 						'title' 			=> "Breeding", 
 						'breeding_record' 	=> $this->Goat_model->get_breeding_records(),
+						"breadcrumbs" 		=> array(),
+						"breadcrumb"		=> "Breeding Management",						
+					
 					);
 					# code...
 					break;
 				
 				case 'checkup':
 					$data = array(
+					
 						'body' 				=> "activities/health_check_table", 
 						'title' 			=> "Health Check", 
 						'health_records' 	=> $this->Goat_model->show_active_goats(),
+						"breadcrumbs"	 	=> array(),
+						"breadcrumb"		=> "Health Management",						
+					
 					);
 					# code...
 					break;
@@ -111,10 +123,16 @@ class Activity_Controller extends CI_Controller {
 			switch ($activity) {
 				case 'breeding':
 					$data = array(
-						'body' 				=> "activities/breeding_form", 
-						'title' 			=> "Breeding", 
-						'sire_record'		=> $this->Goat_model->goat_breed('male'),
-						'dam_record'		=> $this->Goat_model->goat_breed('female'),
+			
+						'body' 					=> "activities/breeding_form", 
+						'title' 				=> "Breeding", 
+						'sire_record'			=> $this->Goat_model->goat_breed('male'),
+						'dam_record'			=> $this->Goat_model->goat_breed('female'),
+						"breadcrumbs" 			=> array(
+							"breeding_records" 	=> "activity/breeding/view",
+						),
+						"breadcrumb"			=> "Add Breeding Record",					
+			
 					);
 					# code...
 					break;
@@ -127,6 +145,12 @@ class Activity_Controller extends CI_Controller {
 						'goat_record'			=> $this->Goat_model->show_record('Goat_Profile',"status = 'active'"),
 						'vaccine'				=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
 						'supplement'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),						
+						
+						"breadcrumbs" 			=> array(
+							"health_management" => "activity/checkup/view",
+						),
+						"breadcrumb"			=> "Health Management",						
+					
 					);
 					# code...
 					break;
@@ -165,22 +189,33 @@ class Activity_Controller extends CI_Controller {
 			switch ($activity) {
 				case 'breeding':
 					$data = array(
+					
 						'body' 				=> "activities/breed_edit_activity", 
 						'title' 			=> "Breeding", 
 						'breeding_record' 	=> $this->Goat_model->show_breeding_record($ref_id),
+
+						"breadcrumbs" 		=> array(),
+						"breadcrumb"		=> "Modify Breeding",						
+					
 					);
 					# code...
 					break;
 				
 				case 'checkup':
 					$data = array(
-						'body' 				=> "activities/breeding_form", 
-						'title' 			=> "Breeding", 
-						'sire_record'		=> $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'"),
-						'dam_record'		=> $this->Goat_model->dam_breed(),
+					
+						'body' 					=> "activities/breeding_form", 
+						'title' 				=> "Breeding", 
+						'sire_record'			=> $this->Goat_model->show_record('Goat_Profile',"gender = 'male' AND status = 'active'"),
+						'dam_record'			=> $this->Goat_model->dam_breed(),
 
 						'vaccine'				=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
 						'supplement'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),												
+						"breadcrumbs" 			=> array(
+							"dashboard" 		=> "dashboard",
+						),
+						"breadcrumb"			=> "Goat Management",				
+					
 					);
 					# code...
 					break;
@@ -211,12 +246,19 @@ class Activity_Controller extends CI_Controller {
 	public function health_view($eartag_id){
 
 		$data = array(
-			"body"				=> "activities/health_check_new",
-			"title"				=> "",
-			"health_records"	=> $this->Goat_model->get_health_records($eartag_id),
+
+			"body"						=> "activities/health_check_new",
+			"title"						=> "",
+			"health_records"			=> $this->Goat_model->get_health_records($eartag_id),
 //			"inventory"			=> $this->Inventory_model->fetch_items(),
-			'vaccine'				=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
-			'supplement'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),						
+			'vaccine'					=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
+			'supplement'				=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),						
+
+			"breadcrumbs" 				=> array(
+							"dashboard" => "dashboard",
+						),
+			"breadcrumb"				=> "Goat Management",			
+	
 		);
 
 		$this->load->view("layouts/application",$data);

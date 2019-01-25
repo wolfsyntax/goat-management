@@ -4,12 +4,8 @@
 			<div class="card shadow-none">
 				<div class="card-header">
 					<div class="row">
-						<div class="col-8 col-sm-8 col-lg-11">
+						<div class="col-12">
 							<h3 class="" style="margin-top: 10px;">Add Goat Sales</h3>
-						</div>
-						<div class="col text-center">
-							<a href="<?= base_url()?>goat/sales" class="nav-link text-dark" title="View Sales Record"><span class="fa fa-list-alt fa-lg d-inline-block"></span>
-							</a>
 						</div>
 					</div>
 				</div>

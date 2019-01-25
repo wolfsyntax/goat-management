@@ -41,9 +41,13 @@ class Inventory_Management extends CI_Controller {
 	{
 		
 		$data = array(
-			"body"		=> "inventory/inventory_table",
-			"title"		=> "Inventory Management",
-			"record"	=> $this->Inventory_model->fetch_items(),
+
+			"body"			=> "inventory/inventory_table",
+			"title"			=> "Inventory Management",
+			"record"		=> $this->Inventory_model->fetch_items(),
+			"breadcrumbs" 	=> array(),
+			"breadcrumb"	=> "Asset Management",
+
 		);
 
 		$this->load->view("layouts/application",$data);
@@ -53,8 +57,14 @@ class Inventory_Management extends CI_Controller {
 	public function add_item(){
 		
 		$data = array(
-			"body"		=> "inventory/inventory_new",
-			"title"		=> "Inventory New",
+			
+			"body"			=> "inventory/inventory_new",
+			"title"			=> "Inventory New",
+			"breadcrumbs"	=> array(
+				"inventory"	=> 'inventory/view'
+			),
+			"breadcrumb"	=> "Add Asset",
+
 		);
 
 		$this->load->view("layouts/application",$data);

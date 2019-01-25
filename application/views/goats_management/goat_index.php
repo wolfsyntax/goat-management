@@ -1,5 +1,6 @@
 <div class="container-fluid mt-1" style="margin-bottom: 210px;">
-	<div class="row pt-5">
+
+	<div class="row pt-3">
 		<div class="col">
 			<h1 class="p-2 p-md-0" style="font-weight: 80%;">Goat Management<?= ''//$total_loss ?></h1>
 		</div>

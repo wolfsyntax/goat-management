@@ -42,7 +42,7 @@
 									<input type="text" class="form-control" name = "username" id="" aria-describedby="" placeholder="Username" value="<?= set_value('username');?>" required>
 
 									
-									<?= (form_error('username')	!= "" ? form_error('username') : ''); ?>			
+									<?= (form_error('username')	!= "" ? form_error('username') : ""); ?>			
 								
 
 								</div>					
@@ -56,7 +56,7 @@
 									<input type="text" class="form-control" name = "phone" id="" aria-describedby="" placeholder="Mobile number" value="<?= set_value('phone');?>" required>
 									
 
-									<?= (form_error('phone')	!= "" ? form_error('phone') : ''); ?>							
+									<?= (form_error('phone')	!= "" ? form_error('phone') : "<span class='form-text text-muted'><small>Must be a valid phone number in the Philippines.</small></span>"); ?>							
 
 								</div>					
 							</div>

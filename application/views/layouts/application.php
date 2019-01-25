@@ -30,7 +30,19 @@
 			<!--i class="fa fa-spinner fa-pulse"></i-->
 			<a style="float: right" class="nav-link" id = "back2top-btn" onclick="scrollTops();"><i class="fa fa-angle-up fa-lg text-danger font-weight-bold"></i></a>
 
-			<?php $this->load->view($body); ?>
+			<?php if(isset($breadcrumb) && $this->session->userdata('username')){ ?>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<?php foreach($breadcrumbs as $key => $val) {?>
+							<li class="breadcrumb-item" ><a href="<?= base_url($val) ?>" style="text-decoration: none;"><?= ucfirst(str_replace("_"," ",$key)) ?></a></li>
+						<?php }?>
+						<li class="breadcrumb-item active" aria-current="page"><a style="text-decoration: none;"><?= $breadcrumb?></a></li>
+					</ol>
+				</nav>
+				
+			<?php } 
+				$this->load->view($body); 
+			?>
 
 		</main>
 		
@@ -136,12 +148,21 @@
     <script src="<?= base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 
-	<script src="<?= base_url()?>public/js/jquery-slimscroll.js"></script>	
+	<script src="<?= base_url()?>public/js/jquery-slimscroll.js"></script>
+	<script src="<?= base_url()?>assets/js/bootstrap-tagsinput.js" crossorigin="anonymous"></script>		
 	<script src="<?= base_url() ?>public/js/textcounter.min.js"></script>
 
 	<script type="text/javascript">
+		//alert("Normal JS");
+		$("[name=nickname").on('change', function(){
+			alert("Nickname: "+this.value);
 
-
+		},{
+			typeahead: {
+    			source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+  			},tagClass: 'badge'
+  		}
+  		);
 	/**
 		Verification code: <code>
 		Dear <first name>, use this code to complete your My Sun registration.

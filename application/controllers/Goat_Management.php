@@ -53,6 +53,9 @@ Goat Records View
 		$data["available_sold"]	= $this->Goat_model->count_s(); 	//Goat that are available to be sold
 		$data["total_loss"]		= $this->Goat_model->count_loss();
 		$data["goat_record"]	= $this->Goat_model->show_goat_record();
+		
+		$data["breadcrumbs"] 	= array();
+		$data["breadcrumb"]		= "Goat Management";
 
 		//$data["manage_goat"]	= $this->Goat_model->show_record("goat_profile","status != 'sold'");
 
@@ -78,6 +81,9 @@ Goat Specified Record View
 		$data["goat_record"]	= $this->Goat_model->get_goat_info($category, $ref_id);
 		$data['flag']			= FALSE;
 
+		$data["breadcrumbs"] 	= array();
+		$data["breadcrumb"]		= "Goat Management";
+
 		foreach ($data['goat_record'] as $row) {
 			if($row->gender == "female"){
 				$data["child"]	= $this->Goat_model->get_child($row->eartag_id); 
@@ -97,10 +103,13 @@ Modify Goat Profile (Status)
 	public function manageStatus($eartag_id){
 
 		$data = array(
-			'body' 		=> 'goats_management/manage_status', 
-			'title'		=> 'Manage Status',
-			'eartag_id'	=> $eartag_id,
-			'mrecord'	=> $this->Goat_model->show_loss_records($eartag_id, $this->session->userdata("user_id")),
+			'body' 				=> 'goats_management/manage_status', 
+			'title'				=> 'Manage Status',
+			'eartag_id'			=> $eartag_id,
+			'mrecord'			=> $this->Goat_model->show_loss_records($eartag_id, $this->session->userdata("user_id")),
+			"breadcrumbs" 		=> array(),
+			"breadcrumb"		=> "Goat Management",
+
 		);
 
 		$this->load->view("layouts/application",$data);
@@ -175,6 +184,10 @@ Modify Goat Profile
 
 			$data["goat_record"]	= $this->Goat_model->show_record("goat_profile","eartag_id = {$eartag_id}");
 			$data["sire_id"]		= 0;
+
+			$data["breadcrumbs"] 	= array();
+			$data["breadcrumb"]		= "Goat Management";
+
 			foreach ($data["goat_record"] as $row) {
 				$data["sire_id"]	= $row->sire_id;
 			}
@@ -279,6 +292,9 @@ Add Goat Record
 		$data["title"]			= "Edit record";
 		$data["footer"]			= "2";
 		$data["header"]			= "1";
+
+		$data["breadcrumbs"] 	= array();
+		$data["breadcrumb"]		= "Goat Management";
 		
 //		$this->Goat_model->get_goat_info($category, $ref_id);
 		
@@ -518,6 +534,11 @@ Add Goat Record
 		$data['dam_record'] 	= $this->Goat_model->goat_breed('female');
 		
 		$data['sire_record'] 	= $this->Goat_model->goat_breed('male');
+
+		$data["breadcrumbs"] 	= array(
+			"goat_management"	=> "manage/goat",
+		);
+		$data["breadcrumb"]		= "Add New Goat";
 		
 //		$data['dam_record'] 	= $this->Goat_model->show_record('Goat_Profile',"gender = 'female' AND status = 'active'");
 		
@@ -537,6 +558,9 @@ Goat Sales
 **/
 	
 	public function sell_index(){
+
+		$data["breadcrumbs"] 	= array();
+		$data["breadcrumb"]		= "Goat Sales";
   	
 		$data["body"] 			= "financials/sales_index";
 		$data["title"]			= "Sales Record";
@@ -549,6 +573,11 @@ Goat Sales
   	}
 
 	public function sell_goats(){
+
+		$data["breadcrumbs"] 	= array(
+			'goat_sales'		=> 'goat/sales',
+		);
+		$data["breadcrumb"]		= "Add Sales";
 		
 		$data["body"] 			= "financials/goat_sales";
 		$data["title"]			= "Add new Sales";
@@ -567,6 +596,9 @@ Goat Sales
 		$data["title"]			= "Modify Sales Record";
 		$data["footer"]			= "2";
 		$data["header"]			= "1";
+
+		$data["breadcrumbs"] 	= array();
+		$data["breadcrumb"]		= "Goat Management";
 		
 		if($sales_id >= 1){
 			
@@ -750,6 +782,9 @@ Goat Sales Specified Record view
 			$data["title"] 	= "Sale Record: {$sale_id}";
 
 			$data["sale_record"] = $this->Goat_model->show_sales($sale_id);
+
+			$data["breadcrumbs"] 	= array();
+			$data["breadcrumb"]		= "Goat Management";
 
 			$this->load->view("layouts/application", $data);
 

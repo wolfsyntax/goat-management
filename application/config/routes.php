@@ -140,3 +140,6 @@ $route['inventory/view']['GET']					= "inventory_management";
 $route['inventory/new']['GET']					= "inventory_management/add_item";
 $route['inventory/new']['POST']					= "inventory_management/validate_request";
 $route['inventory/(:num)/edit']['POST']			= "inventory_management/mod_request/$1";
+
+
+$route['test']									="activity_controller";
