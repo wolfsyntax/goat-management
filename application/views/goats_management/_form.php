@@ -3,7 +3,7 @@
 		<label class="col-form-label-sm col-12 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
 		
 		<div class="col-12 col-sm-8 col-md-4">
-			<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id');?>" onchange="eartag_checker()" required>
+			<input type="text" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id');?>" onchange="eartag_checker()" >
 			
 			<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
 
@@ -47,7 +47,7 @@
 		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Nickname <span class="text-danger">*</span></label>
 		
 		<div class="col">
-			<input type="text" name="nickname" value="<?= set_value("nickname"); ?>" placeholder="Nickname" class="form-control" required>
+			<input type="text" name="nickname" value="<?= set_value("nickname"); ?>" placeholder="Nickname" class="form-control" >
 			
 			<?= (form_error('nickname')	!= "" ? form_error('nickname') : ''); ?>	
 		</div>
@@ -57,7 +57,7 @@
 	<div class="form-row p-1">
 		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Gender <span class="text-danger">*</span></label>
 		<div class="col">
-			<select name="gender" class="custom-select" id="gender" onchange="select_gender(this);" required data-role="tagsinput">
+			<select name="gender" class="custom-select" id="gender" onchange="select_gender(this);" data-role="tagsinput">
 				<option value="" >- Select a Gender -</option>
 				<?php if(set_value("gender") == "male") {?>
 					<option value="male" selected>Male</option>
@@ -79,7 +79,7 @@
 		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Body Color <span class="text-danger">*</span></label>
 		
 		<div class="col">
-			<select name="body_color" id="body_color_select" class="form-control" placeholder="- Enter Body Color -" value="<?= set_value('body_color'); ?>" required>
+			<select name="body_color" id="body_color_select" class="form-control" placeholder="- Enter Body Color -" value="<?= set_value('body_color'); ?>" >
 
 				<option value="Brown">Brown</option>           
 			</select>
@@ -116,7 +116,7 @@
 		<div class="form-row p-1 birth-elem">
 			<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
 			<div class="col">
-				<input type="date" name="birth_date" value="<?= set_value('birth_date');?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);"  required>
+				<input type="date" name="birth_date" value="<?= set_value('birth_date');?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);"  >
 				<span id="date_checker"><?= (form_error('birth_date')	!= "" ? form_error('birth_date') : ''); ?></span>	
 			</div>
 		</div>
@@ -185,7 +185,7 @@
 			<label class="col-form-label-sm col-4 col-sm-3 col-md-2 col-lg-2">Purchase From <span class="text-danger">*</span></label>
 			
 			<div class="col">
-				<select name="purchase_from" id="client_select" class="form-control" placeholder="- Vendor -" value="<?= set_value('purchase_from');?>">
+				<select name="purchase_from" id="client_select" class="form-control" placeholder="- Vendor -" value="<?= set_value('purchase_from');?>" >
 
 					<option value=""></option>           
 				</select>

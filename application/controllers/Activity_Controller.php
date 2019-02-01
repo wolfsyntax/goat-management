@@ -42,15 +42,16 @@ class Activity_Controller extends CI_Controller {
 	{
 		
 		$data = array(
-			"body"			=> "test",
-			"title"			=> "Sample",
-			"breadcrumbs" 	=> array(
-				"dashboard" => "dashboard",
-			),
-			"breadcrumb"	=> "Goat Management",
+			"body"			=> "admin/index",
+			"title"			=> "Admin UI",
+			"admin"			=> $this->Goat_model->show_record("user_account", "account_type = 'admin'"),
+			"staffs"		=> $this->Goat_model->show_record("user_account", "account_type = 'tenant'"),
+			
+//			"breadcrumbs" 	=> array(),
+//			"breadcrumb"	=> "",
 		);
 
-		$this->load->view("layouts/application",$data);
+		$this->load->view("admin/application",$data);
 
 	}
 
@@ -255,14 +256,107 @@ class Activity_Controller extends CI_Controller {
 			'supplement'				=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),						
 
 			"breadcrumbs" 				=> array(
-							"dashboard" => "dashboard",
-						),
-			"breadcrumb"				=> "Goat Management",			
+					"health_Management" => "activity/checkup/view",
+#					"health_Check" 		=> "checkup/{$eartag_id}/new",
+			),
+#			"breadcrumb"				=> 'Eartag #: '.$eartag_id,			
+			"breadcrumb"				=> "Health Check",		
+			"eartag"					=> $eartag_id,	
 	
 		);
 
 		$this->load->view("layouts/application",$data);
 
+	}
+	
+	public function validate_checkup_form($eartag_id){
+		/**
+		**
+		** checkup_type, prescription, quantity, perform_date, remarks,
+		*********************** Health Record *****************************************
+		** 	checkup_id, checkup_type, prescription_id, quantity, activity_id 
+		**
+		*********************** Activity **********************************************
+		** activity_id, user_id, eartag_id, date_perform, activity_type, remarks
+		**
+		**/
+
+		$this->form_validation->set_rules('checkup_type', 'CheckUp Type', 'xss_clean|trim|required|min_length[7]|max_length[255]',
+			array(
+				"required" 		=> "{field} is required.",
+				"min_length" 	=> "{field} must be at least 7 characters in length.",
+				"max_length"	=> "{field} cannot exceed 255 characters in length.",
+#				"in_list" 		=> "{field} is not a valid option",
+				"xss_clean"		=> "{field} input is tampered.",
+			)
+		);
+
+		$this->form_validation->set_rules('prescription', 'Prescription', 'xss_clean|trim|required|integer', 
+			array(
+				"integer" 		=> "{field} must contain an integer.",
+				"required" 		=> "{field} is required.", 
+				"xss_clean"		=> "{field} input is tampered.",
+			)
+		);
+
+		//$str, $field, $id
+		$inventory_id = $this->input->post('prescription', TRUE);
+
+		$this->form_validation->set_rules('quantity', 'Quantity (Qty).', "xss_clean|trim|required|numeric|inventory_check[{$inventory_id}]",
+			array(
+				"numeric"			=> "{field} must contain only numbers.",
+				"required"			=> "{field} is required.",
+				"xss_clean"			=> "{field} input is tampered.",
+				"inventory_check"	=> "{field} exceed the quantity limit. Please add or update your inventory"
+			)
+		);
+
+		$this->form_validation->set_rules('perform_date', 'Perform Date', 'xss_clean|trim|required|check_date',
+			array(
+				"required" => "{field} is required.",
+				"check_date" => "Incorrect date settings",
+				"xss_clean"		=> "{field} input is tampered.",
+			)
+		);
+
+		if ($this->form_validation->run() == FALSE) {
+			
+			self::health_view($eartag_id);
+
+		} else {
+
+			if($this->Goat_model->health_check($eartag_id)){
+				$this->session->set_flashdata("health_check", "<div class='alert alert-success col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+							<div class='row'>
+								<p><span class='fa fa-check-circle'></span>
+								<strong>Success</strong>&emsp;New health record added</p>
+							</div>
+						</div>");
+
+				redirect('activity/checkup/view','refresh');
+
+			} else {
+
+				$this->session->set_flashdata("health_check", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+							<div class='row'>
+								<p><span class='fa fa-check-circle'></span>
+								<strong>Failed</strong>&emsp;Insufficient amount to perform the action</p>
+							</div>
+						</div>");
+
+				self::health_view($eartag_id);
+
+
+			}
+			
+
+		}
+
+		
 	}
 
 	public function validate_breeding_form(){
@@ -349,7 +443,7 @@ class Activity_Controller extends CI_Controller {
 							<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
 												
 								<div class='row'>
-									<p><span class='fa fa-check-circle'></span>
+									<p><span class='fa fa-times-circle'></span>
 									<strong>Failed</strong>&emsp;Breeding Record not updated.</p>
 								</div>
 							</div>");
@@ -389,7 +483,7 @@ class Activity_Controller extends CI_Controller {
 						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
 											
 							<div class='row'>
-								<p><span class='fa fa-check-circle'></span>
+								<p><span class='fa fa-times-circle'></span>
 								<strong>Failed</strong>&emsp;Breeding Record not added.</p>
 							</div>
 						</div>");

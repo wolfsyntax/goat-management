@@ -101,7 +101,7 @@
 						<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Quantity (mL)&nbsp;<span class="text-danger">*</span></label>
 						<div class="col">
 	    							
-		    				<input type="number" class="form-control" value="<?= set_value('quantity') ?>" name="quantity" placeholder="Qty. (mL)" id="qtyIDT" onchange="return checkInventoryValue();" onblur="return checkInventoryValue();" max="1000" step="1">
+		    				<input type="number" class="form-control" value="<?= set_value('quantity') ?>" name="quantity" placeholder="Qty. (mL)" id="qtyIDT" onchange="return checkInventoryValue();" onblur="return checkInventoryValue();" step="1">
 
 	    				</div>
 	    				

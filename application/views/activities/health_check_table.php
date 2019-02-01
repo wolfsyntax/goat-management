@@ -1,7 +1,7 @@
 <div class="container-fluid mt-5" style="margin-bottom: 250px;">
 	<div class="row px-0">
 		<div class="col-12 py-2">
-			<?= ($this->session->flashdata('breeding') ? $this->session->flashdata('breeding') : ''); ?>
+			<?= ($this->session->flashdata('health_check') ? $this->session->flashdata('health_check') : ''); ?>
 		</div>
 		<div class="col-12">
 			<div class="card shadow-none">

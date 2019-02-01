@@ -427,7 +427,7 @@ Add Goat Record
 
 	public function validate_goat_info($category, $action = "default") {
 		#*
-		//echo "<h1>{$category}</h1>";
+		#echo "<h1>{$category}</h1>";
 		
 		$this->form_validation->set_rules('eartag_id','Tag ID',
 			'required|integer|xss_clean|trim|is_unique[goat_profile.eartag_id]|greater_than[0]|eartag_checker',

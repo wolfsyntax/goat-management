@@ -150,7 +150,12 @@ class CI_Form_validation {
 		log_message('info', 'Form Validation Class Initialized');
 	}
 
-	//Check if the Eartag ID contains 6 digit
+	/**
+	 * Eartag ID Checker
+	 *
+	 * @param	string	$str
+	 * @return	bool
+	 */
 	public function eartag_checker($str)
 	{
 		
@@ -162,7 +167,12 @@ class CI_Form_validation {
 
 	}
 
-	//Check valid name
+	/**
+	 * Name Checker
+	 *
+	 * @param	string	$str
+	 * @return	bool
+	 */
 	public function name_check($str){
 		
 		if(preg_match("/^([a-z]{2,}\s*){1,}$/i", $str)){
@@ -177,7 +187,12 @@ class CI_Form_validation {
 
 	}
 
-	//Check perform date
+	/**
+	 * Date Checker
+	 *
+	 * @param	string	$str
+	 * @return	bool
+	 */
 	public function check_date($date){
 
 		$dx = new DateTime();
@@ -191,6 +206,12 @@ class CI_Form_validation {
 		return true;
 	}
 	
+	/**
+	 * Account Type Checker
+	 *
+	 * @param	string	$str
+	 * @return	bool
+	 */	
 	public function account_type($str){
 		
 		if($str == 'farm owner' || $str == 'tenant') return true;
@@ -198,11 +219,25 @@ class CI_Form_validation {
 
 	}
 
+	/**
+	 * Alpha-Space Checker
+	 *
+	 * @param	string	$str
+	 * @return	bool
+	 */
 	public function alpha_spaces($str)
 	{
 		return (bool) preg_match('/^[A-Z ]+$/i', $str);
 	}
 
+	/**
+	 * Field Content Checker
+	 *
+	 * Description 	Check if the content is already exist
+	 * @param		string	$str
+	 * @param 		string 	$field
+	 * @return		bool
+	 */
 	public function is_exist($str, $field)
 	{
 		
@@ -217,6 +252,13 @@ class CI_Form_validation {
 		return FALSE;
 	}
 
+	/**
+	 * Goat Profile Active Checker
+	 *
+	 * @param	string	$str
+	 * @param 	string 	$field
+	 * @return	bool
+	 */
 	public function is_active($str, $field)
 	{
 		
@@ -231,6 +273,13 @@ class CI_Form_validation {
 		return FALSE;
 	}
 
+	/**
+	 * Dam Existence Checker
+	 *
+	 * @param	string	$str
+	 * @param 	string 	$field
+	 * @return	bool
+	 */
 	public function is_dam_exist($str, $field)
 	{
 		
@@ -245,6 +294,13 @@ class CI_Form_validation {
 		return FALSE;
 	}	
 
+	/**
+	 * Sire Existence Checker
+	 *
+	 * @param	string	$str
+	 * @param 	string 	$field
+	 * @return	bool
+	 */
 	public function is_sire_exist($str, $field)
 	{
 		
@@ -259,7 +315,11 @@ class CI_Form_validation {
 		return FALSE;
 	}	
 
+	public function inventory_check($str, $id){ 
 
+		return ($this->CI->db->limit(1)->get_where("inventory_record", array("quantity - {$str} > 0 ", "inventory_id" => $id))->num_rows() === 0 ? FALSE : TRUE);
+		//in_array($value, explode(',', $list), TRUE)
+	}
 	// --------------------------------------------------------------------
 
 	/**

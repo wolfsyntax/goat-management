@@ -123,6 +123,7 @@ $route["activity/(:any)/new"]["GET"]			= "activity_controller/activity_new/$1";
 $route["activity/(:any)/new"]["POST"]			= "activity_controller/validate_activity/$1";
 
 $route["checkup/(:num)/new"]["GET"]				= "activity_controller/health_view/$1";
+$route["checkup/(:num)/new"]["POST"]			= "activity_controller/validate_checkup_form/$1";
 $route["breeding/(:num)/update"]["POST"]		= "activity_controller/validate_pregcheck/$1";
 //Create new Breeding Record
 //$route["breeding/new"]							= "activity_controller/breeding_module";

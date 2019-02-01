@@ -9,13 +9,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->dbforge();
 			
 		}
+		
+		public function activate($username){
+
+			$data["active"] = "yes";
+
+			$this->db->where('username',$username);
+			if($this->db->update('user_account',$data)) {
+				return TRUE;
+			}
+
+			return FALSE;
+
+		}
 
 		public function validate_login(){
 			
 			if(!empty($_POST)){
 
 				$username = $this->input->post('username',TRUE);
-				$password = hash('sha256',$this->config->item('salt') .$this->input->post('passwd',TRUE));
+				$password = 'sha256w'.hash('sha256',$this->config->item('salt') .$this->input->post('passwd',TRUE));
 				
 				$this->db->where('Username',$username);
 				$this->db->where('Password',$password);
@@ -90,7 +103,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					'first_name'	=>	strtolower($this->input->post('first_name', TRUE)),
 					'last_name'		=>	strtolower($this->input->post('last_name', TRUE)),
 					'username'		=>	$this->input->post('username', TRUE),
-					'password'		=>	hash('sha256',$this->config->item('salt').$this->input->post('passwd', TRUE)),
+					'password'		=>	'sha256w'.hash('sha256',$this->config->item('salt').$this->input->post('passwd', TRUE)),
 					'phone_number'	=>	$this->input->post('phone',TRUE),
 					
 				);

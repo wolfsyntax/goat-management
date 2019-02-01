@@ -8,8 +8,19 @@ class Migrate extends CI_Controller {
     $this->input->is_cli_request () or exit ( "Execute via command line: php index.php migrate" );
     
     $this->load->library('migration');
-    
     $this->load->dbforge();
+
+    $this->load->model("User_model");
+
+  }
+
+  public function upgrade($username){
+
+    if($this->User_model->activate($username)){
+      echo $username .' is now active!'.PHP_EOL;
+    }else {
+      echo $username .' is not allowed to be upgraded!'.PHP_EOL;
+    }
 
   }
 
@@ -54,6 +65,8 @@ class Migrate extends CI_Controller {
     if($this->migration->version(0) === FALSE){
       
       echo $this->migration->error_string(). PHP_EOL;
+      $this->session->sess_destroy();
+      redirect(base_url(),'refresh');
 
     }else{
 

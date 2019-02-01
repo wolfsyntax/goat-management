@@ -11,8 +11,11 @@ class Auth_Controller extends CI_Controller {
 
 	public function index(){
 		
-		$data["body"]	= "auth/index";
-		$data["title"]	= "Dashboard";
+		$data["body"]			= "auth/index";
+		$data["title"]			= "Dashboard";
+
+//		$data['breadcrumbs'] 	= array();
+//		$data['breadcrumb'] 	= "";
 
 		if($this->session->userdata("Lflag") == "0"){
 

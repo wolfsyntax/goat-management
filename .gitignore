@@ -24,7 +24,7 @@ tests/
 
 #Ignore Compressed Backup
 goats_*.rar
-
+201*_goats.rar
 ## Sublime Text cache files
 *.tmlanguage.cache
 *.tmPreferences.cache

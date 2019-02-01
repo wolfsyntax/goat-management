@@ -3,34 +3,41 @@
 		<div class="col">
 			<div class="card">
 				<div class="card-header">
-					<h1 class="font-weight-bolder">Health Checkup (New)</h1>
+					<h1 class="font-weight-bolder">Health Checkup (New) : <span title="Eartag ID # <?= $eartag ?>"><?= $eartag ?></span></h1>
 				</div>
 				<div class="card-body">
 					<?= form_open('', array("class" => "",)) ?>
 					<div class="container-fluid">
+						<div class="form-row p-1">
+							<?= ($this->session->flashdata('health_check') ? $this->session->flashdata('health_check') : ''); ?>
+						</div>
 						
+						<div class="form-row p-1">
+							<input class="form-control" type="hidden" value="<?= $eartag ?>" name="eartag_id">	
+						</div>
+
 						<div class="form-row p-1">
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Check-Up Type&nbsp;<span class="text-danger">*</span></label>
 						
 							<div class="col">
 								<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="" required="">
-									<?php if(set_value('checkup_type') == "Vaccination") {?>
+									<?php if(set_value('checkup_type') == "vaccination") {?>
 
 									<option value="">-- Please select --</option>
-									<option value="Vaccination" selected>Vaccination</option>
-									<option value="Supplementation">Supplementation</option>
+									<option value="vaccination" selected>Vaccination</option>
+									<option value="supplementation">Supplementation</option>
 
-									<?php } else if(set_value("checkup_type") == "Supplementation") {?>
+									<?php } else if(set_value("checkup_type") == "supplementation") {?>
 
 									<option value="">-- Please select --</option>
-									<option value="Vaccination">Vaccination</option>
-									<option value="Supplementation" selected>Supplementation</option>
+									<option value="vaccination">Vaccination</option>
+									<option value="supplementation" selected>Supplementation</option>
 
 									<?php } else {?>
 
 									<option value="">-- Please select --</option>
-									<option value="Vaccination">Vaccination</option>
-									<option value="Supplementation">Supplementation</option>
+									<option value="vaccination">Vaccination</option>
+									<option value="supplementation">Supplementation</option>
 
 									<?php } ?>
 								</select>
@@ -48,10 +55,13 @@
 							<div class="col" id="med_vaccine">
 
 								<?php if($vaccine != NULL) {?>
-								<select class="form-control" onchange="set_prescription(this.value)" >
+								<select class="form-control" onchange="set_prescription(this)" >
 									<option value="">-- Please select --</option>
 									<?php foreach($vaccine as $row) {?>
-										<option value="<?= $row->item_name ?>"><?= ucfirst($row->item_name) ?></option>
+										<option value="<?= $row->inventory_id ?>">
+											<?= ucfirst($row->item_name)?>
+											(<?= $row->quantity ?>)
+										</option>
 									<?php }?>
 
 								</select>
@@ -68,10 +78,13 @@
 
 							<div class="col" id="med_supplement">
 								<?php if($supplement != NULL) {?>
-								<select class="form-control" onchange="set_prescription(this.value)" >
+								<select class="form-control" onchange="set_prescription(this)" >
 									<option value="">-- Please select --</option>
 									<?php foreach($supplement as $row) {?>
-										<option value="<?= $row->item_name ?>"><?= ucfirst($row->item_name) ?></option>
+										<option value="<?= $row->inventory_id ?>">
+											<?= ucfirst($row->item_name)?>
+											(<?= $row->quantity ?>)
+										</option>
 									<?php }?>
 
 								</select>
@@ -118,13 +131,25 @@
 
 							</div>
 						</div>
+
+						<div class="form-row p-1">
+							<label  class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Remarks&nbsp;</label>
+							
+							<div class="col">
+								<textarea name="remarks" class="form-control"></textarea>
+									
+								<?= (form_error('remarks') != "" ? form_error('remarks') : ''); ?>
+
+							</div>
+						</div>
+
 						<div class="form-row ">
 
 							<div class="col col-sm-12 col-md-3 offset-md-6 px-1 py-2">
 								<a href="<?= base_url('activity/checkup/view') ?>" class="btn btn-danger w-100" >Cancel</a>
 							</div>
 							<div class=" col-sm-12 col-md-3 py-2">
-								<input type="submit" class="btn btn-success w-100" value="Save" disabled="" id="save_btn">
+								<input type="submit" class="btn btn-success w-100" value="Save" id="save_btn">
 							</div>
 						</div>
 
@@ -165,7 +190,9 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach($health_records as $row) {?>
+								<?php if($health_records){
+									foreach($health_records as $row) {
+								?>
 								<tr>
 									<td>
 										<?= $row->checkup_type ?>
@@ -186,7 +213,10 @@
 										<?= $row->remarks ?>
 									</td>
 								</tr>
-								<?php } ?>
+								<?php 
+										} 
+									}
+								?>
 							</tbody>
 
 						</table>	

@@ -30,7 +30,7 @@
 			<!--i class="fa fa-spinner fa-pulse"></i-->
 			<a style="float: right" class="nav-link" id = "back2top-btn" onclick="scrollTops();"><i class="fa fa-angle-up fa-lg text-danger font-weight-bold"></i></a>
 
-			<?php if(isset($breadcrumb) && $this->session->userdata('username')){ ?>
+			<?php if(isset($breadcrumbs) && $this->session->userdata('username')){ ?>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<?php foreach($breadcrumbs as $key => $val) {?>
@@ -154,15 +154,7 @@
 
 	<script type="text/javascript">
 		//alert("Normal JS");
-		$("[name=nickname").on('change', function(){
-			alert("Nickname: "+this.value);
 
-		},{
-			typeahead: {
-    			source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
-  			},tagClass: 'badge'
-  		}
-  		);
 	/**
 		Verification code: <code>
 		Dear <first name>, use this code to complete your My Sun registration.
@@ -216,7 +208,7 @@
 		$('[name="category"]').on('change', function() {
 			
 			var x = this.value;
-			
+			//alert('Category: '+x);
   			if(x != "" ){
  
   				$("#btn-submit").attr("disabled",false);
@@ -422,8 +414,8 @@
 
 			$("[name='checkup_type'").on('change', function(){
 				//alert('Value: ' + this.value);
-				var e = this.value;
-				if(e == "Supplementation"){
+				var e = this.value; 
+				if(e == "supplementation"){
 
 					$('#med_supplement').show(); 
 					$('#med_vaccine').hide();
@@ -560,10 +552,10 @@
   		}
 
   		function check_form(e){
-
+  			//alert('checking form');
   			var elem_tag = "#" + e.submit.id;
   			var btn_text = "Please wait...";
-
+  			
   			if(e.submit.id == "login_btn"){
 
   				btn_text = "Signing in...";
@@ -646,7 +638,9 @@
 		}
 
 		function set_prescription(e){
-			$("#prescription").val(e);
+			$("#prescription").val(e.value);
+//			alert('P::Inventory ID '+e.value);
+
 		}
 		function inventoryCheck(inventory_id, def_val, min_val){
 
