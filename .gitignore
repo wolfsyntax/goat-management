@@ -23,8 +23,8 @@ tests/
 .idea/*
 
 #Ignore Compressed Backup
-goats_*.rar
-201*_goats.rar
+#goats_*.rar
+*.rar
 ## Sublime Text cache files
 *.tmlanguage.cache
 *.tmPreferences.cache
