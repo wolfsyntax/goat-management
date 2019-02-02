@@ -105,8 +105,8 @@ $db['default'] = array(
 
 if(ENVIRONMENT !== 'production') {
     $db['default'] = array(
-		'username' => 'id8178149_px_wizard',
-		'password' => 'godtoor',
+		'username' => 'root',
+		'password' => '',
 		'database' => 'mgmf',
 		'hostname' => '127.0.0.1',
 		'dbdriver' => 'mysqli',
