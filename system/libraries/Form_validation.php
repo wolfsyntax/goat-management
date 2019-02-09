@@ -214,7 +214,7 @@ class CI_Form_validation {
 	 */	
 	public function account_type($str){
 		
-		if($str == 'farm owner' || $str == 'tenant') return true;
+		if($str == 'farm owner' || $str == 'sysadmin' || $str == 'tenant') return true;
 		return false;
 
 	}

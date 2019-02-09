@@ -36,3 +36,5 @@ tests/
 make.in
 
 /assets/
+
+backup_*/

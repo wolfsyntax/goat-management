@@ -49,98 +49,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'site_controller';
-$route['404_override'] = 'session_controller/page_error';
-$route['translate_uri_dashes'] = FALSE;
+$route['default_controller']			= 'sitemap';
+$route['404_override'] 					= 'session_controller/error404';
+$route['translate_uri_dashes'] 			= FALSE;
 
-//Auth Users
-$route["dashboard"]["GET"] 						= "user_controller/dashboard";
+//Authentication
+$route['login']['GET'] 					= 'auth/logincontroller';
+$route['login']['POST'] 				= 'auth/logincontroller/store';
 
-//Users Account: Login
-$route["login"]["GET"] 							= "user_controller/login";
-$route["login"]["POST"] 						= "user_controller/verify_access";
+$route['logout']['GET'] 				= 'auth/logincontroller/logout';
 
-//Destroy sessions
-$route["logout"] 								= "session_controller";
+$route['register']['GET']				= 'auth/registercontroller/create';
+$route['register']['POST']				= 'auth/registercontroller/store';
 
-//User Account: New
-$route["register"]["GET"] 						= "user_controller/register";
-$route["register"]["POST"] 						= "user_controller/validate_registration";
+$route['forgot']['GET'] 				= 'auth/forgotpasswordcontroller/create';
+$route['forgot']['POST'] 				= 'auth/forgotpasswordcontroller/store';
 
-$route["activity"]["GET"]						= "auth_controller";
+/************************************************
+**					Modules
+*************************************************/
 
-/*********************************************************************************
-***	Goat Management
-**********************************************************************************/
+//User Permission: Tenant
+$route['dashboard']['GET'] 				= 'tenant_controller';
 
-//display table
-$route["manage/goat"] 							= "goat_management";					
-//display goat profile form (CREATE)
-$route["goat/new"]['GET']						= "goat_management/add_goats";			
-//validate goat profile: add (CREATE)
-$route["goat/r/(:any)"]['POST']					= "goat_management/validate_goat_info/$1";
-//view specific goat profile (VIEW)
-$route["manage/(:any)/(:num)/view"]['GET']		= "goat_management/manage_view/$1/$2";
-//display edit form (UPDATE)
-$route["manage/(:any)/(:num)/edit"]['GET']		= "goat_management/view_goat_record/$1/$2";
-//validate edit request (UPDATE)
-$route["manage/edit"]['POST']					= "goat_management/validate_mod_info";
+//User Permission: System Admin
+$route['admin']['GET'] 					= 'admin_controller';
 
-//Manage Status View
-$route["status/(:num)/edit"]["GET"]				= "goat_management/manageStatus/$1";
-//validate change status
-$route["status/(:num)/edit"]["POST"]			= "goat_management/manage_status/$1";
+//User Permission: Farm Owner
+$route['farm']['GET'] 					= 'user_controller/dashboard';
 
+//Other Module: Inventory
+$route['inventory/view']['GET'] 		= 'inventory_controller';
 
-/*********************************************************************************
-***	Financial Management: Goat Sales
-**********************************************************************************/
+//Other Module: Sales
+$route['goat/sales']['GET']		 		= 'core_controller/sales';
+$route['goat/sales/new']['GET']		 	= 'core_controller/create_sales';
 
-//display table (VIEW)
-$route["goat/sales"]['GET']						= "goat_management/sell_index";
-//view specific sales record (VIEW)
-$route["sales/(:num)/view"]['GET']				= "goat_management/transaction_record/$1";
-//display sales form (CREATE)
-$route["goat/sales/new"]['GET']					= "goat_management/sell_goats";
-//validate new sales record (CREATE)
-$route["sales/validate"]['POST']				= "goat_management/validate_transaction";
+//Other Module: Management
+$route['manage/goat']['GET']	 		= 'core_controller';
+$route['goat/new']['GET']	 			= 'core_controller/create';
 
-$route["sales/(:num)/edit"]["GET"]				= "goat_management/modify_sales_info/$1";
-$route["sales/(:num)/edit"]["POST"]				= "goat_management/validate_modify_transaction/$1";
+//Other Module: Activities (Breeding)
 
-$route["sales/(:num)/remove"]["GET"]			= "goat_management/remove_sales/$1";
+$route['breeding/view']['GET'] 			= 'activity/breeding_controller';
 
-/**
-**	Activity Management
-**/
+//Other Module: Activities (Health Check)
+$route['health/view']['GET'] 			= 'activity/HealthCheck_controller';
 
-$route["activity/(:any)/view"]["GET"]			= "activity_controller/activity_view/$1";
-
-$route["activity/(:any)/edit/(:num)"]["GET"]	= "activity_controller/activity_edit/$1/$2";
-$route["activity/(:any)/edit/(:num)"]["POST"]	= "activity_controller/activity_module/$1";
-
-$route["activity/(:any)/new"]["GET"]			= "activity_controller/activity_new/$1";
-$route["activity/(:any)/new"]["POST"]			= "activity_controller/validate_activity/$1";
-
-$route["checkup/(:num)/new"]["GET"]				= "activity_controller/health_view/$1";
-$route["checkup/(:num)/new"]["POST"]			= "activity_controller/validate_checkup_form/$1";
-$route["breeding/(:num)/update"]["POST"]		= "activity_controller/validate_pregcheck/$1";
-//Create new Breeding Record
-//$route["breeding/new"]							= "activity_controller/breeding_module";
-
-//Edit Breeding Record
-//$route["breeding/(:id)/edit"]					= "activity_controller/breeding_module/$1";
-//$route["pregcheck/(:num)"]["POST"]				= "";
-
-
-/**************************************************************************
-**		Inventory Management
-**************************************************************************/
-
-$route['inventory/view']['GET']					= "inventory_management";
-$route['inventory/new']['GET']					= "inventory_management/add_item";
-$route['inventory/new']['POST']					= "inventory_management/validate_request";
-$route['inventory/(:num)/edit']['POST']			= "inventory_management/mod_request/$1";
-
-
-$route['test']									="activity_controller";
