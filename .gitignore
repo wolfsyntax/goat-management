@@ -37,4 +37,13 @@ make.in
 
 /assets/
 
-backup_*/
+backup_views
+/backup_views/*
+
+backup_bootstrap
+/backup_bootstrap/*
+
+backup_controller
+/backup_controller/*
+
+
