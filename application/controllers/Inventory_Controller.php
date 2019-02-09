@@ -16,11 +16,25 @@ class Inventory_Controller extends CI_Controller {
 			'body' 				=> 'modules/inventory/inventory_table',
 			'title' 			=> 'Inventory',
 			'record'			=> $this->Inventory_model->fetch_items(),
-			'breadcrumbs'		=> array(),
-			'breadcrumb'		=> 'Dashboard',			
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'dashboard',
+			),
+			'breadcrumb'		=> 'Manage Asset',			
 		);
 
 		$this->load->view('layouts/application',$context);
+
+	}
+
+	public function create() {
+
+	}
+	
+	public function store() {
+
+	}
+
+	public function update($id) {
 
 	}
 

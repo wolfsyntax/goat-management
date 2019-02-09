@@ -2,16 +2,20 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<?php $this->load->view('includes/sidebar') ?>
-		<div class="col px-5 py-2">
+		<div class="col-2 col-lg-2 px-0">
+			<?php $this->load->view('includes/sidebar') ?>
+		</div>
+		
+		<div class="col-10 col-lg-10 px-2 py-2">
+			<?php $this->load->view('includes/breadcrumb') ?>
 			<div class="container-fluid mt-5" style="margin-bottom: 250px;">
 				<div class="row px-0">
 					<div class="col-12 py-2">
 						<?= ($this->session->flashdata('health_check') ? $this->session->flashdata('health_check') : ''); ?>
 					</div>
 					<div class="col-12">
-						<div class="card shadow-none">
-							<div class="card-header bg-light">
+						<div class="card shadow-none rounded-0 border-0">
+							<div class="card-header border-0" style="background: transparent;">
 								<h1 class="pt-2">
 									Health Checkup
 								</h1>
@@ -49,7 +53,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="card-footer">
+							<div class="card-footer border-0">
 								Footer
 							</div>
 						</div>

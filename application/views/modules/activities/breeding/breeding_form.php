@@ -2,15 +2,19 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<?php $this->load->view('includes/sidebar') ?>
-		<div class="col px-2 py-2">			
+		<div class="col-2 col-lg-2 px-0">
+			<?php $this->load->view('includes/sidebar') ?>
+		</div>
+		
+		<div class="col-10 col-lg-10 px-2 py-2">		
 			
 			<?php $this->load->view('includes/breadcrumb') ?>			
+			
 			<div class="container-fluid px-md-5 px-2 mt-5" style="margin-bottom: 180px;">
 				<div class="row">
 					<div class="col">
-						<div class="card">
-							<div class="card-header">
+						<div class="card shadow-none rounded-0 border-0">
+							<div class="card-header border-0">
 								<h1>Goat Breeding (New)</h1>
 							</div>
 							<div class="card-body">

@@ -2,15 +2,17 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<?php $this->load->view('includes/sidebar') ?>
-		<div class="col px-5 py-2">					
+		<div class="col-2 col-lg-2 px-0">
+			<?php $this->load->view('includes/sidebar') ?>
+		</div>
+		<div class="col-10 col-lg-10 px-2 py-2">				
 
 			<?php $this->load->view('includes/breadcrumb') ?>				
 			<div class="container-fluid">
 				<div class="row p-3">
-					<div class="card col-md-12 col-sm-8 shadow-none">
+					<div class="card col-md-12 col-sm-8 shadow-none rounded-0 border-0">
 
-						<div class="card-header" style="margin-left: -15px; width: calc(100% + 30px);">
+						<div class="card-header border-0" style="margin-left: -15px; width: calc(100% + 30px); background: transparent;">
 							<h1>Manage Status</h1>
 						</div>
 

@@ -2,13 +2,15 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<?php $this->load->view('includes/sidebar') ?>
-		<div class="col px-5 py-2">				
+		<div class="col-2 col-lg-2 px-0">
+			<?php $this->load->view('includes/sidebar') ?>
+		</div>
+		<div class="col-10 col-lg-10 px-2 py-2">			
 			<div class = "container-fluid mt-5 pb-2" style="margin-bottom: 80px;">
 				<div class="row mt-2 mt-md-5 mb-5 pr-5">
 					<div class="col p-2 p-md-0 ">
-						<div class="card shadow-none">
-							<div class="card-header card-ubuntu">
+						<div class="card shadow-none rounded-0 border-0">
+							<div class="card-header card-ubuntu border-0" style="background: transparent;">
 								<h3>Modify Goats Record</h3>
 							</div>
 							<div class="card-body p-2">

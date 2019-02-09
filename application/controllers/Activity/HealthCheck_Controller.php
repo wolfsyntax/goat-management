@@ -18,6 +18,10 @@ class HealthCheck_Controller extends CI_Controller {
 			'body' 				=> 'modules/activities/checkup/health_check_table',
 			'title' 			=> 'Health Check',
 			'health_records'	=> $this->Goat_model->show_active_goats(),
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'dashboard',
+			),
+			'breadcrumb'		=> 'Health Check',				
 		);
 
 			$this->load->view('layouts/application',$context);

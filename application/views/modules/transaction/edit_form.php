@@ -2,8 +2,11 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<?php $this->load->view('includes/sidebar') ?>
-		<div class="col px-2 py-2">	
+		<div class="col-2 col-lg-2 px-0">
+			<?php $this->load->view('includes/sidebar') ?>
+		</div>
+		
+		<div class="col-10 col-lg-10 px-2 py-2">
 
 			<?php $this->load->view('includes/breadcrumb') ?>
 						
@@ -13,9 +16,9 @@
 
 					<div class="col p-2 p-md-5">
 
-						<div class="card shadow-none rounded">
+						<div class="card shadow-none rounded-0 border-0">
 							
-							<div class="card-header card-ubuntu">
+							<div class="card-header card-ubuntu border-0" style="background: transparent;">
 								<h3>Modify Transaction Record</h3>
 							</div>
 							

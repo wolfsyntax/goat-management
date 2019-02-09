@@ -2,16 +2,16 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<?php $this->load->view('includes/sidebar') ?>
-		<div class="col px-2 py-2">					
-
-			<?php $this->load->view('includes/breadcrumb') ?>
-
+		<div class="col-2 col-lg-2 px-0">
+			<?php $this->load->view('includes/sidebar') ?>
+		</div>
+		
+		<div class="col-10 col-lg-10 px-2 py-2">
 			<div class="container-fluid" style="margin-top: 30px; margin-bottom: 180px;">
 				<div class="row mb-5">
 					<div class="col">
-						<div class="card shadow-none">
-							<div class="card-header">
+						<div class="card shadow-none rounded-0 border-0">
+							<div class="card-header border-0" style="background: transparent;">
 								<div class="row">
 									<div class="col-12">
 										<h3 class="" style="margin-top: 10px;">Add Goat Sales</h3>

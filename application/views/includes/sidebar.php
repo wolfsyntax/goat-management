@@ -1,4 +1,4 @@
-<nav class="col-1 col-lg-2 bg-light" style="">
+<nav class="bg-light" style="height: 100vh !important;">
 
   <div class="sidebar bg-light" id="sidebar-div" style="margin-top: 10px !important;">
     <ul class="nav flex-column " id="sidebar">

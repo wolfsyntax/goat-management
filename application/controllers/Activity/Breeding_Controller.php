@@ -12,15 +12,23 @@ class Breeding_Controller extends CI_Controller {
 
 	}
 
-	public function index(){
+	public function index() {
 					
 		$context = array(
 			'body' 				=> 'modules/activities/breeding/breeding_table',
 			'title' 			=> 'Breeding Record',
 			'breeding_record'	=>  $this->Goat_model->get_breeding_records(),
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'dashboard',
+			),
+			'breadcrumb'		=> 'Manage Breeding',				
 		);
 
 			$this->load->view('layouts/application',$context);
+
+	}
+
+	public function create() {
 
 	}
 

@@ -1,45 +1,63 @@
-
+<div class="container-fluid">
 	<div class="form-row p-1">
-		<label class="col-form-label-sm col-12 col-sm-4 col-md-2">Tag ID <span class="text-danger">*</span></label>								
-		
-		<div class="col-12 col-sm-8 col-md-4">
-			<input type="number" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id');?>" onchange="eartag_checker()" min="100000">
-			
-			<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
-
-		</div>
-
-		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-1">Tag Color <span class="text-danger">*</span></label>								
 		<div class="col">
-			<div class="row px-3">
-				<div class="dropdown col">
-					<div class="row">
-						<a class="nav-link form-control text-muted" href="#" id="eartag_palette" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-							<i class="fas fa-palette fa-lg"></i>&emsp;-- Please Select --
-						</a>
-						<div class="dropdown-menu col" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" onclick="choose_color('Green')"><!--i class="fas fa-box" style="color: green"></i--><span class="badge" style="background-color: green; width: 120px">&emsp;</span>&emsp;Green</a>
-							<a class="dropdown-item" onclick="choose_color('Yellow')"><!--i class="fas fa-box" style="color: yellow"></i--><span class="badge" style="background-color: yellow; width: 120px">&emsp;</span>&emsp;Yellow</a>
-							<a class="dropdown-item" onclick="choose_color('Orange')"><!--i class="fas fa-box" style="color: orange"></i--><span class="badge" style="background-color: orange; width: 120px">&emsp;</span>&emsp;Orange</a>
-							<a class="dropdown-item" onclick="choose_color('Blue')"><!--i class="fas fa-box" style="color: blue"></i--><span class="badge" style="background-color: blue; width: 120px">&emsp;</span>&emsp;Blue</a>							
-						</div>					
-					</div>
+			<div class="container-fluid">
+
+				<div class="row p-0">
+					<label class="col-form-label-sm col-12 col-sm-4 col-md-2 px-0">Tag ID <span class="text-danger">*</span></label>								
+		
+					<div class="col-12 col-sm-8 col-md-4 p-0">
+						<input type="number" name="eartag_id" placeholder="Tag ID"  class="form-control" value="<?= set_value('eartag_id');?>" onchange="eartag_checker()" min="100000">
+						
+						<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
+
+					</div>	
+
+					<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-1">Tag Color <span class="text-danger">*</span></label>								
+					
+					<div class="col">
+					
+						<div class="row px-3">
+							<div class="dropdown col">
+								<div class="row">
+									<a class="nav-link form-control text-muted" href="#" id="eartag_palette" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										<i class="fas fa-palette fa-lg"></i>&emsp;-- Please Select --
+									</a>
+							
+									<div class="dropdown-menu col" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" onclick="choose_color('Green')"><!--i class="fas fa-box" style="color: green"></i--><span class="badge" style="background-color: green; width: 120px">&emsp;</span>&emsp;Green</a>
+							
+										<a class="dropdown-item" onclick="choose_color('Yellow')"><!--i class="fas fa-box" style="color: yellow"></i--><span class="badge" style="background-color: yellow; width: 120px">&emsp;</span>&emsp;Yellow</a>
+							
+										<a class="dropdown-item" onclick="choose_color('Orange')"><!--i class="fas fa-box" style="color: orange"></i--><span class="badge" style="background-color: orange; width: 120px">&emsp;</span>&emsp;Orange</a>
+							
+										<a class="dropdown-item" onclick="choose_color('Blue')"><!--i class="fas fa-box" style="color: blue"></i--><span class="badge" style="background-color: blue; width: 120px">&emsp;</span>&emsp;Blue</a>							
+							
+									</div>					
+							
+								</div>
+
+							</div>
+							
+							<input type="hidden" name="eartag_color" id="eartag_colorx" required="">
+									<!--select name="eartag_color" id="tag_color_select" class="form-control col-11" placeholder="- Enter Tag Color -" value="<?= set_value('eartag_color'); ?>" required>
+
+					 	    			<option value="green">Green</option> 
+						                <option value="yellow">Yellow</option>
+						                <option value="orange">Orange</option>
+						                <option value="blue">Blue</option>      
+						                                    		          
+									</select>
+									<input type="color" name="tag_picker" id="tagpicker" class="form-control col-1" onchange="tagColorPick(this.value);" -->
+						</div>
+					                        			
+						<?= (form_error('eartag_color')	!= "" ? form_error('eartag_color') : ''); ?>	
+
+					</div>									
 
 				</div>
-				<input type="hidden" name="eartag_color" id="eartag_colorx" required="">
-				<!--select name="eartag_color" id="tag_color_select" class="form-control col-11" placeholder="- Enter Tag Color -" value="<?= set_value('eartag_color'); ?>" required>
 
- 	    			<option value="green">Green</option> 
-	                <option value="yellow">Yellow</option>
-	                <option value="orange">Orange</option>
-	                <option value="blue">Blue</option>      
-	                                    		          
-				</select>
-				<input type="color" name="tag_picker" id="tagpicker" class="form-control col-1" onchange="tagColorPick(this.value);" -->
 			</div>
-                        			
-			<?= (form_error('eartag_color')	!= "" ? form_error('eartag_color') : ''); ?>	
-
 		</div>
 	</div>
 
@@ -207,6 +225,6 @@
 		</div>
 	</div>
 
-
+</div>
 
 

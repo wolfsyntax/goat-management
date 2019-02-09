@@ -2,16 +2,22 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<?php $this->load->view('includes/sidebar') ?>
-		<div class="col px-5 py-2">			
+		<div class="col-2 col-lg-2 px-0">
+			<?php $this->load->view('includes/sidebar') ?>
+		</div>
+		
+		<div class="col-10 col-lg-10 px-2 py-2">
+			
+			<?php $this->load->view('includes/breadcrumb') ?>			
+
 			<div class="container-fluid mt-5" style="margin-bottom: 250px;">
 				<div class="row px-0">
 					<div class="col-12 py-2">
 						<?= ($this->session->flashdata('breeding') ? $this->session->flashdata('breeding') : ''); ?>
 					</div>
 					<div class="col-12">
-						<div class="card shadow-none">
-							<div class="card-header bg-light">
+						<div class="card shadow-none rounded-0 border-0">
+							<div class="card-header border-0" style="background: transparent;">
 								<h1 class="pt-2">
 									Breeding Records
 								</h1>
@@ -19,7 +25,7 @@
 							<div class="card-body px-0">
 								<div class="container-fluid px-5">
 									<div class="row table-responsive table-responsive-sm text-nowrap px-0 ">
-										<a href="<?= base_url('activity/breeding/new')?>" class="btn btn-success col-12 col-sm-4 offset-sm-8 col-lg-2 offset-lg-10 text-uppercase pt-3 mb-5 btn-goat">
+										<a href="<?= base_url('breeding/new')?>" class="btn btn-success col-12 col-sm-4 offset-sm-8 col-lg-2 offset-lg-10 text-uppercase pt-3 mb-5 btn-goat">
 											<i class="fa fa-plus"></i>&emsp;New Breeding
 										</a>
 
