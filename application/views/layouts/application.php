@@ -25,20 +25,51 @@
 
 	<!-- Starter Template -->
 	<script src="<?= base_url('public/dist/js/jquery-3.3.1.slim.min.js'); ?>"></script>
-	<script src="<?= base_url('public/dist/js/bootstrap.bundle.min.js'); ?>"></script>
-	<!--script src="<?= base_url('public/dist/js/bootstrap.min.js'); ?>"></script-->
-	<!--script src="<?= base_url('public/dist/js/popper.min.js'); ?>"></script-->
+	<script src="<?= base_url('public/dist/js/bootstrap.min.js') ?>"></script>
+	<script src="<?= base_url('public/dist/js/bootstrap.bundle.min.js') ?>"></script>
 
-	<!-- Add-ons Template -->
-	<script src="<?= base_url('public/js/animate.js'); ?>"></script>
-	<script src="<?= base_url('public/js/jquery.easing.1.3.js'); ?>"></script>
-	
+
+
+
+    <script src="<?= base_url('public/js/dataTables.bootstrap4.min.js'); ?>"></script>
+    <script src="<?= base_url('public/js/jquery.dataTables.min.js'); ?>"></script>
+    <script src="<?= base_url('public/js/jquery-editable-select.min.js'); ?>"></script>
+
 	<!-- Developer Config-->
 	
-	<script src="<?= base_url('public/js/app.js'); ?>"></script>
-	<script src="<?= base_url('public/js/custom.js'); ?>"></script>
 	<script type="text/javascript">
 		$('.social-icon').tooltip();
+		//$().dropdown('toggle');
+
+ 		$('#dropcolor').click(function(){
+ 			var flag = $(".dropdown-menu-dropcolor").attr("class");
+ 			
+ 			if("dropdown-menu-dropcolor show" == flag){
+       			$('.dropdown-menu').toggleClass('hide');
+       		}else {
+       			$('.dropdown-menu-dropcolor').toggleClass('show');
+       		}
+
+		});
+
+		$('#calendar-header').on('click', function () {
+			var xyz = $("#angle-icon").attr("class");
+			
+			$("#angle-icon").removeClass();
+				
+			if("fa fa-angle-down" == xyz){
+				$("#angle-icon").addClass("fa fa-angle-up");	
+			}else{
+				$("#angle-icon").addClass("fa fa-angle-down");
+			}
+		
+		});  
+		
+		var cur_url = "";
+		var base_url = <?php echo json_encode(base_url()); ?>;
+		var x_agent 	= <?php echo json_encode($this->agent->referrer()); ?>;		
+
+		
 	 	$('[data-toggle="popover"]').popover({
 
   			placement: "right",
@@ -46,6 +77,17 @@
   			template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-danger text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
 
   		});
+
+
 	</script>
+
+	<script src="<?= base_url('public/js/app.js'); ?>"></script>
+	<script src="<?= base_url('public/js/custom.js'); ?>"></script>
+
+	<!-- Add-ons Template -->
+	<script src="<?= base_url('public/js/animate.js'); ?>"></script>
+	<!--script src="<?= base_url('public/js/jquery.easing.1.3.js'); ?>"></script-->
+
+
 </body>
 </html>

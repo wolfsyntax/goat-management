@@ -72,10 +72,10 @@ $route['forgot']['POST'] 				= 'auth/forgotpasswordcontroller/store';
 //User Permission: Tenant
 $route['dashboard']['GET'] 						= 'tenant_controller';
 
-//User Permission: System Admin
+//User Permission: System Admin -------------------------------------------------------------------
 $route['admin']['GET'] 							= 'admin_controller';
 
-//User Permission: Farm Owner
+//User Permission: Farm Owner ---------------------------------------------------------------------
 $route['farm']['GET'] 							= 'user_controller/dashboard';
 
 //Other Module: Inventory -------------------------------------------------------------------------

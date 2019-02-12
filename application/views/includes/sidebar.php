@@ -1,6 +1,6 @@
 <nav class="bg-light" style="height: 100vh !important;">
 
-  <div class="sidebar bg-light" id="sidebar-div" style="margin-top: 10px !important;">
+  <div class="sidebar bg-light" id="sidebar-div" style="">
     <ul class="nav flex-column " id="sidebar">
       <li class="nav-item">
         <a class="nav-link active u-page" href="<?= base_url(); ?>dashboard" id="sb_dashboard" data-toggle="popover dashboard" title="Dashboard" data-content="And here's where you can view your recent activities and transaction">

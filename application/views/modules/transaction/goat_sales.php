@@ -7,6 +7,7 @@
 		</div>
 		
 		<div class="col-10 col-lg-10 px-2 py-2">
+			<?php $this->load->view('includes/breadcrumb') ?>
 			<div class="container-fluid" style="margin-top: 30px; margin-bottom: 180px;">
 				<div class="row mb-5">
 					<div class="col">

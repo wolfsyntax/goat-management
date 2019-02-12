@@ -3,10 +3,10 @@
 <div class="container-fluid">
 	<div class="row">
 		
-		<div class="col-2 col-lg-2 px-0">
+		<div class="col-2 col-sm-1 col-lg-2 px-0">
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
-		<div class="col-10 col-lg-10 px-2 py-2">
+		<div class="col-10 col-sm-11 col-lg-10 px-0 px-md-2 py-2">
 
 			<?php $this->load->view('includes/breadcrumb') ?>			
 			
@@ -22,11 +22,11 @@
 								
 								<?= form_open("", array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onsubmit"=>"check_form(this);")); ?>
 										
-											<?php $this->load->view('modules/core/_form'); ?>
+										<?php $this->load->view('modules/core/_form'); ?>
 										
 									
 
-										<div class="form-row mt-3">
+										<div class="form-row mt-3 pr-5">
 											<input type="submit" class="btn btn-primary col col-md-3 offset-md-9" name="submit" value="Add" id="save_btn" disabled="" />
 										</div>
 

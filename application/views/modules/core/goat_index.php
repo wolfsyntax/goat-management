@@ -15,27 +15,24 @@
 						<h1 class="p-2 p-md-0" style="font-weight: 80%;">Goat Management<?= ''//$total_loss ?></h1>
 					</div>
 				</div>
-				<div class="row pl-3 pr-2 mr-0 mr-md-4 mt-2">
-					<div class="col-12 col-md-3 offset-md-6">
-						<!--a href="<?= base_url()?>goat/new" class="btn btn-danger w-100 mt-3 mt-md-0" title="Manage Goat Status" data-toggle="modal" data-target="#manage_stats">
-							<span class="fa fa-pencil fa-lg"></span>&emsp;Manage
-						</a-->&emsp;
-					</div>
-					<div class="col-12 col-md-3 py-2 mb-5 pr-0">
-						<a href="<?= base_url()?>goat/new" class="btn btn-success w-100 mt-3 mt-md-0" title="Add Goat">
+
+				<div class="row pt-2 mr-4">
+					<div class="col-12 col-md-3 py-2 offset-md-9 mb-5 pr-0">
+						<a href="<?= base_url()?>goat/new" class="btn btn-success w-100 mt-3 mt-md-0" title="Add New Sales">
 							<span class="fa fa-plus fa-lg"></span>&emsp;Add Goat
 						</a>
 					</div>
-				</div>
+				</div>		
+						
 				<div class="row mt-0">
 					<input type="hidden" name="_status" value="" id="_status">
 					<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
 				</div>
 				<div class="row mt-0">
-					<div class="col">
-						<div class="row table-responsive table-responsive-sm text-nowrap px-2 pr-3">
+					<div class="col py-5">
+						<div class="row table-responsive table-responsive-sm text-nowrap">
 
-							<table id="gs_record" class="table table-striped table-bordered col-12 table-hover" style="width:100% ">
+							<table id="gs_record" class="table table-striped table-bordered col-12 table-hover">
 							    <thead class="bg-dark text-white text-center">
 									<tr>				        
 								      	<th>Eartag ID</th>

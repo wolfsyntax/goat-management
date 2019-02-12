@@ -10,21 +10,22 @@
 			<?php $this->load->view('includes/breadcrumb') ?>
 			<div class="container-fluid mt-5" style="margin-bottom: 250px;">
 				<div class="row px-0">
-					<div class="col-12 py-2">
+
+					<div class="col-12 py-1">
 						<?= ($this->session->flashdata('health_check') ? $this->session->flashdata('health_check') : ''); ?>
 					</div>
-					<div class="col-12">
+					<div class="col-12 px-0">
 						<div class="card shadow-none rounded-0 border-0">
 							<div class="card-header border-0" style="background: transparent;">
 								<h1 class="pt-2">
 									Health Checkup
 								</h1>
 							</div>
-							<div class="card-body px-0">
-								<div class="container-fluid px-1 px-md-5">
+							<div class="card-body">
+								<div class="container-fluid px-1 px-md-1">
 									<div class="row table-responsive table-responsive-sm text-nowrap px-0 ">
 
-										<table class="col-12 table table-striped table-hover " id="gp_record" >
+										<table class="col-12 mx-2 table table-striped table-hover " id="gp_record" >
 											<thead class="bg-dark text-white text-center">
 												<tr>
 													<th>Eartag ID</th>

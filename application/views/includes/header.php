@@ -1,57 +1,80 @@
-<nav class="navbar-dark bg-dark">
-  <header class="container-fluid py-1">
-  	
-    <div class="row d-flex justify-content-between align-items-center">
-    <?php if($this->session->userdata('username') == "") { ?>
-		<div class="col-6 d-flex justify-content-start align-items-center">
-			<a class="text-white nav-link px-1 p-md-3" href="#">Home</a>
-			<a class="text-white nav-link px-1 p-md-3" href="#">About</a>
-			<a class="text-white nav-link px-1 p-md-3" href="#">FAQ</a>
-			<a class="text-white nav-link px-1 p-md-3" href="#">Contact</a>
-		</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-		<div class="col-6 d-flex justify-content-md-end align-items-center pl-5">
-			<a class="nav-link text-white px-1 p-md-3" href="<?= base_url(); ?>login">Login</a>
-			<a class="nav-link text-white px-1 p-md-3" href="<?= base_url();?>register">Sign up</a>
-		</div>
-  	<?php } else {?>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <?php if($this->session->userdata('username') == "") {?>
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+			</li>
 
-		
-		<div class="col d-flex justify-content-end align-items-center">
-			<ul class="navbar-nav d-inline">
-				<li class="nav-item d-inline-block px-1">
-					<a href="" class="nav-link">
-						<i class="fa fa-bell"></i>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			</li>
+
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Dropdown
+				</a>
+				<div class="dropdown-menu dropleft" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+			</li>
+		</ul>
+
+    
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('login') ?>">
+					<i class="fa fa-users"></i>&emsp;Member Login
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('register') ?>">
+					<i class="fa fa-briefcase"></i>&emsp;Register
+				</a>
+			</li>
+
+			<?php } else {?>
+		<ul class="navbar-nav ml-auto">		
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					<i class="fa fa-bell"></i>
+				</a>
+			</li>
+
+			<li class="nav-item dropdown">
+				<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-cogs" ></i>
+				</a>
+
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+					<span class="dropdown-item-text">
+						<h5>Signed as </h5><?= $this->session->userdata('username') ?>
+					</span>
+					<a class="dropdown-item" href="#"><i class="fa fa-cog"></i>&emsp;Settings</a>
+					<a class="dropdown-item" href="#"><i class="fa fa-life-saver"></i>&emsp;Support</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="<?= base_url('logout') ?>">
+						<i class="fa fa-sign-out"></i>&emsp;Logout
 					</a>
-				</li>
-				
-				<li class="nav-item dropdown d-inline-block px-1">
-					
-					<a class="nav-link dropright dropdown-x" href="<?= base_url() ?>dashboard" title="Settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="navDrop"> <i class="fa fa-cog" ></i><span class="d-block-inline d-sm-block-inline d-md-block-inline d-lg-none ">&emsp;Settings</span></a>
-        			<div class="arrow"></div>
-
-					<div class="dropdown-menu dropdown-menu-right p-1 dropdown-menu-x" aria-labelledby="navbarDropdown"  >
-						<a class="dropdown-item">
-            				Signed in as<br/>
-            				<strong class="text-dark"><?= $this->session->userdata('username'); ?></strong>
-          				</a>
-          				
-          				<div class="dropdown-divider"></div>
-						
-						<a class="dropdown-item" href="<?= base_url() ?>profile/settings"><i class="fa fa-question-circle"></i>&emsp;Help</a>
-							
-						<a class="dropdown-item" href="<?= base_url() ?>profile/settings"><i class="fa fa-user"></i>&emsp;Your Profile</a>
-          
-						<a class="dropdown-item" href="<?= base_url() ?>logout"><i class="fa fa-sign-out"></i>&emsp;Sign out</a>
-					</div>
-				</li>    
-
-			</ul>
-		</div>
-		
-  	<?php } ?>
-    </div>
-  </header>
+				</div>
+			</li>
+			 <?php } ?> 
+		</ul>
+      
+  </div>
 </nav>
 
 <script>

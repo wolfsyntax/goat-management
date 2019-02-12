@@ -1,0 +1,14 @@
+select#color-select option[value="red"]   { background-image:url('https://cdn11.bigcommerce.com/s-hfhomm5/images/stencil/500x659/products/180/451/Solid_Red_Sized__25214.1507754519.jpg?c=2&imbypass=on');   }
+select#country option[value="UK"] { background-image:url(uk.png); }
+select#country option[value="France"] { background-image:url(france.png); }
+
+option:before {
+	content: url(..images/eartag/red.png) !important;
+	background-image: url(..images/eartag/red.png) !important;
+}
+
+div#color-tagv2 {
+	background-attachment: fixed;
+	background-image: url('https://cdn11.bigcommerce.com/s-hfhomm5/images/stencil/500x659/products/180/451/Solid_Red_Sized__25214.1507754519.jpg?c=2&imbypass=on') !important;
+}
+

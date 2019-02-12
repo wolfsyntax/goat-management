@@ -11,7 +11,10 @@
 			<?php $this->load->view('includes/breadcrumb') ?>
 
 			<div class="container-fluid mt-2">
-				<div class="row pt-1">
+				<div class="row pt-3">
+					<div class="col-12 py-0">
+						&emsp;
+					</div>
 					<div class="col">
 						<h1>Goat Sales</h1>
 					</div>

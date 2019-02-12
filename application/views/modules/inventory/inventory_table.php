@@ -12,13 +12,13 @@
 
 			<div class="container-fluid mt-5" style="margin-bottom: 250px;">
 				<div class="row px-0">
-					<div class="col-12 py-2">
+					<div class="col-12 py-0">
 						&emsp;
 					</div>
 					<div class="col-12">
 						<div class="card shadow-none rounded-0 border-0">
 							<div class="card-header border-0" style="background: transparent; ">
-								<h1 class="pt-2">
+								<h1 class="pt-0">
 									Inventory Management
 								</h1>
 							</div>
@@ -33,10 +33,16 @@
 
 								</div>
 								<div class="container-fluid px-2">
+
+									<div class="row pt-2 mr-4 px-4">
+										<div class="col-12 col-md-3 py-2 offset-md-9 mb-5 pr-0">
+											<a href="<?= base_url()?>inventory/new" class="btn btn-success w-100 mt-3 mt-md-0" title="Add New Item">
+												<span class="fa fa-plus fa-lg"></span>&emsp;Add Item
+											</a>
+										</div>
+									</div>		
+
 									<div class="row table-responsive table-responsive-sm text-nowrap px-md-5 ">
-										<a href="<?= base_url('inventory/new')?>" class="btn btn-success col-12 col-sm-4 offset-sm-8 col-lg-2 offset-lg-10 text-uppercase pt-3 mb-5 btn-goat">
-											<i class="fa fa-plus"></i>&emsp;Add Item
-										</a>
 
 										<table class="col-12 table table-striped table-hover" id="gp_record" >
 											<thead class="bg-dark text-white text-center">
