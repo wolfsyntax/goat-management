@@ -1,36 +1,37 @@
 <?php $this->load->view('includes/header') ?>
-
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-2 col-lg-2 px-0">
+
+		<div class="bg-info" id="sidebar">
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
-		
-		<div class="col-10 col-lg-10 px-2 py-2">
-			<?php $this->load->view('includes/breadcrumb') ?>
-			<div class="container-fluid" style="margin-top: 30px; margin-bottom: 180px;">
-				<div class="row mb-5">
-					<div class="col">
-						<div class="card shadow-none rounded-0 border-0">
-							<div class="card-header border-0" style="background: transparent;">
-								<div class="row">
-									<div class="col-12">
-										<h3 class="" style="margin-top: 10px;">Add Goat Sales</h3>
-									</div>
+
+		<div class="pr-5" id="content">
+			<section>
+				<?php $this->load->view('includes/breadcrumb') ?>
+			</section>
+
+			<section class="py-2 mt-2">
+				<div class = "container-fluid mt-2">
+
+					<div class="row mt-2">
+						<div class="col p-2">
+							<div class="card shadow-none rounded-0 border-0">
+								<div class="card-header card-ubuntu border-0" style="background: transparent;">
+									<h3 class="pl-5">Goat Sales</h3>
 								</div>
-							</div>
+								<div class="card-body p-2 p-md-5">
 								
-							<div class="card-body p-2 p-md-5">
-								
-								<?= form_open(base_url().'sales/validate', array('class'=>'form','style'=>''));?>
+								<?= form_open('', array('class'=>'form','style'=>''));?>
 									<?php $this->load->view("modules/transaction/_sales_form");?>
 								<?= form_close();?>
 							
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</section>			
 		</div>
 	</div>
 </div>

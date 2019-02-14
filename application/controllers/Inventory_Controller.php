@@ -13,13 +13,16 @@ class Inventory_Controller extends CI_Controller {
 	public function index(){
 
 		$context = array(
+			
 			'body' 				=> 'modules/inventory/inventory_table',
 			'title' 			=> 'Inventory',
 			'record'			=> $this->Inventory_model->fetch_items(),
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> 'dashboard',
 			),
-			'breadcrumb'		=> 'Manage Asset',			
+			'breadcrumb'		=> 'Manage Asset',
+			'current'			=> 'assets',
+
 		);
 
 		$this->load->view('layouts/application',$context);
@@ -44,8 +47,11 @@ class Inventory_Controller extends CI_Controller {
 		if($this->session->userdata('user_type') == 'tenant'){
 			
 			$context = array(
+				
 				'body' 				=> 'auth/login',
 				'title' 			=> 'Login',
+				'current'			=> 'assets',
+
 
 			);
 

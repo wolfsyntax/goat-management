@@ -35,16 +35,19 @@ class Core_Controller extends CI_Controller {
 	public function index() {
 					
 		$context = array(
+			
 			'body' 				=> 'modules/core/goat_index',
 			'title' 			=> 'Goat Management',
 			'goat_record'		=>  $this->Goat_model->show_goat_record(),
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> 'dashboard',
 			),
-			'breadcrumb'		=> 'Manage Goat',			
+			'breadcrumb'		=> 'Manage Goat',
+			'current'			=> 'management',	
+
 		);
 
-			$this->load->view('layouts/application',$context);
+		$this->load->view('layouts/application',$context);
 
 	}
 
@@ -52,6 +55,7 @@ class Core_Controller extends CI_Controller {
 	public function create() {
 					
 		$context = array(
+			
 			'body' 				=> 'modules/core/goat_form',
 			'title' 			=> 'Goat Management : New',
 			'breadcrumbs'		=> array(
@@ -61,6 +65,8 @@ class Core_Controller extends CI_Controller {
 			'breadcrumb'		=> 'New Goat',			
 			'dam_record'	 	=> $this->Goat_model->goat_breed('female'),
 			'sire_record'		=> $this->Goat_model->goat_breed('male'),
+			'current'			=> 'management',	
+
 		);
 
 		$this->load->view('layouts/application',$context);
@@ -70,13 +76,15 @@ class Core_Controller extends CI_Controller {
 	public function sales() {
 					
 		$context = array(
+			
 			'body' 				=> 'modules/transaction/sales_index',
 			'title' 			=> 'Goat Sales',
 			'goat_record'		=> $this->Goat_model->show_all_sales(),
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> 'dashboard',
 			),
-			'breadcrumb'		=> 'Manage Finances',			
+			'breadcrumb'		=> 'Manage Finances',	
+			'current'			=> 'finance',		
 
 		);
 
@@ -88,6 +96,7 @@ class Core_Controller extends CI_Controller {
 	public function create_sales() {
 					
 		$context = array(
+			
 			'body' 					=> 'modules/transaction/goat_sales',
 			'title' 				=> 'Goat Sales : New',
 			'breadcrumbs'			=> array(
@@ -96,6 +105,8 @@ class Core_Controller extends CI_Controller {
 			),
 			'breadcrumb'			=> 'New Sales',		
 			'goat_record'		=> $this->Goat_model->available_goat(),
+			'current'			=> 'finance',		
+
 		);
 
 		$this->load->view('layouts/application',$context);
@@ -312,7 +323,8 @@ class Core_Controller extends CI_Controller {
 
 		$data["breadcrumbs"] 	= array();
 		$data["breadcrumb"]		= "Goat Management";
-		
+		$data['current']		= 'finance';
+
 		if($sales_id >= 1){
 			
 			$data['goat_record'] = $this->Goat_model->show_sales($sales_id);
@@ -492,7 +504,8 @@ class Core_Controller extends CI_Controller {
 
 			$data["breadcrumbs"] 	= array();
 			$data["breadcrumb"]		= "Goat Management";
-
+			$data['current']		= 'finance';
+			
 			$this->load->view("layouts/application", $data);
 
 		}else{
@@ -504,6 +517,57 @@ class Core_Controller extends CI_Controller {
 
 	}
 
+	public function manage_view($category, $ref_id){
+
+		$context = array(
+			
+			'body' 				=> 'modules/core/manage_view',
+			'title' 			=> 'Goat Management',
+			'goat_record'		=>  $this->Goat_model->get_goat_info($category, $ref_id),
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'dashboard',
+			),
+			'breadcrumb'		=> 'Manage Goat',
+			'current'			=> 'management',	
+			'flag'				=> FALSE,
+		);
+
+		foreach ($context['goat_record'] as $row) {
+			if($row->gender == "female"){
+				$context["child"]	= $this->Goat_model->get_child($row->eartag_id); 
+				$context['flag']	= TRUE;
+			}
+		}
+
+		$this->load->view('layouts/application',$context);
+
+	}
+
+	public function view_goat_record($category, $record_id){
+
+		$context = array(
+			
+			'body' 				=> 'modules/core/edit_form',
+			'title' 			=> 'Goat Record',
+			'goat_record'		=>  $this->Goat_model->get_goat_info($category, $record_id),
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'dashboard',
+			),
+			'breadcrumb'		=> 'Manage Goat',
+			'current'			=> 'management',	
+
+			'dam_record'		=> $this->Goat_model->goat_breed('female'),
+			'sire_record'		=> $this->Goat_model->goat_breed('male'),
+		);
+
+
+		foreach ($context['goat_record'] as $row) {
+			$context['sire_id'] = $row->sire_id;
+		}
+
+		$this->load->view('layouts/application',$context);
+
+	}	
 }
 
 ?>

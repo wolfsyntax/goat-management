@@ -21,7 +21,8 @@ class Breeding_Controller extends CI_Controller {
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> 'dashboard',
 			),
-			'breadcrumb'		=> 'Manage Breeding',				
+			'breadcrumb'		=> 'Manage Breeding',
+			'current'			=> 'breed',				
 		);
 
 			$this->load->view('layouts/application',$context);
@@ -29,6 +30,19 @@ class Breeding_Controller extends CI_Controller {
 	}
 
 	public function create() {
+
+		$context = array(
+			'body' 				=> 'modules/activities/breeding/breeding_form',
+			'title' 			=> 'Breeding Record',
+			'breeding_record'	=>  $this->Goat_model->get_breeding_records(),
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'dashboard',
+			),
+			'breadcrumb'		=> 'Manage Breeding',
+			'current'			=> 'breed',				
+		);
+
+			$this->load->view('layouts/application',$context);
 
 	}
 

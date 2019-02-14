@@ -16,6 +16,7 @@ class Admin_Controller extends CI_Controller {
 		$context = array(
 			'body' 				=> 'auth/login',
 			'title' 			=> 'Login',
+			'current'			=> '',
 		);
 
 			$this->load->view('layouts/application',$context);

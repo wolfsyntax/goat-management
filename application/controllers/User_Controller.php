@@ -34,10 +34,13 @@ class User_Controller extends CI_Controller {
 	public function index(){
 
 		$context = array(
+			
 			'body' 				=> 'sitemap/index',
 			'title' 			=> 'Home',
 			'breadcrumbs'		=> array(),
-			'breadcrumb'		=> 'Dashboard',			
+			'breadcrumb'		=> 'Dashboard',	
+			'current'			=> '',
+
 		);
 
 		$this->load->view('layouts/application',$context);
@@ -49,8 +52,11 @@ class User_Controller extends CI_Controller {
 		if($this->session->userdata('user_type') == 'farm owner'){
 		
 			$context = array(
+				
 				'body' 				=> 'sitemap/index',
 				'title' 			=> 'Home',
+				'current'			=> '',
+				
 			);
 
 			$this->load->view('layouts/application',$context);

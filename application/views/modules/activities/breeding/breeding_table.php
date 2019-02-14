@@ -1,41 +1,41 @@
 <?php $this->load->view('includes/header') ?>
-
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-2 col-lg-2 px-0">
+
+		<div class="bg-info" id="sidebar">
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
-		
-		<div class="col-10 col-lg-10 px-2 py-2">
+
+		<div class="pr-5" id="content">
+			<section>
+				<?php $this->load->view('includes/breadcrumb') ?>
+			</section>
 			
-			<?php $this->load->view('includes/breadcrumb') ?>			
-
-			<div class="container-fluid mt-5" style="margin-bottom: 250px;">
-				<div class="row px-0">
-					<div class="col-12 py-2">
-						<?= ($this->session->flashdata('breeding') ? $this->session->flashdata('breeding') : ''); ?>
+			<section class="py-2 mt-2">
+				<div class="container-fluid ml-3">
+					<div class="row">
+						<div class="col">
+							<h1>Breeding Records</h1>
+						</div>
 					</div>
-					<div class="col-12">
-						<div class="card shadow-none rounded-0 border-0">
-							<div class="card-header border-0" style="background: transparent;">
-								<h1 class="pt-1">
-									Breeding Records
-								</h1>
-							</div>
-							<div class="card-body px-0">
-								<div class="container-fluid px-2">
 
-									<div class="row px-0 pt-2 mr-4">
-										<div class="col-12 col-md-3 py-2 offset-md-9 mb-5 px-0">
-											<a href="<?= base_url()?>breeding/new" class="btn btn-success w-100 mt-3 mt-md-0" title="Add Breeding Record">
-												<span class="fa fa-plus fa-lg"></span>&emsp;New Breeding
-											</a>
-										</div>
-									</div>		
+					<div class="row">
+						<div class="col offset-md-6 offset-lg-8">
+							<a href="<?= base_url()?>breeding/new" class="btn btn-success w-100 mt-3 mt-md-0" title="Add Breeding Record">
+								<span class="fa fa-plus fa-lg"></span>&emsp;New Breeding
+							</a>
+						</div>
+					</div>
 
-									<div class="row table-responsive table-responsive-sm text-nowrap px-0 ">
+					<div class="row">
+						<input type="hidden" name="_status" value="" id="_status">
+						<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
+					</div>
 
-										<table class="col-12 table table-striped table-hover " id="gp_record" >
+					<div class="row mt-0 pl-4">
+						<div class="col py-5">
+							<div class="row table-responsive table-responsive-sm text-nowrap">
+								<table class="col-12 table table-striped table-hover " id="gp_record" >
 											<thead class="bg-dark text-white text-center">
 												<tr>
 													<th>Dam ID</th>
@@ -76,95 +76,92 @@
 												<?php } ?>
 											</tbody>
 										</table>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								Footer
+								
 							</div>
 						</div>
 					</div>
 				</div>
-			</div> 
+			</section>
+		</div>
+	</div>
+</div>
+				
 
 
-			<div class="modal fade" id="pregCheck" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
+	
+<div class="modal fade" id="pregCheck" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
 							
-							<h5 class="modal-title" id="exampleModalLongTitle">Pregnancy Check: <p id="breed_check_label"></p></h5>
+				<h5 class="modal-title" id="exampleModalLongTitle">Pregnancy Check: <p id="breed_check_label"></p></h5>
 						
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						
-								<span aria-hidden="true">&times;</span>
-						
-							</button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>		
+				</button>
 
-						</div>
-					
-						<div class="modal-body">
-							
-							<?= form_open("", array(
-				        		'class' 	=> 'form',
-				        		'id'		=> 'pregcheck_aform',
-				        		'onsubmit'	=> 'check_form(this)',
-					        	)
-				    		)?>
-				    		
-				    		<div class="container-fluid">
-				    			
-				    			<div class="form-row p-1">
-												
-									<label class="col-form-label-sm col-6 col-sm-5 col-md-4 col-lg-3">Is pregnant ? <span class="text-danger">*</span></label>
-											              
-									<div class="col">
-										
-										<select class="form-control" name="preg_select">
-										<?php if(set_value('preg_select') == "Yes") {?>
-											<option value="" >-- Please select --</option>
-											<option value="Yes" selected>&emsp;Positive (Yes)</option>
-											<option value="No" >&emsp;Negative (No)</option>
-										<?php } else if(set_value('preg_select') == "No") { ?>
-											<option value="" >-- Please select --</option>
-											<option value="Yes" selected>&emsp;Positive (Yes)</option>
-											<option value="No" selected>&emsp;Negative (No)</option>
-										<?php } else { ?>
-											<option value="" >-- Please select --</option>
-											<option value="Yes">&emsp;Positive (Yes)</option>
-											<option value="No" >&emsp;Negative (No)</option>
-										<?php } ?>				
-										</select>							
-							
-									</div>
-
-								</div>   
-								<div class="form-row">
-									<div class="clearfix">&emsp;</div>
-								</div>
-
-								<div class="form-row">
-								
-									<div class="col-12 col-sm-8 col-lg-4 offset-lg-8 offset-sm-4">
-							
-										<input type="submit" name="pregcheck_btn" value="Update" class="btn btn-primary w-100" id="update_btn">
-							
-									</div>
-								
-								</div>
-					    	
-					    	</div>
-
-				    		<?= form_close() ?>
-						</div>
-
-				      <!--div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary">Save changes</button>
-				      </div-->
-					</div>
-				</div>
 			</div>
+					
+			<div class="modal-body">
+							
+			<?= form_open("", array(
+					'class' 	=> 'form',
+					'id'		=> 'pregcheck_aform',
+					'onsubmit'	=> 'check_form(this)',
+				)
+			)?>
+				    		
+				<div class="container-fluid">
+					    			
+					<div class="form-row p-1">
+													
+						<label class="col-form-label-sm col-6 col-sm-5 col-md-4 col-lg-3">Is pregnant ? <span class="text-danger">*</span></label>
+												              
+						<div class="col">
+											
+							<select class="form-control" name="preg_select">
+							<?php if(set_value('preg_select') == "Yes") {?>
+							
+								<option value="" >-- Please select --</option>
+								<option value="Yes" selected>&emsp;Positive (Yes)</option>
+								<option value="No" >&emsp;Negative (No)</option>
+							
+							<?php } else if(set_value('preg_select') == "No") { ?>
+							
+								<option value="" >-- Please select --</option>
+								<option value="Yes" selected>&emsp;Positive (Yes)</option>
+								<option value="No" selected>&emsp;Negative (No)</option>
+				
+							<?php } else { ?>
+				
+								<option value="" >-- Please select --</option>
+								<option value="Yes">&emsp;Positive (Yes)</option>
+								<option value="No" >&emsp;Negative (No)</option>
+				
+							<?php } ?>				
+							</select>							
+						
+						</div>
+
+					</div>   
+					
+					<div class="form-row">
+						<div class="clearfix">&emsp;</div>
+					</div>
+
+					<div class="form-row">
+									
+						<div class="col-12 col-sm-8 col-lg-4 offset-lg-8 offset-sm-4">
+										
+							<input type="submit" name="pregcheck_btn" value="Update" class="btn btn-primary w-100" id="update_btn">
+										
+						</div>		
+					</div>	    	
+				</div>
+
+			<?= form_close() ?>
+			</div>
+
 		</div>
 	</div>
 </div>

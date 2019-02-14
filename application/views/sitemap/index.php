@@ -26,7 +26,7 @@
 				<section class="w-100 text-center px-md-3 px-0">
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-md-4 py-2">
+							<div class="col-lg-4 py-2">
 								<div class="container-fluid">
 									<div class="row">
 										<div class="col">
@@ -50,7 +50,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-4 py-2">
+							<div class="col-lg-4 py-2">
 								<div class="container-fluid">
 									<div class="row">
 										<div class="col">
@@ -76,7 +76,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-4 py-2">
+							<div class="col-lg-4 py-2">
 								<div class="container-fluid">
 									<div class="row">
 										<div class="col">

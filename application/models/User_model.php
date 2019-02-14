@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$query = $this->db->get('User_Account');
 				
 				if($query->num_rows() == 1){
-					echo "<h1>Validating!</h1>";
+					//echo "<h1>Validating!</h1>";
 					$this->session->unset_userdata('user_id');
 					$this->session->unset_userdata('username');
 					$this->session->unset_userdata('user_fname');

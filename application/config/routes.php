@@ -54,15 +54,15 @@ $route['404_override'] 					= 'session_controller/error404';
 $route['translate_uri_dashes'] 			= FALSE;
 
 //Authentication
-$route['login']['GET'] 					= 'auth/logincontroller';
-$route['login']['POST'] 				= 'auth/logincontroller/store';
+$route['login']['GET'] 					= 'auth/logincontroller';				//display login form
+$route['login']['POST'] 				= 'auth/logincontroller/store';			//validate login details
 
-$route['logout']['GET'] 				= 'auth/logincontroller/logout';
+$route['logout']['GET'] 				= 'auth/logincontroller/logout';		//destroy session
 
-$route['register']['GET']				= 'auth/registercontroller/create';
-$route['register']['POST']				= 'auth/registercontroller/store';
+$route['register']['GET']				= 'auth/registercontroller/create';		//display registration form
+$route['register']['POST']				= 'auth/registercontroller/store';		//validate registration details
 
-$route['forgot']['GET'] 				= 'auth/forgotpasswordcontroller/create';
+$route['forgot']['GET'] 				= 'auth/forgotpasswordcontroller/create';	
 $route['forgot']['POST'] 				= 'auth/forgotpasswordcontroller/store';
 
 /************************************************
@@ -87,15 +87,15 @@ $route['inventory/(:num)/edit']['POST']			= "inventory_controller/update/$1";
 
 //Other Module: Sales -----------------------------------------------------------------------------
 
-$route['goat/sales']['GET']		 				= 'core_controller/sales';
-$route['goat/sales/new']['GET']		 			= 'core_controller/create_sales';
-$route['goat/sales/new']['POST']	 			= 'core_controller/store_sales';
+$route['goat/sales']['GET']		 				= 'core_controller/sales'; //display all sales records
+$route['goat/sales/new']['GET']		 			= 'core_controller/create_sales'; //display sales form (new)
+$route['goat/sales/new']['POST']	 			= 'core_controller/store_sales'; //validate sales form
 
-$route["sales/(:num)/edit"]["GET"]				= "core_controller/update_sales/$1";
-$route["sales/(:num)/edit"]["POST"]				= "goat_management/update_sales/$1";
+$route["sales/(:num)/edit"]["GET"]				= "core_controller/update_sales/$1"; //display sales form (update)
+$route["sales/(:num)/edit"]["POST"]				= "goat_management/update_sales/$1"; //validate sales form
 
 //view specific sales record (VIEW)
-$route["sales/(:num)/view"]['GET']				= "core_controller/show_sales/$1";
+$route["sales/(:num)/view"]['GET']				= "core_controller/show_sales/$1"; 
 //validate new sales record (CREATE)
 $route["sales/validate"]['POST']				= "goat_management/validate_transaction";
 
@@ -105,11 +105,11 @@ $route["sales/(:num)/remove"]["GET"]			= "goat_management/remove_sales/$1";
 
 //Other Module: Management ---------------------------------------------------------------------------
 
-$route['manage/goat']['GET']	 				= 'core_controller';
-$route['goat/new']['GET']	 					= 'core_controller/create';
+$route['manage/goat']['GET']	 				= 'core_controller'; //*
+$route['goat/new']['GET']	 					= 'core_controller/create'; //*
 $route["goat/r/(:any)"]['POST']					= "core_controller/validate_goat_info/$1";
 //view specific goat profile (VIEW)
-$route["manage/(:any)/(:num)/view"]['GET']		= "core_controller/manage_view/$1/$2";
+$route["manage/(:any)/(:num)/view"]['GET']		= "core_controller/manage_view/$1/$2"; //*
 //display edit form (UPDATE)
 $route["manage/(:any)/(:num)/edit"]['GET']		= "core_controller/view_goat_record/$1/$2";
 //validate edit request (UPDATE)

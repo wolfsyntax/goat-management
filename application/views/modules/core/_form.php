@@ -1,85 +1,107 @@
 <div class="container-fluid">
 	
 	<div class="form-row p-1">
-		<label class="col-form-label-sm col-12 col-sm-4 col-md-3 col-lg-2">Tag ID <span class="text-danger">*</span></label>
+		<div class="col-12 col-lg-6">
+			<div class="row px-0">
+				<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-4">Tag ID <span class="text-danger">*</span></label>
+
+				<div class="col col-sm-8 col-md-10 col-lg-8">
+					<input type="text" name="eartag_id" value="<?= set_value("eartag_id"); ?>" placeholder="Eartag ID" class="form-control my-2 my-md-0" >
 						
-		<div class="col col-sm-8 col-lg-4">
-			<input type="text" name="eartag_id" value="<?= set_value("eartag_id"); ?>" placeholder="Eartag ID" class="form-control my-2 my-md-0" >
-						
-			<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
+					<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
+				</div>
+			</div>
 		</div>
 
-		<label class="col-form-label-sm col-12 col-sm-4 col-md-3 col-lg-2 text-md-center">Tag Color <span class="text-danger">*</span></label>
+		<div class="col-12 col-lg-6 pt-2 pb-1 py-lg-0">
+			<div class="row px-0">
+				<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-4 text-lg-center">Tag Color <span class="text-danger">*</span></label>
 					
-		<div class="col col-sm-8 col-lg-4" id="color-tag">
-			<select class="form-control" id="color-select" required="" name="eartag_color">
-				<option>-- Choose color --</option>
-				<option value="blue">
-					Blue
-				</option>
-				<option value="green">
-					Green
-				</option>
-				<option value="orange">
-					Orange
-				</option>
-				<option value="yellow">
-					Yellow
-				</option>
-			</select>
+				<div class="col col-sm-8 col-md-10 col-lg-8" id="color-tag">
+					<select class="form-control" id="color-select" required="" name="eartag_color">
+						<option>-- Choose color --</option>
+						<option value="blue">
+							Blue
+						</option>
+						<option value="green">
+							Green
+						</option>
+						<option value="orange">
+							Orange
+						</option>
+						<option value="yellow">
+							Yellow
+						</option>
+					</select>
 
-			<?= (form_error('eartag_color')	!= "" ? form_error('eartag_color') : ''); ?>	
+					<?= (form_error('eartag_color')	!= "" ? form_error('eartag_color') : ''); ?>	
 
+				</div>
+			</div>
 		</div>
-
 	</div>
-	
 
 	<div class="form-row p-1">
-		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Nickname <span class="text-danger">*</span></label>
-				
-		<div class="col pl-md-2">
-			<input type="text" name="nickname" value="<?= set_value("nickname"); ?>" placeholder="Nickname" class="form-control" >
-				
-			<?= (form_error('nickname')	!= "" ? form_error('nickname') : ''); ?>	
-		</div>
-
-	</div>
-				
-	<div class="form-row p-1">
-		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Gender <span class="text-danger">*</span></label>
-	
+		
 		<div class="col">
-			<select name="gender" class="custom-select" id="gender" onchange="select_gender(this);" data-role="tagsinput">
-				<option value="" >- Select a Gender -</option>
-				<?php if(set_value("gender") == "male") {?>
-					<option value="male" selected>Male</option>
-					<option value="female">Female</option>
-				<?php } elseif(set_value("gender") == "female") {?>
-					<option value="male">Male</option>
-					<option value="female" selected>Female</option>
-				<?php } else {?>
-					<option value="male">Male</option>
-					<option value="female">Female</option>
-				<?php }?>
+			<div class="row px-0">
+				<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Nickname <span class="text-danger">*</span></label>
+						
+				<div class="col px-3">
+					<input type="text" name="nickname" value="<?= set_value("nickname"); ?>" placeholder="Nickname" class="form-control" >
+						
+					<?= (form_error('nickname')	!= "" ? form_error('nickname') : ''); ?>	
+				</div>
+			</div>
+		</div>
 
-			</select>
+	</div>
+				
+	<div class="form-row p-1">
+		<div class="col">
+			<div class="row px-0">
+
+				<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Gender <span class="text-danger">*</span></label>
 			
-			<?= (form_error('gender')	!= "" ? form_error('gender') : ''); ?>	
+				<div class="col">
+					<select name="gender" class="custom-select" id="gender" onchange="select_gender(this);" data-role="tagsinput">
+						<option value="" >- Select a Gender -</option>
+						<?php if(set_value("gender") == "male") {?>
+							<option value="male" selected>Male</option>
+							<option value="female">Female</option>
+						<?php } elseif(set_value("gender") == "female") {?>
+							<option value="male">Male</option>
+							<option value="female" selected>Female</option>
+						<?php } else {?>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						<?php }?>
+
+					</select>
+					
+					<?= (form_error('gender')	!= "" ? form_error('gender') : ''); ?>	
+				</div>
+			</div>
 		</div>
+
 	</div>
 
 	<div class="form-row p-1">
-		<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Body Color <span class="text-danger">*</span></label>
-					
-		<div class="col">
-			<select name="body_color" id="body_color_select" class="form-control" placeholder="- Enter Body Color -" value="<?= set_value('body_color'); ?>" >
 
-				<option value="Brown">Brown</option>    
-				<option value="White">White</option>           
-			</select>
-						
-			<?= (form_error('body_color')	!= "" ? form_error('body_color') : ''); ?>	
+		<div class="col">
+			<div class="row px-0">
+				<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Body Color <span class="text-danger">*</span></label>
+							
+				<div class="col">
+					<select name="body_color" id="body_color_select" class="form-control" placeholder="- Enter Body Color -" value="<?= set_value('body_color'); ?>" >
+
+						<option value="Brown">Brown</option>    
+						<option value="White">White</option>           
+					</select>
+								
+					<?= (form_error('body_color')	!= "" ? form_error('body_color') : ''); ?>	
+				</div>
+			</div>
 		</div>
 
 	</div>

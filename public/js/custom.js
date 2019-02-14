@@ -30,3 +30,18 @@
  	}
 
  });
+
+function change_icon(elem){
+	
+	var cname = $("#icon-toggler").attr("class");
+			
+	$("#icon-toggler").removeClass();
+			
+	if(cname == "fa fa-arrow-circle-right fa-lg text-white") {
+		$("#icon-toggler").addClass("fa fa-arrow-circle-left fa-lg text-white");
+	} else {
+		$("#icon-toggler").addClass("fa fa-arrow-circle-right fa-lg text-white");
+	}
+
+
+}

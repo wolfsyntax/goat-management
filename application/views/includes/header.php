@@ -1,5 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav class="<?= $this->session->userdata('username') == '' ? 'navbar navbar-expand-lg navbar-light bg-light' : 'navbar navbar-expand navbar-dark bg-dark' ?>">
+  <!--a class="navbar-brand" href="#">Navbar</a-->
+
+  <?php if($this->session->userdata('username') != "") {?>
+		<!--button type="button" id="sidebarCollapse" class="btn btn-link" onclick="change_icon(this)" >
+			<i class="fa fa-arrow-circle-left fa-lg text-white" id="icon-toggler"></i>
+			<span></span>
+		</button-->
+  <?php } ?>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -12,24 +19,17 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="#">Link</a>
-			</li>
-
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Dropdown
-				</a>
-				<div class="dropdown-menu dropleft" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="#">Action</a>
-					<a class="dropdown-item" href="#">Another action</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div>
+				<a class="nav-link" href="#">About</a>
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+				<a class="nav-link" href="#">Contact Us</a>
 			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="#">FAQ</a>
+			</li>
+
 		</ul>
 
     
@@ -47,16 +47,25 @@
 			</li>
 
 			<?php } else {?>
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<button type="button" id="sidebarCollapse" class="btn btn-link" onclick="change_icon(this)" >
+					<i class="fa fa-arrow-circle-left fa-lg text-white" id="icon-toggler"></i>
+					<span></span>
+				</button>
+			</li>
+		</ul>
+		
 		<ul class="navbar-nav ml-auto">		
 			<li class="nav-item">
 				<a class="nav-link" href="#">
-					<i class="fa fa-bell"></i>
+					<i class="fa fa-bell text-white"></i>
 				</a>
 			</li>
 
 			<li class="nav-item dropdown">
 				<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-cogs" ></i>
+					<i class="fa fa-cogs text-white" ></i>
 				</a>
 
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

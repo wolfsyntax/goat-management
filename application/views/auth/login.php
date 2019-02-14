@@ -15,9 +15,9 @@
 
 				<div class="row mt-2">
 					<div class="col-12 col-sm-12 col-lg-12 h-100 px-0">
-						<?= form_open(base_url().'login',array('class'=>'mt-md-5','style'=>'',"onsubmit"=> "return check_form(this);")); ?>
+						<?= form_open(base_url().'login',array('class'=>'mt-md-5 px-2 px-md-0','style'=>'',"onsubmit"=> "return check_form(this);")); ?>
 							<div class="container-fluid">
-								<?= ($this->session->flashdata('item') ? $this->session->flashdata('item') : ''); ?>
+								<?= ($this->session->flashdata('auth') ? $this->session->flashdata('auth') : ''); ?>
 								
 								<div class="row">
 									<div class="col-12 ">

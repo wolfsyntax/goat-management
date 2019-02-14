@@ -2,7 +2,8 @@
 	<div class="row">
 		<div class="col">
 			<nav aria-label="breadcrumb">
-  				<ol class="breadcrumb" style="background: transparent;">
+  				
+          <ol class="breadcrumb justify-content-start" style="background: transparent;">
   					<?php foreach($breadcrumbs as $key => $value) {?>
     				<li class="breadcrumb-item ">
     					<a href="<?= base_url($value) ?>" style="text-decoration: none;">
@@ -14,6 +15,7 @@
     					<a><?= $breadcrumb ?></>
     				</li>
   				</ol>
+          
 			</nav>
 		</div>
 	</div>

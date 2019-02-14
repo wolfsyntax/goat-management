@@ -89,7 +89,7 @@ class RegisterController extends CI_Controller {
 		}else{
 
 			if($this->User_model->process_registration()){
-
+/*
 				$this->session->set_flashdata("item", "<div class='alert alert-success' role='alert' style='height: 50px;'>
 									<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
 									
@@ -98,7 +98,13 @@ class RegisterController extends CI_Controller {
 					<strong>Success</strong>&emsp;Account created</p>
 									</div>
 								</div>");
-
+*/
+				$this->session->set_flashdata("item", '<div class="alert alert-success alert-dismissible fade show py-3" role="alert">
+          				<strong class="fa fa-check-circle"></strong> Account successfully created</strong>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            				<span aria-hidden="true">&times;</span>
+          				</button>
+        		</div>');
 				redirect("login");
 
 			}else{

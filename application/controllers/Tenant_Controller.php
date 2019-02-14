@@ -33,10 +33,13 @@ class Tenant_Controller extends CI_Controller {
 	public function index(){
 
 		$context = array(
+			
 			'body' 				=> 'auth/tenants/index',
 			'title' 			=> 'Dashboard',
 			'breadcrumbs'		=> array(),
 			'breadcrumb'		=> 'Dashboard',
+			'current'			=> 'dashboard',
+
 		);
 
 		$this->load->view('layouts/application',$context);

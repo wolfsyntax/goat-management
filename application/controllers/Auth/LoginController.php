@@ -53,7 +53,7 @@ class LoginController extends CI_Controller {
 			if($this->session->userdata('username') == ''){
 				
 				if($this->User_model->validate_login()){
-					echo "<h1>Validated!</h1>";
+					//echo "<h1>Validated!</h1>";
 					if($this->session->userdata('user_type') == 'sysadmin'){
 						
 						redirect('admin','refresh');

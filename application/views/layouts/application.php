@@ -21,7 +21,7 @@
 		$this->load->view('errors/html/error_403');
 	} ?>
 	
-	<a href="" class="scrollup" style="float: right"><i class="fa fa-angle-up active"></i></a>	
+	<a href="" class="scrollup"><i class="fa fa-angle-up active"></i></a>	
 
 	<!-- Starter Template -->
 	<script src="<?= base_url('public/dist/js/jquery-3.3.1.slim.min.js'); ?>"></script>
