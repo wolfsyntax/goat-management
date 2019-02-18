@@ -1,26 +1,28 @@
 <?php $this->load->view('includes/header') ?>
-
-<div class="container-fluid" style="">
+<div class="container-fluid">
 	<div class="row">
 		
-		<div class="col-2 bg-danger px-0" id="sidebar-content">
+		<div class="pl-0" id="sidebar">
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
-		
-		<div class="col-10 px-2 py-2" id="main-content">
-
-			<?php $this->load->view('includes/breadcrumb') ?>		
-
-			<div class = "container-fluid mt-2 mb-5">
-				<div class="row mt-2 mb-5">
-					<div class="col p-2 mb-5">
-						<div class="card shadow-none rounded-0 border-0" style="background: transparent;">
-							<div class="card-header card-ubuntu border-0">
-								<h3><strong>Inventory Management</strong>&nbsp;(New Item)</h3>
+		<div class="px-2" id="content">
+			<section>
+				<?php $this->load->view('includes/breadcrumb') ?>
+			</section>
+			<section>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">
+							<div class="container">
+								<h3>Add New Item</h3>
 							</div>
-							<div class="card-body p-2">
-								
-								<?= form_open(base_url("inventory/new"), array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>'',"onsubmit"=> "return check_form(this);")); ?>
+						</div>
+					</div>
+
+					<div class="row px-3">
+						<div class="col">
+							<div class="container-fluid">
+								<?= form_open('', array("class" => "",)) ?>
 									<div class="form-row p-1">
 										<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Item Name <span class="text-danger">*</span></label>
 									
@@ -60,9 +62,9 @@
 											
 											<?= (form_error('item_type')	!= "" ? form_error('item_type') : ''); ?>	
 										</div>
-								
-									</div>						
-									
+					
+									</div>
+
 									<div class="form-row p-1">
 										<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Quantity (mL)&nbsp;<span class="text-danger">*</span></label>
 									
@@ -89,14 +91,12 @@
 									<div class="form-row mt-3">
 										<input type="submit" class="btn btn-primary col col-md-3 offset-md-9" name="submit" value="Add Item" id="save_btn"/>
 									</div>
-
-								<?= form_close(); ?>
-								
+								<?= form_close() ?>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</section>
 		</div>
 	</div>
 </div>

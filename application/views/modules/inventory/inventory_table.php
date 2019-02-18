@@ -13,20 +13,14 @@
 			</section>
 			
 			<section class="py-2 mt-2">
-				<div class="container-fluid mt-5" style="margin-bottom: 250px;">
-					<div class="row px-0">
-						<div class="col-12 py-0">
-							&emsp;
-						</div>
-					</div>
-
+				<div class="container-fluid ml-3">
 					<div class="row">
 						<div class="col">
 							<h1>Inventory Management</h1>		
 						</div>
 					</div>
 
-					<div class="row">
+					<div class="form-row">
 						<div class="col offset-md-6 offset-lg-8">
 							<a href="<?= base_url()?>inventory/new" class="btn btn-success w-100 mt-3 mt-md-0" title="Add New Item">
 								<span class="fa fa-plus fa-lg"></span>&emsp;Add Item

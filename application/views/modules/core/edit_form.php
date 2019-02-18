@@ -24,7 +24,7 @@
 							<section>
 								<?php foreach($goat_record as $row) { ?>
 								<div class="container-fluid">
-									<?= form_open(base_url()."manage/edit", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"", "onsubmit" => "")); ?>
+									<?= form_open("", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"", "onsubmit" => "")); ?>
 
 									<div class="form-row p-1">
 										<input type="hidden" name="recent_category" id="rcategory" value="<?= $row->category ?>" />
@@ -38,7 +38,7 @@
 												<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-4">Tag ID <span class="text-danger">*</span></label>
 
 												<div class="col col-sm-8 col-md-10 col-lg-8">
-													<input type="text" name="eartag_id" value="<?= set_value('eartag_id', $row->eartag_id);?>" placeholder="Eartag ID" class="form-control my-2 my-md-0" >
+													<input type="text" name="eartag_id" value="<?= set_value('eartag_id', $row->eartag_id);?>" placeholder="Eartag ID" class="form-control my-2 my-md-0" readonly>
 														
 													<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
 												</div>

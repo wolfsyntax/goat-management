@@ -7,6 +7,10 @@
 		</div>
 
 		<div class="" id="content">
+			<section>
+				<?php $this->load->view('includes/breadcrumb') ?>
+			</section>
+			
 			<div class="container-fluid">
 				<?php foreach($goat_record as $row) {?>
 				<div class="row px-3">

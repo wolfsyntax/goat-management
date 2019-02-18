@@ -27,7 +27,46 @@ class HealthCheck_Controller extends CI_Controller {
 
 		);
 
-			$this->load->view('layouts/application',$context);
+		$this->load->view('layouts/application',$context);
+
+	}
+
+	public function create($eartag_id){
+
+		$context = array(
+			
+			'body' 				=> 'modules/activities/checkup/health_check_new',
+			'title' 			=> 'Health Check: New',
+			'health_records'	=> $this->Goat_model->get_health_records($eartag_id),
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'dashboard',
+				'Health Check'	=> 'health/view',
+			),
+			'breadcrumb'		=> 'Health Record for ID#'. $eartag_id,
+			'vaccine'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
+			'supplement'		=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),
+			'eartag'			=> $eartag_id,
+			'current'			=> 'checkup',
+
+		);
+
+		$this->load->view('layouts/application',$context);
+
+	}
+
+	public function store($id) {
+
+	}
+
+	public function edit($id) {
+
+	}
+
+	public function update($id) {
+
+	}
+
+	public function destroy($id) {
 
 	}
 

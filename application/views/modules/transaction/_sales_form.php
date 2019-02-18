@@ -1,6 +1,3 @@
-<div class="form-row p-1">
-	<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
-</div>
 
 <div class="form-row p-1">
 	<label class="col-form-label-sm col-12 col-sm-12 col-md-2 col-lg-2">Tag ID <span class="text-danger">*</span></label>								
@@ -9,7 +6,7 @@
 		<select name="eartag_id" id="goat_id_select" class="form-control" placeholder="- Enter Ear Tag ID -" value="<?= set_value('eartag_id'); ?>" required>
 
 			<?php foreach($goat_record as $row) {?>           
-			<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?>&nbsp;(<?= $row->nickname ?>)&nbsp;</option>
+			<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?> (<?= $row->nickname ?>)</option>
 			<?php } ?>
 		</select>
 		
@@ -89,4 +86,4 @@
 
 <div class="form-row p-1 float-right w-100">
 	&emsp;
-</div>																					
+</div>			

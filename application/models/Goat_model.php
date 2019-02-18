@@ -341,6 +341,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function is_available_goat($eartag_id){
+			
+		//	echo "<h1>Eartag ID: #{$eartag_id}</h1>";
 
 			$sql = "SELECT gp.eartag_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 1 YEAR) AND gp.eartag_id = {$eartag_id} AND gp.status = 'active'";
 
@@ -410,8 +412,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					"price_per_kilo"	=> $this->input->post("price_per_kilo", TRUE),
 					"weight"			=> $this->input->post("weight", TRUE),
 					"transact_date"		=> $this->input->post("transact_date", TRUE),
-					"sold_to"			=> strtolower($this->input->post("sold_to", TRUE)),
-					"remarks"			=> strtolower($remarks ? $remarks : "N/A"),
+					"sold_to"			=> $this->input->post("sold_to", TRUE),
+					"remarks"			=> $remarks ? $remarks : "N/A",
 					"eartag_id"			=> $eartag_id,
 
 				);

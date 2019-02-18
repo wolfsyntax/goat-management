@@ -310,26 +310,134 @@ class Core_Controller extends CI_Controller {
 
  	}
 
+	public function validate_mod_info($category, $ref_id){
+
+		$this->form_validation->set_rules('eartag_id','Tag ID',
+			'required|integer|xss_clean|trim|greater_than[0]|eartag_checker',
+			array(
+				'required' 			=> '{field} is required.',
+				'integer' 			=> '{field} must contain an integer.',
+				"greater_than"		=> "{field} must be greater than zero.",
+				"eartag_checker"	=> "{field} is not a valid Eartag ID.",			
+			)
+		);
+		
+		$this->form_validation->set_rules("nickname", "Nickname", "required|trim|xss_clean|name_check|max_length[255]", array(
+				'required'			=> '{field} is required.',
+				"name_check"		=> "{field} is not a valid and must be at least 2 characters in length.",
+				"max_length"		=> "{field} cannot exceed 255 characters in length."
+			)
+		);
+
+		$this->form_validation->set_rules('eartag_color','Tag Color',
+		'required|xss_clean|trim|alpha_spaces',
+		array(
+			'required' 			=> '{field} is required.',
+			'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces',
+			)
+		);
+
+		$this->form_validation->set_rules('gender','Gender',
+		'required|xss_clean|trim|alpha_spaces|in_list[male,female]',
+			array(
+				'required' 			=> '{field} is required.',
+				'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces.',
+				'in_list'			=> '{field} is not a valid gender',
+			)
+		);
+
+		$this->form_validation->set_rules('body_color','Body Color',
+		'required|xss_clean|trim|alpha_spaces',
+		array(
+			'required' 			=> '{field} is required.',
+			'alpha_spaces'		=> '{field} may only contain alphabetical characters and spaces.',
+			)
+		);
+
+
+		$this->form_validation->set_rules('category', 'Category', 'trim|required', array("required" => "{field} is required."));
+
+		$category = $this->input->post("category", TRUE);
+		$ref_id = $this->input->post("ref_id", TRUE);		
+
+		if($category === "birth"){
+			
+			self::validate_birth_info();
+
+		}elseif ($category === "purchase") {
+
+			self::validate_purchase_info();
+
+		}
+
+
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
+
+
+		if($this->form_validation->run() == FALSE){
+
+			
+			self::view_goat_record($category,$ref_id);
+
+		} else {
+
+			if($this->Goat_model->edit_goat($ref_id)){
+
+				$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-check-circle"></span>
+							<strong>Successfully</strong>&emsp; Modifying Goat Profile.</p>
+						</div>
+					</div>');
+				
+
+			} else {
+
+				$this->session->set_flashdata('goat', '<div class="alert alert-danger col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-exclamation-circle"></span>
+							<strong>Failed</strong>&emsp;Error: Cannot Update Goat Profile.</p>
+						</div>
+					</div>');
+
+			}
+
+			redirect(base_url(). "manage/goat");
+
+		}
+
+	}
+
 /**
 **			Goat Transaction
 **/
 
-	public function modify_sales_info($sales_id){
+	public function modify_sales_info($sales_id){ 
 		
-		$data["body"] 			= "financials/edit_form";
-		$data["title"]			= "Modify Sales Record";
-		$data["footer"]			= "2";
-		$data["header"]			= "1";
+		$context = array(
+			
+			'body' 					=> 'modules/transaction/edit_form',
+			'title' 				=> 'Modify Sales Record',
+			'goat_record'			=> $this->Goat_model->show_sales($sales_id),
+			'breadcrumbs'			=> array(
+				'Dashboard'			=> 'dashboard',
+				'Manage Finances'	=> 'goat/sales',
+			),
+			'breadcrumb'			=> 'Update Sales',
+			'current'				=> 'finance',
 
-		$data["breadcrumbs"] 	= array();
-		$data["breadcrumb"]		= "Goat Management";
-		$data['current']		= 'finance';
+		);
+
 
 		if($sales_id >= 1){
 			
-			$data['goat_record'] = $this->Goat_model->show_sales($sales_id);
 
-			$this->load->view("layouts/application",$data);
+			$this->load->view('layouts/application',$context);
+
 
 		}else {
 			show_404();
@@ -338,58 +446,67 @@ class Core_Controller extends CI_Controller {
 	}
 
 
-	public function transaction_validation(){
+	public function transaction_validation($flag = TRUE){
 		
-		if($this->session->userdata("username") != ""){
+		
 
-			/**
-			**	Todo: add new validation rules for checking if it is not already sold
-			**/
+		/**
+		**	Todo: add new validation rules for checking if it is not already sold
+		**/
+		if($flag){		
+
 			$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'trim|required|callback_livestock_check|is_active[goat_profile.eartag_id]|is_exist[goat_profile.eartag_id]',
 				array(
 					'is_active'			=> '{field} is Inactive. You cannot sell it.',
 					'is_exist'			=> '{field} do not exist in your Goat Records.',
 					'required'			=> '{field} is required.',	
-					'livestock_check'	=> '{field} is NOT available or inactive. It must be atleast 12 months old.+'
+					'livestock_check'	=> '{field} is NOT available or inactive. It must be atleast 12 months old.'
 				)
 			);
-
-			$this->form_validation->set_rules("transact_date","Date sold","required|xss_clean|trim|check_date",
-				array(
-					"required" 		=> "{field} is required.",
-					'check_date' 	=> "Incorrect date settings.",
-				)
-			);
-
-			$this->form_validation->set_rules("sold_to","Buyer Name","required|xss_clean|trim",
-				array(
-					"required" 		=> "{field} is required",
-				)
-			);
-
-			$this->form_validation->set_rules("weight","Total Weight","required|xss_clean|trim|numeric",
-				array(
-					"required" 		=> "{field} is required.",
-					"numeric"		=> "{field} is invalid value.",
-				)
-			);
-
-			$this->form_validation->set_rules("price_per_kilo","Price per Kilo","required|xss_clean|trim|numeric",
-				array(
-					"required" 		=> "{field} is required.",
-					"numeric"		=> "{field} is invalid value.",
-				)
-			);
-
-
-			$this->form_validation->set_rules("remarks","Notes","xss_clean|trim");						
-			$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
 
 		} else {
 
-			show_404();
+			$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'trim|required|is_exist[goat_profile.eartag_id]',
+				array(
+					'is_exist'			=> '{field} do not exist in your Goat Records.',
+					'required'			=> '{field} is required.',	
+				)
+			);
 
 		}
+
+		$this->form_validation->set_rules("transact_date","Date sold","required|xss_clean|trim|check_date",
+			array(
+				"required" 		=> "{field} is required.",
+				'check_date' 	=> "Incorrect date settings.",
+			)
+		);
+
+		$this->form_validation->set_rules("sold_to","Buyer Name","required|xss_clean|trim",
+			array(
+				"required" 		=> "{field} is required",
+			)
+		);
+
+		$this->form_validation->set_rules("weight","Total Weight","required|xss_clean|trim|numeric",
+			array(
+				"required" 		=> "{field} is required.",
+				"numeric"		=> "{field} is invalid value.",
+			)
+		);
+
+		$this->form_validation->set_rules("price_per_kilo","Price per Kilo","required|xss_clean|trim|numeric",
+			array(
+				"required" 		=> "{field} is required.",
+				"numeric"		=> "{field} is invalid value.",
+			)
+		);
+
+		$this->form_validation->set_rules("remarks","Notes","xss_clean|trim");						
+
+		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
+
+		
 
 	}
 
@@ -407,7 +524,7 @@ class Core_Controller extends CI_Controller {
 			)
 		);
 
-		self::transaction_validation();
+		self::transaction_validation(FALSE);
 
 		if($this->form_validation->run() === TRUE){
 
@@ -418,7 +535,7 @@ class Core_Controller extends CI_Controller {
 											
 						<div class='row p-2'>
 							<p>&emsp;<span class='fa fa-check-circle'></span>
-							<strong>Success</strong>&emsp;Modifying Sales record.&nbsp;<a href='".base_url()."goat/sales'>View Sales</a></p>
+							<strong>Success</strong>&emsp;Modifying Sales record.</p>
 						</div>
 					</div>");
 
@@ -438,7 +555,9 @@ class Core_Controller extends CI_Controller {
 	
 		} 
 
-		self::modify_sales_info($sales_id);
+		redirect(base_url('goat/sales'), 'refresh');
+
+		//self::modify_sales_info($sales_id);
 				
 	}
 
@@ -494,19 +613,25 @@ class Core_Controller extends CI_Controller {
 	}
 
 	public function show_sales($sale_id){
+
 		//preg_match ("/^(\+63|0)9[0-9]{9}$/" , $str)
 		if(preg_match("/[0-9]+/", $sale_id) && intval($sale_id) > 0){
 
-			$data["body"] 	= "financials/sale_view";
-			$data["title"] 	= "Sale Record: {$sale_id}";
+			$context = array(
+				
+				'body' 					=> 'modules/transaction/sale_view',
+				'title' 				=> 'Goat Sales',
+				'sale_record'			=>  $this->Goat_model->show_sales($sale_id),
+				'breadcrumbs'			=> array(
+					'Dashboard'			=> 'dashboard',
+					'Manage Finances' 	=> 'goat/sales',
+				),
+				'breadcrumb'		=> 'Sales Record',
+				'current'			=> 'finance',	
 
-			$data["sale_record"] = $this->Goat_model->show_sales($sale_id);
+			);
 
-			$data["breadcrumbs"] 	= array();
-			$data["breadcrumb"]		= "Goat Management";
-			$data['current']		= 'finance';
-			
-			$this->load->view("layouts/application", $data);
+			$this->load->view('layouts/application',$context);
 
 		}else{
 
@@ -514,6 +639,38 @@ class Core_Controller extends CI_Controller {
 
 		}
 
+
+	}
+
+	public function remove_sales($sales_id){
+		
+		//*
+		if(intval($sales_id) > 0){
+			if($this->Goat_model->remove_sales($sales_id)) {
+		
+				$this->session->set_flashdata("goat", "<div class='alert alert-success col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+							<div class='row'>
+								<p><span class='fa fa-check-circle'></span>
+								<strong>Success</strong>&emsp;Sales Record not remove <a href='".base_url('manage/goat')."' class='nav-link d-inline-block'>View Goat Record</a>.</p>
+							</div>
+						</div>");
+
+			} else {
+				$this->session->set_flashdata("goat", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+							<div class='row'>
+								<p><span class='fa fa-exclamation-circle'></span>
+								<strong>Failed</strong>&emsp;Sales Record not remove.</p>
+							</div>
+						</div>");
+
+			}
+		}
+
+		redirect(base_url('goat/sales'), 'refresh');
 
 	}
 
@@ -526,17 +683,22 @@ class Core_Controller extends CI_Controller {
 			'goat_record'		=>  $this->Goat_model->get_goat_info($category, $ref_id),
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> 'dashboard',
+				'Manage Goat'	=> 'manage/goat',
 			),
-			'breadcrumb'		=> 'Manage Goat',
+			'breadcrumb'		=> 'Goat record',
 			'current'			=> 'management',	
 			'flag'				=> FALSE,
 		);
-
+				
 		foreach ($context['goat_record'] as $row) {
+
 			if($row->gender == "female"){
+				
 				$context["child"]	= $this->Goat_model->get_child($row->eartag_id); 
 				$context['flag']	= TRUE;
+
 			}
+
 		}
 
 		$this->load->view('layouts/application',$context);
@@ -552,8 +714,9 @@ class Core_Controller extends CI_Controller {
 			'goat_record'		=>  $this->Goat_model->get_goat_info($category, $record_id),
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> 'dashboard',
+				'Manage Goat'	=> 'manage/goat',
 			),
-			'breadcrumb'		=> 'Manage Goat',
+			'breadcrumb'		=> 'Update record',
 			'current'			=> 'management',	
 
 			'dam_record'		=> $this->Goat_model->goat_breed('female'),
@@ -567,7 +730,156 @@ class Core_Controller extends CI_Controller {
 
 		$this->load->view('layouts/application',$context);
 
-	}	
+	}
+
+	public function manageStatus($eartag_id){
+
+		$data = array(
+			'body' 				=> 'modules/core/manage_status', 
+			'title'				=> 'Manage Status',
+			'eartag_id'			=> $eartag_id,
+			'mrecord'			=> $this->Goat_model->show_loss_records($eartag_id, $this->session->userdata("user_id")),
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'dashboard',
+				'Manage Goat'	=> 'manage/goat',
+			),
+			'breadcrumb'		=> 'Update Status',
+			"current"			=> "management",
+		);
+
+		$this->load->view("layouts/application",$data);
+
+	}
+
+	public function manage_revert_status(){
+
+		$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'required|xss_clean|trim|integer|is_exist[goat_profile.eartag_id]|greater_than[0]|eartag_checker', 
+			array(
+				'eartag_checker'	=> "{field} is not a valid Eartag ID.",
+				'required'			=> '{field} is required.',
+				'integer'			=> '{field} must contain an integer.',
+				'is_exist'			=> '{field} do not exist.',
+				'greater_than'		=> '{field} cannot be less than or equal to zero.',
+			)
+		);		
+
+
+		$this->form_validation->set_rules('loss_caused', 'Cause', 'trim|required|min_length[4]|max_length[8]',array(
+				'min_length'		=> '{field} must be at least 4 characters in length.',
+				'max_length'		=> '{field} cannot exceed 8 characters in length.',
+				'required'			=> '{field} is required.',
+			)
+		);
+
+		$this->form_validation->set_rules('perform_date', 'Date of Loss', 'required|xss_clean|trim|check_date',
+			array(
+				'required' 			=> '{field} is required.',
+				"check_date"		=> "{field} is set incorrectly.",
+			)
+		);
+
+		$this->form_validation->set_rules("remarks","Notes","xss_clean|trim|max_length[255]|required",
+			array(
+				'max_length'		=> "{field} cannot exceed 255 characters in length.",
+			)
+		);
+
+		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
+
+		if ($this->form_validation->run() == TRUE) {
+
+			if($this->Goat_model->loss_record()){
+				
+				$this->session->set_flashdata('goat', '<div class="alert alert-success col-12" role="alert" style="height: 50px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+												
+						<div class="row">
+							<p><span class="fa fa-check-circle"></span>
+							<strong>Successfully</strong>&emsp; Modifying Goat Status.</p>
+						</div>
+					</div>');
+
+			} else {
+
+				$this->session->set_flashdata("goat", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+							<div class='row'>
+								<p><span class='fa fa-check-circle'></span>
+								<strong>Failed</strong>&emsp;Modifying Status.</p>
+							</div>
+						</div>");
+
+				//
+
+			}	
+
+		} 
+
+		self::index();
+		
+
+	}
+
+	public function manage_status($eartag_id){
+
+		$this->form_validation->set_rules('eartag_id', 'Eartag ID', 'required|xss_clean|trim|integer|is_exist[goat_profile.eartag_id]|greater_than[0]|eartag_checker', 
+			array(
+				'eartag_checker'	=> "{field} is not a valid Eartag ID.",
+				'required'			=> '{field} is required.',
+				'integer'			=> '{field} must contain an integer.',
+				'is_exist'			=> '{field} do not exist.',
+				'greater_than'		=> '{field} cannot be less than or equal to zero.',
+			)
+		);
+
+		$this->form_validation->set_rules('loss_caused', 'Cause', 'trim|required|min_length[4]|max_length[8]',array(
+				'min_length'		=> '{field} must be at least 4 characters in length.',
+				'max_length'		=> '{field} cannot exceed 8 characters in length.',
+				'required'			=> '{field} is required.',
+			)
+		);
+
+		$this->form_validation->set_rules('perform_date', 'Date of Loss', 'required|xss_clean|trim|check_date',
+			array(
+				'required' 			=> '{field} is required.',
+				"check_date"		=> "{field} is set incorrectly.",
+			)
+		);
+
+		$this->form_validation->set_rules("remarks","Notes","xss_clean|trim|max_length[255]|required",
+			array(
+				'max_length'		=> "{field} cannot exceed 255 characters in length.",
+			)
+		);
+
+		if ($this->form_validation->run() == FALSE) {
+			
+			//View for Manage Status form
+			self::manageStatus($eartag_id);
+
+		} else {
+
+			if($this->Goat_model->loss_record()){
+				redirect(base_url('manage/goat'),'refresh');
+			} else {
+				self::manageStatus($eartag_id);
+			}
+
+		}
+
+	}
+
+/**
+** Custom Validation
+**/	
+
+	public function livestock_check($id){
+		$id = explode('(', $id)[0];
+		return $this->Goat_model->is_available_goat($id);
+
+	}
+
 }
 
 ?>

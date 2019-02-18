@@ -18,6 +18,12 @@
 							</div>
 
 						</section>
+						
+						<section>
+							<div class="row pl-2">
+								<div class="col">&emsp;</div>
+							</div>
+						</section>
 
 						<section>
 							<div class="row pl-2">
@@ -72,11 +78,14 @@
 					<div class="col-12 col-lg-8">
 
 						<section class="pl-2">
-							<div class="table-responsive table-responsive-sm text-nowrap">
-								<div class="card mb-2">
-									<div class="card-header"><span class="fa fa-clock"></span>&emsp;Recent Activities</div>
-									<div class="card-body">
-										<div class="row px-3 pt-2">
+
+							<div class="card mb-2">
+								
+								<div class="card-header"><span class="fa fa-clock"></span>&emsp;Recent Activities</div>
+								
+								<div class="card-body">
+									<div class="row px-3 pt-2">
+										<div class="table-responsive table-responsive-sm text-nowrap">
 											<table class="table table-bordered">
 												<thead>
 													<tr>
@@ -109,14 +118,16 @@
 									</div>
 								</div>
 							</div>
+							
 						</section>
 
 						<section class="pl-2">
-							<div class="table-responsive table-responsive-sm text-nowrap">
-								<div class="card my-2 shadow-none border-0 rounded-0 ">
-									<div class="card-header bg-light border-0"><span class="fa fa-clock"></span>&emsp;Recent Transaction</div>
-									<div class="card-body">
-										<div class="row px-3 pt-2">
+							
+							<div class="card my-2 shadow-none border-0 rounded-0 ">
+								<div class="card-header bg-light border-0"><span class="fa fa-clock"></span>&emsp;Recent Transaction</div>
+								<div class="card-body">
+									<div class="row px-3 pt-2">
+										<div class="table-responsive table-responsive-sm text-nowrap">
 											<table class="table table-bordered">
 												<thead>
 													<tr>
@@ -133,32 +144,39 @@
 													<tr>
 														<td colspan="7" class="text-center"><i>No transaction found.</i></td>
 													</tr>
-													<!-- tr>
-														<td>1</td>
-														<td>2</td>
-														<td>3</td>
-														<td>4</td>
-														<td>5</td>
-														<td>6</td>
-														<td>7</td>
+														<!-- tr>
+															<td>1</td>
+															<td>2</td>
+															<td>3</td>
+															<td>4</td>
+															<td>5</td>
+															<td>6</td>
+															<td>7</td>
 
-													</tr -->
+														</tr -->
 												</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
 							</div>
+
 						</section>
+
 					</div>
 
-					<div class="col">
+					<div class="col-12 col-md-12 col-lg-4 bg-dark">
 						
-						<section>
+						<section class="px-4 px-lg-1">
 							<div class="card mb-2">
 								<div class="card-header"><span class="fa fa-clock"></span>&emsp;Notification</div>
 								<div class="card-body text-center px-4 ml-1">
-									<span class="text-muted">No notifications yet.</span>
+									<!--span class="text-muted">No notifications yet.</span-->
+									<div class="row">
+										<div class="col">
+											<p class="text-truncate">The quick brown fox jumps over the lazy dog.</p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</section>						

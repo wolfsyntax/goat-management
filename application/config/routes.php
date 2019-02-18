@@ -91,21 +91,22 @@ $route['goat/sales']['GET']		 				= 'core_controller/sales'; //display all sales
 $route['goat/sales/new']['GET']		 			= 'core_controller/create_sales'; //display sales form (new)
 $route['goat/sales/new']['POST']	 			= 'core_controller/store_sales'; //validate sales form
 
-$route["sales/(:num)/edit"]["GET"]				= "core_controller/update_sales/$1"; //display sales form (update)
-$route["sales/(:num)/edit"]["POST"]				= "goat_management/update_sales/$1"; //validate sales form
+$route["sales/(:num)/edit"]["GET"]				= "core_controller/modify_sales_info/$1"; //display sales form (update)
+$route["sales/(:num)/edit"]["POST"]				= "core_controller/update_sales/$1"; //validate sales form
 
 //view specific sales record (VIEW)
 $route["sales/(:num)/view"]['GET']				= "core_controller/show_sales/$1"; 
 //validate new sales record (CREATE)
-$route["sales/validate"]['POST']				= "goat_management/validate_transaction";
 
 
-$route["sales/(:num)/remove"]["GET"]			= "goat_management/remove_sales/$1";
+$route["sales/(:num)/remove"]["GET"]			= "core_controller/remove_sales/$1";
 
 
 //Other Module: Management ---------------------------------------------------------------------------
 
 $route['manage/goat']['GET']	 				= 'core_controller'; //*
+$route['manage/goat']['POST']	 				= 'core_controller/manage_revert_status'; //Validate restore or change status
+
 $route['goat/new']['GET']	 					= 'core_controller/create'; //*
 $route["goat/r/(:any)"]['POST']					= "core_controller/validate_goat_info/$1";
 //view specific goat profile (VIEW)
@@ -113,7 +114,7 @@ $route["manage/(:any)/(:num)/view"]['GET']		= "core_controller/manage_view/$1/$2
 //display edit form (UPDATE)
 $route["manage/(:any)/(:num)/edit"]['GET']		= "core_controller/view_goat_record/$1/$2";
 //validate edit request (UPDATE)
-$route["manage/edit"]['POST']					= "core_controller/validate_mod_info";
+$route["manage/(:any)/(:num)/edit"]['POST']		= "core_controller/validate_mod_info/$1/$2";
 
 //Manage Status View
 $route["status/(:num)/edit"]["GET"]				= "core_controller/manageStatus/$1";
@@ -124,7 +125,10 @@ $route["status/(:num)/edit"]["POST"]			= "core_controller/manage_status/$1";
 
 $route['breeding/view']['GET'] 					= 'activity/breeding_controller';
 $route['breeding/new']['GET'] 					= 'activity/breeding_controller/create';
+$route['breeding/new']['POST'] 					= 'activity/breeding_controller/store';
 
 //Other Module: Activities (Health Check)
 $route['health/view']['GET'] 					= 'activity/HealthCheck_controller';
+$route['checkup/(:num)/new']['GET'] 			= 'activity/HealthCheck_controller/create/$1';
+$route['checkup/(:num)/new']['POST'] 			= 'activity/HealthCheck_controller/store/$1';
 

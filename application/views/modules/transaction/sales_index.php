@@ -7,19 +7,21 @@
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
 		
-		<div class="pr-5" id="content">
+		<div class="pl-3 pr-5" id="content">
 			<section>
 				<?php $this->load->view('includes/breadcrumb') ?>	
 			</section>
 
 			<section class="py-2 mt-2">
-				<div class="container-fluid ml-3">
-					<div class="row">
-						<div class="col">
+				<div class="container ml-3">
+					<div class="row pl-3">
+						<div class="col pl-2">
 							<h1>Goat Sales</h1>
 						</div>
 					</div>
+				</div>
 
+				<div class="container pl-5">
 					<div class="row">
 						<div class="col offset-md-6 offset-lg-8">
 							<a href="<?= base_url()?>goat/sales/new" class="btn btn-success w-100 mt-3 mt-md-0" title="Add New Sales">
@@ -28,13 +30,13 @@
 						</div>
 					</div>
 
-					<div class="row">
+					<div class="row mt-5">
 						<input type="hidden" name="_status" value="" id="_status">
 						<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
 					</div>
 					
 					<div class="row mt-0 pl-4">
-						<div class="col py-5">
+						<div class="col py-2 px-2">
 							<div class="row table-responsive table-responsive-sm text-nowrap">
 								<table id="gs_record"  class="table table-striped table-bordered" style="width:100% ">
 								    <thead class="bg-dark text-white text-center">
@@ -54,7 +56,7 @@
 											if($goat_record){
 											foreach($goat_record->result() as $row){?>
 										<tr title="Sold <?= Carbon\Carbon::parse($row->transact_date)->diffForHumans() ." to ". $row->sold_to ?>">
-								        	<td><?= $row->eartag_id; ?></td>
+								        	<td>&nbsp;<?= $row->eartag_id; ?></td>
 								        	<td><?= $row->transact_date; ?></td>
 								       	 	<td><?= $row->username;?></td>
 								        	<td><?= $row->price_per_kilo; ?></td>

@@ -15,6 +15,10 @@ body {
 }
 
 
+input[type=search] {
+    top: 5px !important;
+
+}
 
 /**
 * DEVELOPER CUSTOM
@@ -276,10 +280,11 @@ body {
 
     #content.active {
         padding-left: 50px !important;
+        margin-left: 20px !important;
     }
 
     #content {
-        width: calc(100% - 190px) !important;
+        width: calc(100% - 180px) !important;
     }
 
 }
@@ -287,17 +292,26 @@ body {
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
     
+    #content {
+        width: calc(100% - 190px) !important;
+    }
+
     #content.active {
         padding-left: 20px !important;
+        width: 100% !important;
     }
 
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-    
+    #content {
+        width: calc(100% - 190px) !important;
+    }
+
     #content.active {
         padding-left: 20px !important;
+        width: 100% !important;
     }
 
 }
