@@ -15,8 +15,8 @@
 			<section class="py-2 mt-2">
 				<div class="container-fluid ml-3">
 					<div class="row">
-						<div class="col">
-							<h1>Inventory Management</h1>		
+						<div class="col pl-5">
+							<h1 class="ml-3">Inventory Management</h1>		
 						</div>
 					</div>
 

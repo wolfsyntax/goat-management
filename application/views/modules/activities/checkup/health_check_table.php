@@ -23,7 +23,7 @@
 					</div>
 
 					<div class="row">
-						<div class="col offset-md-6 offset-lg-8">
+						<div class="col">
 							<?= ($this->session->flashdata('health_check') ? $this->session->flashdata('health_check') : ''); ?>
 						</div>
 					</div>

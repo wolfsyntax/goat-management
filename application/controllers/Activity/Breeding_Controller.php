@@ -51,11 +51,42 @@ class Breeding_Controller extends CI_Controller {
 
 
 	public function store() {
+		
+		self::validate_breeding();
 
 		if ($this->form_validation->run() == TRUE or FALSE) {
 			# code...
+			self::create();
+
 		} else {
 			# code...
+
+			if($this->Goat_model->breeding_record()){
+
+				$this->session->set_flashdata("goat", "<div class='alert alert-success col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+							<div class='row'>
+								<p><span class='fa fa-check-circle'></span>
+								<strong>Success</strong>&emsp;Breeding Record successfully added.</p>
+							</div>
+						</div>");
+
+			} else {
+
+				$this->session->set_flashdata("goat", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+							<div class='row'>
+								<p><span class='fa fa-times-circle'></span>
+								<strong>Failed</strong>&emsp;Breeding Record not added.</p>
+							</div>
+						</div>");
+
+			}	
+
+			redirect(base_url('breeding/view'),'refresh');
+
 		}
 
 	}
@@ -143,6 +174,47 @@ class Breeding_Controller extends CI_Controller {
 	
 
 	}
+
+	public function validate_breeding(){
+
+		$this->form_validation->set_rules('eartag_id', 'Dam ID', 'required|xss_clean|trim|integer|is_dam_exist[goat_profile.eartag_id]|greater_than[0]|is_active[goat_profile.eartag_id]|callback_breed_check|eartag_checker', 
+			array(
+				'required'			=> '{field} is required.',
+				'integer'			=> '{field} must contain an integer.',
+				'is_dam_exist'		=> '{field} is NOT a Sire or do not exist.',
+				'is_active'			=> '{field} is NOT active. Please select another dam.',
+				'greater_than'		=> '{field} cannot be less than or equal to zero.',
+				'breed_check'		=> '{field} must be at least 10 months old',
+				'eartag_checker'	=> '{field} is not a valid Eartag ID.',
+			)
+		);
+
+		$this->form_validation->set_rules('partner_id', 'Sire ID', 'trim|required|is_sire_exist[goat_profile.eartag_id]|is_active[goat_profile.eartag_id]|eartag_checker|callback_breed_check',array(
+				'required' 			=> '{field} is required.',
+				'is_sire_exist'		=> '{field} is NOT existing.',
+				'is_active'			=> '{field} is NOT active. Please select another sire.',
+				'breed_check'		=> '{field} must be at least 10 months old',
+				'eartag_checker'	=> '{field} is not a valid Eartag ID.',
+			)
+		);
+
+		$this->form_validation->set_rules('perform_date', 'Breeding Date', 'required|xss_clean|trim|check_date',
+			array(
+				'required' 		=> '{field} is required.',
+				"check_date"	=> "{field} is set incorrectly.",
+			)
+		);
+
+		$this->form_validation->set_rules("remarks","Notes","xss_clean|trim|max_length[255]",
+			array(
+				'max_length'	=> "{field} cannot exceed 255 characters in length.",
+			)
+		);
+
+		$this->form_validation->set_rules('is_pregnant', 'Is pregnant', 'trim|xss_clean');
+
+	}
+
 	public function template(){
 
 		

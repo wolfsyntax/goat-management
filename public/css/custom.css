@@ -20,6 +20,26 @@ input[type=search] {
 
 }
 
+.dropdown-item:hover {
+    background-color: #007bff !important;
+    color: #fff !important;
+}
+
+.nav-item .sb-menu:hover {
+    color: #000 !important;
+    font-weight: bold !important;
+    background-color: #b5babe !important;
+    
+}
+
+.nav-item.bg-secondary .sb-menu {
+    background-color: #c4c7cb !important;
+}
+.nav-item.bg-secondary .sb-menu:hover {
+    color: #000 !important;
+    background-color: #7f7f7f !important;
+    
+}
 /**
 * DEVELOPER CUSTOM
 
@@ -239,7 +259,6 @@ input[type=search] {
     #content {
 
         width: calc(100% - 180px) !important;
-
         /*Temporary */
 
     }
@@ -284,7 +303,7 @@ input[type=search] {
     }
 
     #content {
-        width: calc(100% - 180px) !important;
+        width: calc(100% - 210px) !important;
     }
 
 }
@@ -307,6 +326,7 @@ input[type=search] {
 @media (min-width: 1200px) {
     #content {
         width: calc(100% - 190px) !important;
+
     }
 
     #content.active {

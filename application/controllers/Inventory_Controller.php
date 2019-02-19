@@ -51,6 +51,60 @@ class Inventory_Controller extends CI_Controller {
 	
 	public function store() {
 
+		$this->form_validation->set_rules('item_name', 'Item Name', 'trim|required|min_length[3]|max_length[255]|is_unique[inventory_record.item_name]',
+			array(
+				'required' 		=> '{field} is required.', 
+				'min_length'	=> '{field} must be at least 5 characters in length.',
+				'max_length'	=> '{field} cannot exceed 255 characters in length.',	
+				'is_unique'		=> '{field} is already existed.',
+			)
+		);
+
+		$this->form_validation->set_rules('item_type', 'Item Type', 'trim|required|min_length[5]|max_length[255]|in_list[Vaccine,Supplement]',
+			array(
+				'required' 		=> '{field} is required.', 
+				'min_length'	=> '{field} must be at least 5 characters in length.',
+				'max_length'	=> '{field} cannot exceed 255 characters in length.',	
+				'numeric'		=> '{field} must contain only numbers.',
+				'in_list'		=> '{field} must be Vaccine or Supplement.',
+			)
+		);
+
+		$this->form_validation->set_rules('quantity', 'Quantity', 'trim|required|numeric',
+			array(
+				'required' 		=> '{field} is required.', 
+				'numeric'		=> '{field} must contain only numbers.',
+			)
+		);
+
+		if ($this->form_validation->run() == FALSE) {
+			self::create();
+		} else {
+			# code...
+			if($this->Inventory_model->new_item()){
+				
+				$this->session->set_flashdata("inventory", '<div class="alert alert-success alert-dismissible fade show p-2" role="alert">
+          			<strong>Success</strong> Item successfully added.
+          			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            			<span aria-hidden="true">&times;</span>
+          			</button>
+        		</div>');
+
+			} else {
+
+				$this->session->set_flashdata("inventory", '<div class="alert alert-success alert-dismissible fade show p-2" role="alert">
+          			<strong>Success</strong> Item successfully added.
+          			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            			<span aria-hidden="true">&times;</span>
+          			</button>
+        		</div>');
+
+			}
+
+			redirect(base_url('inventory/view'), 'refresh');
+
+		}
+
 	}
 
 	public function update($id) {

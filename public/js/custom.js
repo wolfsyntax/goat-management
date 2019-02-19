@@ -1,3 +1,11 @@
+
+function set_prescription(e){
+	alert(e.value);
+	$("#prescription").val(e.value);
+	//alert("Prescribe: "+ x);
+}
+
+
  $('#color-select').on('change',function(){
  	
  	var color = $(this).val();

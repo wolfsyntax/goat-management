@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row">
 
-		<div class="bg-info" id="sidebar">
+		<div class="" id="sidebar">
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
 
@@ -42,83 +42,87 @@
 						<?php } else { ?>
 							<?= form_open('', array("class" => "",)) ?>
 								<div class="container-fluid">
-									<div class="form-row">
-										<div class="form-row p-1">
+									
+									<div class="form-row p-1">
+										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Eartag ID&nbsp;</label>
+
+										<div class="col">
 											<input class="form-control" type="text" value="<?= $eartag ?>" name="eartag_id" readonly>	
-
 										</div>
+									</div>
 
-										<div class="form-row p-1">
-											<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Check-Up Type&nbsp;<span class="text-danger">*</span></label>
+									<div class="form-row p-1">
+										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Check-Up Type&nbsp;<span class="text-danger">*</span></label>
 												
-											<div class="col">
-												<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="" required="">
-												<?php if(set_value('checkup_type') == "vaccination") {?>
+										<div class="col">
+											<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="" required="">
+											<?php if(set_value('checkup_type') == "vaccination") {?>
 
-													<option value="">-- Please select --</option>
-													<option value="vaccination" selected>Vaccination</option>
-													<option value="supplementation">Supplementation</option>
+												<option value="">-- Please select --</option>
+												<option value="vaccination" selected>Vaccination</option>
+												<option value="supplementation">Supplementation</option>
 
-												<?php } else if(set_value("checkup_type") == "supplementation") {?>
+											<?php } else if(set_value("checkup_type") == "supplementation") {?>
 
-													<option value="">-- Please select --</option>
-													<option value="vaccination">Vaccination</option>
-													<option value="supplementation" selected>Supplementation</option>
+												<option value="">-- Please select --</option>
+												<option value="vaccination">Vaccination</option>
+												<option value="supplementation" selected>Supplementation</option>
 
-												<?php } else {?>
+											<?php } else {?>
 
-													<option value="">-- Please select --</option>
-													<option value="vaccination">Vaccination</option>
-													<option value="supplementation">Supplementation</option>
+												<option value="">-- Please select --</option>
+												<option value="vaccination">Vaccination</option>
+												<option value="supplementation">Supplementation</option>
 
-												<?php } ?>
-												</select>
+											<?php } ?>
+											</select>
 											
-												<?= (form_error('checkup_type')	!= "" ? form_error('checkup_type') : ''); ?>	
+											<?= (form_error('checkup_type')	!= "" ? form_error('checkup_type') : ''); ?>	
 				
-											</div>
-
 										</div>
 
-										<div class="form-row bg-dark">
-											<label class="col-form-label-sm col-4 col-sm-4 col-lg-5">Item Name&nbsp;<span class="text-danger">*</span></label>
-											<input type="hidden" name="prescription" id="prescription" required="">	
+									</div>
 
-											<div class="col" id="med_vaccine">
+									<div class="form-row">
+										<label class="col-form-label-sm col-4 col-sm-4 col-lg-2">Item Name&nbsp;<span class="text-danger">*</span></label>
+										
+										<input type="hidden" name="prescription" id="prescription" required="">	
+
+										<div class="col" id="med_vaccine">
 
 											
-												<select class="form-control" onchange="set_prescription(this)" >
-													<option value="">-- Please select --</option>
-												<?php foreach($vaccine as $row) {?>
+											<select class="form-control" onchange="set_prescription(this); " >
+												<option value="">-- Please select --</option>
+											<?php foreach($vaccine as $row) {?>
 												
-													<option value="<?= $row->inventory_id ?>"><?= ucfirst($row->item_name)?>(<?= $row->quantity ?>)</option>
+												<option value="<?= $row->inventory_id ?>"><?= ucfirst($row->item_name)?>(<?= $row->quantity ?>)</option>
 
-												<?php }?>
+											<?php }?>
 
-												</select>
+											</select>
 														
-												<?= (form_error('prescription') != "" ? form_error('prescription') : ''); ?>
+											<?= (form_error('prescription') != "" ? form_error('prescription') : ''); ?>
 
 											
-											</div>
-
-											<div class="col" id="med_supplement">
-											
-												<select class="form-control" onchange="set_prescription(this)" >
-													<option value="">-- Please select --</option>
-												<?php foreach($supplement as $row) {?>
-												
-													<option value="<?= $row->inventory_id ?>"><?= ucfirst($row->item_name)?>(<?= $row->quantity ?>)</option>
-												
-												<?php }?>
-
-												</select>
-
-											</div>							
 										</div>
 
-										<div class="form-row p-1">
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Quantity (mL)&nbsp;<span class="text-danger">*</span></label>
+										<div class="col" id="med_supplement">
+											
+											<select class="form-control" onchange="set_prescription(this)" >
+												<option value="">-- Please select --</option>
+											<?php foreach($supplement as $row) {?>
+												
+												<option value="<?= $row->inventory_id ?>"><?= ucfirst($row->item_name)?>(<?= $row->quantity ?>)</option>
+												
+											<?php }?>
+
+											</select>
+
+										</div>							
+									</div>
+
+									<div class="form-row p-1">
+										<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Quantity (mL)&nbsp;<span class="text-danger">*</span></label>
 												
 											<!--div class="col">
 												<input type="text" class="form-control" name="quantity" value="<?= set_value('quantity') ?>" >
@@ -126,53 +130,53 @@
 												<?= (form_error('quantity') != "" ? form_error('quantity') : ''); ?>			
 											</div-->
 											
-											<div class="col">
+										<div class="col">
 											
-												<select name="quantity" id="goat_id_select" class="form-control" placeholder="- Enter Quantity -" value="<?= set_value('quantity') ?>" required>
+											<select name="quantity" id="goat_id_select" class="form-control" placeholder="- Enter Quantity -" value="<?= set_value('quantity') ?>" required>
 
-													<option value=5">5.0</option>
-													<option value="10">10.0</option>
-													<option value="25">25.0</option>
-													<option value="50">50.0</option>
-													<option value="100">100.0</option>
+												<option value=5">5.0</option>
+												<option value="10">10.0</option>
+												<option value="25">25.0</option>
+												<option value="50">50.0</option>
+												<option value="100">100.0</option>
 
-												</select>
+											</select>
 														
-												<?= (form_error('quantity')	!= "" ? form_error('quantity') : ''); ?>	
-											</div>
-										</div>	
+											<?= (form_error('quantity')	!= "" ? form_error('quantity') : ''); ?>	
+										</div>
+									</div>	
 
-										<div class="form-row p-1">
-											<label  class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Perform Date&nbsp;<span class="text-danger">*</span></label>
+									<div class="form-row p-1">
+										<label  class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Perform Date&nbsp;<span class="text-danger">*</span></label>
 													
-											<div class="col">
-												<input class="form-control" type="date" value="<?= set_value('perform_date');?>" id="" placeholder="yyyy-mm-dd" name="perform_date" required>
+										<div class="col">
+											<input class="form-control" type="date" value="<?= set_value('perform_date');?>" id="" placeholder="yyyy-mm-dd" name="perform_date" required>
 															
-												<?= (form_error('perform_date') != "" ? form_error('perform_date') : ''); ?>
+											<?= (form_error('perform_date') != "" ? form_error('perform_date') : ''); ?>
 
-											</div>
 										</div>
-
-										<div class="form-row p-1">
-											<label  class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Remarks&nbsp;</label>
-													
-											<div class="col">
-												<textarea name="remarks" class="form-control"></textarea>
-															
-												<?= (form_error('remarks') != "" ? form_error('remarks') : ''); ?>
-
-											</div>
-										</div>
-
-										<div class="form-row ">
-										
-											<div class="col-sm-12 col-md-3 offset-md-9 py-2">
-												<input type="submit" class="btn btn-success w-100" value="Save" id="save_btn">
-											</div>
-										</div>
-
 									</div>
+
+									<div class="form-row p-1">
+										<label  class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Remarks&nbsp;</label>
+													
+										<div class="col">
+											<textarea name="remarks" class="form-control"></textarea>
+															
+											<?= (form_error('remarks') != "" ? form_error('remarks') : ''); ?>
+
+										</div>
+									</div>
+
+									<div class="form-row ">
+										
+										<div class="col-sm-12 col-md-3 offset-md-9 py-2">
+											<input type="submit" class="btn btn-success w-100" value="Save" id="save_btn">
+										</div>
+									</div>
+
 								</div>
+								
 							<?= form_close() ?>
 						<?php } ?>
 						
@@ -182,8 +186,8 @@
 
 				<div class="row mt-5 px-0">
 					<div class="col">
-						<div class="card">
-							<div class="card-header">
+						<div class="card bg-light border-0">
+							<div class="card-header border-0 bg-light">
 								<h3>Health Record</h3>
 							</div>
 							

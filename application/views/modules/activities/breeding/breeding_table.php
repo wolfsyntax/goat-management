@@ -27,9 +27,11 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<input type="hidden" name="_status" value="" id="_status">
-						<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
+					<div class="row px-5 mt-3">
+						<div class="col ">
+							<input type="hidden" name="_status" value="" id="_status">
+							<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
+						</div>
 					</div>
 
 					<div class="row mt-0 pl-4">

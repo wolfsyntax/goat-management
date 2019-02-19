@@ -1,26 +1,26 @@
 <nav class="nav w-100">
-    <div class="bg-dark" style="height: calc(100vh - 100px) !important;">
+    <div class="" style="height: calc(100vh - 100px) !important;">
         <ul class="nav flex-column bg-light text-truncate"> 
            <li class="nav-item <?= $current == 'dashboard' ? 'bg-secondary' : ''?>">
-                <a class="nav-link u-page" href="<?= base_url(); ?>dashboard" id="sb_dashboard" data-toggle="popover dashboard" title="Dashboard" data-content="And here's where you can view your recent activities and transaction">
+                <a class="nav-link sb-menu" href="<?= base_url(); ?>dashboard" id="sb_dashboard" data-toggle="popover dashboard" title="Dashboard" data-content="And here's where you can view your recent activities and transaction">
                     <span class="fa fa-tachometer <?= $current == 'dashboard' ? 'text-white' : 'text-primary'?> " title="Dashboard"></span>
                     
-                    &nbsp;<span class="<?= $current == 'dashboard' ? 'text-white' : 'text-dark'?> d-label">Dashboard <span class="sr-only">(current)</span></span>
+                    &nbsp;<span class=" d-label">Dashboard <span class="sr-only">(current)</span></span>
                 </a>
             </li>
 
        <li class="nav-item <?= $current == 'management' ? 'bg-secondary' : ''?>">
         <a class="nav-link text-dark sb-menu" href="<?= base_url(); ?>manage/goat"  data-toggle="popover manage" title="Goat Management" data-content="And here's where you can view and add Goat records">
-           <span class="fa fa-paw <?= $current == 'management' ? 'text-white' : 'text-secondary'?>"></span>
+           <span class="fa fa-paw text-secondary"></span>
          
-            &nbsp;<span class="<?= $current == 'management' ? 'text-white' : 'text-dark'?> d-label">Goat Management</span>
+            &nbsp;<span class="d-label">Goat Management</span>
         </a>
       </li>
 
       <li class="nav-item <?= $current == 'finance' ? 'bg-secondary' : ''?>">
         <a class="nav-link text-dark sb-menu" href="<?= base_url(); ?>goat/sales"  data-toggle="popover transaction" title="Financial Management" data-content="And here's where you can view and add Goat Sales records">
-          <span class="fa fa-money <?= $current == 'finance' ? 'text-white' : 'text-info'?>" title="Financials"></span>
-          &nbsp;<span class="<?= $current == 'finance' ? 'text-white' : 'text-dark'?> d-label">Financials</span>
+          <span class="fa fa-money text-info" title="Financials"></span>
+          &nbsp;<span class="d-label">Financials</span>
         </a>
       </li>
 
@@ -32,8 +32,8 @@
         </a-->
         <a class="nav-link text-dark sb-menu" href="<?= base_url('health/view') ?>" aria-expanded="false" aria-controls="healthCheck" data-toggled="popover" title="Health Check" data-content="Here you can farm activities like Vaccination, Supplementation and Health Checkup" data-placement="right" >
 
-           <span class="fa fa-heartbeat <?= $current == 'checkup' ? 'text-white' : 'text-success'?>" title="Health Check"></span>
-          &nbsp;<span class="<?= $current == 'checkup' ? 'text-white' : 'text-dark'?> d-label">Health Check</span>
+           <span class="fa fa-heartbeat text-success" title="Health Check"></span>
+          &nbsp;<span class="d-label">Health Check</span>
         </a>
 
 
@@ -41,23 +41,23 @@
 
        <li class="nav-item <?= $current == 'breed' ? 'bg-secondary' : ''?>">
         <a class="nav-link text-dark sb-menu" href="<?= base_url('breeding/view') ?>" data-toggled="popover" title="Breeding Records" data-content="Here you can manage your Goat breeding" >
-           <span class="fa fa-table <?= $current == 'breed' ? 'text-white' : 'text-warning'?>" title="Breeding Records"></span>
+           <span class="fa fa-table text-warning" title="Breeding Records"></span>
          
-          &nbsp;<span class="<?= $current == 'breed' ? 'text-white' : 'text-dark'?> d-label">Breeding Records</span>
+          &nbsp;<span class="d-label">Breeding Records</span>
         </a>
       </li>
 
        <li class="nav-item <?= $current == 'assets' ? 'bg-secondary' : ''?>">
         <a class="nav-link text-dark sb-menu" href="<?= base_url('inventory/view') ?>" >
            
-           <span class="fa fa-archive <?= $current == 'assets' ? 'text-white' : 'text-danger'?>" title="Asset Management"></span>
-          &nbsp;<span class="<?= $current == 'assets' ? 'text-white' : 'text-dark'?> d-label">Asset Management</span>
+           <span class="fa fa-archive text-danger" title="Asset Management"></span>
+          &nbsp;<span class="d-label">Asset Management</span>
         </a>
 
       </li>
 
       <li class="nav-item <?= $current == 'report' ? 'bg-secondary' : ''?>">
-        <a class="nav-link text-dark" href="#" data-toggled="popover" title="Reports" data-content="Here you reports on all transaction of your account"  >
+        <a class="nav-link text-dark sb-menu" href="#" data-toggled="popover" title="Reports" data-content="Here you reports on all transaction of your account"  >
 
            <span class="fa fa-info-circle <?= $current == 'report' ? 'text-white' : 'text-dark'?>" title="Reports"></span>
           &nbsp;<span class="<?= $current == 'report' ? 'text-white' : 'text-dark'?> d-label">Reports</span>
