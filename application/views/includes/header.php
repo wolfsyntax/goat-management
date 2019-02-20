@@ -66,9 +66,11 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="fa fa-cogs text-white" ></i>
+
 				</a>
 
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+					<div class="arrow bg-dark"></div>
 					<span class="dropdown-item-text">
 						<h5>Signed as </h5><?= $this->session->userdata('username') ?>
 					</span>

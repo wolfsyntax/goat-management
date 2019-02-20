@@ -1,4 +1,4 @@
-<nav class="nav w-100">
+<nav class="nav w-100" >
     <div class="" style="height: calc(100vh - 100px) !important;">
         <ul class="nav flex-column bg-light text-truncate"> 
            <li class="nav-item <?= $current == 'dashboard' ? 'bg-secondary' : ''?>">
@@ -30,7 +30,7 @@
           <span class="fa fa-heartbeat text-sucess d-none d-sm-none d-md-none d-lg-inline-block" title="Health Check"></span>
           &nbsp;<span class="d-none d-sm-none d-md-none d-lg-inline-block text-dark">Health Check</span>
         </a-->
-        <a class="nav-link text-dark sb-menu" href="<?= base_url('health/view') ?>" aria-expanded="false" aria-controls="healthCheck" data-toggled="popover" title="Health Check" data-content="Here you can farm activities like Vaccination, Supplementation and Health Checkup" data-placement="right" >
+        <a class="nav-link text-dark sb-menu" href="<?= base_url('health/view') ?>" aria-expanded="false" aria-controls="healthCheck" data-toggled="popover checkup" title="Health Check" data-content="Here you can farm activities like Vaccination, Supplementation and Health Checkup" data-placement="right" >
 
            <span class="fa fa-heartbeat text-success" title="Health Check"></span>
           &nbsp;<span class="d-label">Health Check</span>
@@ -40,7 +40,7 @@
       </li>
 
        <li class="nav-item <?= $current == 'breed' ? 'bg-secondary' : ''?>">
-        <a class="nav-link text-dark sb-menu" href="<?= base_url('breeding/view') ?>" data-toggled="popover" title="Breeding Records" data-content="Here you can manage your Goat breeding" >
+        <a class="nav-link text-dark sb-menu" href="<?= base_url('breeding/view') ?>" data-toggled="popover breed" title="Breeding Records" data-content="Here you can manage your Goat breeding" >
            <span class="fa fa-table text-warning" title="Breeding Records"></span>
          
           &nbsp;<span class="d-label">Breeding Records</span>
@@ -48,7 +48,7 @@
       </li>
 
        <li class="nav-item <?= $current == 'assets' ? 'bg-secondary' : ''?>">
-        <a class="nav-link text-dark sb-menu" href="<?= base_url('inventory/view') ?>" >
+        <a class="nav-link text-dark sb-menu" href="<?= base_url('inventory/view') ?>" data-target="#assetManagement" data-toggled="popover" title="Asset Management" data-content="Here you can manage your farm assets" >
            
            <span class="fa fa-archive text-danger" title="Asset Management"></span>
           &nbsp;<span class="d-label">Asset Management</span>
@@ -57,7 +57,7 @@
       </li>
 
       <li class="nav-item <?= $current == 'report' ? 'bg-secondary' : ''?>">
-        <a class="nav-link text-dark sb-menu" href="#" data-toggled="popover" title="Reports" data-content="Here you reports on all transaction of your account"  >
+        <a class="nav-link text-dark sb-menu" href="#" data-toggled="popover report" title="Reports" data-content="Here you reports on all transaction of your account"  >
 
            <span class="fa fa-info-circle <?= $current == 'report' ? 'text-white' : 'text-dark'?>" title="Reports"></span>
           &nbsp;<span class="<?= $current == 'report' ? 'text-white' : 'text-dark'?> d-label">Reports</span>

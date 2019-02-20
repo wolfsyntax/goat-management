@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row">
 
-		<div class="bg-info" id="sidebar">
+		<div class="" id="sidebar">
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
 
@@ -103,10 +103,7 @@
 
 										<div class="form-row py-1">
 
-											<div class="col col-sm-12 col-md-3 offset-md-6 px-1 py-2">
-												<a href="<?= base_url('activity/breeding/view') ?>" class="btn btn-danger w-100" >Cancel</a>
-											</div>
-											<div class=" col-sm-12 col-md-3 py-2">
+											<div class=" col-sm-12 col-md-3 offset-md-9 py-2">
 												<input type="submit" class="btn btn-success w-100" value="Add Breeding">
 											</div>
 										</div>

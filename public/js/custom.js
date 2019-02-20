@@ -53,3 +53,28 @@ function change_icon(elem){
 
 
 }
+
+function check_form(e){
+
+	var elem_tag = "#" + e.submit.id;
+	msg = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span><span class='sr-only'>";
+	var btn_text = "Please wait...";
+
+	if(e.submit.id == "login_btn"){
+
+		btn_text = msg + "Signing in...</span>" ;
+
+	} else if(e.submit.id == "update_btn") {
+  				
+		btn_text = msg + "Updating...</span>";
+
+	} else if(e.submit.id == "save_btn") {
+
+		btn_text = msg + "Saving...</span>";
+
+	}
+
+	$(elem_tag).attr("disabled","disabled");
+	$(elem_tag).val(btn_text);
+
+}

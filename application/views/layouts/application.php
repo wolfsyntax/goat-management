@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body >
 	<?php if($this->config->item('base_timestamp') <= time()) {
 		$this->load->view($body);
 	} else { 

@@ -16,7 +16,7 @@ $(document).ready(function(){
 		return false;
 	});
 	
-/*	
+
 	//Disable right-click on body
 	$("body").on("contextmenu",function(e){
 		return false;
@@ -31,7 +31,7 @@ $(document).ready(function(){
 	$("section").on("contextmenu",function(e){
 		return false;
 	});
-*/
+
 	$(".card-menu").hover(
 		function () {
 			$(this).addClass("bg-dark text-white");
@@ -295,12 +295,26 @@ $(document).ready(function(){
   		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-danger text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
 
   	});
+
+  	$('[data-toggled="popover checkup"]').popover({
+
+  		placement: "right",
+  		trigger: "focus",
+  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-success text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
+  	});
+
+  	$('[data-toggled="popover breed"]').popover({
+
+  		placement: "right",
+  		trigger: "focus",
+  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-warning text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
+  	});
 			
 	$('[data-toggle="popover dashboard"]').popover({
 
   		placement: "right",
   		trigger: "focus",
-  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-light text-dark"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
+  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-primary text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
 
   	});
 
@@ -313,6 +327,14 @@ $(document).ready(function(){
   	});
 
 	$('[data-toggle="popover manage"]').popover({
+
+  		placement: "right",
+  		trigger: "focus",
+  		template: '<div class="popover"><div class="arrow"></div><div class="popover-header bg-secondary text-white"><h3 class="popover-title"></h3></div><div class="popover-body"><p class="popover-content"></p></div></div></div>'
+
+  	});
+
+	$('[data-toggled="popover report"]').popover({
 
   		placement: "right",
   		trigger: "focus",

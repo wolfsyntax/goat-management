@@ -11,18 +11,24 @@
 }
 
 body {
+
     font-family: 'Ubuntu', sans-serif !important;
+
 }
 
 
 input[type=search] {
+
     top: 5px !important;
+
 
 }
 
 .dropdown-item:hover {
+
     background-color: #007bff !important;
     color: #fff !important;
+
 }
 
 .nav-item .sb-menu:hover {
@@ -382,5 +388,3 @@ ul ul a {
     padding-left: 30px !important;
     text-decoration: none !important;
 }
-
-/

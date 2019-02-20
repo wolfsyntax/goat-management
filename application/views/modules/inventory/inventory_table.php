@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row">
 
-		<div class="bg-info" id="sidebar">
+		<div class="" id="sidebar">
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
 
