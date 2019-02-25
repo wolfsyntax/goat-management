@@ -148,26 +148,26 @@ class Core_Controller extends CI_Controller {
 		);
 		
 		$this->form_validation->set_rules('sire_id','Sire ID',
-		'required|xss_clean|trim|integer|is_sire_exist[goat_profile.eartag_id]|greater_than[0]|callback_validate_sire|callback_breed_check',
+		'required|xss_clean|trim|integer|is_sire_exist[goat_profile.eartag_id]|greater_than[0]|callback_validate_sire|callback_sire_breed_check',
 		array(
 			'required' 			=> '{field} is required.',
-			'is_sire_exist' 	=> '{field} is NOT a Sire ID or do not exist.',
+			'is_sire_exist' 	=> '{field} is NOT a Sire or do not exist.',
 			"integer" 			=> "{field} must contain only integer numbers.",	
 			"greater_than"		=> "{field} must be greater than zero.",
 			"validate_sire"		=> "{field} must not be the same to Eartag and Dam ID.",
-			'breed_check'		=> "{field} must be atleast 10 months old.",
+			'sire_breed_check'	=> "{field} must be atleast 10 months old and existing.",
 			)
 		);
 
 		$this->form_validation->set_rules('dam_id','Dam ID',
-		'required|xss_clean|trim|integer|is_dam_exist[goat_profile.eartag_id]|greater_than[0]|callback_validate_dam|callback_breed_check',
+		'required|xss_clean|trim|integer|greater_than[0]|callback_validate_dam|callback_dam_breed_check|is_dam_exist[goat_profile.eartag_id]',
 		array(
 			'required' 			=> '{field} is required.',
-			'is_dam_exist' 		=> '{field} do not exist.',
+			'is_dam_exist' 		=> '{field} is NOT a Dam or do not exist.',
 			"integer" 			=> "{field} must contain only integer numbers.",	
 			"greater_than"		=> "{field} must be greater than zero.",
 			"validate_dam"		=> "{field} must not be the same to Eartag and Sire ID.",
-			"breed_check"		=> "{field} must be atleast 10 months old.",
+			"dam_breed_check"	=> "{field} must be atleast 10 months old and existing.",
 			)
 		);
 
@@ -908,9 +908,15 @@ class Core_Controller extends CI_Controller {
 
 	}
 
-	public function breed_check($id){
-		
-		return $this->Goat_model->is_breed($id);
+	public function sire_breed_check($id){
+		//echo "<h1>Sire ID: [{$id}]</h1>";		
+		return $this->Goat_model->is_breed($id,"male");
+
+	}
+
+	public function dam_breed_check($id){
+//		echo "<h1>Sire ID: [{$id}]</h1>";		
+		return $this->Goat_model->is_breed($id,"female");
 
 	}
 
