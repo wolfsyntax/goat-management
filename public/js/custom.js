@@ -32,8 +32,11 @@ function set_prescription(e){
 
  	}else {
 
+ 		alert('not selected');
  		$(this).css('background','transparent');
  		$(this).css('color','#000');
+ 		$(this).html('<i class="fa fa-check-circle"></i>');
+
 
  	}
 
