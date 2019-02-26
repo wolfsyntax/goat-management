@@ -103,8 +103,8 @@
 
 										<div class="form-row py-1">
 
-											<div class=" col-sm-12 col-md-3 offset-md-9 py-2">
-												<button type="submit" class="font-weight-bolder btn btn-success col-md-3 offset-md-9" name="submit" id="save_btn">
+											<div class=" col-12 col-md-6 offset-md-6 offset-lg-9 col-lg-3 py-2">
+												<button type="submit" class="font-weight-bolder btn btn-success col-12" name="submit" id="save_btn">
 													Add Breeding
 												</button>
 

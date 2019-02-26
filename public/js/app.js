@@ -32,6 +32,41 @@ $(document).ready(function(){
 		return false;
 	});
 
+	$("#dam_id_select").on('change', function(){
+		alert('Dam ID');
+
+//		if($(this).val()  == sire){
+//			$("[data-sys=save]").attr("disabled", true);
+//		}else{
+//			$("[data-sys=save]").attr("disabled", false);
+//		}
+
+	});
+
+	$("#sire_id_select").on('change', function(){
+		alert('Sire ID');
+	});
+
+	if($("#hcheck_type").val() == 'vaccination'){
+
+		$("#med_supplement").hide();
+		$("#med_vaccine").show();
+//		$("#save_btn").attr('disabled', false);
+
+	} else if($("#hcheck_type").val() == 'supplementation'){
+
+		$("#med_supplement").show();
+		$("#med_vaccine").hide();
+//		$("#save_btn").attr('disabled', false);
+
+	} else {
+
+		$("#med_supplement").hide();
+		$("#med_vaccine").hide();
+//		$("#save_btn").attr('disabled', true);
+
+	}
+
 	$(".card-menu").hover(
 		function () {
 			$(this).addClass("bg-dark text-white");

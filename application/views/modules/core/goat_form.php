@@ -29,7 +29,7 @@
 										
 
 									<div class="form-row mt-3 pr-5">
-										<button type="submit" class="font-weight-bolder btn btn-success col-md-3 offset-md-9" name="submit" id="save_btn" disabled="">Save</button>
+										<button type="submit" class="font-weight-bolder btn btn-success col-md-3 offset-md-9" name="submit" id="save_btn" disabled="" data-sys="save">Save</button>
 										<!--input type="submit" class="btn btn-primary col col-md-3 offset-md-9" name="submit" value="Add" id="save_btn" disabled="" /-->
 									</div>
 

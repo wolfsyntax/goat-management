@@ -90,3 +90,12 @@ function check_form(e){
 //	$(elem_tag).addClass('spinner-border spinner-border-sm');
 
 }
+
+function pregcheck_form(act_id) {
+	//alert("Activity ID: "+act_id);
+	var cur_url = base_url + "breeding/" + act_id + "/update";
+
+	$("#pregcheck_aform").attr("action",cur_url);
+	e.preventDefault();
+
+}

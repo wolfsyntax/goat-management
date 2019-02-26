@@ -27,10 +27,10 @@
 						</div>
 					</div>
 
-					<div class="row px-5 mt-3">
+					<div class="row px-2 mt-3">
 						<div class="col ">
 							<input type="hidden" name="_status" value="" id="_status">
-							<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
+							<?= ($this->session->flashdata('breeding') ? $this->session->flashdata('breeding') : ''); ?>
 						</div>
 					</div>
 
@@ -61,11 +61,11 @@
 													<td>
 														<div class="btn-group">
 															<?php if($row->is_pregnant == "no") { ?>
-															<a href="#" class="btn btn-primary btn-sm btn-goat" title="Change result to 'Positive'" data-toggle="modal" data-target="#pregCheck" onclick="pregcheck_form(<?= $row->activity_id ?>); ">
+															<a href="javascript:void(0)" class="btn btn-primary btn-sm btn-goat" title="Change result to 'Positive'" data-toggle="modal" data-target="#pregCheck" onclick="pregcheck_form(<?= $row->activity_id ?>); ">
 																<i class="fa fa-stethoscope"></i>
 															</a>
 															<?php } else { ?>
-															<a href="#" type="button" class="btn btn-info btn-sm disabled btn-goat" title="Pregnancy Confirmed" onclick="">
+															<a href="javascript:void(0)" type="button" class="btn btn-info btn-sm disabled btn-goat" title="Pregnancy Confirmed" onclick="">
 																<i class="fa fa-stethoscope"></i>
 															</a>												
 															<?php }?>
@@ -106,7 +106,7 @@
 					
 			<div class="modal-body">
 							
-			<?= form_open("", array(
+			<?= form_open("breeding/(:num)/update", array(
 					'class' 	=> 'form',
 					'id'		=> 'pregcheck_aform',
 					'onsubmit'	=> 'check_form(this)',

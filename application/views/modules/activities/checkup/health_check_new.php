@@ -55,7 +55,7 @@
 										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Check-Up Type&nbsp;<span class="text-danger">*</span></label>
 												
 										<div class="col">
-											<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="" required="">
+											<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="" required="" id="hcheck_type">
 											<?php if(set_value('checkup_type') == "vaccination") {?>
 
 												<option value="">-- Please select --</option>
@@ -170,8 +170,8 @@
 
 									<div class="form-row ">
 										
-										<div class="col-sm-12 col-md-3 offset-md-9 py-2">
-											<button type="submit" class="font-weight-bolder btn btn-success col-md-3 offset-md-9" name="submit" id="save_btn">Sign Up</button>
+										<div class="col py-2">
+											<button type="submit" class="font-weight-bolder btn btn-success col-md-3 offset-md-9" name="submit" id="save_btn">Add Record</button>
 											<!--input type="submit" class="btn btn-success w-100" value="Save" id="save_btn"-->
 										</div>
 									</div>

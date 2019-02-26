@@ -165,7 +165,7 @@
 
 					</div>
 
-					<div class="col-12 col-md-12 col-lg-4 bg-dark">
+					<div class="col-12 col-md-12 col-lg-4">
 						
 						<section class="px-4 px-lg-1">
 							<div class="card mb-2">

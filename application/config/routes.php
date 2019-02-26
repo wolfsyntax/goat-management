@@ -126,6 +126,7 @@ $route["status/(:num)/edit"]["POST"]			= "core_controller/manage_status/$1";
 $route['breeding/view']['GET'] 					= 'activity/breeding_controller';
 $route['breeding/new']['GET'] 					= 'activity/breeding_controller/create';
 $route['breeding/new']['POST'] 					= 'activity/breeding_controller/store';
+$route["breeding/(:num)/update"]["POST"]		= "activity/breeding_controller/validate_pregcheck/$1";
 
 //Other Module: Activities (Health Check)
 $route['health/view']['GET'] 					= 'activity/HealthCheck_controller';

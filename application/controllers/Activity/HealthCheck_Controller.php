@@ -77,7 +77,7 @@ class HealthCheck_Controller extends CI_Controller {
 
 		//$str, $field, $id
 		$inventory_id = $this->input->post('prescription', TRUE);
-		echo "<h1>[{$inventory_id}]</h1>";
+		//echo "<h1>[{$inventory_id}]</h1>";
 		$this->form_validation->set_rules('quantity', 'Quantity (Qty).', "xss_clean|trim|required|numeric|inventory_check[{$inventory_id}]",
 			array(
 				"numeric"			=> "{field} must contain only numbers.",
@@ -116,12 +116,16 @@ class HealthCheck_Controller extends CI_Controller {
 
 			} else {
 
+				$rx = $this->input->post('checkup_type', TRUE);
+				
+				if($rx == 'vaccination'){ $rx = 'vaccines'; }else {	$rx = 'supplements'; }
+
 				$this->session->set_flashdata("health_check", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
 						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
 											
 							<div class='row'>
 								<p><span class='fa fa-exclamation-circle'></span>
-								<strong>Failed</strong>&emsp;Insufficient amount to perform the action</p>
+								<strong>Failed</strong>&emsp;Insufficient amount of {$rx} to perform the action</p>
 							</div>
 						</div>");
 

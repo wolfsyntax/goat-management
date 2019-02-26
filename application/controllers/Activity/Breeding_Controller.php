@@ -235,6 +235,77 @@ class Breeding_Controller extends CI_Controller {
 				
 	}
 
+	public function validate_pregcheck($activity_id){
+
+		$this->form_validation->set_rules('preg_select', 'Pregnancy Status', 'trim|required|min_length[2]|max_length[3]|in_list[Yes,No]',
+			array(
+				"required"		=> "<strong>{field}</strong> is required.",
+				"min_length"	=> "<strong>{field}</strong> must be at least 2 characters in length.",
+				"max_length"	=> "<strong>{field}</strong> cannot exceed 3 characters in length.",
+				"in_list"		=> "<strong>{field}</strong> must be <strong>'Positive'</strong> or <strong>'Negative'</strong> only.",
+			)
+		);
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->session->set_flashdata("breeding", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
+						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+											
+							<div class='row'>
+								<p><span class='fa fa-check-circle'></span>
+								<strong>Failed</strong>&emsp;Please try again</p>
+							</div>
+						</div>");
+
+			//echo "<script>$('#pregcheck_form').modal('show');</script>";
+
+		} else {
+
+			if($this->Goat_model->update_breeding($activity_id)){
+				$status = $this->input->post("preg_select", TRUE);
+
+				if($status == 'Yes'){
+					$this->session->set_flashdata("breeding", "<div class='alert alert-success col-12' role='alert' style='height: 50px;'>
+								<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+													
+									<div class='row'>
+										<p><span class='fa fa-check-circle'></span>
+										<strong>Success</strong>&emsp;Breeding Record successfully updated.</p>
+									</div>
+								</div>");
+
+				} else {
+
+					$this->session->set_flashdata("breeding", "<div class='alert alert-info col-12' role='alert' style='height: 50px;'>
+								<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+													
+									<div class='row'>
+										<p><span class='fa fa-exclamation-circle-circle'></span>
+										<strong>Info: </strong>&emsp;Breeding Record successfully save without changes.</p>
+									</div>
+								</div>");					
+				}
+
+			} else {
+
+				$this->session->set_flashdata("breeding", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
+												
+								<div class='row'>
+									<p><span class='fa fa-times-circle'></span>
+									<strong>Failed</strong>&emsp;Breeding Record not updated.</p>
+								</div>
+							</div>");
+
+			}
+
+		}
+		
+		redirect(base_url('breeding/view'),'refresh');
+
+	}
+	
+
 }
 
 ?>
