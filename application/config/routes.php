@@ -133,3 +133,6 @@ $route['health/view']['GET'] 					= 'activity/HealthCheck_controller';
 $route['checkup/(:num)/new']['GET'] 			= 'activity/HealthCheck_controller/create/$1';
 $route['checkup/(:num)/new']['POST'] 			= 'activity/HealthCheck_controller/store/$1';
 
+
+//Sitemap ---------------------------------------------------------------------------------------
+$route['about'] = 'sitemap/about'; //Guide
