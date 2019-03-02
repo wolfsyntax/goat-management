@@ -6,40 +6,24 @@
 			</div>
 
 			<div class="col-lg-6">
-				<div class="container-fluid">
-					<div class="row pl-5 p-md-0">
+				<ul class="nav d-flex justify-content-end">				
+					<li class="nav-item">
 						<a href="" class="nav-link col social-icon" title="Facebook">
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col">
-										<i class="fa fa-facebook text-primary pl-3"></i>
-									</div>
-								</div>
-							</div>
+							<i class="fa fa-facebook text-primary"></i>
 						</a>
-					
+					</li>
+					<li class="nav-item">
 						<a href="" class="nav-link col social-icon" title="Twitter">
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col">
-										<i class="fa fa-twitter text-info pl-3"></i>
-									</div>
-								</div>
-							</div>
+							<i class="fa fa-twitter text-info"></i>
 						</a>
-					
+					</li>
+					<li class="nav-item">
 						<a href="" class="nav-link col social-icon" title="Github">
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col">
-										<i class="fa fa-github text-dark pl-3"></i>
-									</div>
-								</div>
-							</div>
+							<i class="fa fa-github text-dark"></i>
 						</a>
+					</li>
+				</ul>
 
-					</div>
-				</div>
 			</div>
 
 			<!--div class="col-lg-6">

@@ -68,19 +68,21 @@ $(document).ready(function(){
 	}
 
 	$(".card-menu").hover(
+
 		function () {
-			$(this).addClass("bg-dark text-white");
-			$(this).find('.card-footer').addClass("bg-dark text-white");
+			$(this).addClass("card-active text-white");
+			$(this).find('.card-footer').addClass("card-active text-white");
 			$(this).find('.icon').addClass("animated fadeInDown");
 			$(this).find('p').addClass("animated fadeInUp");
 		},
 		
 		function () {
-			$(this).removeClass("bg-dark text-white");
-			$(this).find('.card-footer').removeClass("bg-dark text-white");
+			$(this).removeClass("card-active text-white");
+			$(this).find('.card-footer').removeClass("card-active text-white");
 			$(this).find('.icon').removeClass("animated fadeInDown");
 			$(this).find('p').removeClass("animated fadeInUp");
 		}
+
 	);	
 
 

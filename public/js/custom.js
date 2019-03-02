@@ -18,12 +18,12 @@ function set_prescription(e){
  	} else if(color == 'yellow') {
 
  		$(this).css('background','#FFFF00');
- 		$(this).css('color','#000');
+ 		$(this).css('color','#fff');
 
  	} else if(color == 'orange') {
 
- 		$(this).css('background','#FFF500');
- 		$(this).css('color','#000');
+ 		$(this).css('background','#FFA500');
+ 		$(this).css('color','#fff');
 
  	} else if(color == 'green'){
 
@@ -32,10 +32,9 @@ function set_prescription(e){
 
  	}else {
 
- 		alert('not selected');
- 		$(this).css('background','transparent');
+ 		$(this).css('background','#fff');
  		$(this).css('color','#000');
- 		$(this).html('<i class="fa fa-check-circle"></i>');
+// 		$(this).html('<i class="fa fa-check-circle"></i>');
 
 
  	}

@@ -42,7 +42,7 @@
 
 			<li class="nav-item">
 				<a class="nav-link" href="<?= base_url('register') ?>">
-					<i class="fa fa-briefcase"></i>&emsp;Register
+					<i class="fa fa-briefcase text-danger"></i>&emsp;Register
 				</a>
 			</li>
 
@@ -64,13 +64,14 @@
 			</li>
 
 			<li class="nav-item dropdown">
+				
 				<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="fa fa-cogs text-white" ></i>
 
 				</a>
-
+				<div class="arrow bg-dark"></div>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-					<div class="arrow bg-dark"></div>
+					
 					<span class="dropdown-item-text">
 						<h5>Signed as </h5><?= $this->session->userdata('username') ?>
 					</span>

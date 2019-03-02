@@ -30,7 +30,7 @@
 								<div class="container-fluid">
 									<div class="row">
 										<div class="col">
-											<div class="card mx-auto card-menu">
+											<div class="card mx-auto card-menu bg-transparent border-0">
 												
 												<div class="card-body" >
 													<h5 class="card-title">Tagline 1</h5>
@@ -54,7 +54,7 @@
 								<div class="container-fluid">
 									<div class="row">
 										<div class="col">
-											<div class="card mx-auto card-menu">
+											<div class="card mx-auto card-menu bg-transparent border-0">
 												
 												<div class="card-body">
 													<h5 class="card-title">Tagline 2</h5>
@@ -80,7 +80,7 @@
 								<div class="container-fluid">
 									<div class="row">
 										<div class="col">
-											<div class="card mx-auto card-menu">
+											<div class="card mx-auto card-menu bg-transparent border-0">
 												
 												<div class="card-body">
 													<h5 class="card-title">Tagline 3</h5>
