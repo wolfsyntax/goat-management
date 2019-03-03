@@ -81,6 +81,8 @@ $route['farm']['GET'] 							= 'user_controller/dashboard';
 //Other Module: Inventory -------------------------------------------------------------------------
 
 $route['inventory/view']['GET'] 				= 'inventory_controller';
+//$route['inventory/view']['POST'] 				= 'inventory_controller';
+
 $route['inventory/new']['GET']					= 'inventory_controller/create';
 $route['inventory/new']['POST']					= "inventory_controller/store";
 $route['inventory/(:num)/edit']['POST']			= "inventory_controller/update/$1";

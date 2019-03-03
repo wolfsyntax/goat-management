@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Error</title>
+<title>Error <?= $status_code ?></title>
 <style type="text/css">
 
 ::selection { background-color: #E13300; color: white; }
@@ -58,7 +58,8 @@ p {
 <body>
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
+		<?php echo $message ?>
+
 	</div>
 </body>
 </html>

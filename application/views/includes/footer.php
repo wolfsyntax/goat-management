@@ -18,7 +18,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="" class="nav-link col social-icon" title="Github">
+						<a href="" class="nav-link col social-icon d-flex justify-content-center" title="Github">
 							<i class="fa fa-github text-dark"></i>
 						</a>
 					</li>

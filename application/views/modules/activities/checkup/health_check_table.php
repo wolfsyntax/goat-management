@@ -45,7 +45,7 @@
 									<tbody>
 									<?php foreach($health_records as $row) {?>
 										<tr>
-											<td><?= $row->eartag_id ?></td>
+											<td><?= $row->eartag_id ?> (<?= $row->nickname ?>)</td>
 											<td><?= ucfirst($row->eartag_color) ?></td>
 											<td><?= ucfirst($row->gender) ?></td>
 											<td><?= str_replace('ago','old',Carbon\Carbon::parse($row->acquire_date)->diffForHumans()) ?></td>

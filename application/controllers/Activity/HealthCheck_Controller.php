@@ -10,6 +10,11 @@ class HealthCheck_Controller extends CI_Controller {
 		
 		if(!$this->session->userdata('user_id')) redirect(base_url());
 
+		/**
+		** Only the tenant has the privileges of this controller
+		**/
+		if($this->session->userdata('user_type') != 'tenant') show_404();		
+
 	}
 
 	public function index(){
@@ -33,6 +38,12 @@ class HealthCheck_Controller extends CI_Controller {
 
 	public function create($eartag_id){
 
+		$nickname = "";
+		
+		foreach($this->Goat_model->show_record("goat_profile", "eartag_id = {$eartag_id}", "nickname") as $row) {
+			$nickname = $row->nickname;
+		}
+
 		$context = array(
 			
 			'body' 				=> 'modules/activities/checkup/health_check_new',
@@ -46,6 +57,7 @@ class HealthCheck_Controller extends CI_Controller {
 			'vaccine'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
 			'supplement'		=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),
 			'eartag'			=> $eartag_id,
+			'nickname'			=> $nickname,
 			'current'			=> 'checkup',
 
 		);

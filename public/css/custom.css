@@ -1,5 +1,12 @@
 .fa {
-    transform: translateY(-4%);
+    transform: translateY(-4%) !important;
+}
+
+.tooltip {
+    margin-left: 10px !important;
+    position: absolute; 
+    top: 0px; 
+    left: 2px !important;
 }
 
 .icons {

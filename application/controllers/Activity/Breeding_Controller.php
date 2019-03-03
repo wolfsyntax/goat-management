@@ -10,6 +10,11 @@ class Breeding_Controller extends CI_Controller {
 
 		if(!$this->session->userdata('user_id')) redirect(base_url());
 
+		/**
+		** Only the tenant has the privileges of this controller
+		**/
+		if($this->session->userdata('user_type') != 'tenant') show_404();
+
 	}
 
 	public function index() {

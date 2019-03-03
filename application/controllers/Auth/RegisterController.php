@@ -5,6 +5,12 @@ class RegisterController extends CI_Controller {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->model('User_model');
+		
+		/**
+		** Farm Owner has the privileges to access this controller
+		**/
+		if($this->session->userdata('user_type') != "farm owner") show_error("The page you requested is not found", 404, "That's and error"); //show_404();
+
 	}
 
 	public function index(){
@@ -19,7 +25,7 @@ class RegisterController extends CI_Controller {
 	}
 
 	public function create(){
-		
+
 		$context = array(
 			'body' 				=> 'auth/register',
 			'title' 			=> 'Sign Up',
@@ -31,12 +37,12 @@ class RegisterController extends CI_Controller {
 
 	public function store(){
 
-  		$this->form_validation->set_rules("username", "Username", "required|trim|is_unique[user_account.Username]|xss_clean|min_length[5]|max_length[255]",
+  		$this->form_validation->set_rules("username", "Username", "required|trim|is_unique[user_account.Username]|xss_clean|min_length[8]|max_length[255]",
 			array(
 				"required" => "{field} is required",
 				"is_unique" => "{field} is already taken",
-				"min_length" => "{field} must be at least 5 characters in length.",
-				"max_length"	=> "{field} cannot exceed 255 characters in length.."
+				"min_length" => "{field} must be at least 8 characters in length.",
+				"max_length"	=> "{field} cannot exceed 255 characters in length.",
 			)
 		);
 

@@ -52,6 +52,14 @@
 									</div>
 
 									<div class="form-row p-1">
+										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Nickname&nbsp;</label>
+
+										<div class="col">
+											<input class="form-control" type="text" value="<?= $nickname ?>" readonly>	
+										</div>
+									</div>
+
+									<div class="form-row p-1">
 										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Check-Up Type&nbsp;<span class="text-danger">*</span></label>
 												
 										<div class="col">

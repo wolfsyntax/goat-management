@@ -39,7 +39,21 @@ function set_prescription(e){
 
  	}
 
- });
+});
+
+function inventoryCheck(inventory_id, def_val, min_val){
+	//alert("Inventory (Default Value:"+def_val);
+
+	var cur_url = base_url + "inventory/" + inventory_id + "/edit";
+	
+	$("#inventoryForm").attr("action",cur_url);
+			
+	document.getElementById("qtyIDT").min 		= min_val;
+	document.getElementById("qtyIDT").value 	= min_val;
+	document.getElementById("modItem").value 	= def_val;
+	document.getElementById("hmodItem").value 	= def_val;
+		
+}
 
 function change_icon(elem){
 	
@@ -96,5 +110,24 @@ function pregcheck_form(act_id) {
 
 	$("#pregcheck_aform").attr("action",cur_url);
 	e.preventDefault();
+
+}
+
+
+function checkInventoryValue(){
+
+	var minx = document.getElementById("qtyIDT");
+
+	if(parseInt($("#qtyIDT").val()) < parseInt(minx.min)){
+
+		minx.value = parseInt(minx.min);
+		alert("Inventory Value: "+minx.value);
+		$("#update_btn").attr("disabled",true);
+			
+	} else {
+
+		$("#update_btn").attr("disabled",false);
+
+	}
 
 }

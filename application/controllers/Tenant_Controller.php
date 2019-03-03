@@ -6,7 +6,8 @@ class Tenant_Controller extends CI_Controller {
 
 		parent::__construct ();
 		if(!$this->session->userdata('user_id')) redirect(base_url());
-		if(!$this->session->userdata('user_type') == 'tenant') show_404();
+		
+		if(!$this->session->userdata('user_type') === 'tenant') show_404();
 
 		date_default_timezone_set("Asia/Manila");
 

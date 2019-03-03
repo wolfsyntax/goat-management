@@ -28,12 +28,21 @@
 									<div class="container-fluid px-3">
 
 										<div class="form-row p-1">
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Tag ID <span class="text-danger">*</span></label>
+											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Tag ID</label>
 											
 											<div class="col">
-												<input type="text" class="form-control" name="eartag_id" value="<?= set_value('eartag_id')? set_value('eartag_id'): $row->eartag_id ?>" readonly>
+												<input type="text" class="form-control" name="eartag_id" value="<?= set_value('eartag_id')? set_value('eartag_id'): $row->eartag_id ?>" readonly="">
 							
 												<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>			
+											</div>
+
+										</div>
+
+										<div class="form-row p-1">
+											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Nickname</label>
+											
+											<div class="col">
+												<input type="text" class="form-control" value="<?= $row->nickname ?>" readonly="">	
 											</div>
 
 										</div>

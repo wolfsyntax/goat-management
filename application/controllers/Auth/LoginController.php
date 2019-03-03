@@ -131,13 +131,13 @@ class LoginController extends CI_Controller {
 	public function logout(){
 		
 		$this->session->sess_destroy();
+		redirect(base_url(''),'refresh');
+#		$context = array(
+#			'body' 				=> 'auth/login',
+#			'title' 			=> 'Login',
+#		);
 
-		$context = array(
-			'body' 				=> 'auth/login',
-			'title' 			=> 'Login',
-		);
-
-		$this->load->view('layouts/application',$context);
+#		$this->load->view('layouts/application',$context);
 
 	}
 

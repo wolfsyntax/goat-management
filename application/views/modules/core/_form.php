@@ -18,8 +18,8 @@
 				<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-4 text-lg-center">Tag Color <span class="text-danger">*</span></label>
 					
 				<div class="col col-sm-8 col-md-10 col-lg-8" id="color-tag">
-					<select class="form-control" id="color-select" required="" name="eartag_color">
-						<option>-- Choose color --</option>
+					<select class="form-control" id="color-select" name="eartag_color">
+						<option value="">-- Choose color --</option>
 						<option value="blue">
 							Blue
 						</option>

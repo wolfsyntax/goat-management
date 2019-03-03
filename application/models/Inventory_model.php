@@ -35,10 +35,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function update_items($inventory_id){
-
+//			echo "<script>alert('updating records')</script>";
+//			echo "<h1>{$inventory_id}</h1>";
 			$data = array(
 			
-				"item_name"	=> $this->input->post("item_name", TRUE),
+				//"item_name"	=> $this->input->post("item_name", TRUE),
 				"quantity"	=> $this->input->post("quantity", TRUE),
 
 			);

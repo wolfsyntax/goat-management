@@ -11,7 +11,7 @@
 				<?php $this->load->view('includes/breadcrumb') ?>
 			</section>
 			
-			<div class="container-fluid">
+			<div class="container-fluid mb-5">
 				<?php foreach($goat_record as $row) {?>
 				<div class="row px-3">
 					<div class="col-12 col-md-6">
@@ -189,6 +189,73 @@
 					</div>
 				</div>
 				<?php } ?>
+
+				<div class="row mt-5 px-0 mb-5">
+					<div class="col">
+						<div class="card bg-light border-0">
+							<div class="card-header border-0 bg-light">
+								<h3>Health Record</h3>
+							</div>
+							
+							<div class="card-body">
+								<div class="table-responsive table-responsive-sm text-nowrap pl-4">
+									<table class="table table-striped table-hover" id="gs_record">
+										<thead>
+											<tr>
+												<th>
+													Check-Up Type
+												</th>
+												<th>Date Perform</th>
+												<th>
+													Prescription
+												</th>
+												<th>
+													Quantity
+												</th>
+												<th>
+													Perfom By
+												</th>
+												<th>
+													Remarks
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php if($health_records){
+												foreach($health_records as $row) {
+											?>
+											<tr>
+												<td>
+													<?= $row->checkup_type ?>
+												</td>
+												<td>
+													<?= $row->date_perform ?>
+												</td>
+												<td>
+													<?= $row->prescription ?>
+												</td>
+												<td>
+													<?= $row->quantity ?>
+												</td>
+												<td>
+													<?= $row->username ?>
+												</td>
+												<td>
+													<?= $row->remarks ?>
+												</td>
+											</tr>
+											<?php 
+													} 
+												}
+											?>
+										</tbody>
+
+									</table>	
+								</div>						
+							</div>
+						</div>
+					</div>
+				</div>
 
 			</div>
 		</div>

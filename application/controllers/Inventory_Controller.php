@@ -107,7 +107,63 @@ class Inventory_Controller extends CI_Controller {
 
 	}
 
-	public function update($id) {
+	public function update($inventory_id) {
+
+		//echo "<script>alert('{$id}')</script>";
+		$this->form_validation->set_rules('item_name', 'Item Name', 'trim|required|min_length[3]|max_length[255]',
+				array(
+					'required' 		=> '{field} is required.', 
+					'min_length'	=> '{field} must be at least 5 characters in length.',
+					'max_length'	=> '{field} cannot exceed 255 characters in length.',	
+				)
+			);
+
+		$this->form_validation->set_rules('quantity', 'Quantity', 'trim|required|numeric',
+			array(
+				'required' 		=> '{field} is required.', 
+				'numeric'		=> '{field} must contain only numbers.',
+			)
+		);
+	
+
+		if ($this->form_validation->run() == TRUE) {
+			# code...
+			//echo "<script>alert('Validated: {$id}')</script>";
+			if($this->Inventory_model->update_items($inventory_id)){			
+
+				$this->session->set_flashdata("inventory", '<div class="alert alert-success alert-dismissible fade show p-2 mt-2" role="alert">
+          			<strong>Success</strong> Item successfully modified.
+          			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            			<span aria-hidden="true">&times;</span>
+          			</button>
+        		</div>');				
+
+			} else {
+
+				$this->session->set_flashdata("inventory", '<div class="alert alert-danger alert-dismissible fade show p-2 mt-2" role="alert">
+          			<strong>Failed</strong> Item failed to modify.
+          			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            			<span aria-hidden="true">&times;</span>
+          			</button>
+        		</div>');				
+
+			}
+			
+			//redirect(base_url('inventory/view'));
+
+		}  else {
+
+				$this->session->set_flashdata("inventory", '<div class="alert alert-danger alert-dismissible fade show p-2 mt-2" role="alert">
+          			<strong>Failed</strong> Item failed to modify.
+          			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            			<span aria-hidden="true">&times;</span>
+          			</button>
+        		</div>');				
+
+		}
+
+		redirect(base_url('inventory/view'));
+
 
 	}
 

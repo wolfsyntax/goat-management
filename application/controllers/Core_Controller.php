@@ -8,7 +8,13 @@ class Core_Controller extends CI_Controller {
 
 		if(!$this->session->userdata('user_id')) redirect(base_url());
 
-		if(!$this->session->userdata('user_type') === 'sysadmin') show_404();
+//		if(!$this->session->userdata('user_type') === 'sysadmin') show_404();
+
+
+		/**
+		** Only the tenant has the privileges of this controller
+		**/
+		if($this->session->userdata('user_type') != 'tenant') show_404();
 
 		date_default_timezone_set("Asia/Manila");
 
@@ -675,12 +681,25 @@ class Core_Controller extends CI_Controller {
 	}
 
 	public function manage_view($category, $ref_id){
+		
+		$goat_record = $this->Goat_model->get_goat_info($category, $ref_id);
+		$eartag_id = "";
+
+		foreach ($goat_record as $key) {
+			# code...
+			$eartag_id = $key->eartag_id;
+		}
+
+		$health_record = $this->Goat_model->get_health_records($eartag_id);
+
 
 		$context = array(
 			
 			'body' 				=> 'modules/core/manage_view',
 			'title' 			=> 'Goat Management',
-			'goat_record'		=>  $this->Goat_model->get_goat_info($category, $ref_id),
+			'goat_record'		=>  $goat_record,
+			'health_records'	=> 	$health_record,
+
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> 'dashboard',
 				'Manage Goat'	=> 'manage/goat',

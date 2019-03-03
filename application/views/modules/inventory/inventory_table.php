@@ -29,8 +29,12 @@
 					</div>
 
 					<div class="row">
-						<input type="hidden" name="_status" value="" id="_status">
-						<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
+						
+						<div class="col">
+							<input type="hidden" name="_status" value="" id="_status">
+							<?= ($this->session->flashdata('inventory') ? $this->session->flashdata('inventory') : ''); ?>
+						</div>
+
 					</div>
 
 					<div class="row mt-0 pl-4">
@@ -97,9 +101,7 @@
 							<label class="col-form-label-sm col-4 col-sm-4 col-md-2">Item Name <span class="text-danger">*</span></label>
 
 							<div class="col">
-		    					<input type="text" class="form-control" value="<?= set_value('item_name') ?>" name="item_name" placeholder="Item Name" id="modItem">
-
-		    					<input type="hidden" class="form-control" value="" name="item_hname" id="hmodItem">
+		    					<input type="text" class="form-control" id="modItem" name="item_name" readonly>
 		    				</div>
 		    			</div>
 
