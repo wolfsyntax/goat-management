@@ -8,7 +8,7 @@ class Core_Controller extends CI_Controller {
 
 		if(!$this->session->userdata('user_id')) redirect(base_url());
 
-		if(!$this->session->userdata('user_type') === 'tenant') show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden");
+		if(!$this->session->userdata('user_type') === 'tenant' || !$this->session->userdata('user_type') === 'farm owner') show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden");
 
 
 		/**
