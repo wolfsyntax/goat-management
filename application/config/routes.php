@@ -73,13 +73,14 @@ $route['account/settings']['POST']		= 'tenant_controller/account_settings';
 *************************************************/
 
 //User Permission: Tenant
-$route['dashboard']['GET'] 						= 'tenant_controller';
+$route['dashboard']['GET'] 				= 'tenant_controller';
 
 //User Permission: System Admin -------------------------------------------------------------------
-$route['admin']['GET'] 							= 'admin_controller';
+$route['admin']['GET'] 					= 'admin_controller';
 
 //User Permission: Farm Owner ---------------------------------------------------------------------
-$route['farm']['GET'] 							= 'user_controller/dashboard';
+$route['farm']['GET'] 					= 'user_controller/dashboard';
+$route['reports']['GET']				= 'reports_controller';
 
 //Other Module: Inventory -------------------------------------------------------------------------
 

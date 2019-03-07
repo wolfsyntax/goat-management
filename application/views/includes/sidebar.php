@@ -58,7 +58,7 @@
     
     <?php if($this->session->userdata('user_type') == 'farm owner') {?>
       <li class="nav-item <?= $current == 'report' ? 'bg-secondary' : ''?>">
-        <a class="nav-link text-dark sb-menu" href="#" data-toggled="popover report" title="Reports" data-content="Here you reports on all transaction of your account"  >
+        <a class="nav-link text-dark sb-menu" href="<?= base_url('reports')?>" data-toggled="popover report" title="Reports" data-content="Here you reports on all transaction of your account"  >
 
            <span class="fa fa-info-circle <?= $current == 'report' ? 'text-white' : 'text-dark'?>" title="Reports"></span>
           &nbsp;<span class="<?= $current == 'report' ? 'text-white' : 'text-dark'?> d-label">Reports</span>
