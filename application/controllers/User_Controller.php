@@ -7,6 +7,7 @@ class User_Controller extends CI_Controller {
 		parent::__construct ();
 
 		if(!$this->session->userdata('user_id')) redirect(base_url());
+		
 		if(!$this->session->userdata('user_type') == 'farm owner') show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden"); //show_404();
 
 		date_default_timezone_set("Asia/Manila");
@@ -54,7 +55,7 @@ class User_Controller extends CI_Controller {
 			$context = array(
 				
 				'body' 				=> 'auth/users/index',
-				'title' 			=> 'Admin',
+				'title' 			=> 'Farm',
 				'current'			=> '',
 				
 			);
