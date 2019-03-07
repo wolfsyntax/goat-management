@@ -13,7 +13,9 @@ class Breeding_Controller extends CI_Controller {
 		/**
 		** Only the tenant has the privileges of this controller
 		**/
-		if($this->session->userdata('user_type') != 'tenant') show_404();
+		//if($this->session->userdata('user_type') != 'tenant') show_404();
+
+		if(!$this->session->userdata('user_type') === 'tenant' || !$this->session->userdata('user_type') === 'farm owner') show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden");
 
 	}
 
