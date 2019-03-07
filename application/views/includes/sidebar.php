@@ -2,7 +2,7 @@
     <div class="" style="height: calc(100vh - 100px) !important;">
         <ul class="nav flex-column bg-light text-truncate"> 
            <li class="nav-item <?= $current == 'dashboard' ? 'bg-secondary' : ''?>">
-                <a class="nav-link sb-menu" href="<?= base_url(); ?>dashboard" id="sb_dashboard" data-toggle="popover dashboard" title="Dashboard" data-content="And here's where you can view your recent activities and transaction">
+                <a class="nav-link sb-menu" href="<?= base_url($this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm') ?>" id="sb_dashboard" data-toggle="popover dashboard" title="Dashboard" data-content="And here's where you can view your recent activities and transaction">
                     <span class="fa fa-tachometer <?= $current == 'dashboard' ? 'text-white' : 'text-primary'?> " title="Dashboard"></span>
                     
                     &nbsp;<span class=" d-label">Dashboard <span class="sr-only">(current)</span></span>
@@ -65,7 +65,7 @@
         </a>
       </li>
      <?php } ?>
-     
+
       <li class="nav-item">&emsp;</li>
       <li class="nav-item">&emsp;</li>
 
