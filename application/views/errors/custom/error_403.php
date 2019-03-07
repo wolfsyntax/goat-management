@@ -2,15 +2,15 @@
 	<div class="row">
 
 		<div class="col">
-			<h1>404</h1>
-			<h4>Page Not Found</h4>
+			<h1>403</h1>
+			<h4>Forbidden</h4>
 		</div>
 
 		<div class="col">
 
 			<section>
-				<p>We can't find the page you're looking for.</p>
-				<p>You can either return to the previous page, visit our homepage</p>
+				<p>Your client does not have permission to get requested page</p>
+				<p>the server. <span class="text-muted">That's all we know</span></p>
 			</section>
 			
 			<section>

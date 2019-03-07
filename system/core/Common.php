@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * CodeIgniter
  *
@@ -35,7 +37,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+
 
 /**
  * Common Functions
@@ -50,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 // ------------------------------------------------------------------------
+
 
 if ( ! function_exists('is_php'))
 {

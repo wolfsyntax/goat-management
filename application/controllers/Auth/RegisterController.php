@@ -9,7 +9,7 @@ class RegisterController extends CI_Controller {
 		/**
 		** Farm Owner has the privileges to access this controller
 		**/
-		if($this->session->userdata('user_type') != "farm owner") show_error("The page you requested is not found", 404, "That's and error"); //show_404();
+		if($this->session->userdata('user_type') != "farm owner") show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden"); //show_404();
 
 	}
 
