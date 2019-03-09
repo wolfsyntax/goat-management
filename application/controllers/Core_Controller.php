@@ -14,7 +14,7 @@ class Core_Controller extends CI_Controller {
 		/**
 		** Only the tenant has the privileges of this controller
 		**/
-		if($this->session->userdata('user_type') != 'tenant') show_404();
+	//	if($this->session->userdata('user_type') != 'tenant') show_404();
 
 		date_default_timezone_set("Asia/Manila");
 
@@ -46,7 +46,7 @@ class Core_Controller extends CI_Controller {
 			'title' 			=> 'Goat Management',
 			'goat_record'		=>  $this->Goat_model->show_goat_record(),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 			),
 			'breadcrumb'		=> 'Manage Goat',
 			'current'			=> 'management',	
@@ -65,7 +65,7 @@ class Core_Controller extends CI_Controller {
 			'body' 				=> 'modules/core/goat_form',
 			'title' 			=> 'Goat Management : New',
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Manage Goat'	=> 'manage/goat',
 			),
 			'breadcrumb'		=> 'New Goat',			
@@ -87,7 +87,7 @@ class Core_Controller extends CI_Controller {
 			'title' 			=> 'Goat Sales',
 			'goat_record'		=> $this->Goat_model->show_all_sales(),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 			),
 			'breadcrumb'		=> 'Manage Finances',	
 			'current'			=> 'finance',		
@@ -106,7 +106,7 @@ class Core_Controller extends CI_Controller {
 			'body' 					=> 'modules/transaction/goat_sales',
 			'title' 				=> 'Goat Sales : New',
 			'breadcrumbs'			=> array(
-				'Dashboard'			=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Manage Finances'	=> 'goat/sales',
 			),
 			'breadcrumb'			=> 'New Sales',		
@@ -430,7 +430,7 @@ class Core_Controller extends CI_Controller {
 			'title' 				=> 'Modify Sales Record',
 			'goat_record'			=> $this->Goat_model->show_sales($sales_id),
 			'breadcrumbs'			=> array(
-				'Dashboard'			=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Manage Finances'	=> 'goat/sales',
 			),
 			'breadcrumb'			=> 'Update Sales',
@@ -629,7 +629,7 @@ class Core_Controller extends CI_Controller {
 				'title' 				=> 'Goat Sales',
 				'sale_record'			=>  $this->Goat_model->show_sales($sale_id),
 				'breadcrumbs'			=> array(
-					'Dashboard'			=> 'dashboard',
+					'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 					'Manage Finances' 	=> 'goat/sales',
 				),
 				'breadcrumb'		=> 'Sales Record',
@@ -701,7 +701,7 @@ class Core_Controller extends CI_Controller {
 			'health_records'	=> 	$health_record,
 
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Manage Goat'	=> 'manage/goat',
 			),
 			'breadcrumb'		=> 'Goat record',
@@ -732,7 +732,7 @@ class Core_Controller extends CI_Controller {
 			'title' 			=> 'Goat Record',
 			'goat_record'		=>  $this->Goat_model->get_goat_info($category, $record_id),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Manage Goat'	=> 'manage/goat',
 			),
 			'breadcrumb'		=> 'Update record',
@@ -759,7 +759,7 @@ class Core_Controller extends CI_Controller {
 			'eartag_id'			=> $eartag_id,
 			'mrecord'			=> $this->Goat_model->show_loss_records($eartag_id, $this->session->userdata("user_id")),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Manage Goat'	=> 'manage/goat',
 			),
 			'breadcrumb'		=> 'Update Status',

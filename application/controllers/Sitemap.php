@@ -4,24 +4,20 @@ class Sitemap extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct ();
+
+		if($this->session->userdata('user_type') == 'tenant') { redirect('dashboard', 'refresh'); }
+		else if($this->session->userdata('user_type') == 'farm owner') { redirect('farm', 'refresh'); }
+
 	}
 
 	public function index(){
-		if($this->session->userdata('username')){
-			
-			if($this->session->userdata('user_type') == 'tenant') redirect('dashboard', 'refresh');
-			
-		} else {
 
+		$context = array(
+			'body' 				=> 'sitemap/index',
+			'title' 			=> 'Home',
+		);
 
-			$context = array(
-				'body' 				=> 'sitemap/index',
-				'title' 			=> 'Home',
-			);
-
-			$this->load->view('layouts/application',$context);
-
-		}
+		$this->load->view('layouts/application',$context);
 
 	}
 

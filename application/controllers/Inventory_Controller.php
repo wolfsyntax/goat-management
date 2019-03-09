@@ -22,7 +22,7 @@ class Inventory_Controller extends CI_Controller {
 			'title' 			=> 'Inventory',
 			'record'			=> $this->Inventory_model->fetch_items(),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 			),
 			'breadcrumb'		=> 'Manage Asset',
 			'current'			=> 'assets',
@@ -41,7 +41,7 @@ class Inventory_Controller extends CI_Controller {
 			'title' 			=> 'Inventory',
 		//	'record'			=> $this->Inventory_model->fetch_items(),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Manage Asset'	=> 'inventory/view',
 			),
 			'breadcrumb'		=> 'New Asset',

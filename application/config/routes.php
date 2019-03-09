@@ -65,8 +65,8 @@ $route['register']['POST']				= 'auth/registercontroller/store';		//validate reg
 $route['forgot']['GET'] 				= 'auth/forgotpasswordcontroller/create';	
 $route['forgot']['POST'] 				= 'auth/forgotpasswordcontroller/store';
 
-$route['account/settings']['GET']		= 'tenant_controller/account_settings';
-$route['account/settings']['POST']		= 'tenant_controller/account_settings';
+$route['account/settings']['GET']		= 'auth/resetpasswordcontroller';
+$route['account/settings']['POST']		= 'auth/resetpasswordcontroller/change_password';
 
 /************************************************
 **					Modules

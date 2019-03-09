@@ -22,6 +22,10 @@
               'constraint'      => 64,
               'default'         => "No",
             ),
+            'due_date'          => array(
+              'type'            => 'DATE',
+              'default'         => NULL,
+            ),
           ));
 
           $this->dbforge->add_key('breeding_id', TRUE);

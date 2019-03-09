@@ -27,7 +27,7 @@ class HealthCheck_Controller extends CI_Controller {
 			'title' 			=> 'Health Check',
 			'health_records'	=> $this->Goat_model->show_active_goats(),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 			),
 			'breadcrumb'		=> 'Health Check',
 			'current'			=> 'checkup',
@@ -52,7 +52,7 @@ class HealthCheck_Controller extends CI_Controller {
 			'title' 			=> 'Health Check: New',
 			'health_records'	=> $this->Goat_model->get_health_records($eartag_id),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Health Check'	=> 'health/view',
 			),
 			'breadcrumb'		=> 'Health Record for ID#'. $eartag_id,

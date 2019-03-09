@@ -75,7 +75,7 @@
 					<span class="dropdown-item-text">
 						<h5>Signed as </h5><?= $this->session->userdata('username') ?>
 					</span>
-					<a class="dropdown-item" href="#"><i class="fa fa-cog"></i>&emsp;Settings</a>
+					<a class="dropdown-item" href="<?= base_url('account/settings') ?>"><i class="fa fa-cog"></i>&emsp;Settings</a>
 					<a class="dropdown-item" href="#"><i class="fa fa-life-saver"></i>&emsp;Support</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="<?= base_url('logout') ?>">

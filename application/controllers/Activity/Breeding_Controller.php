@@ -26,7 +26,7 @@ class Breeding_Controller extends CI_Controller {
 			'title' 			=> 'Breeding Record',
 			'breeding_record'	=>  $this->Goat_model->get_breeding_records(),
 			'breadcrumbs'		=> array(
-				'Dashboard'		=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 			),
 			'breadcrumb'		=> 'Manage Breeding',
 			'current'			=> 'breed',				
@@ -43,7 +43,7 @@ class Breeding_Controller extends CI_Controller {
 			'title' 				=> 'Breeding Record',
 			'breeding_record'		=>  $this->Goat_model->get_breeding_records(),
 			'breadcrumbs'			=> array(
-				'Dashboard'			=> 'dashboard',
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 				'Manage Breeding'	=> 'breeding/view',
 			),
 			'breadcrumb'			=> 'Breeding Activity',

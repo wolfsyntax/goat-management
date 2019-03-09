@@ -44,7 +44,7 @@
 													<th>Sire ID</th>
 													<th>Breeding Date</th>
 													<th>In Charge</th>
-													
+													<th>Due Date</th>
 													<th>Result</th>
 													<th width="1%">Action</th>
 												</tr>
@@ -57,6 +57,7 @@
 													<td><?= $row->sire_id ?></td>
 													<td><?= $row->date_perform ?></td>
 													<td><?= $row->username ?></td>
+													<td><?= $row->due_date ?></td>
 													<td><?= $row->is_pregnant == "yes" ? "Positive" : "Negative" ?></td>
 													<td>
 														<div class="btn-group">

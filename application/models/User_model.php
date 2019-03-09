@@ -23,6 +23,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+
+		public function check_password($pass){
+
+			$password = 'sha256w'.hash('sha256', $this->config->item('salt') . $pass);
+			$username = $this->session->userdata('username');
+			
+			$this->db->where('password', $password);
+			$this->db->where('username', $username);
+
+			$query = $this->db->get('User_Account');
+				
+			if($query->num_rows() == 1){
+				return TRUE;
+			}
+
+			return FALSE;
+
+		}
+
+		public function fetch_account(){
+			
+			$user_id = $this->session->userdata('user_id');
+			$this->db->where('User_id',$user_id);
+			
+			$query = $this->db->get('User_Account');
+				
+			if($query->num_rows() == 1){
+
+				return $query->result();
+
+			} else {
+
+				return FALSE;
+
+			}
+		}
+
 		public function validate_login(){
 			
 			if(!empty($_POST)){
@@ -136,7 +173,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
-		public function confirm_change($option = 0){
+	/*	public function confirm_change($option = 0) {
 			
 			if(!empty($_POST)){
 
@@ -201,6 +238,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 
 			}	
+
+		} */
+
+		public function update_pass(){
+
+			if(!empty($_POST)){
+
+				$data = array(
+					"password" => 'sha256w'.hash('sha256',$this->config->item('salt').$this->input->post('new_pass', TRUE)),
+				);
+
+				$this->db->where('User_ID',$this->session->userdata('user_id'));
+				return $this->db->update('user_account',$data); 
+				
+			}
 
 		}
 

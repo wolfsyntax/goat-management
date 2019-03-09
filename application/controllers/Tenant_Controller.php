@@ -6,8 +6,6 @@ class Tenant_Controller extends CI_Controller {
 
 		parent::__construct ();
 		if(!$this->session->userdata('user_id')) redirect(base_url());
-		
-		if(!$this->session->userdata('user_type') === 'tenant') show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden"); //show_404();
 
 		date_default_timezone_set("Asia/Manila");
 
@@ -28,7 +26,11 @@ class Tenant_Controller extends CI_Controller {
 		);
 
 		$this->load->library('calendar',$prefs);
-		
+
+		if(!($this->session->userdata('user_type') == 'tenant')) { 
+			show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden"); //show_404();		
+		}
+
 	}
 	
 	public function index(){
@@ -66,17 +68,7 @@ class Tenant_Controller extends CI_Controller {
 		}
 				
 	}
-
-	public function account_settings(){
-
-		$context = array(
-				'body' 				=> 'auth/account_setting',
-				'title' 			=> 'Account Settings',
-		);
-
-		$this->load->view('layouts/application',$context);
-
-	}
+		
 }
 
 ?>

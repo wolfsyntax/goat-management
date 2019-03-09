@@ -9,7 +9,7 @@ class RegisterController extends CI_Controller {
 		/**
 		** Farm Owner has the privileges to access this controller
 		**/
-		if($this->session->userdata('user_type') != "farm owner") show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden"); //show_404();
+		//if($this->session->userdata('user_type') != "farm owner") show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden"); //show_404();
 
 	}
 
@@ -105,7 +105,7 @@ class RegisterController extends CI_Controller {
 									</div>
 								</div>");
 */
-				$this->session->set_flashdata("item", '<div class="alert alert-success alert-dismissible fade show py-3" role="alert">
+				$this->session->set_flashdata("auth", '<div class="alert alert-success alert-dismissible fade show py-3" role="alert">
           				<strong class="fa fa-check-circle"></strong> Account successfully created</strong>
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
             				<span aria-hidden="true">&times;</span>
