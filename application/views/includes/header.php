@@ -58,7 +58,7 @@
 		
 		<ul class="navbar-nav ml-auto">		
 			<li class="nav-item">
-				<a class="nav-link" href="#">
+				<a class="nav-link" href="<?= base_url('notifications')?>">
 					<i class="fa fa-bell text-white"></i>
 				</a>
 			</li>

@@ -24,7 +24,7 @@
 
 							<div class="card-body">
 				    					
-								<?= form_open("",array("class"=>"")); ?>
+								<?= form_open("",array("class"=>"", "onsubmit" => "check_form(this); return confirm_request(this)")); ?>
 								<div class="form-row p-1">
 									<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
 								</div>

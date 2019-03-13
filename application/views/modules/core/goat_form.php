@@ -22,7 +22,7 @@
 								</div>
 								<div class="card-body p-2 border-0">
 									
-								<?= form_open("", array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onsubmit"=>"check_form(this);",)); ?>
+								<?= form_open("", array("id" => "goat_form", "style" => "", "class" => "p-3 p-md-5","onsubmit"=>"check_form(this); return confirm_request(this)",)); ?>
 											
 								<?php $this->load->view('modules/core/_form'); ?>
 											

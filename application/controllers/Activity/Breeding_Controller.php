@@ -61,6 +61,8 @@ class Breeding_Controller extends CI_Controller {
 		
 		self::validate_breeding();
 
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
+
 		if ($this->form_validation->run() == TRUE or FALSE) {
 			# code...
 			self::create();
@@ -105,6 +107,8 @@ class Breeding_Controller extends CI_Controller {
 	public function update($id){
 
 		self::validate_form();
+		
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
 
 		if ($this->form_validation->run() == FALSE) {
 			# code...
@@ -253,6 +257,8 @@ class Breeding_Controller extends CI_Controller {
 			)
 		);
 		
+		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
+		
 		if ($this->form_validation->run() == FALSE) {
 			
 			$this->session->set_flashdata("breeding", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
@@ -269,6 +275,7 @@ class Breeding_Controller extends CI_Controller {
 		} else {
 
 			if($this->Goat_model->update_breeding($activity_id)){
+				
 				$status = $this->input->post("preg_select", TRUE);
 
 				if($status == 'Yes'){

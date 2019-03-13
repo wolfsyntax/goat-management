@@ -24,7 +24,7 @@
 							<section>
 								<?php foreach($goat_record as $row) { ?>
 								<div class="container-fluid">
-									<?= form_open("", array("id" => "mgoat_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"", "onsubmit"=>"return check_form(this);",)); ?>
+									<?= form_open("", array("id" => "goats_form", "style" => "", "class" => "p-3 p-md-5","onload"=>"", "onsubmit"=>"check_form(this); return confirm_request(this)",)); ?>
 
 									<div class="form-row p-1">
 										<input type="hidden" name="recent_category" id="rcategory" value="<?= $row->category ?>" />

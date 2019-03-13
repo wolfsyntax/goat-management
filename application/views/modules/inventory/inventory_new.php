@@ -22,7 +22,7 @@
 					<div class="row px-3">
 						<div class="col">
 							<div class="container-fluid">
-								<?= form_open('', array("class" => "","onsubmit"=>"return check_form(this);",)) ?>
+								<?= form_open('', array("class" => "","onsubmit"=>"check_form(this); return confirm_request(this)",)) ?>
 									<div class="form-row p-1">
 										<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Item Name <span class="text-danger">*</span></label>
 									

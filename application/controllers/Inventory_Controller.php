@@ -81,13 +81,17 @@ class Inventory_Controller extends CI_Controller {
 			)
 		);
 
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
+
 		if ($this->form_validation->run() == FALSE) {
+
 			self::create();
+		
 		} else {
 			# code...
 			if($this->Inventory_model->new_item()){
 				
-				$this->session->set_flashdata("inventory", '<div class="alert alert-success alert-dismissible fade show p-2" role="alert">
+				$this->session->set_flashdata("inventory", '<div class="alert alert-success alert-dismissible fade show p-2 mt-4" role="alert">
           			<strong>Success</strong> Item successfully added.
           			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
             			<span aria-hidden="true">&times;</span>
@@ -128,7 +132,8 @@ class Inventory_Controller extends CI_Controller {
 				'numeric'		=> '{field} must contain only numbers.',
 			)
 		);
-	
+		
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
 
 		if ($this->form_validation->run() == TRUE) {
 			# code...
@@ -157,12 +162,12 @@ class Inventory_Controller extends CI_Controller {
 
 		}  else {
 
-				$this->session->set_flashdata("inventory", '<div class="alert alert-danger alert-dismissible fade show p-2 mt-2" role="alert">
-          			<strong>Failed</strong> Item failed to modify.
-          			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            			<span aria-hidden="true">&times;</span>
-          			</button>
-        		</div>');				
+			$this->session->set_flashdata("inventory", '<div class="alert alert-danger alert-dismissible fade show p-2 mt-2" role="alert">
+          		<strong>Failed</strong> Item failed to modify.
+          		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            		<span aria-hidden="true">&times;</span>
+          		</button>
+        	</div>');				
 
 		}
 

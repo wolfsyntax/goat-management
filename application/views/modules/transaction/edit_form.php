@@ -6,16 +6,16 @@
 			<?php $this->load->view('includes/sidebar') ?>
 		</div>
 
-		<div class="pl-4 pr-5" id="content">
+		<div class="pl-3 pl-lg-4 pr-lg-5" id="content">
 			<section>
 				<?php $this->load->view('includes/breadcrumb') ?>
 			</section>
 			
 			<section class="py-2 mt-2">
-				<div class = "container pl-5 mt-2 mb-5">
+				<div class = "container pl-0 pl-lg-5 mt-2 mb-5">
 
 					<div class="row mt-2 mb-5">
-						<div class="col p-2 mb-5">
+						<div class="col p-0 p-lg-2 mb-5">
 							<div class="card shadow-none rounded-0 border-0">
 								<div class="card-header card-ubuntu border-0" style="background: transparent;">
 									<h3 class="pl-5">Modify Transaction Record</h3>
@@ -23,12 +23,12 @@
 								<div class="card-body p-2 border-0">
 
 									<?php foreach($goat_record->result() as $row) {?>
-									<?= form_open(base_url()."sales/{$row->sales_id}/edit", array('class'=>'form p-5','style'=>'',"onsubmit"=>"return check_form(this);"));?>
+									<?= form_open(base_url()."sales/{$row->sales_id}/edit", array('class'=>'form p-5','style'=>'',"onsubmit"=>"check_form(this); return confirm_request(this)"));?>
 							
 									<div class="container-fluid px-3">
 
-										<div class="form-row p-1">
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Tag ID</label>
+										<div class="form-row p-0 p-lg-1">
+											<label class="col-form-label-sm col-12 col-md-6 col-lg-2">Tag ID</label>
 											
 											<div class="col">
 												<input type="text" class="form-control" name="eartag_id" value="<?= set_value('eartag_id')? set_value('eartag_id'): $row->eartag_id ?>" readonly="">
@@ -38,8 +38,8 @@
 
 										</div>
 
-										<div class="form-row p-1">
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Nickname</label>
+										<div class="form-row p-0 p-lg-1">
+											<label class="col-form-label-sm col-12 col-md-6 col-lg-2">Nickname</label>
 											
 											<div class="col">
 												<input type="text" class="form-control" value="<?= $row->nickname ?>" readonly="">	
@@ -47,9 +47,9 @@
 
 										</div>
 											
-										<div class="form-row p-1">
+										<div class="form-row p-0 p-lg-1">
 											
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Date Sold <span class="text-danger">*</span></label>
+											<label class="col-form-label-sm col-12 col-md-6 col-lg-2">Date Sold <span class="text-danger">*</span></label>
 						
 											<div class="col">
 											
@@ -61,9 +61,9 @@
 										
 										</div>
 
-										<div class="form-row p-1">
+										<div class="form-row p-0 p-lg-1">
 						
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Sold Through <span class="text-danger">*</span></label>
+											<label class="col-form-label-sm col-12 col-md-6 col-lg-2">Sold Through <span class="text-danger">*</span></label>
 						
 											<div class="col">
 							
@@ -78,8 +78,8 @@
 
 										</div>
 
-										<div class="form-row p-1">
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Total Weight <span class="text-danger">*</span></label>
+										<div class="form-row p-0 p-lg-1">
+											<label class="col-form-label-sm col-12 col-md-6 col-lg-2">Total Weight <span class="text-danger">*</span></label>
 											
 											<div class="col">
 												<input type="text" name="weight" value="<?= set_value('weight') ? set_value('weight') : $row->weight; ?>" placeholder="Enter weight in kilos" class="form-control " required>
@@ -89,9 +89,9 @@
 											</div>
 										</div>
 
-										<div class="form-row p-1">
+										<div class="form-row p-0 p-lg-1">
 											
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Price per Kilo <span class="text-danger">*</span></label>
+											<label class="col-form-label-sm col-12 col-md-6 col-lg-2">Price per Kilo <span class="text-danger">*</span></label>
 											
 											<div class="col">
 												
@@ -102,8 +102,8 @@
 											</div>
 										</div>
 
-										<div class="form-row p-1">
-											<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Description</label>
+										<div class="form-row p-0 p-lg-1">
+											<label class="col-form-label-sm col-12 col-md-6 col-lg-2">Description</label>
 											
 											<div class="col">
 												<textarea name="remarks" placeholder="notes / additional information" class="form-control "><?= set_value('remarks') ? set_value('remarks') : $row->remarks ; ?></textarea>
@@ -113,7 +113,7 @@
 											</div>
 										</div>
 
-										<div class="form-row p-1 float-right w-100 mt-2">
+										<div class="form-row p-0 p-lg-1 float-right w-100 mt-2">
 											<!--a href="javascript:void(0);" class="btn btn-danger col col-md-3 offset-md-5" onclick="js_button();">Cancel</a-->
 											<button type="submit" class="font-weight-bolder btn btn-primary col-md-3 offset-md-9" name="submit" id="update_btn">Save Changes</button>
 

@@ -25,7 +25,8 @@ class HealthCheck_Controller extends CI_Controller {
 			
 			'body' 				=> 'modules/activities/checkup/health_check_table',
 			'title' 			=> 'Health Check',
-			'health_records'	=> $this->Goat_model->show_active_goats(),
+			'health_records'	=> $this->Goat_model->get_all_health_records(),
+			'goat_records'		=> $this->Goat_model->show_active_goats(),
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 			),
@@ -108,6 +109,8 @@ class HealthCheck_Controller extends CI_Controller {
 				"xss_clean"		=> "{field} input is tampered.",
 			)
 		);
+
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
 
 		if ($this->form_validation->run() == FALSE) {
 			

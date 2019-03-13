@@ -24,7 +24,7 @@
 								</div>
 
 								<div class="card-body">
-								<?= form_open('', array("class" => "","onsubmit"=>"return check_form(this);",)) ?>
+								<?= form_open('', array("class" => "","onsubmit"=>"check_form(this); return confirm_request(this);",)) ?>
 								
 									<div class="container-fluid">
 										<div class="form-row py-1"> 

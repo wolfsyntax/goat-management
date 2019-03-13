@@ -75,7 +75,7 @@
 				</div>
 
 				<div class="row mt-2">
-					<div class="col-12 col-lg-8">
+					<div class="col-12">
 
 						<section class="pl-2">
 
@@ -165,23 +165,6 @@
 
 					</div>
 
-					<div class="col-12 col-md-12 col-lg-4">
-						
-						<section class="px-4 px-lg-1">
-							<div class="card mb-2">
-								<div class="card-header"><span class="fa fa-clock"></span>&emsp;Notification</div>
-								<div class="card-body text-center px-4 ml-1">
-									<!--span class="text-muted">No notifications yet.</span-->
-									<div class="row">
-										<div class="col">
-											<p class="text-truncate">The quick brown fox jumps over the lazy dog.</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>						
-
-					</div>
 				</div>
 
 				<div class="row px-2">

@@ -49,38 +49,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller']			= 'sitemap';
-$route['404_override'] 					= 'session_controller/error404';
-$route['translate_uri_dashes'] 			= FALSE;
+$route['default_controller']					= 'sitemap';
+$route['404_override'] 							= 'session_controller/error404';
+$route['translate_uri_dashes'] 					= FALSE;
 
 //Authentication
-$route['login']['GET'] 					= 'auth/logincontroller';				//display login form
-$route['login']['POST'] 				= 'auth/logincontroller/store';			//validate login details
+$route['login']['GET'] 							= 'auth/logincontroller';				//display login form
+$route['login']['POST'] 						= 'auth/logincontroller/store';			//validate login details
 
-$route['logout']['GET'] 				= 'auth/logincontroller/logout';		//destroy session
+$route['logout']['GET'] 						= 'auth/logincontroller/logout';		//destroy session
 
-$route['register']['GET']				= 'auth/registercontroller/create';		//display registration form
-$route['register']['POST']				= 'auth/registercontroller/store';		//validate registration details
+$route['register']['GET']						= 'auth/registercontroller/create';		//display registration form
+$route['register']['POST']						= 'auth/registercontroller/store';		//validate registration details
 
-$route['forgot']['GET'] 				= 'auth/forgotpasswordcontroller/create';	
-$route['forgot']['POST'] 				= 'auth/forgotpasswordcontroller/store';
+$route['forgot']['GET'] 						= 'auth/forgotpasswordcontroller/create';	
+$route['forgot']['POST'] 						= 'auth/forgotpasswordcontroller/store';
 
-$route['account/settings']['GET']		= 'auth/resetpasswordcontroller';
-$route['account/settings']['POST']		= 'auth/resetpasswordcontroller/change_password';
+$route['account/settings']['GET']				= 'auth/resetpasswordcontroller';
+$route['account/settings']['POST']				= 'auth/resetpasswordcontroller/change_password';
 
 /************************************************
 **					Modules
 *************************************************/
 
+$route['notifications']['GET']					= 'core_controller/notify';
+
 //User Permission: Tenant
-$route['dashboard']['GET'] 				= 'tenant_controller';
+$route['dashboard']['GET'] 						= 'tenant_controller';
 
 //User Permission: System Admin -------------------------------------------------------------------
-$route['admin']['GET'] 					= 'admin_controller';
+$route['admin']['GET'] 							= 'admin_controller';
 
 //User Permission: Farm Owner ---------------------------------------------------------------------
-$route['farm']['GET'] 					= 'user_controller/dashboard';
-$route['reports']['GET']				= 'reports_controller';
+$route['farm']['GET'] 							= 'user_controller/dashboard';
+$route['reports']['GET']						= 'reports_controller';
 
 //Other Module: Inventory -------------------------------------------------------------------------
 

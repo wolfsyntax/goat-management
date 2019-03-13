@@ -3,7 +3,9 @@
 class Core_Controller extends CI_Controller {
 
 	public function __construct() {
+
 		parent::__construct ();
+
 		$this->load->model('Goat_model');
 
 		if(!$this->session->userdata('user_id')) redirect(base_url());
@@ -36,6 +38,26 @@ class Core_Controller extends CI_Controller {
 
 		$this->load->library('calendar',$prefs);
 				
+	}
+
+	public function notify(){
+
+		$context = array(
+			
+			'body' 				=> 'modules/core/notify',
+			'title' 			=> 'Goat Management',
+			//'goat_record'		=>  $this->Goat_model->show_goat_record(),
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
+			),
+			'breadcrumb'		=> 'Manage Goat',
+			'current'			=> 'management',	
+
+		);
+
+		$this->load->view('layouts/application',$context);
+
+
 	}
 
 	public function index() {
@@ -364,6 +386,7 @@ class Core_Controller extends CI_Controller {
 		$this->form_validation->set_rules('category', 'Category', 'trim|required', array("required" => "{field} is required."));
 
 		$category = $this->input->post("category", TRUE);
+
 		$ref_id = $this->input->post("ref_id", TRUE);		
 
 		if($category === "birth"){
@@ -510,7 +533,7 @@ class Core_Controller extends CI_Controller {
 
 		$this->form_validation->set_rules("remarks","Notes","xss_clean|trim");						
 
-		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
+	//	$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
 
 		
 
@@ -531,6 +554,8 @@ class Core_Controller extends CI_Controller {
 		);
 
 		self::transaction_validation(FALSE);
+		
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
 
 		if($this->form_validation->run() === TRUE){
 
@@ -582,6 +607,8 @@ class Core_Controller extends CI_Controller {
 		);
 		
 		self::transaction_validation();
+		
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
 
 		if($this->form_validation->run() === FALSE){
 
@@ -652,6 +679,7 @@ class Core_Controller extends CI_Controller {
 		
 		//*
 		if(intval($sales_id) > 0){
+
 			if($this->Goat_model->remove_sales($sales_id)) {
 		
 				$this->session->set_flashdata("goat", "<div class='alert alert-success col-12' role='alert' style='height: 50px;'>
@@ -664,6 +692,7 @@ class Core_Controller extends CI_Controller {
 						</div>");
 
 			} else {
+
 				$this->session->set_flashdata("goat", "<div class='alert alert-danger col-12' role='alert' style='height: 50px;'>
 						<button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button>
 											
@@ -871,6 +900,8 @@ class Core_Controller extends CI_Controller {
 				'max_length'		=> "{field} cannot exceed 255 characters in length.",
 			)
 		);
+
+		$this->form_validation->set_error_delimiters('<small class="form-text text-danger">', '</small>');
 
 		if ($this->form_validation->run() == FALSE) {
 			

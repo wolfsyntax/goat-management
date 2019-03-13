@@ -35,8 +35,6 @@ class LoginController extends CI_Controller {
 			)
 		);
 
-		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
-
 		$this->form_validation->set_rules(
 			'passwd', 
 			'Password', 
@@ -46,6 +44,8 @@ class LoginController extends CI_Controller {
 				"min_length"	=> "{field} must be at least 8 characters in length.",
 			)
 		);
+
+		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");
 
 		if ($this->form_validation->run() == true) {
 			# code...

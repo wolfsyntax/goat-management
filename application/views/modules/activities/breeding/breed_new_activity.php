@@ -13,7 +13,7 @@
 			<?php $this->load->view('includes/breadcrumb') ?>	
 					
 			<div class="container-fluid mt-5 px-md-5 px-1">
-				<?= form_open("",array("style"=>"","class"=>"")); ?>
+				<?= form_open("",array("style"=>"","class"=>"", "onsbumi" => "check_form(this); return confirm_request(this)")); ?>
 					<?php $this->load->view("activities/_breeding_form") ?>
 				<?= form_close(); ?>
 			</div>

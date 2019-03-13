@@ -21,7 +21,7 @@
 					<div class="row px-3">
 						<div class="col">
 							<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
-							<?= form_open('', array('class'=>'form','style'=>'',"onsubmit"=>"return check_form(this);",));?>
+							<?= form_open('', array('class'=>'form','style'=>'',"onsubmit"=>"check_form(this); return confirm_request(this);",));?>
 								<?php $this->load->view("modules/transaction/_sales_form");?>
 							<?= form_close();?>
 							

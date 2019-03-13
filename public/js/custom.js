@@ -41,6 +41,24 @@ function set_prescription(e){
 
 });
 
+function proceed_healthCheck(e){
+	
+	//alert("Eartag ID: " + e.value);
+	//var base_url = <?php echo json_encode(base_url()) ?>;
+	if(e.value != ""){
+	//	alert(base_url);	
+		$("#redir_checkup").removeClass("disabled");
+		//location.replace("checkup/" + e.value + "/new");
+		$("#redir_checkup").attr("href", base_url + "checkup/" + e.value + "/new");
+
+	} else {
+
+		$("#redir_checkup").removeClass("disabled").addClass("disabled");
+
+	}
+	
+}
+
 function inventoryCheck(inventory_id, def_val, min_val){
 	//alert("Inventory (Default Value:"+def_val);
 
@@ -93,7 +111,7 @@ function check_form(e){
 		btn_text = "Saving...";
 
 	}
-
+	
 //	alert('Result::'+btn_text);
 	btn_text = msg + btn_text + "</span></div>&emsp;" + btn_text;
 //	alert(btn_text);
@@ -129,5 +147,58 @@ function checkInventoryValue(){
 		$("#update_btn").attr("disabled",false);
 
 	}
+
+}
+
+function confirm_request(obj){
+
+	
+
+	var msg;
+
+	//alert("URL:: " + obj.action);
+
+	var href = "";
+	var response = confirm("Are you sure to save this changes?");
+	
+	if (response == true) {
+  		href = obj.action;
+  		//msg = "You pressed OK!";
+  		//alert("Confirm Request");
+		//$("#"+obj.id).attr("action",href);	
+		location.replace(href);
+		return true;
+	} else {
+  	
+  		//alert("Cancel Request");
+		//href = $(location).attr("href");
+		//href = javascript::void(0);
+		//href= "";
+		//alert("Requested URL: " + obj.action + "\nPrevious URL: " + window.location.href);
+		//location.replace(href);
+		
+//		e.preventDefault();
+		location.reload(true);	
+		return false;
+		
+		
+		//$("#"+obj.id).attr("action",location.href);
+		//$("#"+obj.id).attr("action", window.location.href);
+		//return FALSE;
+
+		//e.preventDefault();
+
+		//location.replace(href);
+		//$("#"+obj.id).attr("action",href);	
+    	//location.reload(true);
+		
+
+	}	
+
+//	alert("Requested URL: " + obj.action + "\nPrevious URL: " + window.location.href);
+	//$("#"+obj.id).attr("action",href);	
+
+//	alert("URL: "+ , obj.action);
+	
 
 }

@@ -54,7 +54,7 @@
 								<?php } ?>
 								<tr>
 									<td class="col-3 p-2">Status</td>
-									<td class="col text-right p-2"><h5><span class="badge badge-danger "><?= ucfirst($row->status) ?></span></h5></td>
+									<td class="col text-right p-2"><h5><span class="badge badge-<?= $row->status == 'active' ? 'success' : 'danger'?>"><?= ucfirst($row->status) ?></span></h5></td>
 								</tr>
 								
 							</table>

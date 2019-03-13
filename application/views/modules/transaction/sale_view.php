@@ -18,7 +18,7 @@
 							
 							<div class="row">
 								<?php foreach($sale_record->result() as $row) {?>
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-lg-6">
 									<fieldset class="p-3">
 										<legend>Transaction Record</legend>
 
@@ -64,7 +64,7 @@
 									</fieldset>
 								</div>
 								
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-lg-6">
 									<fieldset class="mt-3">
 										<legend>Invoice Details</legend>
 										
