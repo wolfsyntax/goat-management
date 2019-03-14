@@ -1,6 +1,6 @@
-<?php $this->load->view('includes/header') ?>
+<?php //$this->load->view('includes/header') ?>
 
-<div class="container-fluid">
+<!--div class="container-fluid">
 	<div class="row">
 		<div class="col">
 			<main>
@@ -114,6 +114,21 @@
 			</main>
 		</div>
 	</div>
-</div>
+</div-->
 
-<?php $this->load->view('includes/footer') ?>
+<?php //$this->load->view('includes/footer') ?>
+
+<div class="container-fluid">
+
+	<div class="row align-items-center" style="height: 100vh !important;">
+		<div class="col">
+			<section class="p-5">
+				<h1>G.O.A.T.S</h1>
+				<h5><small class="form-text">Help track and manage herd</small></h5>
+				<a href="<?= base_url('login') ?>" class="btn btn-outline-primary mt-2">
+					Login
+				</a>
+			</section>
+		</div>
+	</div>
+</div>

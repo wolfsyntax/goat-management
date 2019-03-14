@@ -150,6 +150,10 @@ function checkInventoryValue(){
 
 }
 
+function confirm_remove(obj){
+	
+}
+
 function confirm_request(obj){
 
 	
