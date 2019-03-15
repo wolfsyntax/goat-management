@@ -32,6 +32,8 @@
 										</div>
 									</div>
 
+									
+
 									<div class="row">
 										<div class="col ml-3">
 											<div class="row table-responsive table-responsive-sm text-nowrap">
@@ -52,7 +54,10 @@
 													</thead>
 
 													<tbody>
-													<?php foreach($goat_record as $row) {?>
+
+													<?php if($this->session->userdata('goat_records') != FALSE) {
+
+														foreach($goat_record as $row) {?>
 														<tr>
 															<td><?= $row->eartag_id 			?></td>
 															<td><?= ucfirst($row->eartag_color) ?></td>
@@ -103,8 +108,7 @@
 															</td>
 														</tr>
 
-													<?php }?>
-
+													<?php } }?>
 													</tbody>
 												</table>  
 											</div>

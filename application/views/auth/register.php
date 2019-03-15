@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col">
-					<a href="<?= $this->agent->referrer() ?>" class="btn btn-link" title="Back"><span class="fa fa-arrow-left"></span></a>
+					<a href="<?= base_url() ?>" class="btn btn-link" title="Back"><span class="fa fa-arrow-left"></span></a>
 				</div>
 			</div>
 			<div class="row">

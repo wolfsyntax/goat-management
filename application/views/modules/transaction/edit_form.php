@@ -13,7 +13,23 @@
 			
 			<section class="py-2 mt-2">
 				<div class = "container pl-0 pl-lg-5 mt-2 mb-5">
+				<?php if($this->session->userdata('goat_records') == FALSE) { ?>
+							
+			
+					<div class="row mt-2">
+						<div class="col">
+									
+							<div class="alert alert-danger" role="alert">
+								<i class="fa fa-exclamation-circle"></i>&emsp;No goat records found! Click <a href="<?= base_url('goat/new') ?>" class="alert-link">here</a>&nbsp;to add new goat.
+							</div>					
+										
+						</div>
+					</div>					
+					
 
+			
+			
+				<?php } else { ?>
 					<div class="row mt-2 mb-5">
 						<div class="col p-0 p-lg-2 mb-5">
 							<div class="card shadow-none rounded-0 border-0">
@@ -131,6 +147,7 @@
 							</div>
 						</div>
 					</div>
+				<?php } ?>
 				</div>
 			</section>
 		</div>

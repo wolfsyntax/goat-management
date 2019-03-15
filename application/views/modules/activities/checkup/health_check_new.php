@@ -14,7 +14,22 @@
 					</div>
 				</div>				
 			</div>
-
+			<?php if($this->session->userdata('goat_records') == FALSE) { ?>
+			
+				
+				<div class="container">
+					<div class="row mt-2">
+						<div class="col">
+									
+							<div class="alert alert-danger" role="alert">
+								<i class="fa fa-exclamation-circle"></i>&emsp;No goat records found! Click <a href="<?= base_url('goat/new') ?>" class="alert-link">here</a>&nbsp;to add new goat.
+							</div>					
+									
+						</div>
+					</div>					
+				</div>
+			
+			<?php } else { ?>			
 			<div class="container">
 				
 
@@ -36,7 +51,7 @@
 														
 								<div class="row">
 									<p><span class="fa fa-exclamation-circle"></span>
-									<strong>Warning</strong>&emsp;No items in your inventory, <a class="text-primary" href="<?= base_url('inventory/new') ?>">click here</a> to continue</p>
+									<strong>Warning</strong>&emsp;No items in your inventory, click <a class="alert-link" href="<?= base_url('inventory/new') ?>">here</a> to continue</p>
 								</div>
 							</div>
 						<?php } else { ?>
@@ -260,6 +275,7 @@
 					</div>
 				</div>
 			</div>
+			<?php } ?>
 		</div>
 	</div>
 </div>

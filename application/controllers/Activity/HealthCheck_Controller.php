@@ -43,29 +43,37 @@ class HealthCheck_Controller extends CI_Controller {
 
 		$nickname = "";
 		
-		foreach($this->Goat_model->show_record("goat_profile", "eartag_id = {$eartag_id}", "nickname") as $row) {
-			$nickname = $row->nickname;
-		}
-
-		$context = array(
+		if($this->session->userdata('goat_records') == FALSE) {
 			
-			'body' 				=> 'modules/activities/checkup/health_check_new',
-			'title' 			=> 'Health Check: New',
-			'health_records'	=> $this->Goat_model->get_health_records($eartag_id),
-			'breadcrumbs'		=> array(
-				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
-				'Health Check'	=> 'health/view',
-			),
-			'breadcrumb'		=> 'Health Record for ID#'. $eartag_id,
-			'vaccine'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
-			'supplement'		=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),
-			'eartag'			=> $eartag_id,
-			'nickname'			=> $nickname,
-			'current'			=> 'checkup',
+			show_error("We can't find the page you're looking for.", 404, "Page Not Found");
+			
+		} else { 
+		
+			foreach($this->Goat_model->show_record("goat_profile", "eartag_id = {$eartag_id}", "nickname") as $row) {
+				$nickname = $row->nickname;
+			}
 
-		);
+			$context = array(
+				
+				'body' 				=> 'modules/activities/checkup/health_check_new',
+				'title' 			=> 'Health Check: New',
+				'health_records'	=> $this->Goat_model->get_health_records($eartag_id),
+				'breadcrumbs'		=> array(
+					'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
+					'Health Check'	=> 'health/view',
+				),
+				'breadcrumb'		=> 'Health Record for ID#'. $eartag_id,
+				'vaccine'			=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Vaccine'"),
+				'supplement'		=> $this->Goat_model->show_record('Inventory_Record',"item_type = 'Supplement'"),
+				'eartag'			=> $eartag_id,
+				'nickname'			=> $nickname,
+				'current'			=> 'checkup',
 
-		$this->load->view('layouts/application',$context);
+			);
+
+			$this->load->view('layouts/application',$context);
+
+		}
 
 	}
 

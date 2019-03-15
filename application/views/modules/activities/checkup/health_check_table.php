@@ -11,6 +11,25 @@
 				<?php $this->load->view('includes/breadcrumb') ?>
 			</section>
 
+			<?php if($this->session->userdata('goat_records') == FALSE) { ?>
+			
+			<section>
+				
+				<div class="container-fluid pl-5">
+					<div class="row mt-2">
+						<div class="col">
+									
+							<div class="alert alert-danger" role="alert">
+								<i class="fa fa-exclamation-circle"></i>&emsp;No goat records found! Click <a href="<?= base_url('goat/new') ?>" class="alert-link">here</a>&nbsp;to add new goat.
+							</div>					
+									
+						</div>
+					</div>					
+				</div>
+
+			</section>
+			
+			<?php } else { ?>
 			<section class="py-2 mt-2">
 				<div class="container-fluid ml-3">
 					
@@ -75,6 +94,7 @@
 
 				</div>
 			</section>
+		<?php } ?>
 		</div>
 	</div>
 </div>

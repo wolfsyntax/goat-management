@@ -11,11 +11,24 @@
 				<?php $this->load->view('includes/breadcrumb') ?>
 			</section>
 
+			<?php if($this->session->userdata('goat_records') == FALSE) { ?>
+			<section>
+				<div class="row mt-2">
+					<div class="col">
+								
+						<div class="alert alert-danger" role="alert">
+							<i class="fa fa-exclamation-circle"></i>&emsp;No goat records found! Click <a href="<?= base_url('goat/new') ?>" class="alert-link">here</a>&nbsp;to add new goat.
+						</div>					
+								
+					</div>
+				</div>					
+			</section>
+			<?php } else { ?>
 			<section class="pl-5">
 				<div class="container">
 					<div class="row" >
 						<div class="col">
-							
+						
 							<div class="row">
 								<?php foreach($sale_record->result() as $row) {?>
 								<div class="col-12 col-lg-6">
@@ -121,7 +134,8 @@
 						</div>
 					</div>
 				</div>				
-			</section>		
+			</section>	
+			<?php } ?>	
 		</div>
 	</div>
 </div>

@@ -9,6 +9,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			//$this->load->dbforge();
 
 			if(!$this->session->userdata('user_id')) redirect(base_url());
+
+			if(!$this->session->userdata('goat_records')){
+				if(self::show_goat_record()){
+					
+					$array = array(
+						'goat_records' => TRUE,
+					);
+					
+				} else {
+
+					$array = array(
+						'goat_records' => FALSE,
+					);
+
+				}
+
+				$this->session->set_userdata( $array );
+			}
 			
 		}
 

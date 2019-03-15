@@ -35,6 +35,18 @@
 						<?= ($this->session->flashdata('goat') ? $this->session->flashdata('goat') : ''); ?>
 					</div>
 					
+					<?php if($this->session->userdata('goat_records') == FALSE) { ?>
+					<div class="row mt-2">
+						<div class="col">
+						
+							<div class="alert alert-danger" role="alert">
+								<i class="fa fa-exclamation-circle"></i>&emsp;No goat records found! Click <a href="<?= base_url('goat/new') ?>" class="alert-link">here</a>&nbsp;to add new goat.
+							</div>					
+						
+						</div>
+					</div>					
+					<?php } ?>
+
 					<div class="row mt-0 pl-4">
 						<div class="col py-2 px-2">
 							<div class="row table-responsive table-responsive-sm text-nowrap">

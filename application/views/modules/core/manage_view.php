@@ -12,7 +12,9 @@
 			</section>
 			
 			<div class="container-fluid mb-5">
-				<?php foreach($goat_record as $row) {?>
+				<?php 
+				if($goat_record != FALSE) {
+					foreach($goat_record as $row) {?>
 				<div class="row px-3">
 					<div class="col-12 col-md-6">
 						<section class="py-2">
@@ -145,7 +147,15 @@
 						</div>						
 					</div>
 				</div>
+				<?php } 
+				} else { ?> 
+
+				<div class="alert alert-primary" role="alert">
+				  <i class="fa fa-exclamation-circle"></i>&emsp;No records found! Click <a href="<?= base_url('goat/new') ?>" class="alert-link">here</a>to add new goat.
+				</div>					
+
 				<?php } if($flag){ ?>
+				
 
 				<div class="row px-4 mt-4">
 					<div class="col">

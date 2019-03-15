@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			<div class="col">
 				<h1 class="display-1 text-center"><?= $status_code ?></h1>
-				<h5 class="display-4 text-center"><?= $heading ?></h5>
+				<h5 class="text-center"><?= $heading ?></h5>
 			</div>
 
 			<div class="col">
