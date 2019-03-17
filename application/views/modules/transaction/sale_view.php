@@ -50,7 +50,7 @@
 													Eartag ID
 												</td>
 												<td class="col text-right p-2">
-													<?= $row->eartag_id ?>
+													<?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?>
 												</td>
 											</tr>
 

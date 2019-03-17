@@ -47,7 +47,7 @@
 											<label class="col-form-label-sm col-12 col-md-6 col-lg-2">Tag ID</label>
 											
 											<div class="col">
-												<input type="text" class="form-control" name="eartag_id" value="<?= set_value('eartag_id')? set_value('eartag_id'): $row->eartag_id ?>" readonly="">
+												<input type="text" class="form-control" name="eartag_id" value="<?= str_pad((set_value('eartag_id')? set_value('eartag_id'): $row->eartag_id), 6, "0", STR_PAD_LEFT) ?>" readonly="">
 							
 												<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>			
 											</div>

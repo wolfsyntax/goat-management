@@ -33,7 +33,7 @@
 									<label class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Ear Tag ID <span class="text-danger">*</span></label>
 									
 									<div class="col">
-										<input type="text" name="eartag_id" id="eartag_id_stat" value="<?= $eartag_id ?>" class="form-control" readonly>
+										<input type="text" name="eartag_id" id="eartag_id_stat" value="<?= str_pad($eartag_id, 6, "0", STR_PAD_LEFT) ?>" class="form-control" readonly>
 										<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
 									</div>
 								</div>
@@ -118,7 +118,8 @@
 								</thead>
 															
 								<tbody>
-									<?php foreach($mrecord as $row) {?>
+									<?php if($mrecord) {
+										foreach($mrecord as $row) {?>
 									<tr>
 										<th scope="row" class="text-center"><?= $row->eartag_id ?></th>
 										<td class="text-center"><?= ucfirst($row->cause) ?></td>
@@ -132,7 +133,9 @@
 											</div>
 										</td>
 									</tr>
-									<?php }?>
+									<?php }
+										}
+									?>
 								</tbody>
 
 							</table>

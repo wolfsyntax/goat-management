@@ -739,13 +739,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		//SELECT * FROM birth_record WHERE birth_date NOT BETWEEN DATE_SUB(curdate(), INTERVAL 10 MONTH) AND CURDATE() AND birth_date < curdate()
 		
 		/**
-		** Goats that are 10 Months old and ready to be sold
+		** Goats that are 12 Months old and ready to be sold
 		**/
 		public function count_s(){
 
 		#	$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date NOT BETWEEN DATE_SUB(curdate(), INTERVAL 10 MONTH) AND curdate() AND gbp.acquire_date < curdate()";
 
-			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 10 MONTH) ";
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 12 MONTH) ";
 
 			$query = $this->db->query($sql);
 						

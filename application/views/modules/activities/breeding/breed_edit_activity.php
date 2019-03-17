@@ -24,10 +24,10 @@
 										<label class="col-lg-2 col-form-label form-control-label">Sire ID</label>                                           
 										<div class="col">
 
-											<select name="partner_id" id="sire_id_select" class="form-control" placeholder="Enter or Choose Tag Number" required="" value="<?= set_value('partner_id');?>">
+											<select name="partner_id" id="sire_id_select" class="form-control" placeholder="Enter or Choose Tag Number" required="" value="<?= str_pad(set_value('partner_id'), 6, "0", STR_PAD_LEFT) ?>">
 											
 											<?php foreach($sire_record as $row) {?>
-												<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
+												<option value="<?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></option>
 											<?php }?>
 											
 											</select>
@@ -41,10 +41,10 @@
 										<label class="col-lg-2 col-form-label form-control-label">Dam ID</label>                                           
 										<div class="col">
 									        
-											<select name="eartag_id" id="dam_id_select" class="form-control" placeholder="Enter or Choose Tag Number" required="" value="<?= set_value('eartag_id');?>">
+											<select name="eartag_id" id="dam_id_select" class="form-control" placeholder="Enter or Choose Tag Number" required="" value="<?= str_pad(set_value('eartag_id'), 6, "0", STR_PAD_LEFT) ?>">
 											
 											<?php foreach($dam_record as $row) {?>
-												<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
+												<option value="<?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></option>
 											<?php }?>
 											
 											</select>

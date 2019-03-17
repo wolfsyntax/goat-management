@@ -72,8 +72,8 @@
 												<?php if($breeding_record)  {
 													foreach($breeding_record as $row) {?>
 												<tr>
-													<td><?= $row->eartag_id ?></td>
-													<td><?= $row->sire_id ?></td>
+													<td><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></td>
+													<td><?= str_pad($row->sire_id, 6, "0", STR_PAD_LEFT) ?></td>
 													<td><?= $row->date_perform ?></td>
 													<td><?= $row->username ?></td>
 													<td><?= $row->due_date ?></td>

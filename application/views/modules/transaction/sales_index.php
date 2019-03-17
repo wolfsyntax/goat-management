@@ -68,7 +68,7 @@
 											if($goat_record){
 											foreach($goat_record->result() as $row){?>
 										<tr title="Sold <?= Carbon\Carbon::parse($row->transact_date)->diffForHumans() ." to ". $row->sold_to ?>">
-								        	<td>&nbsp;<?= $row->eartag_id; ?> (<?= $row->nickname ?>)</td>
+								        	<td>&nbsp;<?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?> (<?= $row->nickname ?>)</td>
 								        	<td><?= $row->transact_date; ?></td>
 								       	 	<td><?= $row->username;?></td>
 								        	<td><?= $row->price_per_kilo; ?></td>

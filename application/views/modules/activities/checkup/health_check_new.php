@@ -62,7 +62,7 @@
 										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Eartag ID&nbsp;</label>
 
 										<div class="col">
-											<input class="form-control" type="text" value="<?= $eartag ?>" name="eartag_id" readonly>	
+											<input class="form-control" type="text" value="<?= str_pad($eartag, 6, "0", STR_PAD_LEFT) ?>" name="eartag_id" readonly>	
 										</div>
 									</div>
 

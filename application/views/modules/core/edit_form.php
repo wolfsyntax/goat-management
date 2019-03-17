@@ -38,7 +38,7 @@
 												<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-4">Tag ID <span class="text-danger">*</span></label>
 
 												<div class="col col-sm-8 col-md-10 col-lg-8">
-													<input type="text" name="eartag_id" value="<?= set_value('eartag_id', $row->eartag_id);?>" placeholder="Eartag ID" class="form-control my-2 my-md-0" readonly>
+													<input type="text" name="eartag_id" value="<?= str_pad(set_value('eartag_id', $row->eartag_id), 6, "0", STR_PAD_LEFT);?>" placeholder="Eartag ID" class="form-control my-2 my-md-0" readonly>
 														
 													<?= (form_error('eartag_id')	!= "" ? form_error('eartag_id') : ''); ?>	
 												</div>

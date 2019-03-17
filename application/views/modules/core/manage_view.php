@@ -26,7 +26,7 @@
 								
 								<tr class="">
 									<td class="col-3 p-2">Eartag ID</td>
-									<td class="col text-right"><?= $row->eartag_id ?></td>
+									<td class="col text-right"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></td>
 								</tr>
 
 								<tr>

@@ -6,7 +6,7 @@
 		<select name="eartag_id" id="goat_id_select" class="form-control" placeholder="- Enter Ear Tag ID -" value="<?= set_value('eartag_id'); ?>" required>
 
 			<?php foreach($goat_record as $row) {?>           
-			<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?> (<?= $row->nickname ?>)</option>
+			<option value="<?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?> (<?= $row->nickname ?>)</option>
 			<?php } ?>
 		</select>
 		
