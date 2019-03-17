@@ -373,7 +373,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		
 		public function get_health_records($eartag_id){
 
-			$sql = "SELECT hr.checkup_type, act.date_perform, invr.item_name as prescription, hr.quantity, ua.username, act.remarks FROM activity as act, health_record as hr, inventory_record as invr, user_account as ua WHERE hr.activity_id = act.activity_id AND hr.inventory_id = invr.inventory_id AND act.user_id = ua.user_id AND act.eartag_id = {$eartag_id} AND gbp.eartag_id = {$eartag_id}";
+			$sql = "SELECT hr.checkup_type, act.date_perform, invr.item_name as prescription, hr.quantity, ua.username, act.remarks FROM activity as act, health_record as hr, inventory_record as invr, user_account as ua WHERE hr.activity_id = act.activity_id AND hr.inventory_id = invr.inventory_id AND act.user_id = ua.user_id AND act.eartag_id = {$eartag_id}";
 
 			$query = $this->db->query($sql);
 
