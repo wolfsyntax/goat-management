@@ -373,7 +373,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		
 		public function get_health_records($eartag_id){
 
-			$sql = "SELECT hr.checkup_type, act.date_perform, invr.item_name as prescription, hr.quantity, ua.username, act.remarks, gbp.acquire_date FROM activity as act, health_record as hr, inventory_record as invr, user_account as ua, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE hr.activity_id = act.activity_id AND hr.inventory_id = invr.inventory_id AND act.user_id = ua.user_id AND act.eartag_id = {$eartag_id} AND gbp.eartag_id = {$eartag_id}";
+			$sql = "SELECT hr.checkup_type, act.date_perform, invr.item_name as prescription, hr.quantity, ua.username, act.remarks FROM activity as act, health_record as hr, inventory_record as invr, user_account as ua WHERE hr.activity_id = act.activity_id AND hr.inventory_id = invr.inventory_id AND act.user_id = ua.user_id AND act.eartag_id = {$eartag_id} AND gbp.eartag_id = {$eartag_id}";
 
 			$query = $this->db->query($sql);
 
@@ -392,7 +392,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function get_all_health_records(){
 			
-			$sql = "SELECT hr.checkup_type, act.date_perform, invr.item_name as prescription, hr.quantity, ua.username, act.remarks, gp.nickname, gp.eartag_id, gp.eartag_color, gp.gender FROM activity as act, health_record as hr, inventory_record as invr, user_account as ua, goat_profile as gp WHERE hr.activity_id = act.activity_id AND hr.inventory_id = invr.inventory_id AND act.user_id = ua.user_id AND act.eartag_id = gp.eartag_id";
+			$sql = "SELECT hr.checkup_type, act.date_perform, invr.item_name as prescription, hr.quantity, ua.username, act.remarks, gp.nickname, gp.eartag_id, gp.eartag_color, gp.gender FROM activity as act, health_record as hr, inventory_record as invr, user_account as ua, goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE hr.activity_id = act.activity_id AND hr.inventory_id = invr.inventory_id AND act.user_id = ua.user_id AND act.eartag_id = gp.eartag_id AND gbp.eartag_id = gp.eartag_id";
 
 			$query = $this->db->query($sql);
 
