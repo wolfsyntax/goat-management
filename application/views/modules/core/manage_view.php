@@ -175,7 +175,8 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($child as $row) {?>
+										<?php if($child != FALSE) {
+											foreach($child as $row) {?>
 											<tr>
 												<td>
 													<?= $row->eartag_id ?>
@@ -190,7 +191,9 @@
 													<?= str_replace("ago", "old", Carbon\Carbon::parse($row->birth_date)->diffForHumans()) ?>
 												</td>
 											</tr>
-										<?php } ?>
+										<?php } 
+											}
+										?>
 									</tbody>
 								</table>
 							</div>
