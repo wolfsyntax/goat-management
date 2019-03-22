@@ -241,6 +241,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		} */
 
+		public function check_username($username){
+
+			$old_username = $this->session->userdata('username');
+
+			$this->db->where("username = '{$username}' OR username = '{$old_username}'");
+
+			$query = $this->db->get('User_Account');
+			echo $query->num_rows();
+			return ($query->num_rows() === 0 ? FALSE : TRUE);
+
+		}
+
+		public function update_info(){
+
+			if(!empty($_POST)){
+
+				$data = array(
+					"first_name" 	=> $this->input->post("first_name", TRUE),
+					"last_name"		=> $this->input->post("last_name", TRUE),
+					"username"		=> $this->input->post("username", TRUE),
+					"phone_number"	=> $this->input->post("phone", TRUE),
+				);
+
+				$this->db->where('User_ID',$this->session->userdata('user_id'));
+
+				if($this->db->update('user_account',$data)) {
+
+					$this->session->unset_userdata('username');
+					$this->session->unset_userdata('user_fname');
+					$this->session->unset_userdata('user_lname');
+					$this->session->unset_userdata('user_phone');
+
+					$this->session->set_userdata('username', $data['username']);
+					$this->session->set_userdata('user_fname', $data['first_name']);
+					$this->session->set_userdata('user_lname', $data['last_name']);
+					$this->session->set_userdata('user_phone', $data['phone_number']);
+
+					return TRUE;
+
+				} else {
+
+					return FALSE;
+
+				}
+			}
+
+		}
+
 		public function update_pass(){
 
 			if(!empty($_POST)){

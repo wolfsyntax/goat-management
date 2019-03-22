@@ -31,8 +31,14 @@
 									<div class="card py-0 bg-success">
 										<div class="card-body pt-0 pb-0">
 											<div class="row p-0 pl-2">
-												<div style="font-size: 100px;">
-  													 <i class="fa fa-shopping-cart fa-10x" style="color:white"></i>
+												<div class="col" style="font-size: 100px;">
+  													<i class="fa fa-shopping-cart fa-10x" style="color:white"></i>
+												</div>
+												<div class="col pt-5">
+													
+													<p class="form-text text-white">Sold: 0<br/>
+													Available: 0</br>Total Sales: &#8369;&nbsp;0.00</p>
+
 												</div>
 											</div>
 										</div>
@@ -47,8 +53,15 @@
 									<div class="card py-0 bg-info">
 										<div class="card-body pt-0 pb-0">
 											<div class="row p-0 pl-2">
-												<div style="font-size: 100px;">
+												<div class="col" style="font-size: 100px;">
   													<i class="fa fa-transgender" style="color:white"></i>
+												</div>
+
+												<div class="col pt-5">
+													
+													<p class="form-text text-white">Pregnant: 0<br/>
+													Can be breed: 0</p>
+
 												</div>
 											</div>
 										</div>
@@ -63,13 +76,20 @@
 									<div class="card py-0 bg-danger">
 										<div class="card-body pt-0 pb-0">
 											<div class="row p-0 pl-2">
-												<div style="font-size: 100px;">
+												<div class="col" style="font-size: 100px;">
   													<i class="fa fa-heartbeat" style="color:white"></i>
+												</div>
+
+												<div class="col pt-5">
+													
+													<p class="form-text text-white">Unhealthy: 0<br/>
+													Healthy: 0</p>
+
 												</div>
 											</div>
 										</div>
 										<div class="card-footer text-center text-white py-0 px-0" style="background: #e60000">
-											<a href="<?= base_url('health/view') ?>" class="nav-link font-weight-bolder text-white text-left">Perform Healthcheck&emsp;<span class="fa fa-arrow-circle-right fa-lg"></span></a>
+											<a href="<?= base_url('health/view') ?>" class="nav-link font-weight-bolder text-white text-left">Perform Health Check&emsp;<span class="fa fa-arrow-circle-right fa-lg"></span></a>
 										</div>
 
 									</div>

@@ -32,11 +32,11 @@
 										<div class="card-body pt-0 pb-0">
 											<div class="row p-0 pl-2">
 												<div class="col" style="font-size: 100px;">
-  													 <i class="fa fa-shopping-cart fa-10x" style="color:white"></i>
+  													<i class="fa fa-shopping-cart fa-10x" style="color:white"></i>
 												</div>
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Sold: 0</br/>
+													<p class="form-text text-white">Sold: 0<br/>
 													Available: 0</br>Total Sales: &#8369;&nbsp;0.00</p>
 
 												</div>
@@ -59,7 +59,7 @@
 
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Pregnant: 0</br/>
+													<p class="form-text text-white">Pregnant: 0<br/>
 													Can be breed: 0</p>
 
 												</div>
@@ -82,7 +82,7 @@
 
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Unhealthy: 0</br/>
+													<p class="form-text text-white">Unhealthy: 0<br/>
 													Healthy: 0</p>
 
 												</div>

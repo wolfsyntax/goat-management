@@ -68,6 +68,9 @@ $route['forgot']['POST'] 						= 'auth/forgotpasswordcontroller/store';
 $route['account/settings']['GET']				= 'auth/resetpasswordcontroller';
 $route['account/settings']['POST']				= 'auth/resetpasswordcontroller/change_password';
 
+$route['account/settings/edit']['GET']			= 'auth/editprofilecontroller';
+$route['account/settings/edit']['POST']			= 'auth/editprofilecontroller/update';
+
 /************************************************
 **					Modules
 *************************************************/

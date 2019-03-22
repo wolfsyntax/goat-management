@@ -23,8 +23,9 @@
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col">
-										<?php foreach($account as $row ) {?>
+										
 										<table class="table-hover table-borderless table" border="0">
+											<?php foreach($account as $row ) {?>
 											<tr class="border-0">
 												<td>
 													<strong>Username</strong>
@@ -65,8 +66,15 @@
 													<?= $row->phone_number ?>
 												</td>
 											</tr>
+											<?php } ?>
 										</table>	
-										<?php } ?>
+										
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col">
+										<a href="<?= base_url('account/settings/edit') ?>" class="nav-link float-right" ><i class="fa fa-pencil-square-o text-primary"></i>&nbsp;Edit Profile</a>	
 									</div>
 								</div>
 							</div>
