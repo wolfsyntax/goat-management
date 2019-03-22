@@ -38,6 +38,11 @@
               'type'            => 'INT',
               'constraint'      => 11,
             ),
+            'status'           => array(
+              'type'           => 'VARCHAR',
+              'constraint'     => 255,
+              'default'        => NULL, 
+            ),
           ));
 
           $this->dbforge->add_key('sales_id', TRUE);

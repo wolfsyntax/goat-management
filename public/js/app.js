@@ -16,6 +16,10 @@ $(document).ready(function(){
 		return false;
 	});
 	
+	//Hide options
+	$(".med_vaccine").hide();
+	$(".med_supplement").hide();
+	$(".item_info").hide();
 
 	//Disable right-click on body
 	$("body").on("contextmenu",function(e){
@@ -86,10 +90,13 @@ $(document).ready(function(){
 	);	
 
 
-
 	$("#gp_record").DataTable();
+//	alert('loaded data table');
+
 	$("#gs_record").DataTable();
-	
+
+	$("#gp_notif").DataTable();
+
 	//Editable Select tag		
 	$("#dam_id_select").editableSelect();
 	$("#sire_id_select").editableSelect();

@@ -108,7 +108,16 @@
 				
 	
 	<fieldset >
+		<div class="form-row p-1 pl-2">
+			<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
+
+			<div class="col">
+				<input type="date" name="birth_date" value="<?= set_value('birth_date');?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);"  >
 	
+				<span id="date_checker"><?= (form_error('birth_date')	!= "" ? form_error('birth_date') : ''); ?></span>	
+			</div>
+		</div>
+
 		<div class="form-row p-1 pt-3 ">
 			<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Category <span class="text-danger">*</span></label>
 			<div class="col">
@@ -120,15 +129,7 @@
 			</div>
 		</div>
 
-		<div class="form-row p-1 birth-elem">
-			<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
-
-			<div class="col">
-				<input type="date" name="birth_date" value="<?= set_value('birth_date');?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);"  >
-	
-				<span id="date_checker"><?= (form_error('birth_date')	!= "" ? form_error('birth_date') : ''); ?></span>	
-			</div>
-		</div>
+		
 
 		<div class="form-row p-1 birth-elem">
 			<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Dam ID <span class="text-danger">*</span></label>

@@ -11,6 +11,7 @@ class User_Controller extends CI_Controller {
 		if(!$this->session->userdata('user_type') == 'farm owner') show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden"); //show_404();
 
 		date_default_timezone_set("Asia/Manila");
+		$this->load->model('Goat_model');	
 
 		//Calendar Preference
 		$prefs = array(
@@ -54,9 +55,11 @@ class User_Controller extends CI_Controller {
 		
 			$context = array(
 				
-				'body' 				=> 'auth/users/index',
-				'title' 			=> 'Farm',
-				'current'			=> '',
+				'body' 					=> 'auth/users/index',
+				'recent_transaction' 	=> $this->Goat_model->recent_transactions(),
+				'recent_activity'		=> $this->Goat_model->recent_activity(),
+				'title' 				=> 'Farm',
+				'current'				=> 'farm',
 				
 			);
 

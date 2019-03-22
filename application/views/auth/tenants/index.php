@@ -1,4 +1,5 @@
 <?php $this->load->view('includes/header') ?>
+
 <div class="container-fluid">
 	<div class="row">
 
@@ -11,8 +12,7 @@
 				<div class="row">
 					<div class="col">
 						<section>
-							
-							<?php $this->load->view('includes/breadcrumb') ?>
+							<br>
 							<div class="container-fluid d-flex justify-content-end">
 								<i class="fa fa-clock-o pt-1"></i><span>&nbsp;<?= date('D | F d, Y') ?></span>
 							</div>
@@ -29,13 +29,15 @@
 							<div class="row pl-2">
 								<div class="col-12 col-lg-4 mt-2">
 									<div class="card py-0 bg-success">
-										<div class="card-body pt-3 pb-1">
-											<div class="row p-0">
-												A
+										<div class="card-body pt-0 pb-0">
+											<div class="row p-0 pl-2">
+												<div style="font-size: 100px;">
+  													 <i class="fa fa-shopping-cart fa-10x" style="color:white"></i>
+												</div>
 											</div>
 										</div>
 										<div class="card-footer text-center text-white py-0 px-0" style="background: #23923d;">
-											<a href="" class="nav-link font-weight-bolder text-white text-left">Add New Goat&emsp;<span class="fa fa-arrow-circle-right fa-lg"></span></a>
+											<a href="<?= base_url('goat/sales/new') ?>" class="nav-link font-weight-bolder text-white text-left">Sell a Goat&emsp;<span class="fa fa-arrow-circle-right fa-lg"></span></a>
 										</div>
 
 									</div>
@@ -43,27 +45,31 @@
 
 								<div class="col-12 col-lg-4 mt-2">
 									<div class="card py-0 bg-info">
-										<div class="card-body pt-3 pb-1">
-											<div class="row p-0">
-												A
+										<div class="card-body pt-0 pb-0">
+											<div class="row p-0 pl-2">
+												<div style="font-size: 100px;">
+  													<i class="fa fa-transgender" style="color:white"></i>
+												</div>
 											</div>
 										</div>
 										<div class="card-footer text-center text-white py-0 px-0" style="background: #148ea1;">
-											<a href="" class="nav-link font-weight-bolder text-white text-left">Add New Goat&emsp;<span class="fa fa-arrow-circle-right fa-lg"></span></a>
+											<a href="<?= base_url('breeding/new') ?>" class="nav-link font-weight-bolder text-white text-left">Perform Breeding&emsp;<span class="fa fa-arrow-circle-right fa-lg"></span></a>
 										</div>
 
 									</div>
 								</div>
 
 								<div class="col-12 col-lg-4 mt-2">
-									<div class="card py-0 bg-primary">
-										<div class="card-body pt-3 pb-1">
-											<div class="row p-0">
-												A
+									<div class="card py-0 bg-danger">
+										<div class="card-body pt-0 pb-0">
+											<div class="row p-0 pl-2">
+												<div style="font-size: 100px;">
+  													<i class="fa fa-heartbeat" style="color:white"></i>
+												</div>
 											</div>
 										</div>
-										<div class="card-footer text-center text-white py-0 px-0" style="background: #006fe6;">
-											<a href="" class="nav-link font-weight-bolder text-white text-left">Add New Goat&emsp;<span class="fa fa-arrow-circle-right fa-lg"></span></a>
+										<div class="card-footer text-center text-white py-0 px-0" style="background: #e60000">
+											<a href="<?= base_url('health/view') ?>" class="nav-link font-weight-bolder text-white text-left">Perform Healthcheck&emsp;<span class="fa fa-arrow-circle-right fa-lg"></span></a>
 										</div>
 
 									</div>
@@ -74,14 +80,14 @@
 					</div>
 				</div>
 
-				<div class="row mt-2">
+			<div class="row mt-4">
 					<div class="col-12">
 
 						<section class="pl-2">
 
-							<div class="card mb-2">
+							<div class="card mb-2 shadow-none rounded-0">
 								
-								<div class="card-header"><span class="fa fa-clock"></span>&emsp;Recent Activities</div>
+								<div class="card-header border-0"><span class="fa fa-history"></span>&emsp;Recent Activities</div>
 								
 								<div class="card-body">
 									<div class="row px-3 pt-2">
@@ -89,19 +95,46 @@
 											<table class="table table-bordered">
 												<thead>
 													<tr>
-														<th>A</th>
-														<th>B</th>
-														<th>C</th>
-														<th>D</th>
-														<th>E</th>
+														<th>Eartag ID</th>
+														<th>Date</th>
+														<th>User</th>
 														<th class="text-center" width="100px;">Activity Type</th>
-														<th>G</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td colspan="7" class="text-center" style="background: #d2d2d2;"><i>No records found.</i></td>
-													</tr>
+													<?php
+														if($recent_activity != FALSE) {
+															foreach($recent_activity as $row) { ?>
+														<tr>
+															<td>
+																<span class="badge text-white <?php 
+																switch ($row->eartag_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucwords($row->nickname)?>)
+															</td>
+															<td><?= $row->date_perform ?></td>
+															<td><?= $row->username?></td>
+															<td><?= ucwords($row->activity_type) ?></td>
+														</tr>
+													<?php } 
+														} else {
+													 ?>
+													 	<tr><td colspan="7" class="text-center"><i>No transaction found.</i></td></tr>
+													 <?php
+														}
+													?>
 													<!-- tr>
 														<td>1</td>
 														<td>2</td>
@@ -123,27 +156,58 @@
 
 						<section class="pl-2">
 							
-							<div class="card my-2 shadow-none border-0 rounded-0 ">
-								<div class="card-header bg-light border-0"><span class="fa fa-clock"></span>&emsp;Recent Transaction</div>
+							<div class="card my-2 shadow-none rounded-0 ">
+								<div class="card-header border-0"><span class="fa fa-money"></span>&emsp;Recent Transaction</div>
 								<div class="card-body">
 									<div class="row px-3 pt-2">
 										<div class="table-responsive table-responsive-sm text-nowrap">
 											<table class="table table-bordered">
 												<thead>
 													<tr>
-														<th>A</th>
-														<th>B</th>
-														<th>C</th>
-														<th>D</th>
-														<th>E</th>
-														<th class="text-center" width="100px;">Activity Type</th>
-														<th>G</th>
+														<th>Eartag ID</th>
+														<th>Buyer</th>
+														<th>Username</th>
+														<th>Date</th>
+														<th>Total</th>
+
+												
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td colspan="7" class="text-center"><i>No transaction found.</i></td>
-													</tr>
+													<?php
+														if($recent_transaction != FALSE) {
+															foreach($recent_transaction as $row) { ?>
+														<tr>
+															<td>
+																<span class="badge text-white <?php 
+																switch ($row->eartag_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucwords($row->nickname) ?>)		
+															</td>
+															<td><?= ucwords($row->sold_to) ?></td>
+															<td><?= $row->username?></td>
+															<td><?= $row->transact_date?></td>
+															<td><?= floatval($row->weight) * floatval($row->price_per_kilo) ?></td>
+														</tr>
+													<?php } 
+														} else {
+													 ?>
+													 	<tr><td colspan="7" class="text-center"><i>No transaction found.</i></td></tr>
+													 <?php
+														}
+													?>
 														<!-- tr>
 															<td>1</td>
 															<td>2</td>
@@ -165,6 +229,10 @@
 
 					</div>
 
+					<div class="col-12 col-md-12 col-lg-4">
+						
+						
+					</div>
 				</div>
 
 				<div class="row px-2">

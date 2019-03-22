@@ -27,21 +27,21 @@
 										<table class="table-hover table-borderless table" border="0">
 											<tr class="border-0">
 												<td>
-													Username:
+													<strong>Username</strong>
 												</td>
 												<td class="text-right">
 													<?= $row->username ?>
 												</td>
 											</tr>
 											<tr class="border-0">
-												<td>Account Type</td>
+												<td><strong>Account Type</strong></td>
 												<td class="text-right">
 													<?= ucwords($row->account_type) ?>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													First Name
+													<strong>First Name</strong>
 												</td>
 												<td class="text-right">
 													<?= ucwords($row->first_name) ?>
@@ -50,7 +50,7 @@
 
 											<tr>
 												<td>
-													Last Name
+													<strong>Last Name</strong>
 												</td>
 												<td class="text-right">
 													<?= ucwords($row->last_name) ?>
@@ -59,7 +59,7 @@
 
 											<tr>
 												<td>
-													Phone Number
+													<strong>Phone Number</strong>
 												</td>
 												<td class="text-right">
 													<?= $row->phone_number ?>

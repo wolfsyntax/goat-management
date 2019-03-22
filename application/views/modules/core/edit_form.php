@@ -215,7 +215,16 @@
 				
 	
 									<fieldset >
+										<div class="form-row p-1">
+											<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
+
+											<div class="col">
+												<input type="date" name="birth_date" value="<?= set_value('birth_date', $row->acquire_date);?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);"  >
 									
+												<span id="date_checker"><?= (form_error('birth_date')	!= "" ? form_error('birth_date') : ''); ?></span>	
+											</div>
+										</div>
+
 										<div class="form-row p-1 pt-3 ">
 											<label class="col-form-label-sm col-12 col-sm-4 col-md-2 col-lg-2">Category <span class="text-danger">*</span></label>
 											<div class="col">
@@ -227,21 +236,13 @@
 											</div>
 										</div>
 
-										<div class="form-row p-1 birth-elem">
-											<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Birth Date <span class="text-danger">*</span></label>
-
-											<div class="col">
-												<input type="date" name="birth_date" value="<?= set_value('birth_date', $row->acquire_date);?>" placeholder="Date of Birth" class="form-control" onchange="check_date_format(this);"  >
-									
-												<span id="date_checker"><?= (form_error('birth_date')	!= "" ? form_error('birth_date') : ''); ?></span>	
-											</div>
-										</div>
+										
 
 										<div class="form-row p-1 birth-elem">
 											<label class="col-form-label-sm col-4 col-sm-4 col-md-2 col-lg-2">Dam ID <span class="text-danger">*</span></label>
 														
 											<div class="col">
-												<select name="dam_id" id="dam_id_select" class="form-control" placeholder="- Enter Dam ID -" value="<?= set_value('dam_id', $row->dam_id); ?>" onchange="eartag_checker()">
+												<select name="dam_id" id="dam_id_select" class="form-control" placeholder="- Enter Dam ID -" value="<?= set_value('dam_id', str_pad($row->dam_id, 6, "0", STR_PAD_LEFT)); ?>" onchange="eartag_checker()">
 
 													<?php foreach($dam_record as $row){ ?>
 														<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
@@ -258,10 +259,10 @@
 													
 											<div class="col">
 										
-												<select name="sire_id" id="sire_id_select" class="form-control" placeholder="- Enter Sire ID -" value="<?= set_value('sire_id', $sire_id);?>" onchange="eartag_checker()" >
+												<select name="sire_id" id="sire_id_select" class="form-control" placeholder="- Enter Sire ID -" value="<?= set_value('sire_id', str_pad($sire_id, 6, "0", STR_PAD_LEFT));?>" onchange="eartag_checker()" >
 
 													<?php foreach($sire_record as $row){ ?>
-														<option value="<?= $row->eartag_id; ?>"><?= $row->eartag_id; ?></option>
+														<option value="<?= $row->eartag_id; ?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT); ?></option>
 													<?php } ?>                                	
 												</select>
 															

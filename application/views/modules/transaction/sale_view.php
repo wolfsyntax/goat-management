@@ -72,6 +72,15 @@
 												</td>
 											</tr>
 
+											<tr class="row">
+												<td class="col-3 p-2">
+													Status
+												</td>
+												<td class="col text-right p-2">
+													<?= ucfirst($row->status) ?>
+												</td>
+											</tr>
+
 										</table>
 
 									</fieldset>

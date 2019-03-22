@@ -42,8 +42,6 @@
 													<thead class="bg-dark text-white text-center">
 														<tr>				        
 															<th>Eartag ID</th>
-															<th>Eartag Color</th>
-															<th>Nickname</th>
 															<th>Body Color</th>
 															<th>Gender</th>
 															<th>Age</th>
@@ -59,12 +57,26 @@
 
 														foreach($goat_record as $row) {?>
 														<tr>
-															<td><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></td>
-															<td><?= ucfirst($row->eartag_color) ?></td>
-															<td><?= ucfirst($row->nickname) 	?></td>
+															<td><span class="badge text-white <?php 
+																switch ($row->eartag_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucfirst($row->nickname) 	?>)</td>
+															
 															<td><?= ucfirst($row->body_color) 	?></td>
 															<td><?= ucfirst($row->gender) 		?></td>
-															<td><?= str_replace("ago", "old", Carbon\Carbon::parse($row->acquire_date)->diffForHumans()) ?></td>
+															<td><?= str_replace("ago", "old", Carbon\Carbon::parse($row->birth_date)->diffForHumans()) ?></td>
 															<td><?= ucfirst($row->category) 	?></td>
 															<td title="<?= ucfirst($row->status) ?>"><?= ucfirst($row->status) == "Active" ? "Active" : (ucfirst($row->status) == "Sold" ? "Sold" : "Inactive") ?></td>
 															<td>

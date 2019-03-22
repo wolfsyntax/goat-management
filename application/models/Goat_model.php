@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function get_child($eartag_id){
 
-			$sql = "SELECT gp.eartag_id, br.birth_date, gp.gender FROM birth_record as br, goat_profile as gp WHERE gp.eartag_id = br.eartag_id AND br.dam_id = {$eartag_id}";
+			$sql = "SELECT gp.eartag_id, gp.birth_date, gp.gender FROM birth_record as br, goat_profile as gp WHERE gp.eartag_id = br.eartag_id AND br.dam_id = {$eartag_id}";
 
 			$query = $this->db->query($sql);
 
@@ -48,13 +48,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
-		public function get_breeding_nofification(){
+		public function get_unhealthy_goat(){  //*w
 
-			$curr_date = Carbon::now()->format('Y-m-d');
-			$date_3Dbefore = Carbon\Carbon::parse($curr_date)->subDays(3)->format('Y-m-d');
-
-			//Fix this
-			$sql = "SELECT act.eartag_id, br.due_date, br.is_pregnant, gp.nickname FROM goat_profile as gp, activity as act, breeding_record as br WHERE gp.eartag_id = act.eartag_id AND br.activity_id = act.activity_id AND br.due_date BETWEEN {$date_3Dbefore} AND {$curr_date}";
+			$sql="SELECT * FROM goat_profile WHERE status='active' AND eartag_id NOT IN (SELECT act.eartag_id FROM activity AS act, health_record AS hr  WHERE hr.activity_id=act.activity_id)";
 
 			$query = $this->db->query($sql);
 
@@ -67,6 +63,76 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				return FALSE;
 
 			}
+
+		}
+
+		public function recent_transactions(){
+
+			$curr_date = Carbon\Carbon::now()->format('Y-m-d');
+			$date_7Dbefore = Carbon\Carbon::parse($curr_date)->addDays(7)->format('Y-m-d');
+			//echo "<script>alert('{$date_7Dbefore} {$curr_date}') </script>";
+			//Fix this
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gs.sold_to, users.username, gp.nickname, gs.transact_date, gs.price_per_kilo, gs.weight FROM goat_profile as gp, goat_sales as gs, user_account as users WHERE gp.eartag_id = gs.eartag_id AND users.user_id = gs.user_id AND gs.transact_date BETWEEN '{$curr_date}' AND '{$date_7Dbefore}'";
+
+			$query = $this->db->query($sql);
+
+			if($query->num_rows() > 0){
+				
+				return $query->result();	//return TRUE;			
+
+			} else {
+
+				return FALSE;
+
+			}
+
+		}
+
+		public function recent_activity(){
+
+			$curr_date = Carbon\Carbon::now()->format('Y-m-d');
+			$date_7Dbefore = Carbon\Carbon::parse($curr_date)->subDays(7)->format('Y-m-d');
+			//echo "<script>alert('{$date_7Dbefore} {$curr_date}') </script>";
+			//Fix this
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.nickname, ga.date_perform, users.username, ga.activity_type FROM goat_profile as gp, activity as ga, user_account as users WHERE gp.eartag_id = ga.eartag_id AND users.user_id = ga.user_id AND ga.date_perform BETWEEN '{$date_7Dbefore}' AND '{$curr_date}'";
+			//echo "<script>alert('{$curr_date} {$date_7Dbefore}')</script>";
+
+			$query = $this->db->query($sql);
+
+			if($query->num_rows() > 0){
+				
+				return $query->result();	//return TRUE;			
+
+			} else {
+
+				return FALSE;
+
+			}
+
+		}
+
+
+		public function get_breeding_notification(){
+
+			$curr_date = Carbon\Carbon::now()->format('Y-m-d');
+			$date_7Dbefore = Carbon\Carbon::parse($curr_date)->addDays(7)->format('Y-m-d');
+			//echo "<script>alert('{$date_7Dbefore} {$curr_date}') </script>";
+			//Fix this
+			$sql = "SELECT act.eartag_id, br.due_date, br.is_pregnant, gp.nickname FROM goat_profile as gp, activity as act, breeding_record as br WHERE gp.eartag_id = act.eartag_id AND br.activity_id = act.activity_id AND br.due_date BETWEEN '{$curr_date}' AND '{$date_7Dbefore}'";
+
+			$query = $this->db->query($sql);
+
+			if($query->num_rows() > 0){
+				
+				return $query->result();	//return TRUE;			
+
+			} else {
+
+				return FALSE;
+
+			}
+
+			//due_date >= DATE(NOW()) - INTERVAL 7 DAY
 
 		}
 		//save
@@ -122,6 +188,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 				
 			}
+		}
+
+
+		public function get_loss_record(){
+			
+			$sql = "SELECT act.eartag_id, act.date_perform, loss.cause, act.remarks, users.username FROM activity as act, loss_management as loss, user_account as users WHERE act.activity_id = loss.activity_id AND users.user_id = act.user_id";
+
+			$query = $this->db->query($sql);
+			
+			if($query->num_rows() > 0){			
+
+				return $query->result();
+
+			} else {
+
+				return FALSE;
+			
+			}
+
 		}
 
 		public function loss_record(){
@@ -181,16 +266,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				$response = $this->input->post("preg_select", TRUE);
 
-				$data = array(
-					"is_pregnant"	=> strtolower($response),
-					"due_date"		=>  Carbon\Carbon::parse($row->acquire_date)->addDays(150),
-				);
+				$sql = "SELECT * FROM activity WHERE activity_id = {$activity_id}";
 
-				return self::edit_record("breeding_record", $data, "activity_id", $activity_id);	
+				$query = $this->db->query($sql);
+			
+				if($query->num_rows() > 0){			
+					
+					$dday = "";
+					
+					foreach($query->result() as $row){
+
+						$dday = $row->date_perform;
+					}
+					
+					//echo "<h1>The DAY {$dday}</h1>";
+
+
+					//echo "<script>alert('wait')</script>";
+					$data = array(
+						"is_pregnant"	=> strtolower($response),
+						"due_date"		=>  Carbon\Carbon::parse($dday)->addDays(150),
+					);
+
+					return self::edit_record("breeding_record", $data, "activity_id", $activity_id);	
+ 			
+	 			} else {
+						
+						return FALSE;
+
+				}
 
 			}			
 
 		}
+
 
 		public function add_goat($category, $edit = FALSE){
 
@@ -208,6 +317,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					"body_color"	=> strtolower($this->input->post("body_color", TRUE)),
 					"is_castrated"	=> $gender === "female" ? "N/A" : ($this->input->post('is_castrated',TRUE) ? "Yes" : "No"),
 					"category"		=> strtolower($category),
+					"birth_date"	=> $this->input->post("birth_date", TRUE),
 				);
 
 				$table_name = "goat_profile";
@@ -216,12 +326,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				if($category == "birth"){
 					
-				//	echo "<h1>BIRTH</h1>";
+					echo "<h1>BIRTH</h1>";
 
 					$data = array(
 
 						"eartag_id"		=> $eartag_id,
-						"birth_date"	=> $this->input->post("birth_date", TRUE),
 						"sire_id"		=> $this->input->post("sire_id", TRUE),
 						"dam_id"		=> $this->input->post("dam_id", TRUE)
 
@@ -231,7 +340,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				}else if($category == "purchase"){
 					
-					//echo "<h1>PURCHASE</h1>";
+					echo "<h1>PURCHASE</h1>";
 
 					$data = array(
 							
@@ -277,6 +386,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					"sold_to"			=> $this->input->post("sold_to", TRUE),
 					"remarks"			=> strtolower($remarks ? $remarks : "N/A"),
 					"eartag_id"			=> $eartag_id,
+					"status"			=> "Sold",
 
 				);
 
@@ -301,7 +411,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function is_breed($eartag_id){
 
-			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id,gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 10 MONTH) AND gp.eartag_id = '{$eartag_id}'";
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.birth_date, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id,gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 10 MONTH) AND gp.eartag_id = '{$eartag_id}'";
 
 			$query = $this->db->query($sql);
 
@@ -320,16 +430,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function goat_breed($gender){
 
-			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 10 MONTH) AND gp.gender = '{$gender}' AND gp.status = 'active'";
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gp.birth_date, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gp.birth_date <= DATE_SUB(curdate(), INTERVAL 10 MONTH) AND gp.gender = '{$gender}' AND gp.status = 'active'";
 
 			$query = $this->db->query($sql);
 			
 			if($query->num_rows() > 0){
-				
+				//echo "<h1>RECORDS FOUND!</h1>";
 				return $query->result();		
 
 			} else {
-
+				//echo "<h1>RECORDS NOT FOUND!</h1>";
 				return FALSE;
 
 			}
@@ -392,7 +502,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function get_all_health_records(){
 			
-			$sql = "SELECT hr.checkup_type, act.date_perform, invr.item_name as prescription, hr.quantity, ua.username, act.remarks, gp.nickname, gp.eartag_id, gp.eartag_color, gp.gender, gbp.acquire_date FROM activity as act, health_record as hr, inventory_record as invr, user_account as ua, goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE hr.activity_id = act.activity_id AND hr.inventory_id = invr.inventory_id AND act.user_id = ua.user_id AND act.eartag_id = gp.eartag_id AND gbp.eartag_id = gp.eartag_id";
+			$sql = "SELECT DISTINCT act.eartag_id, gp.eartag_color, gp.nickname, gp.gender, gp.birth_date, gbp.acquire_date, gp.birth_date FROM activity as act, goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gbp.eartag_id = gp.eartag_id AND act.eartag_id = gp.eartag_id";
 
 			$query = $this->db->query($sql);
 
@@ -410,7 +520,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function show_active_goats(){
 
-			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.nickname, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gp.status = 'active'";
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.nickname, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gp.birth_date, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gp.status = 'active'";
+			
+			$query = $this->db->query($sql);			
+			
+			if($query->num_rows() > 0){
+			
+				return $query->result();
+			
+			} else {
+
+				return FALSE;
+			
+			}
+
+		}
+
+		public function goats_can_be_sold(){
+
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.nickname, gp.body_color, gp.is_castrated, gp.status, gp.birth_date, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gp.status = 'active'AND gbp.acquire_date <= DATE_SUB(CURDATE(), INTERVAL 12 MONTH )";
 			
 			$query = $this->db->query($sql);			
 			
@@ -428,7 +556,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		
 		public function show_goat_record(){
 
-			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id";
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.birth_date, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id";
 			
 			$query = $this->db->query($sql);
 			
@@ -447,7 +575,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function available_goat(){
 
-			$sql = "SELECT gp.eartag_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 1 YEAR) AND gp.status = 'active'";
+			$sql = "SELECT gp.eartag_id, gp.nickname, gp.birth_date FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gp.birth_date <= DATE_SUB(curdate(), INTERVAL 1 YEAR) AND gp.status = 'active'";
 
 			$query = $this->db->query($sql);
 			
@@ -467,7 +595,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 		//	echo "<h1>Eartag ID: #{$eartag_id}</h1>";
 
-			$sql = "SELECT gp.eartag_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 1 YEAR) AND gp.eartag_id = {$eartag_id} AND gp.status = 'active'";
+			$sql = "SELECT gp.eartag_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gp.birth_date <= DATE_SUB(curdate(), INTERVAL 1 YEAR) AND gp.eartag_id = {$eartag_id} AND gp.status = 'active'";
 
 			$query = $this->db->query($sql);
 			
@@ -486,7 +614,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function show_sales($sale_id){
 			
-			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gp.nickname, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id AND gs.sales_id = {$sale_id}");
+			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gp.nickname, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to, gs.status FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id AND gs.sales_id = {$sale_id}");
 
 //			if($query->num_rows() > 0)
 				return $query;
@@ -494,13 +622,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 
+
+
 		public function show_all_sales(){
 			
-			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gp.nickname, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id");
+			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gp.eartag_color, gp.nickname, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to, gs.status FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id");
 
-//			if($query->num_rows() > 0)
-				return $query;
-//			else return false;
+			if($query->num_rows() > 0)
+				return $query->result();
+			else return false;
+
 		}
 	
 		public function get_goat_info($category = "birth", $ref_id){
@@ -510,7 +641,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	//		$sql = "";
 //			echo "<h1>Get GOAT Info {$category}</h1>";
 
-			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.record_id = {$ref_id} AND gp.category = '{$category}'";
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gp.birth_date, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.record_id = {$ref_id} AND gp.category = '{$category}'";
 			
 			$query = $this->db->query($sql);
 			
@@ -546,6 +677,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					"sold_to"			=> $this->input->post("sold_to", TRUE),
 					"remarks"			=> $remarks ? $remarks : "N/A",
 					"eartag_id"			=> $eartag_id,
+					"status"			=> "sold",
 
 				);
 
@@ -574,7 +706,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			}
 
-			if(self::delete_record("goat_sales", "sales_id = {$sales_id}")){
+			$data = array(
+				"status" => "returned",
+			);
+
+			if(self::edit_record("goat_sales", $data,"sales_id", $sales_id)){
 				$data = array(
 					"status" => "active",
 				);
@@ -627,6 +763,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			
 		}
+
+
 
 		public function edit_goat($ref_id) {
 
@@ -745,7 +883,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		#	$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date NOT BETWEEN DATE_SUB(curdate(), INTERVAL 10 MONTH) AND curdate() AND gbp.acquire_date < curdate()";
 
-			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, birth_date as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 12 MONTH) ";
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 12 MONTH) ";
 
 			$query = $this->db->query($sql);
 						

@@ -52,7 +52,7 @@
 											<div class="col">
 
 												<select name="partner_id" id="sire_id_select" class="form-control" placeholder="Enter or Choose Tag Number" required="" value="<?= set_value('partner_id');?>">
-											
+													<!--option>-- Please Select --</option-->
 												<?php foreach($sire_record as $row) {?>
 													<option value="<?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></option>
 												<?php }?>
@@ -69,7 +69,7 @@
 											<div class="col">
 										        
 												<select name="eartag_id" id="dam_id_select" class="form-control" placeholder="Enter or Choose Tag Number" required="" value="<?= set_value('eartag_id');?>">
-												
+													<!--option>-- Please Select --</option -->
 												<?php foreach($dam_record as $row) {?>
 													<option value="<?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></option>
 												<?php }?>

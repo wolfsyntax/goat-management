@@ -83,6 +83,9 @@ $route['admin']['GET'] 							= 'admin_controller';
 //User Permission: Farm Owner ---------------------------------------------------------------------
 $route['farm']['GET'] 							= 'user_controller/dashboard';
 $route['reports']['GET']						= 'reports_controller';
+$route['reports/profile']['GET']				= 'reports_controller/profile';
+$route['reports/sales']['GET']					= 'reports_controller/sales';
+$route['reports/loss']['GET']					= 'reports_controller/loss';
 
 //Other Module: Inventory -------------------------------------------------------------------------
 

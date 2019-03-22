@@ -132,8 +132,11 @@
 		</div>
 	</div>
 </div>
+
 <script type="text/javascript">
-	var x = 1;
-	var y = 'a';
 	
+	//* /*/ //*/
+	/*var x = 1;*/
+	var y = 'a';
+	//* /*/ //*/	
 </script>

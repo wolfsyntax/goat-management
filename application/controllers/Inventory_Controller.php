@@ -74,10 +74,11 @@ class Inventory_Controller extends CI_Controller {
 			)
 		);
 
-		$this->form_validation->set_rules('quantity', 'Quantity', 'trim|required|numeric',
+		$this->form_validation->set_rules('quantity', 'Quantity', 'trim|required|numeric|greater_than[0]',
 			array(
 				'required' 		=> '{field} is required.', 
 				'numeric'		=> '{field} must contain only numbers.',
+				'greater_than'	=> '{field} must be greater than zero.',
 			)
 		);
 

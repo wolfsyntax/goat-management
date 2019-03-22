@@ -3,6 +3,7 @@
       class Migration_Goat_Profile extends CI_Migration {
 
         public function up() {
+          
           $this->dbforge->add_field(array(
             'eartag_id'     => array(
               'type'        => 'INT',
@@ -37,6 +38,10 @@
             'category'      => array(
               'type'        => 'VARCHAR',
               'constraint'  => 255,
+            ),
+            'birth_date'        => array(
+              'type'            => 'DATE',
+              'default'         => NULL,
             ),
           ));
 

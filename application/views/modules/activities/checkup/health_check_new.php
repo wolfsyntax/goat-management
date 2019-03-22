@@ -61,7 +61,7 @@
 									<div class="form-row p-1">
 										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Eartag ID&nbsp;</label>
 
-										<div class="col">
+										<div class="col pl-4">
 											<input class="form-control" type="text" value="<?= str_pad($eartag, 6, "0", STR_PAD_LEFT) ?>" name="eartag_id" readonly>	
 										</div>
 									</div>
@@ -69,7 +69,7 @@
 									<div class="form-row p-1">
 										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Nickname&nbsp;</label>
 
-										<div class="col">
+										<div class="col pl-4">
 											<input class="form-control" type="text" value="<?= $nickname ?>" readonly>	
 										</div>
 									</div>
@@ -77,8 +77,8 @@
 									<div class="form-row p-1">
 										<label class="col-form-label-sm col-4 col-sm-4 col-md-3 col-lg-2">Check-Up Type&nbsp;<span class="text-danger">*</span></label>
 												
-										<div class="col">
-											<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="" required="" id="hcheck_type">
+										<div class="col pl-4">
+											<select name="checkup_type" class="form-control" placeholder="-- Enter Check-Up Type --" value="" required="" id="hcheck_type" onchange="show_ctype(this)">
 											<?php if(set_value('checkup_type') == "vaccination") {?>
 
 												<option value="">-- Please select --</option>
@@ -106,40 +106,50 @@
 
 									</div>
 
-									<div class="form-row">
+									<div class="form-row item_info d-none mt-2">
 										<label class="col-form-label-sm col-4 col-sm-4 col-lg-2">Item Name&nbsp;<span class="text-danger">*</span></label>
 										
 										<input type="hidden" name="prescription" id="prescription" required="">	
 
-										<div class="col" id="med_vaccine">
+										<div class="col mx-2">
 
-											
-											<select class="form-control" onchange="set_prescription(this); " >
-												<option value="">-- Please select --</option>
-											<?php foreach($vaccine as $row) {?>
-												
-												<option value="<?= $row->inventory_id ?>"><?= ucfirst($row->item_name)?>(<?= $row->quantity ?>)</option>
+											<section class="">
+												<div class="container px-5">
+													<div class="row d-block px-5">
+														<div class="col col-md-9 d-inline-block p-0">
+															<select class="form-control med_vaccine" onchange="set_prescription(this); " >
+																<option value="">-- Please select --</option>
+															<?php foreach($vaccine as $row) {?>
+																
+																<option value="<?= $row->inventory_id ?>"><?= ucfirst($row->item_name)?>(<?= $row->quantity ?>)</option>
 
-											<?php }?>
+														<?php }?>
 
-											</select>
+															</select>
 														
-											<?= (form_error('prescription') != "" ? form_error('prescription') : ''); ?>
+															<select class="form-control med_supplement" onchange="set_prescription(this)" >
+																<option value="">-- Please select --</option>
+															<?php foreach($supplement as $row) {?>
+																
+																<option value="<?= $row->inventory_id ?>"><?= ucfirst($row->item_name)?>(<?= $row->quantity ?>)</option>
+																
+															<?php }?>
 
-											
-										</div>
+															</select>
 
-										<div class="col" id="med_supplement">
-											
-											<select class="form-control" onchange="set_prescription(this)" >
-												<option value="">-- Please select --</option>
-											<?php foreach($supplement as $row) {?>
-												
-												<option value="<?= $row->inventory_id ?>"><?= ucfirst($row->item_name)?>(<?= $row->quantity ?>)</option>
-												
-											<?php }?>
+														</div>
 
-											</select>
+														<a href="" class="col col-md-2 mt-2 mt-md-0 med_vaccine">
+															<i class="fa fa-plus"></i>&emsp;Vaccine
+														</a>
+
+														<a href="" class="col col-md-2 mt-2 mt-md-0 med_supplement">
+															<i class="fa fa-plus"></i>&emsp;Supplement
+														</a>
+
+													</div>
+												</div>
+											</section>
 
 										</div>							
 									</div>
@@ -153,7 +163,7 @@
 												<?= (form_error('quantity') != "" ? form_error('quantity') : ''); ?>			
 											</div-->
 											
-										<div class="col">
+										<div class="col pl-4">
 											
 											<select name="quantity" id="goat_id_select" class="form-control" placeholder="- Enter Quantity -" value="<?= set_value('quantity') ?>" required>
 
@@ -172,7 +182,7 @@
 									<div class="form-row p-1">
 										<label  class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Perform Date&nbsp;<span class="text-danger">*</span></label>
 													
-										<div class="col">
+										<div class="col pl-4">
 											<input class="form-control" type="date" value="<?= set_value('perform_date');?>" id="" placeholder="yyyy-mm-dd" name="perform_date" required>
 															
 											<?= (form_error('perform_date') != "" ? form_error('perform_date') : ''); ?>
@@ -183,7 +193,7 @@
 									<div class="form-row p-1">
 										<label  class="col-form-label-sm col-3 col-sm-3 col-md-2 col-lg-2">Remarks&nbsp;</label>
 													
-										<div class="col">
+										<div class="col pl-4">
 											<textarea name="remarks" class="form-control"></textarea>
 															
 											<?= (form_error('remarks') != "" ? form_error('remarks') : ''); ?>

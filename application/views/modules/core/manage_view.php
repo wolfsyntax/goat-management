@@ -21,40 +21,64 @@
 							<h4>Goat Profile</h4>
 						</section>
 
-						<section>
-							<table class="container-fluid mt-3 table table-striped">
+						<section class="px-2">
+							<table class="container-fluid mt-3 table table-striped table-hover">
 								
-								<tr class="">
+								<tr class="row">
 									<td class="col-3 p-2">Eartag ID</td>
-									<td class="col text-right"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></td>
+									<td class="col text-right">
+										<i class="fa <?= $row->gender == 'male' ? 'fa-male' : 'fa-female' ?>"></i>&nbsp;<span class="badge text-white <?php 
+																switch ($row->eartag_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span></td>
 								</tr>
 
-								<tr>
+								<!--tr>
 									<td class="col-3 p-2">Eartag Color</td>
 									<td class="col text-right p-2"><?= ucfirst($row->eartag_color) ?></td>
-								</tr>
+								</tr-->
 								
-								<tr>
+								<tr class="row">
 									<td class="col-3 p-2">Nickname</td>
-									<td class="col text-right p-2"><h5><span class="badge badge-primary"><?= ucfirst($row->nickname) ?></span></h5></td>
+									<td class="col text-right p-2"><?= ucfirst($row->nickname) ?></td>
 								</tr>
 
-								<tr>
+
+								<!--tr class="row">
 									<td class="col-3 p-2">Gender</td>
 									<td class="col text-right p-2"><?= ucfirst($row->gender) ?></td>
+								</tr-->
+
+								<tr class="row">
+									<td class="col">
+										Date of Birth
+									</td>
+									<td class="col-3 text-right p-2">(<?= str_replace("ago", "old", Carbon\Carbon::parse($row->birth_date)->diffForHumans()) ?>) <?= $row->birth_date ?></td>
 								</tr>
 
-								<tr>
+								<tr class="row">
 									<td class="col-3 p-2">Body Color</td>
 									<td class="col text-right p-2"><?= ucfirst($row->body_color) ?></td>
 								</tr>
 								<?php if($row->gender === "male") {?>
-								<tr>
+								<tr class="row">
 									<td class="col-3 p-2">Is Castrated</td>
 									<td class="col text-right p-2"><?= ucfirst($row->is_castrated) ?></td>
 								</tr>
 								<?php } ?>
-								<tr>
+								<tr class="row">
 									<td class="col-3 p-2">Status</td>
 									<td class="col text-right p-2"><h5><span class="badge badge-<?= $row->status == 'active' ? 'success' : 'danger'?>"><?= ucfirst($row->status) ?></span></h5></td>
 								</tr>
@@ -70,14 +94,7 @@
 						<section>
 						<?php if($row->category === "birth") {?>
 							<table class="container-fluid mt-3 table table-striped">
-								<tr class="row">
-									<td class="col-3 p-2">
-										Date of Birth
-									</td>
-									<td class="col text-right p-2">
-										(<?= Carbon\Carbon::parse($row->acquire_date)->diffForHumans() ?>)&nbsp;<?= $row->acquire_date ?>
-									</td>
-								</tr>
+								
 								<tr class="row">
 									<td class="col-3 p-2">
 										Dam ID

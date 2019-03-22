@@ -11,7 +11,7 @@
 
        <li class="nav-item <?= $current == 'management' ? 'bg-secondary' : ''?>">
         <a class="nav-link text-dark sb-menu" href="<?= base_url(); ?>manage/goat"  data-toggle="popover manage" title="Goat Management" data-content="And here's where you can view and add Goat records">
-           <span class="fa fa-paw text-secondary"></span>
+           <span class="fa fa-home text-secondary"></span>
          
             &nbsp;<span class="d-label">Goat Management</span>
         </a>
@@ -55,8 +55,20 @@
         </a>
 
       </li>
+
+
     
     <?php if($this->session->userdata('user_type') == 'farm owner') {?>
+
+      <li class="nav-item <?= $current == 'assets' ? 'bg-secondary' : ''?>">
+        <a class="nav-link text-dark sb-menu" href="<?= base_url('register') ?>" data-target="#assetManagement" data-toggled="popover" title="Asset Management" data-content="Here you can manage your farm assets" >
+           
+           <span class="fa fa-user-circle" title="Asset Management"></span>
+          &nbsp;<span class="d-label">Create Account</span>
+        </a>
+
+      </li>
+
       <li class="nav-item <?= $current == 'report' ? 'bg-secondary' : ''?>">
         <a class="nav-link text-dark sb-menu" href="<?= base_url('reports')?>" data-toggled="popover report" title="Reports" data-content="Here you reports on all transaction of your account"  >
 

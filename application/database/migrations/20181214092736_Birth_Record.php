@@ -9,10 +9,7 @@
               'constraint'      => 11,
               'auto_increment'  => TRUE
             ),
-            'birth_date'        => array(
-              'type'            => 'DATE',
-              'default'         => NULL,
-            ),
+            
             'dam_id'            => array(
               'type'            => 'INT',
               'constraint'      => 11,

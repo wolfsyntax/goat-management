@@ -46,6 +46,9 @@ class Core_Controller extends CI_Controller {
 			
 			'body' 				=> 'modules/core/notify',
 			'title' 			=> 'Goat Management',
+			'goat_record'		=> $this->Goat_model->get_breeding_notification(),
+			'unhealthy_goat'	=> $this->Goat_model->get_unhealthy_goat(),
+			'goats_for_selling' => $this->Goat_model->goats_can_be_sold(),
 			//'goat_record'		=>  $this->Goat_model->show_goat_record(),
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
@@ -55,10 +58,13 @@ class Core_Controller extends CI_Controller {
 
 		);
 
+		//$context['goat_record'] || $
 		$this->load->view('layouts/application',$context);
 
 
 	}
+
+
 
 	public function index() {
 					
@@ -277,6 +283,14 @@ class Core_Controller extends CI_Controller {
 			)
 		);
 
+		$this->form_validation->set_rules('birth_date','Birth Date',
+		'required|xss_clean|trim|check_date',
+		array(
+			'required' 			=> '{field} is required.',
+			"check_date"		=> "{field} is set incorrectly.",
+			)
+		);
+
 		$this->form_validation->set_rules('body_color','Body Color',
 		'required|xss_clean|trim|alpha_spaces',
 		array(
@@ -460,7 +474,12 @@ class Core_Controller extends CI_Controller {
 			'current'				=> 'finance',
 
 		);
+		
+		$status = '';
 
+		foreach($context['goat_record'] as $row) {
+			$status = $row->status;
+		}
 
 		if($sales_id >= 1){
 			
@@ -517,10 +536,11 @@ class Core_Controller extends CI_Controller {
 			)
 		);
 
-		$this->form_validation->set_rules("weight","Total Weight","required|xss_clean|trim|numeric",
+		$this->form_validation->set_rules("weight","Total Weight","required|xss_clean|trim|numeric|greater_than[0]",
 			array(
 				"required" 		=> "{field} is required.",
 				"numeric"		=> "{field} is invalid value.",
+				"greater_than"	=> "{field} must be greater than zero.",
 			)
 		);
 
@@ -528,6 +548,7 @@ class Core_Controller extends CI_Controller {
 			array(
 				"required" 		=> "{field} is required.",
 				"numeric"		=> "{field} is invalid value.",
+				"greater_than"	=> "{field} must be greater than zero.",
 			)
 		);
 
@@ -623,7 +644,7 @@ class Core_Controller extends CI_Controller {
 											
 						<div class='row p-2'>
 							<p><span class='fa fa-check-circle'></span>
-							<strong>Success</strong>&emsp;Sales record added.&nbsp;<a href='".base_url()."goat/sales'>View Sales</a></p>
+							<strong>Success</strong>&emsp;Sales record added.&nbsp;<a class = 'alert-link' href='".base_url()."goat/sales'>View Sales</a></p>
 						</div>
 					</div>");
 
@@ -648,21 +669,35 @@ class Core_Controller extends CI_Controller {
 	public function show_sales($sale_id){
 
 		//preg_match ("/^(\+63|0)9[0-9]{9}$/" , $str)
-		if(preg_match("/[0-9]+/", $sale_id) && intval($sale_id) > 0){
+
+		if(intval($sale_id) > 0){
+			$data = $this->Goat_model->show_sales($sale_id);
+			$content = '';
+			
+			foreach($data->result() as $row){
+				$content = $row->status;
+			}
+		}
+
+		if(preg_match("/[0-9]+/", $sale_id) && intval($sale_id) > 0){// && $content != 'returned'){
 
 			$context = array(
 				
 				'body' 					=> 'modules/transaction/sale_view',
 				'title' 				=> 'Goat Sales',
-				'sale_record'			=>  $this->Goat_model->show_sales($sale_id),
+				'sale_record'			=>  $data,
 				'breadcrumbs'			=> array(
-					'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
+					'Dashboard'			=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 					'Manage Finances' 	=> 'goat/sales',
 				),
-				'breadcrumb'		=> 'Sales Record',
-				'current'			=> 'finance',	
+				'breadcrumb'			=> 'Sales Record',
+				'current'				=> 'finance',	
 
 			);
+			
+			
+			
+			
 
 			$this->load->view('layouts/application',$context);
 
@@ -687,7 +722,7 @@ class Core_Controller extends CI_Controller {
 											
 							<div class='row'>
 								<p><span class='fa fa-check-circle'></span>
-								<strong>Success</strong>&emsp;Sales Record not remove <a href='".base_url('manage/goat')."' class='nav-link d-inline-block'>View Goat Record</a>.</p>
+								<strong>Success</strong>&emsp;The goat sale was refunded <a class= 'alert-link' href='".base_url('manage/goat')."' class='nav-link d-inline-block'>View Goat Record</a>.</p>
 							</div>
 						</div>");
 
@@ -713,70 +748,86 @@ class Core_Controller extends CI_Controller {
 		
 		$goat_record = $this->Goat_model->get_goat_info($category, $ref_id);
 		$eartag_id = "";
+		if($goat_record != FALSE){
 
-		foreach ($goat_record as $key) {
-			# code...
-			$eartag_id = $key->eartag_id;
-		}
+			foreach ($goat_record as $key) {
+				# code...
+				$eartag_id = $key->eartag_id;
+			}
 
-		$health_record = $this->Goat_model->get_health_records($eartag_id);
+			$health_record = $this->Goat_model->get_health_records($eartag_id);
 
 
-		$context = array(
-			
-			'body' 				=> 'modules/core/manage_view',
-			'title' 			=> 'Goat Management',
-			'goat_record'		=>  $goat_record,
-			'health_records'	=> 	$health_record,
-
-			'breadcrumbs'		=> array(
-				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
-				'Manage Goat'	=> 'manage/goat',
-			),
-			'breadcrumb'		=> 'Goat record',
-			'current'			=> 'management',	
-			'flag'				=> FALSE,
-		);
+			$context = array(
 				
-		foreach ($context['goat_record'] as $row) {
+				'body' 				=> 'modules/core/manage_view',
+				'title' 			=> 'Goat Management',
+				'goat_record'		=>  $goat_record,
+				'health_records'	=> 	$health_record,
 
-			if($row->gender == "female"){
-				
-				$context["child"]	= $this->Goat_model->get_child($row->eartag_id); 
-				$context['flag']	= TRUE;
+				'breadcrumbs'		=> array(
+					'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
+					'Manage Goat'	=> 'manage/goat',
+				),
+				'breadcrumb'		=> 'Goat record',
+				'current'			=> 'management',	
+				'flag'				=> FALSE,
+			);
+					
+			foreach ($context['goat_record'] as $row) {
+
+				if($row->gender == "female"){
+					
+					$context["child"]	= $this->Goat_model->get_child($row->eartag_id); 
+					$context['flag']	= TRUE;
+
+				}
 
 			}
 
+			$this->load->view('layouts/application',$context);
+
+		} else {
+
+			show_404();
+
 		}
-
-		$this->load->view('layouts/application',$context);
-
 	}
 
 	public function view_goat_record($category, $record_id){
+		
+		$goat_record = $this->Goat_model->get_goat_info($category, $record_id);
 
-		$context = array(
+		if($goat_record != FALSE){
 			
-			'body' 				=> 'modules/core/edit_form',
-			'title' 			=> 'Goat Record',
-			'goat_record'		=>  $this->Goat_model->get_goat_info($category, $record_id),
-			'breadcrumbs'		=> array(
-				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
-				'Manage Goat'	=> 'manage/goat',
-			),
-			'breadcrumb'		=> 'Update record',
-			'current'			=> 'management',	
+			$context = array(
+				
+				'body' 				=> 'modules/core/edit_form',
+				'title' 			=> 'Goat Record',
+				'goat_record'		=>  $goat_record,
+				'breadcrumbs'		=> array(
+					'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
+					'Manage Goat'	=> 'manage/goat',
+				),
+				'breadcrumb'		=> 'Update record',
+				'current'			=> 'management',	
 
-			'dam_record'		=> $this->Goat_model->goat_breed('female'),
-			'sire_record'		=> $this->Goat_model->goat_breed('male'),
-		);
+				'dam_record'		=> $this->Goat_model->goat_breed('female'),
+				'sire_record'		=> $this->Goat_model->goat_breed('male'),
+			);
 
 
-		foreach ($context['goat_record'] as $row) {
-			$context['sire_id'] = $row->sire_id;
+			foreach ($context['goat_record'] as $row) {
+				$context['sire_id'] = $row->sire_id;
+			}
+
+			$this->load->view('layouts/application',$context);
+
+		} else {
+
+			show_404();
+
 		}
-
-		$this->load->view('layouts/application',$context);
 
 	}
 

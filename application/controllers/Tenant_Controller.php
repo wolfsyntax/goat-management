@@ -29,16 +29,20 @@ class Tenant_Controller extends CI_Controller {
 
 		if(!($this->session->userdata('user_type') == 'tenant')) { 
 			show_error("Your client does not have permission to get requested page in the server", 403, "Forbidden"); //show_404();		
-		}
+		} 
+		$this->load->model("Goat_model");
 
 	}
 	
 	public function index(){
 
 		$context = array(
+
 			
 			'body' 				=> 'auth/tenants/index',
 			'title' 			=> 'Dashboard',
+			'recent_transaction' => $this->Goat_model->recent_transactions(),
+			'recent_activity'	=> $this->Goat_model->recent_activity(),
 			'breadcrumbs'		=> array(),
 			'breadcrumb'		=> 'Dashboard',
 			'current'			=> 'dashboard',

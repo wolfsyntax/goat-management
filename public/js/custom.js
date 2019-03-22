@@ -41,15 +41,43 @@ function set_prescription(e){
 
 });
 
+function show_ctype(e){
+	//alert(e.value);
+	if(e.value == ""){
+		$(".med_vaccine").hide();
+		$(".med_supplement").hide();
+		$(".item_info").removeClass("d-none").addClass("d-none");
+	}else{
+		$(".item_info").removeClass("d-none");
+		$(".item_info").show();
+		if(e.value == 'supplementation'){
+
+			$(".med_vaccine").hide();
+			$(".med_supplement").show();
+
+		} else {
+
+			$(".med_vaccine").show();
+			$(".med_supplement").hide();
+
+		}
+	}
+}
+
 function proceed_healthCheck(e){
 	
 	//alert("Eartag ID: " + e.value);
 	//var base_url = <?php echo json_encode(base_url()) ?>;
+	alert("Proceeding...");
 	if(e.value != ""){
 	//	alert(base_url);	
 		$("#redir_checkup").removeClass("disabled");
+		alert("Current Value: " + e.value);
+		var d = e.value;
 		//location.replace("checkup/" + e.value + "/new");
-		$("#redir_checkup").attr("href", base_url + "checkup/" + e.value + "/new");
+		var eartag_id = d.substring(0, d.indexOf(" "));
+		alert(eartag_id);
+		$("#redir_checkup").attr("href", base_url + "checkup/" + eartag_id + "/new");
 
 	} else {
 

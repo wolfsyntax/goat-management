@@ -47,7 +47,7 @@
 						</div>
 					</div>
 
-					<div class="row">
+					<div class="row mt-2">
 						<div class="col">
 							<?= ($this->session->flashdata('health_check') ? $this->session->flashdata('health_check') : ''); ?>
 						</div>
@@ -76,7 +76,7 @@
 											<td><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?> (<?= $row->nickname ?>)</td>
 											<td><?= ucfirst($row->eartag_color) ?></td>
 											<td><?= ucfirst($row->gender) ?></td>
-											<td><?= str_replace('ago','old',Carbon\Carbon::parse($row->acquire_date)->diffForHumans()) ?></td>
+											<td><?= str_replace('ago','old',Carbon\Carbon::parse($row->birth_date)->diffForHumans()) ?></td>
 											<td>
 												<a href='<?= base_url("checkup/{$row->eartag_id}/new") ?>' class="btn btn-primary btn-sm btn-goat">
 													<i class="fa fa-plus"></i>
@@ -104,17 +104,24 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Modal title</h5>
+				<h5 class="modal-title">New Health Checkup</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			
 			<div class="modal-body">
-				<select class="form-control" onchange="proceed_healthCheck(this);">
+				<!--select class="form-control" onchange="proceed_healthCheck(this);" id="goat_id_select">
 					<option value="">-- Please Select --</option>
 				<?php foreach($goat_records as $row) {?>
 					<option value="<?= $row->eartag_id?>"><?= $row->eartag_id?>(<?= $row->nickname ?>)</option>
+				<?php }?>
+				</select-->
+
+				<select class="form-control" onchange="proceed_healthCheck(this);" id="goat_id_select">
+					<option value="">-- Please Select --</option>
+				<?php foreach($goat_records as $row) {?>
+					<option value="<?= $row->eartag_id?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?> (<?= $row->nickname ?>)</option>
 				<?php }?>
 				</select>
 			</div>
