@@ -60,7 +60,7 @@
 									<thead class="bg-dark text-white text-center">
 										<tr>
 											<th>Eartag ID</th>
-											<th>Eartag Color</th>
+											
 											<th>Gender</th>
 											<th>Age</th>
 											<th width="1%">Action</th>
@@ -73,8 +73,23 @@
 									if($health_records != FALSE) {
 										foreach($health_records as $row) {?>
 										<tr>
-											<td><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?> (<?= $row->nickname ?>)</td>
-											<td><?= ucfirst($row->eartag_color) ?></td>
+											<td><span class="badge text-white <?php 
+																switch ($row->eartag_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucfirst($row->nickname) 	?>)</td>
+											
 											<td><?= ucfirst($row->gender) ?></td>
 											<td><?= str_replace('ago','old',Carbon\Carbon::parse($row->birth_date)->diffForHumans()) ?></td>
 											<td>

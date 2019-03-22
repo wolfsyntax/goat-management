@@ -50,7 +50,22 @@
 													Eartag ID
 												</td>
 												<td class="col text-right p-2">
-													<?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?>
+													<span class="badge text-white <?php 
+																switch ($row->eartag_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucfirst($row->nickname) 	?>)
 												</td>
 											</tr>
 
@@ -96,7 +111,7 @@
 													Price/Kilo
 												</td>
 												<td class="col text-right p-2">
-													<?= $row->price_per_kilo ?>
+													&#8369;&nbsp;<?= $row->price_per_kilo ?>
 												</td>
 											</tr>							
 
@@ -114,7 +129,7 @@
 													Total Price
 												</td>
 												<td class="col text-right p-2">
-													P <?= number_format((floatval($row->price_per_kilo) * floatval($row->weight)), 2, '.',""); ?>
+													&#8369;&nbsp;<?= number_format((floatval($row->price_per_kilo) * floatval($row->weight)), 2, '.',""); ?>
 												</td>
 											</tr>							
 

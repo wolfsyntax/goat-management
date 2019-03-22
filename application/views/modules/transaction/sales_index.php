@@ -86,7 +86,7 @@
 																} ?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucwords($row->nickname) ?>)</td>
 								        	<td><?= $row->transact_date; ?></td>
 								       	 	<td><?= $row->username;?></td>
-								        	<td><?= $row->price_per_kilo; ?></td>
+								        	<td>&#8369;&nbsp;<?= $row->price_per_kilo; ?></td>
 								        	<td><?= $row->weight; ?></td>
 								        	<td><?= ucfirst($row->sold_to); ?></td>
 								        	<td><?= ucfirst($row->status) ?></td>

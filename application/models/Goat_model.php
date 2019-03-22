@@ -465,7 +465,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function get_breeding_records(){
 
-			$sql = "SELECT ar.activity_id, ua.username, ar.eartag_id, ar.date_perform, ar.activity_type, ar.remarks, br.sire_id, br.is_pregnant, br.due_date FROM breeding_record as br, activity as ar, user_account as ua WHERE br.activity_id = ar.activity_id AND ar.user_id = ua.user_id";
+			$sql = "SELECT ar.activity_id, ua.username, gpf.eartag_color as 'dam_color', gpm.eartag_color as 'sire_color', gpf.nickname as 'dam_name', gpm.nickname as 'sire_name', ar.eartag_id, ar.date_perform, ar.activity_type, ar.remarks, br.sire_id, br.is_pregnant, br.due_date FROM breeding_record as br, activity as ar, user_account as ua, goat_profile as gpm, goat_profile as gpf WHERE br.activity_id = ar.activity_id AND ar.user_id = ua.user_id AND br.sire_id = gpm.eartag_id AND ar.eartag_id = gpf.eartag_id";
 			
 			$query = $this->db->query($sql);	
 
@@ -614,7 +614,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function show_sales($sale_id){
 			
-			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gp.nickname, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to, gs.status FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id AND gs.sales_id = {$sale_id}");
+			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gp.eartag_color, gp.nickname, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to, gs.status FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id AND gs.sales_id = {$sale_id}");
 
 //			if($query->num_rows() > 0)
 				return $query;

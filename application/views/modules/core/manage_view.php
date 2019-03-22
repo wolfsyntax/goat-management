@@ -134,7 +134,7 @@
 								</tr>
 								<tr class="row">
 									<td class="col-3 p-2">Purchase Price</td>
-									<td class="col text-right p-2"><?= $row->purchase_price ?></td>
+									<td class="col text-right p-2">&#8369;&nbsp;<?= $row->purchase_price ?></td>
 								</tr>
 								<tr class="row">
 									<td class="col-3 p-2">Purchase From</td>

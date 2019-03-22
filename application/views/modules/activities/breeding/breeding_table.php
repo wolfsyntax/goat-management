@@ -72,8 +72,38 @@
 												<?php if($breeding_record)  {
 													foreach($breeding_record as $row) {?>
 												<tr>
-													<td><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></td>
-													<td><?= str_pad($row->sire_id, 6, "0", STR_PAD_LEFT) ?></td>
+													<td><span class="badge text-white <?php 
+																switch ($row->dam_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucfirst($row->dam_name) 	?>)</td>
+													<td><span class="badge text-white <?php 
+																switch ($row->sire_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->sire_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucfirst($row->sire_name) 	?>)</td>
 													<td><?= $row->date_perform ?></td>
 													<td><?= $row->username ?></td>
 													<td><?= $row->due_date ?></td>

@@ -31,8 +31,14 @@
 									<div class="card py-0 bg-success">
 										<div class="card-body pt-0 pb-0">
 											<div class="row p-0 pl-2">
-												<div style="font-size: 100px;">
+												<div class="col" style="font-size: 100px;">
   													 <i class="fa fa-shopping-cart fa-10x" style="color:white"></i>
+												</div>
+												<div class="col pt-5">
+													
+													<p class="form-text text-white">Sold: 0</br/>
+													Available: 0</br>Total Sales: &#8369;&nbsp;0.00</p>
+
 												</div>
 											</div>
 										</div>
@@ -47,8 +53,15 @@
 									<div class="card py-0 bg-info">
 										<div class="card-body pt-0 pb-0">
 											<div class="row p-0 pl-2">
-												<div style="font-size: 100px;">
+												<div class="col" style="font-size: 100px;">
   													<i class="fa fa-transgender" style="color:white"></i>
+												</div>
+
+												<div class="col pt-5">
+													
+													<p class="form-text text-white">Pregnant: 0</br/>
+													Can be breed: 0</p>
+
 												</div>
 											</div>
 										</div>
@@ -63,8 +76,15 @@
 									<div class="card py-0 bg-danger">
 										<div class="card-body pt-0 pb-0">
 											<div class="row p-0 pl-2">
-												<div style="font-size: 100px;">
+												<div class="col" style="font-size: 100px;">
   													<i class="fa fa-heartbeat" style="color:white"></i>
+												</div>
+
+												<div class="col pt-5">
+													
+													<p class="form-text text-white">Unhealthy: 0</br/>
+													Healthy: 0</p>
+
 												</div>
 											</div>
 										</div>
@@ -81,7 +101,7 @@
 				</div>
 
 				<div class="row mt-4">
-					<div class="col-12 col-lg-8">
+					<div class="col-12">
 
 						<section class="pl-2">
 
@@ -107,12 +127,26 @@
 															foreach($recent_activity as $row) { ?>
 														<tr>
 															<td>
-																<?= $row->eartag_id ?> (<?= $row->nickname ?>)		
+																<span class="badge text-white <?php 
+																switch ($row->eartag_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucwords($row->nickname)?>)
 															</td>
 															<td><?= $row->date_perform ?></td>
 															<td><?= $row->username?></td>
-															<td><?= $row->activity_type?></td>
-															
+															<td><?= ucwords($row->activity_type) ?></td>
 														</tr>
 													<?php } 
 														} else {
@@ -165,9 +199,24 @@
 															foreach($recent_transaction as $row) { ?>
 														<tr>
 															<td>
-																<?= $row->eartag_id ?> (<?= $row->nickname ?>)		
+																<span class="badge text-white <?php 
+																switch ($row->eartag_color) {
+																	case 'green' :
+																		echo 'bg-success';
+																		break;
+																	case 'blue' :
+																		echo 'bg-primary';
+																		break;
+																	case 'yellow' :
+																		echo 'bg-warning';
+																		break;
+																	default:	
+																		echo 'bg-orange';
+																		break;
+																}
+															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucwords($row->nickname) ?>)		
 															</td>
-															<td><?= $row->sold_to ?></td>
+															<td><?= ucwords($row->sold_to) ?></td>
 															<td><?= $row->username?></td>
 															<td><?= $row->transact_date?></td>
 															<td><?= floatval($row->weight) * floatval($row->price_per_kilo) ?></td>
