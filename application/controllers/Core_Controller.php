@@ -45,7 +45,7 @@ class Core_Controller extends CI_Controller {
 		$context = array(
 			
 			'body' 				=> 'modules/core/notify',
-			'title' 			=> 'Goat Management',
+			'title' 			=> 'Notifications',
 			'goat_record'		=> $this->Goat_model->get_breeding_notification(),
 			'unhealthy_goat'	=> $this->Goat_model->get_unhealthy_goat(),
 			'goats_for_selling' => $this->Goat_model->goats_can_be_sold(),

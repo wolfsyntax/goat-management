@@ -45,6 +45,7 @@
 			                            		<th>Sold By</th>
 			                            		<th>Weight</th>
 			                            		<th>Price per Kilo</th>
+			                            		<th>Status</th>
 			                        		</tr>
 			                        		
 			                    		</thead>
@@ -75,6 +76,7 @@
 			                                    <td><?= $row->username ?></td>
 			                                    <td><?= ucfirst($row->weight) ?></td>
 			                                    <td><?= ucfirst($row->price_per_kilo) ?></td>
+			                                    <td><?= ucfirst($row->sales_status) ?></td>
 			                                </tr>
 
 			                        	<?php } }?>
@@ -148,7 +150,7 @@
 																}
 															?>"><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></span> (<?= ucfirst($row->nickname) 	?>)</td>
 			                                <!--td><?= ucfirst($row->eartag_color) ?></td-->
-			                                <td><i class="fa fa-<?= $row->gender ?>"></i>&emsp;<?= ucfirst($row->gender) ?></td>
+			                                <td title="<?= $row->gender == 'male' ? 'Sire' : 'Dam' ?>" ><i class="fa fa-<?= $row->gender ?>"></i>&emsp;<?= ucfirst($row->gender) ?></td>
 			                                <!--td><?= ucfirst($row->nickname) ?></td-->
 			                                <td><?= ucfirst($row->body_color) ?></td>
 			                                <td><?= ucfirst($row->category) ?></td>
@@ -166,7 +168,9 @@
 					<div class="card-header d-block"><span class="d-inline-block mt-1">&emsp;<strong>List of Dam</strong></span><a href="<?= base_url('reports/loss');?>" class="btn nav-link float-right text-primary d-inline-block" title="Generate Report"><i class="fa fa-file-pdf-o"></i></a></div>
 									
 					<div class="card-body">
-						A 
+						<div class="row table-responsive mt-1 pl-4">
+							A
+						</div>
 					</div>
 				</div>
 
@@ -214,14 +218,14 @@
 					</div>
 				</div>
 
-			    <div class="card mb-2">
+			    <div class="card mb-5">
 					<div class="card-header d-block"><span class="d-inline-block mt-1">&emsp;<strong>Loss Reports</strong></span><a href="<?= base_url('reports/loss');?>" class="btn nav-link float-right text-primary d-inline-block" title="Generate Report"><i class="fa fa-file-pdf-o"></i></a></div>
 									
 					<div class="card-body">
 						<div class="row table-responsive mt-1">
 					        <div class="col">
 					        	<div class="col">
-					                <table class="table table-striped table-hover mt-1">
+					                <table class="table table-striped table-hover mt-1" id="gp_loss_record">
 					                    <thead>
 					                       	<tr>
 					                           	<th>Eartag ID</th>

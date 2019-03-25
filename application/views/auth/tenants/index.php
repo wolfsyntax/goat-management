@@ -36,8 +36,8 @@
 												</div>
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Sold: 0<br/>
-													Available: 0</br>Total Sales: &#8369;&nbsp;0.00</p>
+													<p class="form-text text-white">Sold: <span class="text-truncate"><?= $this->session->userdata('sold_count'); ?></span><br/>
+													Available: <span title="Goat can be sold atleast 1 year old" class="text-truncate"><?= $this->session->userdata('canBeSold_count', "0") ?></span></br>Total Sales: &#8369;&nbsp;0.00</p>
 
 												</div>
 											</div>
@@ -59,7 +59,7 @@
 
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Pregnant: 0<br/>
+													<p class="form-text text-white">Pregnant: <span class="text-truncate"><?= $this->session->userdata('preg_count',"0") ?></span><br/>
 													Can be breed: 0</p>
 
 												</div>
@@ -82,8 +82,8 @@
 
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Unhealthy: 0<br/>
-													Healthy: 0</p>
+													<p class="form-text text-white">Unhealthy: <span title="No health record yet" class="text-truncate"><?= $this->session->userdata('unhealthy_count',"0") ?></span><br/>
+													Healthy:  <span class="text-truncate"><?= $this->session->userdata('healthy_count',"0") ?></span></p>
 
 												</div>
 											</div>

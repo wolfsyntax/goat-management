@@ -28,7 +28,12 @@ class RegisterController extends CI_Controller {
 
 		$context = array(
 			'body' 				=> 'auth/register',
-			'title' 			=> 'Sign Up',
+			'title' 			=> 'Create Account',
+			'breadcrumbs'		=> array(
+				'Dashboard'		=> 'farm',
+			),
+			'breadcrumb'		=> 'Create Account',			
+			'current'			=> 'dashboard',
 		);
 
 		$this->load->view('layouts/application',$context);
@@ -111,7 +116,7 @@ class RegisterController extends CI_Controller {
             				<span aria-hidden="true">&times;</span>
           				</button>
         		</div>');
-				redirect("login");
+				redirect(base_url("farm"));
 
 			}else{
 

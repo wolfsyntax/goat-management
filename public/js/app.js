@@ -97,6 +97,8 @@ $(document).ready(function(){
 
 	$("#gp_notif").DataTable();
 
+	$("#gp_loss_record").DataTable();
+
 	//Editable Select tag		
 	$("#dam_id_select").editableSelect();
 	$("#sire_id_select").editableSelect();

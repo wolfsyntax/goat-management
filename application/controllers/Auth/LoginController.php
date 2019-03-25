@@ -5,6 +5,7 @@ class LoginController extends CI_Controller {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->model('User_model');
+		$this->load->model('Goat_model');
 	}
 
 	public function index(){
@@ -54,8 +55,11 @@ class LoginController extends CI_Controller {
 				
 				if($this->User_model->validate_login()){
 					//echo "<h1>Validated!</h1>";
+
+//					echo "<script>alert('{$this->session->userdata('preg_count')}')</script>";
+
 					if($this->session->userdata('user_type') == 'sysadmin'){
-						
+							
 						redirect('admin','refresh');
 
 					} else if($this->session->userdata('user_type')== 'tenant'){

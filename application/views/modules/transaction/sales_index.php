@@ -97,7 +97,7 @@
 
 								        			<a href="<?= base_url("sales/{$row->sales_id}/edit"); ?>" class="btn btn-primary btn-sm btn-goat " title="Edit"><i class="fa fa-pencil"></i></a>
 								        			
-								        			<a href="<?= base_url("sales/{$row->sales_id}/remove"); ?>" class="btn btn-danger btn-sm btn-goat-rm <?= $row->status != "sold" ? 'disabled' : '' ?>" title="Delete"><i class="fa fa-trash"></i></a>	
+								        			<a href="<?= base_url("sales/{$row->sales_id}/remove"); ?>" class="btn btn-danger btn-sm btn-goat-rm <?= $row->status != "Sold" ? 'disabled' : '' ?>" title="Delete"><i class="fa fa-trash"></i></a>	
 								        					        			
 									        	</div>
 									        </td>

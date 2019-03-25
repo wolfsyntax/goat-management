@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			parent::__construct();
 			//$this->load->dbforge();
 
-			if(!$this->session->userdata('user_id')) redirect(base_url());
+			//if(!$this->session->userdata('user_id')) redirect(base_url());
 
 			if(!$this->session->userdata('goat_records')){
 				if(self::show_goat_record()){
@@ -28,6 +28,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->session->set_userdata( $array );
 			}
 			
+			self::count_pregnant();
+			self::count_unhealthy();
+			self::count_healthy();
+			self::count_sold();
+			self::count_available_goat();
+
 		}
 
 		public function get_child($eartag_id){
@@ -626,7 +632,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function show_all_sales(){
 			
-			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gp.eartag_color, gp.nickname, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to, gs.status FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id");
+			$query = $this->db->query("SELECT gs.sales_id, gs.eartag_id, gs.status as sales_status, gp.eartag_color, gp.nickname, gs.transact_date, ua.username, gs.price_per_kilo, gs.weight, gs.remarks, gs.sold_to, gs.status FROM goat_sales as gs, goat_profile as gp, user_account as ua WHERE gs.eartag_id = gp.eartag_id AND ua.user_id = gs.user_id");
 
 			if($query->num_rows() > 0)
 				return $query->result();
@@ -858,11 +864,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		/**
 		** Total counts of goats that are already sold
 		**/
-		public function count_sold(){
+	//	public function count_sold(){
 
-			return self::count_rows("goat_profile", array("status"=>"sold",));
+	//		return self::count_rows("goat_profile", array("status"=>"sold",));
 
-		}
+	//	}
 
 		/**
 		** Total counts of goats that are loss
@@ -873,6 +879,99 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function count_pregnant(){
+			
+			$sql = "SELECT gpf.eartag_id as dam, br.is_pregnant, br.due_date, ac.date_perform, ac.remarks, gpf.eartag_color as dam_ecolor, gpm.eartag_color as partner_ecolor FROM breeding_record as br, activity as ac, goat_profile as gpm, goat_profile as gpf WHERE gpf.eartag_id = ac.eartag_id AND gpm.eartag_id = br.sire_id AND br.is_pregnant = 'yes'";
+			
+			$query = $this->db->query($sql);
+			
+			$data = array(
+				"n_pregnant" 	=> $query->num_rows(),
+				"d_pregnant"	=> $query->result(),
+				"f_pregnant"	=> $query->num_rows() >= 1 ? TRUE : FALSE,
+			);
+
+			$this->session->unset_userdata('preg_count');
+					$this->session->set_userdata('preg_count', $data['n_pregnant']);
+
+			return $data;
+
+		}
+
+		public function count_unhealthy(){
+			
+			$sql = "SELECT * FROM goat_profile WHERE status='active' AND eartag_id NOT IN (SELECT act.eartag_id FROM activity AS act, health_record AS hr  WHERE hr.activity_id=act.activity_id)";
+			
+			$query = $this->db->query($sql);
+			
+			$data = array(
+				"n_unhealthy" 	=> $query->num_rows(),
+				"d_unhealthy"	=> $query->result(),
+				"f_unhealthy"	=> $query->num_rows() >= 1 ? TRUE : FALSE,
+			);
+
+			$this->session->unset_userdata('unhealthy_count');
+			$this->session->set_userdata('unhealthy_count',	$data['n_unhealthy']);
+			return $data;
+
+		}
+
+		public function count_healthy(){
+			
+			$sql = "SELECT * FROM goat_profile WHERE status='active' AND eartag_id IN (SELECT act.eartag_id FROM activity AS act, health_record AS hr WHERE hr.activity_id=act.activity_id)";
+			
+			$query = $this->db->query($sql);
+			
+			$data = array(
+				"n_healthy" => $query->num_rows(),
+				"d_healthy"	=> $query->result(),
+				"f_healthy"	=> $query->num_rows() >= 1 ? TRUE : FALSE,
+			);
+
+			$this->session->unset_userdata('healthy_count');
+					$this->session->set_userdata('healthy_count', $data['n_healthy']);
+
+			return $data;
+
+		}
+
+		public function count_sold(){
+			
+			$sql = "SELECT * FROM goat_profile WHERE status='sold'";
+			
+			$query = $this->db->query($sql);
+			
+			$data = array(
+				"n_sold" => $query->num_rows(),
+				"d_sold"	=> $query->result(),
+				"f_sold"	=> $query->num_rows() >= 1 ? TRUE : FALSE,
+			);
+
+			$this->session->unset_userdata('sold_count');
+			$this->session->set_userdata('sold_count', $data['n_sold']);
+
+			return $data;
+
+		}		
+
+		public function count_available_goat(){
+			
+			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.body_color, gp.is_castrated, gp.status, gp.category, gp.gender, gbp.record_id as ref_id, gbp.purchase_weight, gbp.purchase_price, gbp.acquire_date, gbp.purchase_from, gbp.user_id, gbp.sire_id, gbp.dam_id, gp.nickname FROM goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gp.eartag_id = gbp.eartag_id AND gbp.acquire_date <= DATE_SUB(curdate(), INTERVAL 12 MONTH)";
+			
+			$query = $this->db->query($sql);
+			
+			$data = array(
+				"n_asold" => $query->num_rows(),
+				"d_asold"	=> $query->result(),
+				"f_asold"	=> $query->num_rows() >= 1 ? TRUE : FALSE,
+			);
+
+			$this->session->unset_userdata('canBeSold_count');
+			$this->session->set_userdata('canBeSold_count', $data['n_asold']);
+
+			return $data;
+
+		}
 
 		//SELECT * FROM birth_record WHERE birth_date NOT BETWEEN DATE_SUB(curdate(), INTERVAL 10 MONTH) AND CURDATE() AND birth_date < curdate()
 		
