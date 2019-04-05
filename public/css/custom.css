@@ -76,6 +76,7 @@ input[type=search] {
 .nav-item.bg-secondary .sb-menu {
     background-color: #c4c7cb !important;
 }
+
 .nav-item.bg-secondary .sb-menu:hover {
     color: #000 !important;
     background-color: #7f7f7f !important;
@@ -291,7 +292,7 @@ input[type=search] {
 
     #sidebar.active {
         
-        margin-left: -180px !important;
+        margin-left: -195px !important;
 
     }
 

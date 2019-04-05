@@ -55,7 +55,7 @@
 										<tr>
 											<td><?= $row->item_name ?></td>
 											<td><?= $row->item_type ?></td>
-											<td><?= $row->quantity ?></td>
+											<td><?= $row->quantity ?> mL</td>
 											<td>
 												<a href="javascript:void(0);" class="btn btn-primary btn-sm btn-goat" title="Edit" onclick="inventoryCheck(<?= $row->inventory_id?>, '<?= $row->item_name ?>', <?= $row->quantity ?>);" data-toggle="modal" data-target="#inventoryUpdate" ><i class="fa fa-plus"></i></a>
 

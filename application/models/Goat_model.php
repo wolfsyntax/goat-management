@@ -94,13 +94,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
-		public function recent_activity(){
+		public function recent_activity($activity_type = ""){
 
 			$curr_date = Carbon\Carbon::now()->format('Y-m-d');
 			$date_7Dbefore = Carbon\Carbon::parse($curr_date)->subDays(7)->format('Y-m-d');
 			//echo "<script>alert('{$date_7Dbefore} {$curr_date}') </script>";
 			//Fix this
 			$sql = "SELECT gp.eartag_id, gp.eartag_color, gp.nickname, ga.date_perform, users.username, ga.activity_type FROM goat_profile as gp, activity as ga, user_account as users WHERE gp.eartag_id = ga.eartag_id AND users.user_id = ga.user_id AND ga.date_perform BETWEEN '{$date_7Dbefore}' AND '{$curr_date}'";
+
+			if($activity_type != ""){
+				$sql .= " AND activity_type = " . $activity_type;
+			}
+
 			//echo "<script>alert('{$curr_date} {$date_7Dbefore}')</script>";
 
 			$query = $this->db->query($sql);
@@ -508,7 +513,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function get_all_health_records(){
 			
-			$sql = "SELECT DISTINCT act.eartag_id, gp.eartag_color, gp.nickname, gp.gender, gp.birth_date, gbp.acquire_date, gp.birth_date FROM activity as act, goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gbp.eartag_id = gp.eartag_id AND act.eartag_id = gp.eartag_id";
+			//$sql = "SELECT DISTINCT act.eartag_id, gp.eartag_color, gp.nickname, gp.gender, gp.birth_date, gbp.acquire_date, gp.birth_date FROM activity as act, goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp WHERE gbp.eartag_id = gp.eartag_id AND act.eartag_id = gp.eartag_id AND act.activity_type = 'health check'";
+
+			$sql = "SELECT DISTINCT act.eartag_id, gp.eartag_color, gp.nickname, gp.gender, gp.birth_date, gbp.acquire_date FROM activity as act, goat_profile as gp, (SELECT birth_id as record_id, NULL as purchase_weight, NULL as purchase_price, NULL as acquire_date, NULL as purchase_from, eartag_id, NULL as user_id, sire_id, dam_id FROM birth_record UNION SELECT purchase_id as record_id, purchase_weight,purchase_price, purchase_date as acquire_date, purchase_from, eartag_id, user_id, NULL as sire_id, NULL as dam_id FROM purchase_record) as gbp, health_record as hr WHERE gbp.eartag_id = gp.eartag_id AND act.eartag_id = gp.eartag_id AND act.activity_type = 'health check' AND act.activity_id = hr.activity_id";
 
 			$query = $this->db->query($sql);
 
@@ -881,7 +888,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function count_pregnant(){
 			
-			$sql = "SELECT gpf.eartag_id as dam, br.is_pregnant, br.due_date, ac.date_perform, ac.remarks, gpf.eartag_color as dam_ecolor, gpm.eartag_color as partner_ecolor FROM breeding_record as br, activity as ac, goat_profile as gpm, goat_profile as gpf WHERE gpf.eartag_id = ac.eartag_id AND gpm.eartag_id = br.sire_id AND br.is_pregnant = 'yes'";
+			$sql = "SELECT gpf.eartag_id as dam, br.is_pregnant, br.due_date, ac.date_perform, ac.remarks, gpf.eartag_color as dam_ecolor, gpm.eartag_color as partner_ecolor FROM breeding_record as br, activity as ac, goat_profile as gpm, goat_profile as gpf WHERE gpf.eartag_id = ac.eartag_id AND gpm.eartag_id = br.sire_id AND br.is_pregnant = 'yes' AND ac.activity_type = 'breeding'";
 			
 			$query = $this->db->query($sql);
 			

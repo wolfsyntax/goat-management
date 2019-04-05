@@ -53,7 +53,7 @@ class Core_Controller extends CI_Controller {
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 			),
-			'breadcrumb'		=> 'Manage Goat',
+			'breadcrumb'		=> 'Notifications',
 			'current'			=> 'management',	
 
 		);
@@ -76,8 +76,8 @@ class Core_Controller extends CI_Controller {
 			'breadcrumbs'		=> array(
 				'Dashboard'		=> $this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm',
 			),
-			'breadcrumb'		=> 'Manage Goat',
-			'current'			=> 'management',	
+			'breadcrumb'		=> 'Notifications',
+			'current'			=> 'dashboard',	
 
 		);
 

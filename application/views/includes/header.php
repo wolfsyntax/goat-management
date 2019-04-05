@@ -58,7 +58,7 @@
 		
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">		
-				<a href="" class="nav-link text-white">
+				<a href="<?= base_url() . ($this->session->userdata('user_type') == 'tenant' ? 'dashboard' : 'farm') ?>" class="nav-link text-white">
 					<i class="fa fa-user"></i>&emsp;<span class="emboss"><?= $this->session->userdata('user_fname') ?></span>
 				</a>
 			</li>

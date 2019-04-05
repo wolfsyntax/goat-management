@@ -34,11 +34,14 @@
 												<div class="col" style="font-size: 100px;">
   													<i class="fa fa-shopping-cart fa-10x" style="color:white"></i>
 												</div>
-												<div class="col pt-5">
+												<div class="col pt-4 text-truncate text-white">
 													
-													<p class="form-text text-white">Sold: <span class="text-truncate"><?= $this->session->userdata('sold_count'); ?></span><br/>
-													Available: <span title="Goat can be sold atleast 1 year old" class="text-truncate"><?= $this->session->userdata('canBeSold_count', "0") ?></span></br>Total Sales: &#8369;&nbsp;0.00</p>
-
+													<!--p class="form-text text-white mt-2"><span class="text-truncate">Sold: <?= $this->session->userdata('sold_count'); ?></span><br/>
+													Available: <span title="Goat can be sold atleast 1 year old" class="text-truncate" class="text-truncate"><?= $this->session->userdata('canBeSold_count', "0") ?></span></br><span class="text-truncate">Monthly Sales: &#8369;&nbsp;0.00</span></br><span class="text-truncate">Total Sales: &#8369;&nbsp;0.00</span></p-->
+													<p>Sold:&nbsp;<?= $this->session->userdata('sold_count'); ?></p>
+													<p class="text-truncate" style="margin-top: -15px !important;">Available:&nbsp;<?= $this->session->userdata('canBeSold_count', "0") ?></p>
+													<p title="Monthly Sales: &#8369;&nbsp;0.00" class="text-truncate" style="margin-top: -15px !important;">Monthly Sales: &#8369;&nbsp;0.00</p>
+													<p title="Total Sales: &#8369;9999990.00" class="text-truncate" style="margin-top: -15px !important;">Total Sales: &#8369;&nbsp;9999990.00</p>
 												</div>
 											</div>
 										</div>

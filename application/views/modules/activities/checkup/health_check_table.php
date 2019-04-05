@@ -30,7 +30,7 @@
 			</section>
 			
 			<?php } else { ?>
-			<section class="py-2 mt-2">
+			<section class="py-2 mt-2" title="List of Healthy Goats">
 				<div class="container-fluid ml-3">
 					
 					<div class="row">

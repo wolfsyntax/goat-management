@@ -36,8 +36,10 @@
 												</div>
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Sold: 0<br/>
-													Available: 0</br>Total Sales: &#8369;&nbsp;0.00</p>
+													<p>Sold:&nbsp;<?= $this->session->userdata('sold_count'); ?></p>
+													<p class="text-truncate" style="margin-top: -15px !important;">Available:&nbsp;<?= $this->session->userdata('canBeSold_count', "0") ?></p>
+													<p title="Monthly Sales: &#8369;&nbsp;0.00" class="text-truncate" style="margin-top: -15px !important;">Monthly Sales: &#8369;&nbsp;0.00</p>
+													<p title="Total Sales: &#8369;9999990.00" class="text-truncate" style="margin-top: -15px !important;">Total Sales: &#8369;&nbsp;9999990.00</p>
 
 												</div>
 											</div>
