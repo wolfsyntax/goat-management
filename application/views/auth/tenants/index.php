@@ -110,7 +110,7 @@
 
 							<div class="card mb-2 shadow-none rounded-0">
 								
-								<div class="card-header border-0"><span class="fa fa-history"></span>&emsp;Recent Activities</div>
+								<div class="card-header border-0"><span class="fa fa-tags"></span>&emsp;Recent Activities</div>
 								
 								<div class="card-body">
 									<div class="row px-3 pt-2">
@@ -154,7 +154,7 @@
 													<?php } 
 														} else {
 													 ?>
-													 	<tr><td colspan="7" class="text-center"><i>No transaction found.</i></td></tr>
+													 	<tr><td colspan="7" class="text-center"><i>No activity found.</i></td></tr>
 													 <?php
 														}
 													?>

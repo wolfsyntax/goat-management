@@ -254,7 +254,7 @@ class Core_Controller extends CI_Controller {
 			array(
 				'required' 			=> '{field} is required.',
 				'integer' 			=> '{field} must contain an integer.',
-				'is_unique' 		=> '{field} is already existed.',
+				'is_unique' 		=> '{field} is already existing.',
 				"greater_than"		=> "{field} must be greater than zero.",			
 				'eartag_checker'	=> "{field} is not a valid Eartag ID.",
 			)

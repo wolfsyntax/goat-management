@@ -34,7 +34,7 @@
 												<div class="col" style="font-size: 100px;">
   													<i class="fa fa-shopping-cart fa-10x" style="color:white"></i>
 												</div>
-												<div class="col pt-5">
+												<div class="col pt-4 text-white text-truncate">
 													
 													<p>Sold:&nbsp;<?= $this->session->userdata('sold_count'); ?></p>
 													<p class="text-truncate" style="margin-top: -15px !important;">Available:&nbsp;<?= $this->session->userdata('canBeSold_count', "0") ?></p>
@@ -61,7 +61,7 @@
 
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Pregnant: 0<br/>
+													<p class="form-text text-white">Pregnant: <?= $this->session->userdata('preg_count','0') ?><br/>
 													Can be breed: 0</p>
 
 												</div>
@@ -84,8 +84,8 @@
 
 												<div class="col pt-5">
 													
-													<p class="form-text text-white">Unhealthy: 0<br/>
-													Healthy: 0</p>
+													<p class="form-text text-white">Unhealthy: <?= $this->session->userdata('unhealthy_count','0') ?><br/>
+													Healthy: <?= $this->session->userdata('healthy_count','0') ?></p>
 
 												</div>
 											</div>
@@ -109,7 +109,7 @@
 
 							<div class="card mb-2">
 								
-								<div class="card-header"><span class="fa fa-clock"></span>&emsp;Recent Activities</div>
+								<div class="card-header"><span class="fa fa-tags"></span>&emsp;Recent Activities</div>
 								
 								<div class="card-body">
 									<div class="row px-3 pt-2">
@@ -153,7 +153,7 @@
 													<?php } 
 														} else {
 													 ?>
-													 	<tr><td colspan="7" class="text-center"><i>No transaction found.</i></td></tr>
+													 	<tr><td colspan="7" class="text-center"><i>No activity found.</i></td></tr>
 													 <?php
 														}
 													?>
@@ -179,7 +179,7 @@
 						<section class="pl-2">
 							
 							<div class="card my-2 shadow-none border-0 rounded-0 ">
-								<div class="card-header bg-light border-0"><span class="fa fa-clock"></span>&emsp;Recent Transaction</div>
+								<div class="card-header bg-light border-0"><span class="fa fa-money"></span>&emsp;Recent Transaction</div>
 								<div class="card-body">
 									<div class="row px-3 pt-2">
 										<div class="table-responsive table-responsive-sm text-nowrap">

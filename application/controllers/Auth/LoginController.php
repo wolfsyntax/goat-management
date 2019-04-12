@@ -31,7 +31,7 @@ class LoginController extends CI_Controller {
 			'trim|required|min_length[8]|max_length[120]|xss_clean',
 			array(
 				"required"		=> "{field} is required",
-				"min_length"	=> "{field} must be at least 8 characters in length.",
+				"min_length"	=> "Must be at least 8 characters in length.",
 				"max_length"	=> "{field} cannot exceed 120 characters in length.",
 			)
 		);
@@ -42,7 +42,7 @@ class LoginController extends CI_Controller {
 			'trim|required|min_length[8]|xss_clean',
 			array(
 				"required"		=> "{field} is required.",
-				"min_length"	=> "{field} must be at least 8 characters in length.",
+				"min_length"	=> "Must be at least 8 characters in length.",
 			)
 		);
 

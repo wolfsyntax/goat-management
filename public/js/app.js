@@ -96,8 +96,11 @@ $(document).ready(function(){
 	$("#gs_record").DataTable();
 
 	$("#gp_notif").DataTable();
-
+	$("#unhealthy_goat_list").DataTable();
+	$("#healthy_goat_list").DataTable();
+	$("#available_goat_list").DataTable();
 	$("#gp_loss_record").DataTable();
+	$("#pregnant_goat_list").DataTable();
 
 	//Editable Select tag		
 	$("#dam_id_select").editableSelect();

@@ -58,7 +58,7 @@
                         <div class="col py-5">
                             <div class="row table-responsive table-responsive-sm text-nowrap">
 
-                                <table id="gc_record" class="table table-striped table-bordered col-12 table-hover">
+                                <table id="unhealthy_goat_list" class="table table-striped table-bordered col-12 table-hover">
                                     <thead class="bg-dark text-white text-center">
                                         <tr>
                                             <th>Eartag ID</th>
@@ -84,7 +84,7 @@
                                             <td><a href="<?= base_url('checkup/'.$row->eartag_id.'/new') ?>" class="btn btn-primary mx-auto"><i class="fa fa-stethoscope" ></i></a></td>
                                         </tr>
 
-                                    <?php } }?>
+                                    <?php } }// else { echo "<tr><td class='mx-auto'>No records found</td></tr>"; }?>
                                     </tbody>
                                 </table>  
                             </div>
@@ -101,7 +101,7 @@
                         <div class="col py-5">
                             <div class="row table-responsive table-responsive-sm text-nowrap">
 
-                                <table id="gs_record" class="table table-striped table-bordered col-12 table-hover">
+                                <table id="available_goat_list" class="table table-striped table-bordered col-12 table-hover">
                                     <thead class="bg-dark text-white text-center">
                                         <tr>
                                             <th>Eartag ID</th>
@@ -113,7 +113,7 @@
                                     <tbody>
 
                                     <?php if($goats_for_selling != FALSE) {
-
+                                        
                                         foreach($goats_for_selling as $row) {?>
                                         <tr>
                                             <td><?= str_pad($row->eartag_id, 6, "0", STR_PAD_LEFT) ?></td>

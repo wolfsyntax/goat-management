@@ -33,22 +33,22 @@ class ResetPasswordController extends CI_Controller {
 		
 		$this->form_validation->set_rules('old_pass', 'Current Password', 'trim|required|min_length[8]|callback_validate_pass|callback_password_check', array(
 			"required"			=> "{field} is required.",
-			"min_length"		=> "{field} ",
-			"validate_pass"		=> "{field} must be your current password",
+			"min_length"		=> "Must contain atleast 8 characters long.",
+			"validate_pass"		=> "Must be your current password",
 			"password_check" 	=> "Your {field} must be more than 8 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character."
 
 		));
 
 		$this->form_validation->set_rules('new_pass', 'New Password', 'trim|required|min_length[8]|callback_password_check', array(
 			"required"			=> "{field} is required.",
-			"min_length"		=> "{field}",
+			"min_length"		=> "Must contain atleast 8 characters long.",
 			"password_check" => "Your {field} must be more than 8 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character."
 		));
 
 		$this->form_validation->set_rules('conf_pass', 'Confirm Password', 'trim|required|min_length[8]|matches[new_pass]', array(
 			"required"			=> "{field} is required.",
-			"min_length"		=> "{field}",
-			"matches[new_pass]"	=> "{field}",			
+			"min_length"		=> "{field} must contain atleast 8 characters long.",
+			"matches[new_pass]"	=> "{field} does not match",			
 		));
 
 		$this->form_validation->set_error_delimiters("<small class='form-text text-danger'>", "</small>");

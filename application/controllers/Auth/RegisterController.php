@@ -46,7 +46,7 @@ class RegisterController extends CI_Controller {
 			array(
 				"required" => "{field} is required",
 				"is_unique" => "{field} is already taken",
-				"min_length" => "{field} must be at least 8 characters in length.",
+				"min_length" => "Must be at least 8 characters in length.",
 				"max_length"	=> "{field} cannot exceed 255 characters in length.",
 			)
 		);
@@ -54,7 +54,7 @@ class RegisterController extends CI_Controller {
 		$this->form_validation->set_rules("passwd", "Password", "required|min_length[8]|callback_password_check|trim|xss_clean",
 			array(
 				"required" => "{field} is required",
-				"min_length" => "Your {field} must be more than 8 characters long.",
+				"min_length" => "Must contain atleast 8 characters long.",
 				"password_check" => "Your {field} must be more than 8 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character.
 "
 			)
